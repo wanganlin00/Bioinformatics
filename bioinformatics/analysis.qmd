@@ -1,0 +1,154 @@
+# 分析概述
+
+## outline
+
+本章概述了典型scRNA-seq分析工作流程的框架（@fig-workflow）
+
+![典型 scRNA-seq 分析工作流程示意图。每个阶段（用虚线分隔）由许多特定步骤组成，其中许多步骤对实例进行操作和修改](images/workflow.png){#fig-workflow fig-align="center"}
+
+## 快速入门（简单）
+
+原书使用来自Macosko等人（2015）的基于液滴的视网膜数据集，该数据集在scRNAseq包中提供。
+
+```{r}
+#| include: false
+conflicts_prefer(GenomicRanges::setdiff)
+library(SingleCellExperiment)
+```
+
+从计数矩阵开始，以聚类结束( @fig-workflow )。
+
+```{r}
+#| message: false
+#| cache: true
+#| code-summary: "数据集信息"
+library(scRNAseq)
+sce <- MacoskoRetinaData()
+sce
+counts <- assay(sce, "counts")
+colData(sce)
+```
+
+```{r}
+#| message: false
+#| cache: true
+#| code-summary: "质量控制"
+# Quality control (using mitochondrial genes)线粒体基因
+library(scater)
+is.mito <- str_detect(rownames(sce),"^MT-") 
+sum(is.mito) # 31个
+
+#?perCellQCMetrics
+perCellQCMetrics(sce)
+qcstats <- perCellQCMetrics(sce, subsets=list(Mito=is.mito))
+qcstats
+
+#?quickPerCellQC
+quickPerCellQC(sce) |> colData()
+quickPerCellQC(qcstats)
+filtered <- quickPerCellQC(qcstats, percent_subsets="subsets_Mito_percent")
+filtered
+sce <- sce[, !filtered$discard] # discard 丢弃
+sce
+```
+
+```{r}
+#| code-summary: "Normalization"
+library(scuttle)
+sce <- logNormCounts(sce)
+assays(sce)
+```
+
+```{r}
+#| code-summary: "Feature selection"
+library(scran)
+dec <- modelGeneVar(sce)  # ?modelGeneVar  对每个基因的对数表达谱的方差进行建模，根据拟合的均值-方差趋势将其分解为技术和生物学成分。
+dec
+hvg <- getTopHVGs(dec, prop=0.1) # ?getTopHVGs 根据 modelGeneVar() 或相关函数的方差建模统计数据，定义一组高度可变的基因。
+length(hvg)
+```
+
+```{r}
+#| code-summary: "数据降维"
+#| cache: true
+
+### PCA
+library(scater)
+set.seed(1234)
+sce <- runPCA(sce, ncomponents=25, subset_row=hvg)
+dim(reducedDim(sce,"PCA"))
+
+### Clustering
+library(bluster)
+colLabels(sce) <- clusterCells(sce, use.dimred='PCA',
+                               BLUSPARAM=NNGraphParam(cluster.fun="louvain"))
+table(colLabels(sce))
+```
+
+```{r}
+#| code-summary: "可视化"
+#| cache: true
+#| label: fig-umap1
+#| fig-cap: "视网膜数据集的UMAP 图，其中每个点都是一个细胞，并由分配的聚类标识着色。"
+sce <- runUMAP(sce, dimred = 'PCA')
+plotUMAP(sce, colour_by="label")
+```
+
+```{r}
+#| code-summary: "Marker detection"
+#| cache: true
+markers <- findMarkers(sce, test.type="wilcox", direction="up", lfc=1)# ?findMarkers 通过检测细胞组配对之间的差异表达，找到细胞组（如聚类）的候选标记基因。
+```
+
+## 快速开始（多批次）
+
+[工作流第 8 章](http://bioconductor.org/books/3.18/OSCA.workflows/segerstolpe-human-pancreas-smart-seq2.html#segerstolpe-human-pancreas-smart-seq2)中提供了对同一数据集的更详细分析以及每个步骤的理由。
+
+```{r}
+#| cache: true
+
+
+sce1 <- SegerstolpePancreasData()
+
+# Quality control (using ERCCs).
+qcstats1 <- perCellQCMetrics(sce1)
+filtered1 <- quickPerCellQC(qcstats1, percent_subsets="altexps_ERCC_percent")
+sce1 <- sce1[, !filtered1$discard]
+
+# Normalization.
+sce1 <- logNormCounts(sce1)
+
+# Feature selection, blocking on the individual of origin.
+dec1 <- modelGeneVar(sce1, block=sce1$individual)
+hvg1 <- getTopHVGs(dec1, prop=0.1)
+
+# Batch correction.
+library(batchelor)
+set.seed(1234)
+sce1 <- correctExperiments(sce1, batch=sce1$individual, 
+    subset.row=hvg1, correct.all=TRUE)
+
+# Clustering.
+colLabels(sce1) <- clusterCells(sce1, use.dimred='corrected')
+table(colLabels(sce1))
+```
+
+```{r}
+#| label: fig-umap2
+#| code-summary: "可视化"
+#| cache: true
+#| fig-cap: "胰腺数据集的 UMAP 图，其中每个点都是一个细胞，并由分配的聚类标识（左）或起源个体（右）着色。"
+#| fig-subcap:
+#|   - "根据聚类标记"
+#|   - "根据起源个体"
+#| layout-ncol: 2
+#| column: page-right
+sce1 <- runUMAP(sce1, dimred = 'corrected')
+plotUMAP(sce1, colour_by="label")
+plotUMAP(sce1, colour_by="individual")
+```
+
+```{r}
+# Marker detection, blocking on the individual of origin.
+markers1 <- findMarkers(sce1, test.type="wilcox", direction="up", lfc=1)
+```

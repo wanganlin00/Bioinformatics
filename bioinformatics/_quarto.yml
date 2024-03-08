@@ -1,0 +1,70 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Bioinformatics"
+  
+  reader-mode: true
+  site-url: https://wanganlin00.github.io/Bioinformatics/
+  repo-url: https://github.com/Wanganlin00/Bioinformatics
+  repo-branch: main
+  repo-actions: [edit,issue]
+  
+  chapters:
+    - genomics.qmd
+    
+    - part: "Single-cell Analysis"
+      chapters: 
+        - index.qmd
+        - intro.qmd
+        - import.qmd
+        - SCE.qmd
+        - analysis.qmd
+        - basics.qmd
+        - QC.qmd
+        - normalization.qmd
+        - feature_selection.qmd
+        
+    - part: "Seurat"
+      chapters: 
+        - Seurat.qmd
+
+      
+execute:
+  cache: true
+  error: true
+  message: FALSE
+  warning: false
+
+toc: true
+toc-depth: 3
+number-sections: true
+
+knitr:
+  opts_chunk: 
+    comment: "#>" 
+    collapse: TRUE
+    
+crossref: 
+  fig-title: 图
+  fig-prefix: 图
+  tbl-title: 表
+  tbl-prefix: 表
+
+fig-width: 6
+fig-asp: 0.618
+
+format: 
+  html: 
+    theme: cosmo
+    df-print: kable
+    code-fold: true
+    code-tools: true
+    code-link: true
+    html-math-method: katex
+    callout-appearance: simple
+    
+editor: visual
+
+

@@ -1,0 +1,193 @@
+# 质量控制
+
+scRNA-seq数据中的低质量文库（library）可能来自多种来源，例如解离过程中的细胞损伤或文库制备失败（如低效的逆转录或PCR扩增），这些通常表现为总计数低、表达基因少、线粒体或尖峰比例高的"细胞"。这些低质量的文库是有问题的，因为它们会导致下游分析中的误导性结果。
+
+为了避免或至少缓解这些问题，我们需要在分析开始时删除有问题的细胞(cell)，此步骤通常称为细胞的质量控制 （QC）。
+
+```{r}
+#| echo: false
+conflicts_prefer(GenomicRanges::setdiff)
+conflicts_prefer(dplyr::filter)
+```
+
+```{r}
+#| cache: true
+#| label: data.416b
+#| code-summary: "加载数据LunSpikeInData:工作流第1章" 
+#| message: false
+library(scRNAseq)
+library(ensembldb)
+sce.416b <- LunSpikeInData(which="416b") 
+sce.416b$block <- factor(sce.416b$block)
+
+sce.416b
+```
+
+## QC metrics
+
+-   **The library size** is defined as the total sum of counts across all relevant features for each cell. Cells with small library sizes are of low quality.库大小定义为每个细胞所有基因的计数总和。
+
+-   **The number of expressed features in each cell** is defined as the number of endogenous genes with non-zero counts for that cell. Any cell with very few expressed genes is likely to be of poor quality. 每个细胞中表达特征的数量被定义为该细胞具有非零计数的内源性基因的数量。
+
+-   **The proportion of reads mapped to spike-in transcripts** is calculated relative to the total count across all features (including spike-ins) for each cell.High proportions are indicative of poor-quality cells。 相对于每个细胞所有特征（包括加标）的总计数，计算映射到加标转录物中的读数比例。高比例表示细胞质量差
+
+-   **In the absence of spike-in transcripts, the proportion of reads mapped to genes in the mitochondrial genome** can be used. High proportions are indicative of poor-quality cells。在没有加标转录物的情况下，可以使用映射到线粒体基因组中基因的读数比例。高比例表示细胞质量差。
+
+对于每个细胞，我们使用 [*scater*](https://bioconductor.org/packages/3.18/scater) 包中的函数`perCellQCMetrics()`计算这些 QC 指标,该列`sum`包含每个细胞文库大小的总计数，该列`detected`包含检测到的基因数。 该列`subsets_Mito_percent`包含映射到线粒体转录本的读取百分比，该列`altexps_ERCC_percent`包含映射到 ERCC 转录本的读取百分比。
+
+```{r}
+sce.416b
+location <- SummarizedExperiment::rowRanges(sce.416b)
+location
+is.mito <- any(seqnames(location)=="MT")
+
+library(scuttle)
+df <- perCellQCMetrics(sce.416b, subsets=list(Mito=is.mito))
+colnames(df)
+summary(df$sum)
+summary(df$altexps_ERCC_percent)
+```
+
+或者 `addPerCellQC()`计算每个细胞的 QC 统计数据并将其附加到对象的`colData` 允许我们将所有相关信息保留在单个对象`SingleCellExperiment`中以供以后操作。
+
+```{r}
+sce.416b <- addPerCellQCMetrics(sce.416b, subsets=list(Mito=is.mito))
+dim(colData(sce.416b))
+colnames(colData(sce.416b))
+sce.416b
+```
+
+## 识别低质量细胞
+
+### 固定阈值
+
+识别低质量细胞的最简单方法是对 QC 指标应用固定阈值。 例如，如果细胞的文库大小低于 100,000 次读取;表达少于5,000个基因;峰值比例超过10%;或线粒体比例高于10%，我们可能会认为它们的质量较低。
+
+```{r}
+qc.lib <- df$sum < 1e5
+qc.nexprs <- df$detected < 5e3
+qc.spike <- df$altexps_ERCC_percent > 10
+qc.mito <- df$subsets_Mito_percent > 10
+discard <- qc.lib | qc.nexprs | qc.spike | qc.mito
+
+# 汇总
+tibble(LibSize=sum(qc.lib), NExprs=sum(qc.nexprs),
+    SpikeProp=sum(qc.spike), MitoProp=sum(qc.mito), Total=sum(discard))
+```
+
+### 自适应阈值
+
+假设大部分数据集由高质量的细胞组成，然后，我们根据所有细胞中每个指标的中位数绝对偏差（median absolute deviation ，MAD）来识别各种QC指标的异常值细胞。默认情况下，如果一个值在"有问题"的方向上距离中位数超过3个MAD，我们将其视为异常值。即此类过滤器将保留 99% 遵循正态分布的非异常值。
+
+```{r}
+#?perCellQCFilters
+reasons <- perCellQCFilters(df, 
+                            sub.fields=c("subsets_Mito_percent",
+                                         "altexps_ERCC_percent"))
+colSums(as.matrix(reasons)) # apply(as.matrix(reasons),2,sum)
+summary(reasons$discard)
+attr(reasons$low_lib_size, "thresholds")
+attr(reasons$low_n_features, "thresholds")
+```
+
+### 其他方法
+
+根据每个细胞的 QC 指标识别高维空间中的异常值
+
+```{r}
+stats <- cbind(log10(df$sum), log10(df$detected),
+    df$subsets_Mito_percent, df$altexps_ERCC_percent)
+
+library(robustbase)
+outlying <- adjOutlyingness(stats, only.outlyingness = TRUE)
+multi.outlier <- isOutlier(outlying, type = "higher")
+summary(multi.outlier)
+```
+
+## 检查诊断图
+
+```{r}
+#| cache: true
+#| label: fig-diagnosis-plot
+#| fig-cap: "数据集中每个批次和表型的 QC 指标分布。每个点代表一个细胞，并分别根据其是否被丢弃而着色。"
+colData(sce.416b) <- cbind(colData(sce.416b), df)
+
+sce.416b$block <- factor(sce.416b$block)
+sce.416b$phenotype <- ifelse(grepl("induced", sce.416b$phenotype),
+    "induced", "wild type")
+sce.416b$discard <- reasons$discard
+
+library(scater)
+gridExtra::grid.arrange(
+    plotColData(sce.416b, x="block", y="sum", colour_by="discard",
+        other_fields="phenotype") + facet_wrap(~phenotype) + 
+        scale_y_log10() + ggtitle("Total count"),
+    plotColData(sce.416b, x="block", y="detected", colour_by="discard", 
+        other_fields="phenotype") + facet_wrap(~phenotype) + 
+        scale_y_log10() + ggtitle("Detected features"),
+    plotColData(sce.416b, x="block", y="subsets_Mito_percent", 
+        colour_by="discard", other_fields="phenotype") + 
+        facet_wrap(~phenotype) + ggtitle("Mito percent"),
+    plotColData(sce.416b, x="block", y="altexps_ERCC_percent", 
+        colour_by="discard", other_fields="phenotype") + 
+        facet_wrap(~phenotype) + ggtitle("ERCC percent"),
+    ncol=1
+)
+```
+
+另一个有用的诊断涉及绘制线粒体计数与其他一些 QC 指标的比例。 目的是确认没有细胞同时具有大量总计数和大量线粒体计数，以确保我们不会无意中去除恰好具有高度代谢活性的高质量细胞（例如肝细胞）。
+
+```{r}
+#| label: dataset.zeisel 
+#| code-summary: "加载数据ZeiselBrainData：工作流第2章"
+#| message: false
+#| cache: true
+library(scRNAseq)
+sce.zeisel <- ZeiselBrainData()
+sce.zeisel
+
+library(scater)
+sce.zeisel <- aggregateAcrossFeatures(sce.zeisel, 
+    id=sub("_loc[0-9]+$", "", rownames(sce.zeisel)))
+
+#--- gene-annotation ---#
+library(org.Mm.eg.db)
+rowData(sce.zeisel)$Ensembl <- mapIds(org.Mm.eg.db, 
+    keys=rownames(sce.zeisel), keytype="SYMBOL", column="ENSEMBL")
+```
+
+```{r}
+#| label: fig-mito-sum
+#| fig-cap: "Zeisel 大脑数据集 中分配给线粒体转录本的 UMI 百分比，与 UMI 总数作图。每个点代表一个细胞，并根据它是否被视为低质量并丢弃进行着色。"
+sce.zeisel <- addPerCellQC(
+  sce.zeisel,subsets=list(Mt=rowData(sce.zeisel)$featureType=="mito"))
+
+qc <- quickPerCellQC(colData(sce.zeisel), 
+    sub.fields=c("altexps_ERCC_percent", "subsets_Mt_percent"))
+sce.zeisel$discard <- qc$discard
+
+plotColData(sce.zeisel, x="sum", y="subsets_Mt_percent", colour_by="discard")
+
+```
+
+```{r}
+#| label: fig-mito-ERCC
+#| fig-cap: "Zeisel 大脑数据集中分配给线粒体转录本的 UMI 百分比,与分配给加标转录本的UMI百分比作图。每个点代表一个细胞，并根据它是否被视为低质量并丢弃进行着色。"
+plotColData(sce.zeisel, x="altexps_ERCC_percent", y="subsets_Mt_percent",
+    colour_by="discard")
+```
+
+## 去除劣质细胞
+
+对于常规分析，删除
+
+```{r}
+filtered <- sce.416b[,!reasons$discard]
+```
+
+标记
+
+```{r}
+marked <- sce.416b
+marked$discard <- reasons$discard
+```

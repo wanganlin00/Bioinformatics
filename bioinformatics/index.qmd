@@ -1,0 +1,28 @@
+# 前言 {.unnumbered}
+
+这是一本关于单细胞分析的笔记，主要是关于这本书《Orchestrating Single-Cell Analysis with Bioconductor》。
+
+了解更多：[Orchestrating Single-Cell Analysis with Bioconductor](https://bioconductor.org/books/release/OSCA/)。
+
+本书包括五个部分：
+
+1.  Introduction
+2.  Basics
+3.  Advanced
+4.  Multi-sample
+5.  Workflow
+
+## 配置环境
+
+```{r}
+Sys.Date()
+BiocManager::version()
+sessionInfo()
+devtools::session_info()
+```
+
+```{r}
+#| eval: false
+#| code-summary: "packages"
+BiocManager::install("OSCA.intro")
+```
