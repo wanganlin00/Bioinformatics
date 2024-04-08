@@ -36,7 +36,7 @@ mat <- as.matrix(read.delim("data/GSE85241_cellsystems_dataset_4donors_updated.c
 dim(mat)
 ```
 
-使用 scuttle 包中的函数以稀疏格式(sparse format)读取表。这仅存储非零值，并避免在低测序的scRNA-seq实验中将内存花费在大多数零上
+使用 scuttle 包中的函数以稀疏格式(sparse format)读取表。这仅存储非零值，避免在低测序的scRNA-seq实验中将内存花费在大多数零上
 
 ```{r}
 #| include: false
