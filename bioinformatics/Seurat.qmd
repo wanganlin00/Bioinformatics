@@ -39,8 +39,10 @@ pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
 ```
 
 ```{r}
-#|label：Seurat的QC指标存储在 meta
 #|code-fold: true
+#|code-summary: "Seurat的QC指标存储在 meta"
+
+##
 # Show QC metrics for the first 5 cells
 head(pbmc@meta.data, 5)
 ```
