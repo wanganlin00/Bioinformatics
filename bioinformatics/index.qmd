@@ -1,6 +1,28 @@
 # 前言 {.unnumbered}
 
-这是一本关于单细胞分析的笔记，主要是关于这本书《Orchestrating Single-Cell Analysis with Bioconductor》。
+## 参考资料 {style="color:red"}
+
+-   [Orchestrating Single-Cell Analysis with ***Bioconductor***](https://bioconductor.org/books/release/OSCA/)
+
+-   [***Seurat***](https://satijalab.org/seurat/)
+
+-   [**bioconductor.org**](https://bioconductor.org/)
+
+其他：
+
+-   [UCSC Xena](https://xena.ucsc.edu/)
+
+-   [BD Bioscience](https://www.bdbiosciences.com/zh-cn)
+
+-   [Kaplan-Meier绘图仪](http://kmplot.com/analysis)
+
+-   [ROC绘图仪](https://rocplot.com/)
+
+-   [Bioconda ](https://bioconda.github.io/)
+
+    ::: callout-note
+    Bioconda supports only Linux (64-bit and AArch64) and macOS (x86_64)
+    :::
 
 了解更多：[Orchestrating Single-Cell Analysis with Bioconductor](https://bioconductor.org/books/release/OSCA/)。
 
@@ -17,12 +39,6 @@
 ```{r}
 Sys.Date()
 BiocManager::version()
-sessionInfo()
+utils::sessionInfo()
 devtools::session_info()
-```
-
-```{r}
-#| eval: false
-#| code-summary: "packages"
-BiocManager::install("OSCA.intro")
 ```
