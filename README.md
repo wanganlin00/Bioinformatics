@@ -1,18 +1,7 @@
-# Single cell analysis
+# 生物信息学
 
 ------------------------------------------------------------------------
 
--   [Seurat-单细胞基因组学工具](https://satijalab.org/seurat/)
--   [Orchestrating Single-Cell Analysis with Bioconductor](https://bioconductor.org/books/release/OSCA/)
--   [***Scanpy*** in R](https://theislab.github.io/scanpy-in-R/)
--   [***tidySingleCellExperiment***](https://bioconductor.org/packages/release/bioc/html/tidySingleCellExperiment.html)
+记录一下论文中看到的单细胞分析R语言实现方法。。。
 
-# [Bioconductor](https://new.bioconductor.org/)
-
-------------------------------------------------------------------------
-
-# [Bioconda](https://bioconda.github.io/)
-
-------------------------------------------------------------------------
-
-NOTE: Bioconda supports only Linux (64-bit and AArch64) and macOS (x86_64)
+主要是 Seurat、CellRanger、DESeq2、clusterProfiler、GO、KEGG、GAES。。。
