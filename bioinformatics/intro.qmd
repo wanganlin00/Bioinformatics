@@ -1,15 +1,9 @@
-# Introduction {.unnumbered}
-
-第一部分 Introduction
+# 第一部分 Introduction {.unnumbered}
 
 包括：
 
-1.  获取scRNA-seq数据集
+1.  [获取scRNA-seq数据集](import.qmd)
 
-2.  \`SingleCellExpreiment\`结构
+2.  [`SingleCellExpreiment`类](SCE.qmd)
 
-3.  分析概述
-
-```         
-C:\Users\DELL\AppData\Local/R/cache/R/
-```
+3.  [分析概述](analysis.qmd)
