@@ -1,9 +1,28 @@
-# 第一部分 Introduction {.unnumbered}
+# 写在前面
 
-包括：
+## library {style="color:gray"}
 
-1.  [获取scRNA-seq数据集](import.qmd)
+```{r}
+#| eval: false
+# 按需安装
+install.packages("ggplot2")
+install.packages("BiocManager")
+BiocManager::install("scater")
+BiocManager::install("scuttle")
+BiocManager::install("DropletUtils")
+BiocManager::install("zellkonverter")
+BiocManager::install("LoomExperiment")
+BiocManager::install("SingleCellExperiment")
+BiocManager::install("scran")
+BiocManager::install("scRNAseq")
+BiocManager::install("batchelor")
+```
 
-2.  [`SingleCellExpreiment`类](SCE.qmd)
+## 配置环境 {style="color:gray"}
 
-3.  [分析概述](analysis.qmd)
+```{r}
+Sys.Date()
+BiocManager::version()
+BiocManager::valid()
+devtools::session_info()
+```
