@@ -4,7 +4,6 @@ project:
 
 book:
   title: "Bioinformatics"
-  
   reader-mode: true
   site-url: https://wanganlin00.github.io/Bioinformatics/
   repo-url: https://github.com/Wanganlin00/Bioinformatics
@@ -12,16 +11,18 @@ book:
   repo-actions: [edit,issue]
   
   chapters:
-    - genomics.qmd
+    - index.qmd
     
-    - part: "Single-cell Analysis"
+    - part: "Upstream Analysis"
       chapters: 
-        - index.qmd
+        - Seq_to_Matrix.qmd
+
+    - part: "Single-Cell Analysis with Bioconductor"
+      chapters: 
         - intro.qmd
         - import.qmd
         - SCE.qmd
-        - analysis.qmd
-        - basics.qmd
+        - workflow.qmd
         - QC.qmd
         - normalization.qmd
         - feature_selection.qmd
@@ -29,31 +30,35 @@ book:
     - part: "Seurat"
       chapters: 
         - Seurat.qmd
+        
+    - part: "DESeq2"
+      chapters: 
+        - TranscriptomicsDownstreamAnalysis.qmd
+        
+     # - part: "clusterProfiler"
+     # - part: "monocle"
+        
+    - part: "其他"
+      chapters: 
+        - genomics.qmd
 
       
 execute:
   cache: true
   error: true
-  message: FALSE
+  message: false
   warning: false
 
 toc: true
-toc-depth: 3
+toc-depth: 4
 number-sections: true
+number-depth: 4
 
 knitr:
   opts_chunk: 
     comment: "#>" 
     collapse: TRUE
-    
-crossref: 
-  fig-title: 图
-  fig-prefix: 图
-  tbl-title: 表
-  tbl-prefix: 表
 
-fig-width: 6
-fig-asp: 0.618
 
 format: 
   html: 
