@@ -1,44 +1,7 @@
-# 前言 {.unnumbered}
-
-## 参考资料 {style="color:red"}
+# 参考资料 {.unnumbered style="color:red"}
 
 -   [Orchestrating Single-Cell Analysis with ***Bioconductor***](https://bioconductor.org/books/release/OSCA/)
-
 -   [***Seurat***](https://satijalab.org/seurat/)
-
--   [**bioconductor.org**](https://bioconductor.org/)
-
-其他：
-
--   [UCSC Xena](https://xena.ucsc.edu/)
-
--   [BD Bioscience](https://www.bdbiosciences.com/zh-cn)
-
--   [Kaplan-Meier绘图仪](http://kmplot.com/analysis)
-
--   [ROC绘图仪](https://rocplot.com/)
-
--   [Bioconda ](https://bioconda.github.io/)
-
-    ::: callout-note
-    Bioconda supports only Linux (64-bit and AArch64) and macOS (x86_64)
-    :::
-
-了解更多：[Orchestrating Single-Cell Analysis with Bioconductor](https://bioconductor.org/books/release/OSCA/)。
-
-本书包括五个部分：
-
-1.  Introduction
-2.  Basics
-3.  Advanced
-4.  Multi-sample
-5.  Workflow
-
-## 配置环境
-
-```{r}
-Sys.Date()
-BiocManager::version()
-utils::sessionInfo()
-devtools::session_info()
-```
+-   [DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)
+-   [clusterProfiler](https://yulab-smu.top/biomedical-knowledge-mining-book/)
+-   。。。
