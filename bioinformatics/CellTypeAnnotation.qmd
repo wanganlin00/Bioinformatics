@@ -1,0 +1,230 @@
+```{r}
+#| include: false
+conflicts_prefer(GenomicRanges::setdiff)
+conflicts_prefer(dplyr::filter)
+```
+
+# 细胞类型注释
+
+利用先验信息为未表征的scRNA-seq数据集分配意义。 最明显的先验信息来源是与特定生物过程相关的精选基因集，例如，基因本体论 （Gene Ontology，GO） 或京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）。 或者，直接将单细胞表达谱与已发表的参考数据集进行比较，其中每个样本或细胞都已经由领域专家用其假定的生物学状态进行注释。
+
+
+## 根据参考数据集
+
+机器学习技术（如随机森林和支持向量机）
+
+[SingleR](https://bioconductor.org/packages/3.18/bioc/html/SingleR.html) 基于具有最高Spearman rank correlations的参考样本为细胞分配标签，仅使用标签对之间的标记基因来关注细胞类型之间的相关差异。它还对每个细胞执行微调步骤，其中仅用最高分标签的标记基因重新计算相关性。这旨在通过消除其他标签的不相关标记的噪声来解决这些标签之间的任何歧义。
+
+更多细节[Assigning cell types with SingleR](https://bioconductor.org/books/release/SingleRBook/)
+
+### celldex
+
+```{r loading-sce.pbmc_to_clustering}
+#--- loading ---#
+library(DropletUtils)
+sce.pbmc <- DropletUtils::read10xCounts("data/OSCA/raw_gene_bc_matrices/GRCh38",
+                                        col.names = TRUE)
+
+#--- gene-annotation ---#
+library(scater)
+rownames(sce.pbmc) <- uniquifyFeatureNames(
+    rowData(sce.pbmc)$ID, rowData(sce.pbmc)$Symbol)
+
+library(EnsDb.Hsapiens.v86)
+location <- mapIds(EnsDb.Hsapiens.v86, keys=rowData(sce.pbmc)$ID, 
+    column="SEQNAME", keytype="GENEID")
+
+#--- cell-detection ---#
+set.seed(100)
+e.out <- emptyDrops(counts(sce.pbmc))
+sce.pbmc <- sce.pbmc[,which(e.out$FDR <= 0.001)]
+
+#--- quality-control ---#
+stats <- perCellQCMetrics(sce.pbmc, subsets=list(Mito=which(location=="MT")))
+high.mito <- isOutlier(stats$subsets_Mito_percent, type="higher")
+sce.pbmc <- sce.pbmc[,!high.mito]
+
+#--- normalization ---#
+library(scran)
+set.seed(1000)
+clusters <- quickCluster(sce.pbmc)
+sce.pbmc <- computeSumFactors(sce.pbmc, cluster=clusters)
+sce.pbmc <- logNormCounts(sce.pbmc)
+
+#--- variance-modelling ---#
+set.seed(1001)
+dec.pbmc <- modelGeneVarByPoisson(sce.pbmc)
+top.pbmc <- getTopHVGs(dec.pbmc, prop=0.1)
+
+#--- dimensionality-reduction ---#
+set.seed(10000)
+sce.pbmc <- denoisePCA(sce.pbmc, subset.row=top.pbmc, technical=dec.pbmc)
+
+set.seed(100000)
+sce.pbmc <- runTSNE(sce.pbmc, dimred="PCA")
+
+set.seed(1000000)
+sce.pbmc <- runUMAP(sce.pbmc, dimred="PCA")
+
+#--- clustering ---#
+g <- buildSNNGraph(sce.pbmc, k=10, use.dimred = 'PCA')
+clust <- igraph::cluster_walktrap(g)$membership
+colLabels(sce.pbmc) <- factor(clust)
+```
+
+```{r}
+sce.pbmc
+```
+` BlueprintEncodeData `参考最适合不需要精细分辨率的混合样品， 特别适用于需要快速易于解释的标签的情况。 它提供了不错的免疫细胞颗粒度，尽管不包含更精细的单核细胞和树突状细胞亚型。
+
+
+```{r}
+library(celldex)
+ref <- BlueprintEncodeData()
+ref
+```
+
+参考集` ref= `需要包含测试集` test= `中预期的细胞类型
+
+```{r}
+library(SingleR)
+pred <- SingleR(test=sce.pbmc, ref=ref, labels=ref$label.main)
+table(pred$labels)
+```
+
+使用每个细胞和标签分数的热图检查结果
+
+```{r}
+plotScoreHeatmap(pred)
+```
+
+将细胞类型与聚类结果进行比较，以确定每个聚类的身份。
+
+```{r}
+tab <- table(Assigned=pred$pruned.labels, Cluster=colLabels(sce.pbmc))
+
+# Adding a pseudo-count of 10 to avoid strong color jumps with just 1 cell.
+library(pheatmap)
+pheatmap(log2(tab+10), color=colorRampPalette(c("white", "blue"))(101))
+```
+
+### 自定义
+
+
+```{r loading-reference-sce.muraro_to_normalization}
+#--- loading ---#
+library(scRNAseq)
+sce.muraro <- MuraroPancreasData()
+
+#--- gene-annotation ---#
+library(AnnotationHub)
+edb <- AnnotationHub()[["AH73881"]]
+gene.symb <- sub("__chr.*$", "", rownames(sce.muraro))
+gene.ids <- mapIds(edb, keys=gene.symb, 
+    keytype="SYMBOL", column="GENEID")
+
+# Removing duplicated genes or genes without Ensembl IDs.
+keep <- !is.na(gene.ids) & !duplicated(gene.ids)
+sce.muraro <- sce.muraro[keep,]
+rownames(sce.muraro) <- gene.ids[keep]
+
+#--- quality-control ---#
+library(scater)
+stats <- perCellQCMetrics(sce.muraro)
+qc <- quickPerCellQC(stats, percent_subsets="altexps_ERCC_percent",
+    batch=sce.muraro$donor, subset=sce.muraro$donor!="D28")
+sce.muraro <- sce.muraro[,!qc$discard]
+
+#--- normalization ---#
+library(scran)
+set.seed(1000)
+clusters <- quickCluster(sce.muraro)
+sce.muraro <- computeSumFactors(sce.muraro, clusters=clusters)
+sce.muraro <- logNormCounts(sce.muraro)
+```
+
+```{r}
+sce.muraro
+```
+
+```{r}
+# Pruning out unknown or unclear labels.
+sce.muraro <- sce.muraro[,!is.na(sce.muraro$label) & 
+    sce.muraro$label!="unclear"]
+table(sce.muraro$label)
+```
+
+```{r loadinng-test-sce.seger_to_normalization}
+#--- loading ---#
+library(scRNAseq)
+sce.seger <- SegerstolpePancreasData()
+
+#--- gene-annotation ---#
+library(AnnotationHub)
+edb <- AnnotationHub()[["AH73881"]]
+symbols <- rowData(sce.seger)$symbol
+ens.id <- mapIds(edb, keys=symbols, keytype="SYMBOL", column="GENEID")
+ens.id <- ifelse(is.na(ens.id), symbols, ens.id)
+
+# Removing duplicated rows.
+keep <- !duplicated(ens.id)
+sce.seger <- sce.seger[keep,]
+rownames(sce.seger) <- ens.id[keep]
+
+#--- sample-annotation ---#
+emtab.meta <- colData(sce.seger)[,c("cell type", "disease",
+    "individual", "single cell well quality")]
+colnames(emtab.meta) <- c("CellType", "Disease", "Donor", "Quality")
+colData(sce.seger) <- emtab.meta
+
+sce.seger$CellType <- gsub(" cell", "", sce.seger$CellType)
+sce.seger$CellType <- paste0(
+    toupper(substr(sce.seger$CellType, 1, 1)),
+    substring(sce.seger$CellType, 2))
+
+#--- quality-control ---#
+low.qual <- sce.seger$Quality == "low quality cell"
+
+library(scater)
+stats <- perCellQCMetrics(sce.seger)
+qc <- quickPerCellQC(stats, percent_subsets="altexps_ERCC_percent",
+    batch=sce.seger$Donor,
+    subset=!sce.seger$Donor %in% c("HP1504901", "HP1509101"))
+
+sce.seger <- sce.seger[,!(qc$discard | low.qual)]
+
+#--- normalization ---#
+library(scran)
+clusters <- quickCluster(sce.seger)
+sce.seger <- computeSumFactors(sce.seger, clusters=clusters)
+sce.seger <- logNormCounts(sce.seger) 
+```
+
+
+```{r}
+# Converting to FPKM for a more like-for-like comparison to UMI counts.
+# However, results are often still good even when this step is skipped.
+library(AnnotationHub)
+hs.db <- AnnotationHub()[["AH73881"]]
+hs.exons <- exonsBy(hs.db, by="gene")
+hs.exons <- reduce(hs.exons)
+hs.len <- sum(width(hs.exons))
+
+library(scuttle)
+available <- intersect(rownames(sce.seger), names(hs.len))
+fpkm.seger <- calculateFPKM(sce.seger[available,], hs.len[available])
+
+pred.seger <- SingleR(test=fpkm.seger, ref=sce.muraro, 
+    labels=sce.muraro$label, de.method="wilcox")
+table(pred.seger$labels)
+```
+
+两组标签之间有很强的一致性
+
+```{r}
+tab <- table(pred.seger$pruned.labels, sce.seger$CellType)
+library(pheatmap)
+pheatmap(log2(tab+10), color=colorRampPalette(c("white", "blue"))(101))
+```
+
+

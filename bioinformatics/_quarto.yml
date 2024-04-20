@@ -26,6 +26,14 @@ book:
         - QC.qmd
         - normalization.qmd
         - feature_selection.qmd
+        - DimensionalityReduction.qmd
+        - Clustering.qmd
+        - MarkerGeneDetection.qmd
+        - CellTypeAnnotation.qmd
+        
+    # - part: "SingleR"
+    #   chapters: 
+    #     - SingleR.qmd
         
     - part: "Seurat"
       chapters: 
@@ -71,5 +79,6 @@ format:
     callout-appearance: simple
     
 editor: visual
+
 
 

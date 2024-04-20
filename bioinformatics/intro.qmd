@@ -5,7 +5,6 @@
 ```{r}
 #| eval: false
 # 按需安装
-install.packages("ggplot2")
 install.packages("BiocManager")
 BiocManager::install("scater")
 BiocManager::install("scuttle")
@@ -16,6 +15,12 @@ BiocManager::install("SingleCellExperiment")
 BiocManager::install("scran")
 BiocManager::install("scRNAseq")
 BiocManager::install("batchelor")
+BiocManager::install("robustbase")
+BiocManager::install("org.Mm.eg.db")
+BiocManager::install("EnsDb.Hsapiens.v86")
+BiocManager::install("mbkmeans")
+BiocManager::install("SingleR")
+BiocManager::install("celldex")
 ```
 
 ## 配置环境 {style="color:gray"}

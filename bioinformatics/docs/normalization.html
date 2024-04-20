@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Bioinformatics - 7&nbsp; 标准化</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./feature_selection.html" rel="next">
+<link href="./QC.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Single-Cell Analysis with Bioconductor</a></li><li class="breadcrumb-item"><a href="./normalization.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">标准化</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Bioinformatics</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/Wanganlin00/Bioinformatics" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">参考资料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Upstream Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Seq_to_Matrix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sequences Data to Expression Matrix</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Single-Cell Analysis with Bioconductor</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">写在前面</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">获取scRNA-seq表达值矩阵</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SCE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">工作流</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./QC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">质量控制</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./normalization.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">标准化</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./feature_selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">特征选择</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Seurat</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Seurat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Seurat</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">DESeq2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TranscriptomicsDownstreamAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">转录组下游分析</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">其他</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./genomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title"><code>SummarizeExperiment</code>结构</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#scaling-normalization" id="toc-scaling-normalization" class="nav-link active" data-scroll-target="#scaling-normalization"><span class="header-section-number">7.1</span> scaling normalization</a>
+  <ul>
+<li><a href="#%E6%96%87%E5%BA%93%E5%A4%A7%E5%B0%8F%E6%A0%87%E5%87%86%E5%8C%96" id="toc-文库大小标准化" class="nav-link" data-scroll-target="#%E6%96%87%E5%BA%93%E5%A4%A7%E5%B0%8F%E6%A0%87%E5%87%86%E5%8C%96"><span class="header-section-number">7.1.1</span> 文库大小标准化</a></li>
+  <li><a href="#%E5%8F%8D%E5%8D%B7%E7%A7%AF%E6%A0%87%E5%87%86%E5%8C%96-normalization-by-deconvolution" id="toc-反卷积标准化-normalization-by-deconvolution" class="nav-link" data-scroll-target="#%E5%8F%8D%E5%8D%B7%E7%A7%AF%E6%A0%87%E5%87%86%E5%8C%96-normalization-by-deconvolution"><span class="header-section-number">7.1.2</span> 反卷积标准化 Normalization by deconvolution</a></li>
+  <li><a href="#normalization-by-spike-ins" id="toc-normalization-by-spike-ins" class="nav-link" data-scroll-target="#normalization-by-spike-ins"><span class="header-section-number">7.1.3</span> Normalization by spike-ins</a></li>
+  </ul>
+</li>
+  <li><a href="#%E5%AF%B9%E6%95%B0%E5%8F%98%E6%8D%A2" id="toc-对数变换" class="nav-link" data-scroll-target="#%E5%AF%B9%E6%95%B0%E5%8F%98%E6%8D%A2"><span class="header-section-number">7.2</span> 对数变换</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/Wanganlin00/Bioinformatics/edit/main/normalization.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Wanganlin00/Bioinformatics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Single-Cell Analysis with Bioconductor</a></li><li class="breadcrumb-item"><a href="./normalization.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">标准化</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">
+<span class="chapter-number">7</span>&nbsp; <span class="chapter-title">标准化</span>
+</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><p>由于难以制备完全一致的文库，在单细胞RNA测序数据中经常观察到文库之间测序覆盖率的系统差异,这通常源于细胞cDNA捕获效率或PCR扩增效率的技术差异。</p>
+<section id="scaling-normalization" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="scaling-normalization">
+<span class="header-section-number">7.1</span> scaling normalization</h2>
+<p><strong>标准化（normalization）</strong>旨在消除这些差异，使它们不会干扰细胞之间表达谱的比较。 这确保了在细胞群体中观察到的任何异质性或差异表达都是由生物学差异而非技术差异造成的。 其中<strong>缩放标准化（scaling normalization）</strong>是最简单和最常用的一类标准化策略。这涉及将每个细胞的总计数除以细胞特定的比例因子，通常称为”缩放因子(size factor)“。</p>
+<p><strong>假设</strong>：任何细胞特异性偏差（如捕获或扩增效率）都会通过缩放该细胞的预期平均计数来平等地影响所有基因。 每个细胞的缩放因子表示该细胞中相对偏差的估计值，因此将其计数除以缩放因子应消除该偏差。由此产生的”标准化表达式值”可用于下游分析，如聚类和降维。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#--- loading ---#</span></span>
+<span><span class="va">sce.zeisel</span> <span class="op">&lt;-</span> <span class="fu">scRNAseq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scRNAseq/man/ZeiselBrainData.html">ZeiselBrainData</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://bioconductor.org/packages/scater/">scater</a></span><span class="op">)</span></span>
+<span><span class="va">sce.zeisel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/aggregateAcrossFeatures.html">aggregateAcrossFeatures</a></span><span class="op">(</span><span class="va">sce.zeisel</span>, </span>
+<span>    id<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span><span class="op">(</span><span class="st">"_loc[0-9]+$"</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sce.zeisel</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- gene-annotation ---#</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">org.Mm.eg.db</span><span class="op">)</span></span>
+<span><span class="fu">rowData</span><span class="op">(</span><span class="va">sce.zeisel</span><span class="op">)</span><span class="op">$</span><span class="va">Ensembl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html">mapIds</a></span><span class="op">(</span><span class="va">org.Mm.eg.db</span>, </span>
+<span>    keys<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sce.zeisel</span><span class="op">)</span>, keytype<span class="op">=</span><span class="st">"SYMBOL"</span>, column<span class="op">=</span><span class="st">"ENSEMBL"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- quality-control ---#</span></span>
+<span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/perCellQCMetrics.html">perCellQCMetrics</a></span><span class="op">(</span><span class="va">sce.zeisel</span>, subsets<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    Mt<span class="op">=</span><span class="fu">rowData</span><span class="op">(</span><span class="va">sce.zeisel</span><span class="op">)</span><span class="op">$</span><span class="va">featureType</span><span class="op">==</span><span class="st">"mito"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">qc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/quickPerCellQC.html">quickPerCellQC</a></span><span class="op">(</span><span class="va">stats</span>, percent_subsets<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"altexps_ERCC_percent"</span>, </span>
+<span>    <span class="st">"subsets_Mt_percent"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">sce.zeisel</span> <span class="op">&lt;-</span> <span class="va">sce.zeisel</span><span class="op">[</span>,<span class="op">!</span><span class="va">qc</span><span class="op">$</span><span class="va">discard</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sce.zeisel</span> </span>
+<span><span class="co">#&gt; class: SingleCellExperiment </span></span>
+<span><span class="co">#&gt; dim: 19839 2816 </span></span>
+<span><span class="co">#&gt; metadata(0):</span></span>
+<span><span class="co">#&gt; assays(1): counts</span></span>
+<span><span class="co">#&gt; rownames(19839): 0610005C13Rik 0610007N19Rik ... Zzef1 Zzz3</span></span>
+<span><span class="co">#&gt; rowData names(2): featureType Ensembl</span></span>
+<span><span class="co">#&gt; colnames(2816): 1772071015_C02 1772071017_G12 ... 1772063068_D01</span></span>
+<span><span class="co">#&gt;   1772066098_A12</span></span>
+<span><span class="co">#&gt; colData names(10): tissue group # ... level1class level2class</span></span>
+<span><span class="co">#&gt; reducedDimNames(0):</span></span>
+<span><span class="co">#&gt; mainExpName: endogenous</span></span>
+<span><span class="co">#&gt; altExpNames(2): ERCC repeat</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="文库大小标准化" class="level3" data-number="7.1.1"><h3 data-number="7.1.1" class="anchored" data-anchor-id="文库大小标准化">
+<span class="header-section-number">7.1.1</span> 文库大小标准化</h3>
+<p>文库大小标准化是执行缩放标准化的最简单策略。我们将文库大小定义为每个细胞所有基因的计数总和，假设其期望值与任何细胞特异性偏差成比例。然后，每个细胞的”文库缩放因子”与其文库大小成正比，其中定义了比例常数，使得所有细胞的平均缩放因子等于 1。 此定义可确保标准化表达式值与原始计数的比例相同，这对解释很有用，尤其是在处理转换后的数据时。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lib.sf.zeisel</span> <span class="op">&lt;-</span> <span class="fu">scuttle</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/librarySizeFactors.html">librarySizeFactors</a></span><span class="op">(</span><span class="va">sce.zeisel</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lib.sf.zeisel</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span><span class="co">#&gt;  0.1757  0.5680  0.8680  1.0000  1.2783  4.0839</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>在ZeiselBrainData中，细胞文库缩放因子在细胞之间相差多达 10 倍 <a href="#fig-histogram-log10sizefactor" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> 。这是scRNA-seq数据覆盖率变异的典型特征。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">lib.sf.zeisel</span><span class="op">)</span>, xlab<span class="op">=</span><span class="st">"Log10[Size factor]"</span>, col<span class="op">=</span><span class="st">'grey80'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-histogram-log10sizefactor" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-histogram-log10sizefactor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="normalization_files/figure-html/fig-histogram-log10sizefactor-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-histogram-log10sizefactor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.1: Zeisel 大脑数据集中从文库大小得出的缩放因子分布
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="反卷积标准化-normalization-by-deconvolution" class="level3" data-number="7.1.2"><h3 data-number="7.1.2" class="anchored" data-anchor-id="反卷积标准化-normalization-by-deconvolution">
+<span class="header-section-number">7.1.2</span> 反卷积标准化 Normalization by deconvolution</h3>
+<p>当样本之间存在任何不平衡的差异表达（DE）时，就会出现成分偏差。消除成分偏差可以使用&nbsp;<a href="https://bioconductor.org/packages/3.18/DESeq2"><em>DESeq2</em></a>&nbsp;包中的函数<code>estimateSizeFactorsFromMatrix()</code>或&nbsp;<a href="https://bioconductor.org/packages/3.18/edgeR"><em>edgeR</em></a>&nbsp;包中的函数<code>calcNormFactors()</code>执行标准化。</p>
+<p>假设：细胞之间大多数基因并非差异表达，假设两个细胞之间大多数非 DE 基因的计数大小的任何系统性差异代表被用于计算去除系统性差异的适当缩放因子的偏差。</p>
+<p>然而，由于低计数和零计数占主导地位，单细胞数据对于这些批量标准化方法来说可能是个问题。Pool-based size factors are then “deconvolved” into cell-based factors for normalization of each cell’s expression profile.基于 pool 的缩放因子”反卷积”为基于细胞的缩放因子，以标准化每个细胞的表达谱。</p>
+<p>首先使用预聚类步骤<code><a href="https://rdrr.io/pkg/scran/man/quickCluster.html">quickCluster()</a></code>，其中每个聚类中的细胞单独标准化，缩放因子重新缩放以在聚类之间具有可比性。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">scran</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">clust.zeisel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/quickCluster.html">quickCluster</a></span><span class="op">(</span><span class="va">sce.zeisel</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">clust.zeisel</span><span class="op">)</span></span>
+<span><span class="co">#&gt; clust.zeisel</span></span>
+<span><span class="co">#&gt;   1   2   3   4   5   6   7   8   9  10  11  12  13  14 </span></span>
+<span><span class="co">#&gt; 170 254 441 178 393 148 219 240 189 123 112 103 135 111</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>然后使用&nbsp;<a href="https://bioconductor.org/packages/3.18/scran"><em>scran</em></a>&nbsp;中的函数<code><a href="https://rdrr.io/pkg/scran/man/computeSumFactors.html">calculateSumFactors()</a></code>执行反卷积缩放。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">deconv.sf.zeisel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/computeSumFactors.html">calculateSumFactors</a></span><span class="op">(</span><span class="va">sce.zeisel</span>, cluster<span class="op">=</span><span class="va">clust.zeisel</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">deconv.sf.zeisel</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span><span class="co">#&gt;  0.1186  0.4860  0.8314  1.0000  1.3209  4.5090</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>可以看到 <a href="#fig-deconvolution_library" class="quarto-xref">Figure&nbsp;<span>7.2</span></a> 反卷积缩放因子表现出与文库缩放因子细胞特定类型的偏差。 这与细胞类型之间的强差异表达所引入的成分偏差的存在是一致的。 使用反卷积缩放因子可以调整这些偏差，以提高下游分析的标准化精度。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tibble</span><span class="op">(</span>x<span class="op">=</span><span class="va">lib.sf.zeisel</span>, y<span class="op">=</span><span class="va">deconv.sf.zeisel</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>color<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">sce.zeisel</span><span class="op">$</span><span class="va">level1class</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="fl">1</span>,intercept <span class="op">=</span> <span class="fl">0</span>,color<span class="op">=</span><span class="st">"red"</span>,linewidth<span class="op">=</span><span class="fl">1.2</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Library size factor"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Deconvolution size factor"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-deconvolution_library" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-deconvolution_library-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="normalization_files/figure-html/fig-deconvolution_library-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deconvolution_library-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.2: 在ZeiselBrainData中，每个细胞的反卷积缩放因子与文库缩放因子进行比较。红线对应于两个缩放因子之间的同一性。
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="normalization-by-spike-ins" class="level3" data-number="7.1.3"><h3 data-number="7.1.3" class="anchored" data-anchor-id="normalization-by-spike-ins">
+<span class="header-section-number">7.1.3</span> Normalization by spike-ins</h3>
+<p>RNA-seq常用的spike-in有 External RNA Controls Consortium mix (ERCCs)，spike-in RNA variants (SIRVs)和sequencing spike-ins (Sequins) 。</p>
+<p>Spike-in normalization基于向每个细胞中添加相同数量的spike-in RNA 的假设。Spike-in transcripts覆盖率的系统性差异只能归因于细胞特异性偏差，如捕获效率或测序深度。 为了消除这些偏差，我们通过缩放”spike-in size factors “均衡细胞之间的 spike-in 覆盖率。</p>
+<p>与之前的方法相比，Spike-in normalization 不需要对系统的生物学特性进行假设（即，缺乏许多DE基因）。 相反，它假设spike-in transcripts （i） 以恒定水平添加到每个细胞中，（ii） 以与内源性基因相同的相对方式对偏差做出反应。</p>
+<p>实际上，如果对单个细胞的总RNA含量的差异感兴趣，并且必须在下游分析中保留，则应使用 spike-in normalization 。 对于给定的细胞，其内源性RNA总量的增加不会增加其spike-in size factor。 这确保了总RNA含量对整个群体表达的影响不会在缩放时被消除。 相比之下，上述其他标准化方法简单地将总RNA含量的任何变化解释为偏倚的一部分并将其消除。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jorainer/ensembldb">ensembldb</a></span><span class="op">)</span></span>
+<span><span class="va">sce.richard</span> <span class="op">&lt;-</span> <span class="fu">scRNAseq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scRNAseq/man/RichardTCellData.html">RichardTCellData</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">sce.richard</span> <span class="op">&lt;-</span> <span class="va">sce.richard</span><span class="op">[</span>,<span class="va">sce.richard</span><span class="op">$</span><span class="va">`single cell quality`</span><span class="op">==</span><span class="st">"OK"</span><span class="op">]</span></span>
+<span><span class="va">sce.richard</span></span>
+<span><span class="co">#&gt; class: SingleCellExperiment </span></span>
+<span><span class="co">#&gt; dim: 46603 528 </span></span>
+<span><span class="co">#&gt; metadata(0):</span></span>
+<span><span class="co">#&gt; assays(1): counts</span></span>
+<span><span class="co">#&gt; rownames(46603): ENSMUSG00000102693 ENSMUSG00000064842 ...</span></span>
+<span><span class="co">#&gt;   ENSMUSG00000096730 ENSMUSG00000095742</span></span>
+<span><span class="co">#&gt; rowData names(0):</span></span>
+<span><span class="co">#&gt; colnames(528): SLX-12611.N701_S502. SLX-12611.N702_S502. ...</span></span>
+<span><span class="co">#&gt;   SLX-12612.i712_i522. SLX-12612.i714_i522.</span></span>
+<span><span class="co">#&gt; colData names(13): age individual ... stimulus time</span></span>
+<span><span class="co">#&gt; reducedDimNames(0):</span></span>
+<span><span class="co">#&gt; mainExpName: endogenous</span></span>
+<span><span class="co">#&gt; altExpNames(1): ERCC</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>使用<code><a href="https://rdrr.io/pkg/scuttle/man/computeSpikeFactors.html">computeSpikeFactors()</a></code>估计每个细胞的spike-in size factors，这是通过使用与<code><a href="https://rdrr.io/pkg/scuttle/man/librarySizeFactors.html">librarySizeFactors()</a></code>相同的方法 将每个细胞的总spike-in 计数转换为缩放因子来定义的。随后缩放将消除细胞间 spike-in 覆盖率的任何差异。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sce.richard</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/computeSpikeFactors.html">computeSpikeFactors</a></span><span class="op">(</span><span class="va">sce.richard</span>, <span class="st">"ERCC"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html">sizeFactors</a></span><span class="op">(</span><span class="va">sce.richard</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span><span class="co">#&gt;  0.1247  0.4282  0.6274  1.0000  1.0699 23.3161</span></span>
+<span><span class="va">sce.richard</span><span class="op">$</span><span class="va">sizeFactor</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
+<span><span class="co">#&gt; SLX-12611.N701_S502. SLX-12611.N702_S502. SLX-12611.N703_S502. </span></span>
+<span><span class="co">#&gt;            0.3772302            0.4580093            1.1991373 </span></span>
+<span><span class="co">#&gt; SLX-12611.N704_S502. </span></span>
+<span><span class="co">#&gt;            0.5944709</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>可以观察到每个处理条件下的 spike-in 缩放因子和反卷积缩放因子之间存在正相关关系（<a href="#fig-SpikeFactor_DeconvFactor" class="quarto-xref">Figure&nbsp;<span>7.3</span></a>）， 表明它们在测序深度和捕获效率方面捕获了类似的技术偏差。</p>
+<p>还观察到，增加对 T 细胞受体的刺激 - 就亲和力或时间增加而言 - 导致相对于文库缩放因子的 spike-in 因子降低。 这与刺激过程中生物合成活性和总RNA含量的增加一致，这降低了每个文库中的相对 spike-in 覆盖率（从而降低了 spike-in 缩放因子），但增加了内源性基因的覆盖率（从而增加了文库缩放因子）。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>    DeconvFactor<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/scran/man/computeSumFactors.html">calculateSumFactors</a></span><span class="op">(</span><span class="va">sce.richard</span><span class="op">)</span>,</span>
+<span>    SpikeFactor<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html">sizeFactors</a></span><span class="op">(</span><span class="va">sce.richard</span><span class="op">)</span>,</span>
+<span>    Stimulus<span class="op">=</span><span class="va">sce.richard</span><span class="op">$</span><span class="va">stimulus</span>, </span>
+<span>    Time<span class="op">=</span><span class="va">sce.richard</span><span class="op">$</span><span class="va">time</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">DeconvFactor</span>, y<span class="op">=</span><span class="va">SpikeFactor</span>, color<span class="op">=</span><span class="va">Time</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">Stimulus</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>intercept<span class="op">=</span><span class="fl">0</span>, slope<span class="op">=</span><span class="fl">1</span>, color<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-SpikeFactor_DeconvFactor" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-SpikeFactor_DeconvFactor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="normalization_files/figure-html/fig-SpikeFactor_DeconvFactor-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SpikeFactor_DeconvFactor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.3: Spike-in normalization的spike-in缩放因子与 反卷积缩放因子作图。 每个图代表不同的配体处理，每个点都是一个细胞，根据刺激时间着色。
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>这两组缩放因子之间的差异对下游分析有实际影响。 如果将 spike-in 缩放因子应用于计数，则未刺激细胞中的表达值将放大，而刺激细胞中的表达将缩小。 但是，如果使用反卷积缩放因子，则会出现相反的情况。 当我们在标准化策略之间切换时，这可能表现为不同条件之间 DE 的大小和方向的变化，如 <span class="quarto-unresolved-ref">?fig-fig-switch-between-normalization-strategies</span> 所示</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sce.richard.deconv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/logNormCounts.html">logNormCounts</a></span><span class="op">(</span><span class="va">sce.richard</span>, size_factors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/scran/man/computeSumFactors.html">calculateSumFactors</a></span><span class="op">(</span><span class="va">sce.richard</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">sce.richard.spike</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/logNormCounts.html">logNormCounts</a></span><span class="op">(</span><span class="va">sce.richard</span>, size_factors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html">sizeFactors</a></span><span class="op">(</span><span class="va">sce.richard</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotExpression.html">plotExpression</a></span><span class="op">(</span><span class="va">sce.richard.deconv</span>, x<span class="op">=</span><span class="st">"stimulus"</span>, </span>
+<span>        colour_by<span class="op">=</span><span class="st">"time"</span>, features<span class="op">=</span><span class="st">"ENSMUSG00000092341"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"After deconvolution"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotExpression.html">plotExpression</a></span><span class="op">(</span><span class="va">sce.richard.spike</span>, x<span class="op">=</span><span class="st">"stimulus"</span>, </span>
+<span>        colour_by<span class="op">=</span><span class="st">"time"</span>, features<span class="op">=</span><span class="st">"ENSMUSG00000092341"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"After spike-in normalization"</span><span class="op">)</span>,</span>
+<span>    ncol<span class="op">=</span><span class="fl">2</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-switch-between-normalization-strategies" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-switch-between-normalization-strategies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="normalization_files/figure-html/fig-switch-between-normalization-strategies-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-switch-between-normalization-strategies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.4: 使用反卷积缩放因子（左）或 spike-in 缩放因子（右）进行标准化后 Malat1 的对数标准化表达值分布。细胞按配体亲和力分层，并按刺激时间着色
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>标准化策略的选择取决于生物学假设。 在大多数情况下，总RNA含量的变化并不有趣，使用文库大小或反卷积因子标准化。 然而，如果总RNA的差异与感兴趣的生物学过程有关，例如细胞周期活性或T细胞活化，使用 spike-in 标准化将保留这些差异，以便生物组之间表达的任何变化都具有正确的符号。</p>
+<p>spike-in transcripts 应该使用 spike-in size factors 标准化。 从内源性基因计数计算的缩放因子不应该spike-in transcripts ，因为前者捕获了后者没有的总 RNA 含量差异。 尝试使用基于内源性基因计数的缩放因子对spike-in计数进行标准化将导致过度标准化和不正确的定量。 因此，如果需要标准化spike-in数据，必须为spike-in transcripts计算一组单独的缩放因子，可以使用 <code><a href="https://rdrr.io/pkg/scran/man/modelGeneVarWithSpikes.html">modelGeneVarWithSpikes()</a></code>等函数自动执行。</p>
+</section></section><section id="对数变换" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="对数变换">
+<span class="header-section-number">7.2</span> 对数变换</h2>
+<p>The log-transformation is useful as differences in the log-values represent log-fold changes in expression. 这在基于欧几里得距离的下游分析中非常重要，其中包括多种形式的聚类和降维。 通过对数转换数据进行操作，我们确保这些程序是基于表达值的对数倍数变化测量细胞之间的距离。 对数转换可以促进具有强相对差异的基因的显现。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">clust.zeisel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/quickCluster.html">quickCluster</a></span><span class="op">(</span><span class="va">sce.zeisel</span><span class="op">)</span> </span>
+<span><span class="va">sce.zeisel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/computeSumFactors.html">computeSumFactors</a></span><span class="op">(</span><span class="va">sce.zeisel</span>, cluster<span class="op">=</span><span class="va">clust.zeisel</span>, min.mean<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="va">sce.zeisel</span><span class="op">$</span><span class="va">sizeFactor</span></span>
+<span><span class="co">#&gt;    [1] 1.5330163 1.5197806 2.3177092 2.3098243 1.6356501 1.9140228 2.3920849</span></span>
+<span><span class="co">#&gt;    [8] 1.7148351 1.7773327 1.8405697 1.3853361 2.2721463 2.7341116 1.6572794</span></span>
+<span><span class="co">#&gt;   [15] 2.4350214 3.0837875 1.9656279 2.7387063 2.3199978 1.3466584 1.6689281</span></span>
+<span><span class="co">#&gt;   [22] 1.1982640 1.7097079 1.3138173 3.3489395 2.9695867 2.6083104 1.2732532</span></span>
+<span><span class="co">#&gt;   [29] 1.8972124 2.6611017 3.4041656 1.4966486 2.0050764 1.1145625 2.0697233</span></span>
+<span><span class="co">#&gt;   [36] 1.7275731 1.2382277 1.5595997 2.1447774 1.7162959 2.6613901 1.4908977</span></span>
+<span><span class="co">#&gt;   [43] 1.6998759 1.2296894 1.6712818 0.9957191 1.0247037 1.9330533 1.3202147</span></span>
+<span><span class="co">#&gt;   [50] 1.3918146 1.0947499 1.0076070 0.6306301 0.9391774 1.9744421 1.2986612</span></span>
+<span><span class="co">#&gt;   [57] 1.7282730 1.9812199 2.1939957 1.9050923 1.0309859 1.1311469 3.2196183</span></span>
+<span><span class="co">#&gt;   [64] 1.9897407 1.1698584 1.5423988 2.9012917 2.5727057 1.2543136 1.3457439</span></span>
+<span><span class="co">#&gt;   [71] 1.9773897 1.0141278 1.9634541 3.6047891 3.1247672 1.5545336 1.5671957</span></span>
+<span><span class="co">#&gt;   [78] 2.8025919 1.6536579 1.3483879 1.9103567 1.8254057 1.0507183 0.8113664</span></span>
+<span><span class="co">#&gt;   [85] 1.1435887 1.4907576 1.3537895 1.6386828 2.3633390 1.5528725 1.4175381</span></span>
+<span><span class="co">#&gt;   [92] 2.5290150 1.7092174 1.6712773 2.8047605 1.0838338 1.4363547 0.8692671</span></span>
+<span><span class="co">#&gt;   [99] 1.9670167 1.1005335 2.0246962 1.4532231 2.1814908 1.9616708 0.6272988</span></span>
+<span><span class="co">#&gt;  [106] 0.9979319 0.8318206 1.4367589 1.5291424 3.6741494 1.3961974 1.9855423</span></span>
+<span><span class="co">#&gt;  [113] 2.5478784 1.6363302 0.9079047 1.2297099 1.1598110 1.6656445 1.7102919</span></span>
+<span><span class="co">#&gt;  [120] 1.4206852 1.2662669 1.0905115 2.8185136 2.0030667 1.5196415 1.7781672</span></span>
+<span><span class="co">#&gt;  [127] 0.9389815 0.5948236 2.1368286 0.9609240 1.2678778 1.0648258 2.3283010</span></span>
+<span><span class="co">#&gt;  [134] 1.6137400 1.9572214 0.8928580 1.2245865 2.7440866 0.5725257 0.7294713</span></span>
+<span><span class="co">#&gt;  [141] 1.1612172 1.2721188 0.9157980 0.8769774 1.0877930 1.3818578 1.1892912</span></span>
+<span><span class="co">#&gt;  [148] 1.0817491 1.5241187 1.3729887 1.7102339 2.0667730 1.6640898 1.0507156</span></span>
+<span><span class="co">#&gt;  [155] 0.8454547 0.7700251 0.9450501 0.6773467 1.9136837 1.2645070 2.1509118</span></span>
+<span><span class="co">#&gt;  [162] 2.5697851 2.5916841 3.4903858 3.6919619 2.6515232 1.7293947 2.3633059</span></span>
+<span><span class="co">#&gt;  [169] 2.5037744 3.4963656 2.9408237 2.4558110 2.3297240 4.4017711 2.5844353</span></span>
+<span><span class="co">#&gt;  [176] 1.5871295 2.3565178 1.8459824 2.1193997 2.5073216 2.7601100 1.2987744</span></span>
+<span><span class="co">#&gt;  [183] 1.5790883 1.4113102 1.4701675 2.2827587 0.8028364 1.3787878 0.9492620</span></span>
+<span><span class="co">#&gt;  [190] 0.6926455 0.9525613 1.2930658 1.1770449 1.1229564 1.2475542 2.0578707</span></span>
+<span><span class="co">#&gt;  [197] 1.1228340 1.6684490 0.9548474 0.5305375 0.5274671 1.0488002 0.7933984</span></span>
+<span><span class="co">#&gt;  [204] 0.4678283 0.6281701 0.6226001 0.6086995 0.6071521 0.6226950 0.5723453</span></span>
+<span><span class="co">#&gt;  [211] 0.9014781 1.1552337 0.9689474 0.5268485 0.6740200 0.6737290 0.7710886</span></span>
+<span><span class="co">#&gt;  [218] 1.6180252 0.4341768 0.9857983 0.7404861 0.7431644 0.8859762 0.7174846</span></span>
+<span><span class="co">#&gt;  [225] 0.7162020 0.8701763 1.3756729 0.8647946 0.5700038 0.9360704 1.2895164</span></span>
+<span><span class="co">#&gt;  [232] 1.1594801 1.2345250 1.0132500 0.4631851 0.8109412 0.6033283 0.8206932</span></span>
+<span><span class="co">#&gt;  [239] 0.4647301 1.5702412 0.9299049 0.9758857 0.5832573 0.5338430 0.9201596</span></span>
+<span><span class="co">#&gt;  [246] 0.8577819 0.9964547 0.9661969 0.9101791 0.5715371 0.6823990 1.0669941</span></span>
+<span><span class="co">#&gt;  [253] 0.6334253 0.5316475 0.6584934 0.5974557 0.7185425 0.7614784 0.7835897</span></span>
+<span><span class="co">#&gt;  [260] 0.5733475 0.6263241 0.6335817 0.9447329 0.7627304 0.8052265 0.7706259</span></span>
+<span><span class="co">#&gt;  [267] 0.6856238 0.7504869 0.8773453 0.6885880 1.0568634 0.3917429 1.2251737</span></span>
+<span><span class="co">#&gt;  [274] 0.8755311 0.7575448 0.8852126 0.5189990 0.8602191 0.4583515 0.3879638</span></span>
+<span><span class="co">#&gt;  [281] 0.5590731 1.0668200 0.7599856 0.6914372 0.7196741 0.8505898 1.3812232</span></span>
+<span><span class="co">#&gt;  [288] 1.3452989 0.9135613 0.9739585 1.3797249 2.1949168 2.4857605 1.8457511</span></span>
+<span><span class="co">#&gt;  [295] 2.2092759 4.1435115 1.1970007 2.9576143 1.7029819 1.6420352 2.5633888</span></span>
+<span><span class="co">#&gt;  [302] 1.4767779 2.8259132 1.6126512 2.9945293 1.6550794 2.4548934 2.4099312</span></span>
+<span><span class="co">#&gt;  [309] 1.3088486 1.9174640 3.3446696 1.9224331 1.4779425 0.9128779 2.0359754</span></span>
+<span><span class="co">#&gt;  [316] 2.7439796 1.4771812 2.3308218 1.7799427 2.0224509 2.1880150 3.1773360</span></span>
+<span><span class="co">#&gt;  [323] 0.8851925 0.9705332 1.6363540 2.9748171 3.1269373 3.4669377 1.6871591</span></span>
+<span><span class="co">#&gt;  [330] 2.2038589 2.7014019 1.7712089 1.9450240 1.2485032 1.3309646 2.2832857</span></span>
+<span><span class="co">#&gt;  [337] 1.6385040 1.2032255 1.9054603 1.3935487 1.3946249 2.2364203 1.1955069</span></span>
+<span><span class="co">#&gt;  [344] 1.2179445 1.2536955 1.0475863 1.6322312 2.1828373 1.7626096 1.0061896</span></span>
+<span><span class="co">#&gt;  [351] 1.2014554 1.5357725 0.9645444 1.1211442 1.0411483 1.6050370 2.7218458</span></span>
+<span><span class="co">#&gt;  [358] 0.6733965 0.4378360 0.4778743 0.6531542 0.6047653 1.4623700 0.6399014</span></span>
+<span><span class="co">#&gt;  [365] 1.4547163 1.2943950 0.8514705 0.5948366 0.6089371 1.1639215 1.0441309</span></span>
+<span><span class="co">#&gt;  [372] 1.2805472 0.4735388 0.9731095 1.0979021 1.0263722 1.0167818 0.8918727</span></span>
+<span><span class="co">#&gt;  [379] 0.7122539 1.3679107 1.5235087 0.6724249 1.0396070 2.4112723 1.2105126</span></span>
+<span><span class="co">#&gt;  [386] 1.5279857 1.6581576 0.6227837 0.5514674 0.7359139 1.2469293 1.0666827</span></span>
+<span><span class="co">#&gt;  [393] 0.5960312 1.5694254 0.7540834 1.0843334 0.7409505 1.1010909 0.5235231</span></span>
+<span><span class="co">#&gt;  [400] 0.5745306 0.7914525 0.7269037 1.0703832 1.0107087 0.6049607 0.9403788</span></span>
+<span><span class="co">#&gt;  [407] 1.0009131 0.6029252 0.6477509 0.6852968 0.5251828 0.4245346 0.4811482</span></span>
+<span><span class="co">#&gt;  [414] 0.8965592 0.4367785 1.0253395 1.6025913 0.4936238 0.6762127 1.3510103</span></span>
+<span><span class="co">#&gt;  [421] 1.1891784 1.0914293 0.7625631 0.8242901 1.3658258 0.7058226 0.7627094</span></span>
+<span><span class="co">#&gt;  [428] 1.3389957 1.2862766 0.6126421 0.6804102 0.8797511 2.3813272 0.7926611</span></span>
+<span><span class="co">#&gt;  [435] 1.4881881 1.0434350 0.6708035 1.1462024 1.5559427 1.5545401 1.0108777</span></span>
+<span><span class="co">#&gt;  [442] 0.7462698 0.6915743 0.9494440 0.6031972 0.6205379 0.4214221 1.1441965</span></span>
+<span><span class="co">#&gt;  [449] 0.8655398 0.8245929 1.9044939 0.8485801 0.6800323 0.7026683 0.5584465</span></span>
+<span><span class="co">#&gt;  [456] 0.5241432 0.5558936 0.6278175 1.1520379 0.5178296 1.1385848 1.0301602</span></span>
+<span><span class="co">#&gt;  [463] 0.7226877 0.5993044 0.4825436 0.5105344 0.8439236 0.5713371 2.1033578</span></span>
+<span><span class="co">#&gt;  [470] 2.3544387 3.1264613 0.8047828 1.5195378 1.3844148 1.7689273 1.4838110</span></span>
+<span><span class="co">#&gt;  [477] 0.6729402 0.5992327 0.6082110 2.0363420 1.0209233 1.1498635 1.1159846</span></span>
+<span><span class="co">#&gt;  [484] 1.8158598 0.7200269 1.0027084 1.1123197 0.7024021 0.9903908 0.9615554</span></span>
+<span><span class="co">#&gt;  [491] 0.9552009 1.1400174 1.5704352 0.8183878 3.0926387 2.4587651 1.4494763</span></span>
+<span><span class="co">#&gt;  [498] 1.2180325 1.4050475 1.3066058 1.5013131 1.9750311 1.3644021 1.4794974</span></span>
+<span><span class="co">#&gt;  [505] 2.4389298 2.2321682 1.3294620 1.3314245 1.9051281 2.0659105 1.2104720</span></span>
+<span><span class="co">#&gt;  [512] 0.8488917 1.0616241 1.5850674 1.8542774 0.9198832 0.8946121 1.7254407</span></span>
+<span><span class="co">#&gt;  [519] 1.0262563 1.4969745 0.8977452 0.5658717 0.7388280 0.7533931 0.6357109</span></span>
+<span><span class="co">#&gt;  [526] 0.4622575 0.6985520 0.5137994 0.6643873 0.5203546 0.5076352 0.5745068</span></span>
+<span><span class="co">#&gt;  [533] 0.7616415 0.5778672 0.8456912 0.3845223 0.8717655 0.8179566 0.8039451</span></span>
+<span><span class="co">#&gt;  [540] 0.4916569 0.9079307 1.4395769 0.6960558 0.9476552 0.7276457 0.6732644</span></span>
+<span><span class="co">#&gt;  [547] 1.0030072 1.0555326 1.4482241 1.0004559 2.6524889 3.8792994 1.1539016</span></span>
+<span><span class="co">#&gt;  [554] 2.1443062 1.9009690 3.3359895 1.3305623 3.2197262 1.0381801 1.4507614</span></span>
+<span><span class="co">#&gt;  [561] 1.5314977 2.0117943 2.1441972 2.1642644 1.1750233 1.0353364 1.4198693</span></span>
+<span><span class="co">#&gt;  [568] 1.1483711 1.3082480 1.1247142 1.2016734 0.9527688 1.9955224 2.2454369</span></span>
+<span><span class="co">#&gt;  [575] 1.3577371 1.6749821 1.0162314 1.4163645 1.2772393 1.0463877 1.3278312</span></span>
+<span><span class="co">#&gt;  [582] 0.7232718 1.3511497 1.2452307 1.2228272 0.9017718 1.1765293 0.8017050</span></span>
+<span><span class="co">#&gt;  [589] 0.9674600 1.1103725 1.1297938 0.8197256 1.0812791 1.7132373 1.1624210</span></span>
+<span><span class="co">#&gt;  [596] 1.2599556 1.5965877 1.7034614 1.4556641 1.5215966 0.8029330 0.9818501</span></span>
+<span><span class="co">#&gt;  [603] 2.2113942 1.4926664 0.9129868 1.2174291 1.6690306 1.8563100 1.8350925</span></span>
+<span><span class="co">#&gt;  [610] 1.4507951 1.8625066 1.7690421 0.9408636 1.4890231 0.7807303 1.0058283</span></span>
+<span><span class="co">#&gt;  [617] 1.1456073 1.5261179 1.5337394 1.4095891 0.8807919 1.8467518 1.0900318</span></span>
+<span><span class="co">#&gt;  [624] 0.9382351 1.0239823 1.5149546 1.4785130 1.5460960 0.9973684 0.9437285</span></span>
+<span><span class="co">#&gt;  [631] 0.5157146 0.8394680 0.5774733 0.4155600 1.1255522 0.8434126 0.9453405</span></span>
+<span><span class="co">#&gt;  [638] 0.5838220 0.6210658 1.1887829 0.6697891 0.5514818 0.5185334 0.6319382</span></span>
+<span><span class="co">#&gt;  [645] 0.8435973 0.6972803 1.3800695 1.5070860 0.8376889 0.7105544 0.8573945</span></span>
+<span><span class="co">#&gt;  [652] 0.7892364 0.8424190 1.5890703 0.8539142 0.5513256 1.0566437 1.0149963</span></span>
+<span><span class="co">#&gt;  [659] 0.6607940 0.7299950 0.8847720 0.9846624 1.2287996 0.7822108 1.2266836</span></span>
+<span><span class="co">#&gt;  [666] 1.0043474 0.8559562 1.0474038 1.0576028 0.9657859 1.3898346 1.1996680</span></span>
+<span><span class="co">#&gt;  [673] 1.0027953 0.9992063 1.0407104 1.0348848 1.3487158 1.6378601 0.7942841</span></span>
+<span><span class="co">#&gt;  [680] 0.7575124 0.8026522 1.0267446 0.9759880 0.5694754 0.7027845 0.6695126</span></span>
+<span><span class="co">#&gt;  [687] 1.0445579 1.0633528 0.9298840 1.0294389 1.0493784 0.8723287 0.7823291</span></span>
+<span><span class="co">#&gt;  [694] 2.3210899 1.1942687 1.1968942 1.0754281 1.0422050 1.1907227 1.1468923</span></span>
+<span><span class="co">#&gt;  [701] 1.1734709 1.0226293 1.2255000 1.1717891 1.0787814 1.5237716 1.5788753</span></span>
+<span><span class="co">#&gt;  [708] 0.7962111 1.5523182 1.0585643 1.4442415 0.9556174 1.3881071 0.9899135</span></span>
+<span><span class="co">#&gt;  [715] 0.9889097 1.1242205 0.8104387 0.5839989 1.0431384 0.8511014 1.5409678</span></span>
+<span><span class="co">#&gt;  [722] 1.6713461 1.2551406 1.2510039 1.2093598 1.7061547 1.5620917 1.6651808</span></span>
+<span><span class="co">#&gt;  [729] 1.7860971 2.1686661 1.6459519 0.8053885 0.8701435 1.6302618 1.3422038</span></span>
+<span><span class="co">#&gt;  [736] 0.6201912 1.0758632 1.1441367 0.8380599 1.4354914 0.7293117 0.7404872</span></span>
+<span><span class="co">#&gt;  [743] 1.7393011 1.5295749 0.6981503 0.7292310 1.2564434 0.8550340 1.1620488</span></span>
+<span><span class="co">#&gt;  [750] 1.2124820 1.3547105 0.6593134 0.8386717 1.3671924 1.2586046 0.9701293</span></span>
+<span><span class="co">#&gt;  [757] 0.9528374 0.7070263 1.0284216 1.6291636 0.7920776 1.1654820 0.8966922</span></span>
+<span><span class="co">#&gt;  [764] 0.9221471 1.3771352 1.3263169 1.1936213 0.6694114 0.8713434 0.9518539</span></span>
+<span><span class="co">#&gt;  [771] 1.3297144 1.0403798 1.3462559 0.9682087 1.0994306 1.4287400 1.3811720</span></span>
+<span><span class="co">#&gt;  [778] 1.1399155 1.1199272 1.0832702 1.0985103 0.9374391 0.7230505 1.1482673</span></span>
+<span><span class="co">#&gt;  [785] 1.4771534 0.7189566 1.0164999 0.8629676 1.4229433 1.3677170 1.0127181</span></span>
+<span><span class="co">#&gt;  [792] 0.6661480 0.9475485 0.9425252 1.2743182 0.7807289 1.0054663 0.7852705</span></span>
+<span><span class="co">#&gt;  [799] 0.9985101 1.3305539 0.9559742 1.1314823 1.1261450 0.9770246 0.9459067</span></span>
+<span><span class="co">#&gt;  [806] 1.1271177 0.7447718 0.7239790 0.7808820 0.7274916 1.0044975 1.0596408</span></span>
+<span><span class="co">#&gt;  [813] 0.9363497 0.7733938 0.9083720 0.8579631 0.8437680 1.1237174 1.3005203</span></span>
+<span><span class="co">#&gt;  [820] 1.0608592 1.0021539 1.2456155 0.8797666 1.4963513 1.5860060 1.3230046</span></span>
+<span><span class="co">#&gt;  [827] 1.1579637 1.1533193 1.1947518 1.1743405 1.4525032 0.8126317 1.0986917</span></span>
+<span><span class="co">#&gt;  [834] 1.0821845 1.1924374 0.8200512 1.0330796 0.9007668 1.3579798 1.1909936</span></span>
+<span><span class="co">#&gt;  [841] 0.9201088 1.2390036 1.1293947 0.8910967 1.0036202 1.2665897 1.1390892</span></span>
+<span><span class="co">#&gt;  [848] 0.9673425 1.1233957 1.0166612 1.1272967 1.1189713 1.1538260 1.2501878</span></span>
+<span><span class="co">#&gt;  [855] 1.2035419 1.1251572 1.1482353 1.0644329 1.3598861 1.2948352 1.8255984</span></span>
+<span><span class="co">#&gt;  [862] 1.0006174 1.5066844 0.6320842 1.3167285 1.3086036 1.1852624 1.0056703</span></span>
+<span><span class="co">#&gt;  [869] 1.4381378 0.7621736 1.6096472 1.3681211 1.0180159 3.0828898 1.3140623</span></span>
+<span><span class="co">#&gt;  [876] 1.7723159 1.7215711 1.2280052 3.2127049 2.5077800 3.5577716 1.2235574</span></span>
+<span><span class="co">#&gt;  [883] 2.1849213 2.5220094 1.5699280 2.1268483 2.7018646 1.6756284 1.7460522</span></span>
+<span><span class="co">#&gt;  [890] 1.7935177 1.9671034 2.1113685 1.2702823 1.6658309 1.4280144 2.4198907</span></span>
+<span><span class="co">#&gt;  [897] 1.7332639 1.6771589 2.4493191 1.2543158 1.5489605 1.7336579 2.4592755</span></span>
+<span><span class="co">#&gt;  [904] 1.1786342 1.8970813 1.4057113 1.4463945 1.9848746 2.1637914 2.5838883</span></span>
+<span><span class="co">#&gt;  [911] 1.0373312 1.2016134 0.9611963 1.6614755 1.7238247 1.3537720 1.3859257</span></span>
+<span><span class="co">#&gt;  [918] 1.5020704 1.9440916 1.6314686 1.2867411 1.7304632 1.7774690 1.6166150</span></span>
+<span><span class="co">#&gt;  [925] 1.8561194 1.3871096 1.1751649 1.7187642 1.9890042 2.0502580 1.7706663</span></span>
+<span><span class="co">#&gt;  [932] 1.5377562 1.5646640 1.8313302 1.5357102 1.9617975 1.8034478 2.3438346</span></span>
+<span><span class="co">#&gt;  [939] 2.8405541 1.6991792 2.5526685 2.3186579 1.6935992 2.3809601 2.0072786</span></span>
+<span><span class="co">#&gt;  [946] 2.9175344 4.1102784 2.3533319 2.9766518 2.1551046 3.1029336 2.2454765</span></span>
+<span><span class="co">#&gt;  [953] 2.9265314 2.5379153 1.6282346 3.2499909 2.8586721 2.9112074 3.6959168</span></span>
+<span><span class="co">#&gt;  [960] 3.2119981 2.6819271 3.0035974 3.2731946 2.7098342 2.9195059 2.4357352</span></span>
+<span><span class="co">#&gt;  [967] 3.1775101 2.3211472 2.3538824 3.4150464 3.5889787 3.5430131 2.4498071</span></span>
+<span><span class="co">#&gt;  [974] 2.6148833 3.3281905 3.1581968 2.1787535 4.5090433 3.5852797 3.0986577</span></span>
+<span><span class="co">#&gt;  [981] 1.9262503 3.2464307 3.1528499 2.7068641 2.2096617 2.9149225 3.6896458</span></span>
+<span><span class="co">#&gt;  [988] 2.1173741 3.0262407 1.7937082 2.8074005 1.8419479 2.0261148 2.3905322</span></span>
+<span><span class="co">#&gt;  [995] 2.8897796 2.3389254 1.5989613 2.0730476 2.2693057 2.5061578 1.5668474</span></span>
+<span><span class="co">#&gt; [1002] 1.4114079 1.6035168 2.0031393 1.6725540 2.3660038 2.4311998 1.6220150</span></span>
+<span><span class="co">#&gt; [1009] 2.2494320 2.0051703 2.1243174 2.3137332 1.6589288 3.4467558 1.5691870</span></span>
+<span><span class="co">#&gt; [1016] 1.8953360 2.4556899 2.2539985 2.2632931 3.8048127 2.1062875 2.5598993</span></span>
+<span><span class="co">#&gt; [1023] 2.2192511 2.6421708 1.7400770 1.5124711 1.5207794 2.5995934 2.3307619</span></span>
+<span><span class="co">#&gt; [1030] 2.0934847 3.2544795 1.8926345 1.4927814 2.3655044 1.7459297 2.4425658</span></span>
+<span><span class="co">#&gt; [1037] 1.5820139 2.2224054 1.3151016 1.4251559 3.1611684 2.2578275 2.0721744</span></span>
+<span><span class="co">#&gt; [1044] 2.0793022 2.2152828 2.0429794 1.5929985 2.1745701 2.7086131 2.9550539</span></span>
+<span><span class="co">#&gt; [1051] 1.7090408 2.1739534 2.4086475 1.9787019 2.1685043 1.4015268 1.6503744</span></span>
+<span><span class="co">#&gt; [1058] 1.4254391 1.2530923 2.0696749 2.0167585 2.5186366 1.9865318 1.6596806</span></span>
+<span><span class="co">#&gt; [1065] 1.6218729 3.6172797 2.3664484 1.8099254 1.1828798 1.5272390 2.0688849</span></span>
+<span><span class="co">#&gt; [1072] 1.6155424 1.1114811 1.5785772 1.1878217 1.9366092 1.9448304 1.8256335</span></span>
+<span><span class="co">#&gt; [1079] 1.6432771 1.7733448 1.3524660 1.3009940 1.5583433 1.5990498 1.1956981</span></span>
+<span><span class="co">#&gt; [1086] 1.1246629 1.5628896 1.8918944 0.9587698 1.1277985 1.3429743 1.5713238</span></span>
+<span><span class="co">#&gt; [1093] 1.4618784 1.1898080 0.9984213 1.0926962 1.0010741 1.0115749 0.9073197</span></span>
+<span><span class="co">#&gt; [1100] 0.9599761 1.1998169 1.1254676 1.2467643 1.2205754 0.9219351 1.6349318</span></span>
+<span><span class="co">#&gt; [1107] 1.1646507 1.4710606 1.3988183 1.4667866 0.9976346 1.0894299 1.1219767</span></span>
+<span><span class="co">#&gt; [1114] 0.8450422 1.6812932 1.3645943 1.0716160 1.3410215 1.5903091 1.3101790</span></span>
+<span><span class="co">#&gt; [1121] 1.1041573 1.1339439 2.0214663 0.9439803 1.1267065 1.2143603 1.3196209</span></span>
+<span><span class="co">#&gt; [1128] 1.7350399 1.0944809 1.2603603 1.6680055 1.2302154 1.1709295 1.1705211</span></span>
+<span><span class="co">#&gt; [1135] 1.4053441 1.0205349 1.0776672 1.1106556 1.7998767 1.1041277 1.4733491</span></span>
+<span><span class="co">#&gt; [1142] 0.8847309 1.1548478 1.1672925 1.3634149 1.2986403 0.9983065 1.2258095</span></span>
+<span><span class="co">#&gt; [1149] 1.2805782 1.5274471 0.7835923 1.2384986 1.2630262 0.9830290 1.1584144</span></span>
+<span><span class="co">#&gt; [1156] 0.7730562 1.4204987 1.1875031 1.1608277 1.0293036 1.1550926 1.2404073</span></span>
+<span><span class="co">#&gt; [1163] 1.1350604 1.1697781 1.0396657 1.5029071 1.1045276 1.0470572 0.9916286</span></span>
+<span><span class="co">#&gt; [1170] 1.1516204 1.0732875 0.9635962 0.9855650 0.9665151 1.2677482 1.4508596</span></span>
+<span><span class="co">#&gt; [1177] 0.9103599 1.1965157 0.9681111 0.9153152 1.0101716 1.1456105 1.1097732</span></span>
+<span><span class="co">#&gt; [1184] 1.0952213 1.1588938 1.5651955 1.0969937 1.2885726 1.2306014 1.1777239</span></span>
+<span><span class="co">#&gt; [1191] 1.1280920 1.4509668 1.2481868 1.5404296 1.1049026 0.9944161 1.1210815</span></span>
+<span><span class="co">#&gt; [1198] 1.2180880 1.9729227 1.3250372 1.2836482 1.9568878 1.4861531 1.6709074</span></span>
+<span><span class="co">#&gt; [1205] 1.5925817 1.5295277 1.4978853 1.4373888 1.6601385 2.0293235 1.5452102</span></span>
+<span><span class="co">#&gt; [1212] 1.6272004 1.9352393 1.5222468 1.6257843 1.7911349 2.3830577 1.5763894</span></span>
+<span><span class="co">#&gt; [1219] 2.6126999 2.1933588 2.0929171 2.2011629 1.9352697 2.2955444 2.8861865</span></span>
+<span><span class="co">#&gt; [1226] 2.9552345 2.2613133 2.6639325 2.1523901 2.8057533 2.1340534 2.6258171</span></span>
+<span><span class="co">#&gt; [1233] 2.2999139 2.0940000 1.7328389 2.3555786 2.1806384 3.1185515 1.9701430</span></span>
+<span><span class="co">#&gt; [1240] 1.4621855 2.3269978 2.1435613 2.0391143 2.4242183 1.6568129 1.6558294</span></span>
+<span><span class="co">#&gt; [1247] 1.9366905 2.3090787 1.5365381 1.4884115 1.4678630 1.5559647 1.8403051</span></span>
+<span><span class="co">#&gt; [1254] 1.8473467 1.8153408 1.3129040 2.2613158 1.9670988 1.4154392 1.2908701</span></span>
+<span><span class="co">#&gt; [1261] 1.2258223 1.2372617 1.3849682 1.3818803 1.2538744 1.1849972 1.7617029</span></span>
+<span><span class="co">#&gt; [1268] 1.7325100 1.2804203 1.2099329 1.5433375 1.5288363 1.1548616 1.3522775</span></span>
+<span><span class="co">#&gt; [1275] 1.1011602 1.0240457 1.1777433 1.5095902 1.2662287 1.3481304 1.1775619</span></span>
+<span><span class="co">#&gt; [1282] 2.1898014 2.4356150 1.1462779 1.3011903 1.9175148 1.3330944 1.0293250</span></span>
+<span><span class="co">#&gt; [1289] 2.6867689 1.6482486 1.4650174 1.2926335 1.4375425 1.2441105 1.2041385</span></span>
+<span><span class="co">#&gt; [1296] 1.5829333 1.0643759 1.6027268 1.2599680 1.3493846 1.4224224 1.8318894</span></span>
+<span><span class="co">#&gt; [1303] 1.8551248 1.3857349 1.5089324 1.7910394 1.4537953 1.3186464 1.2702681</span></span>
+<span><span class="co">#&gt; [1310] 1.6567580 2.2368272 1.3609936 1.2797122 1.7588604 2.4624490 1.0951129</span></span>
+<span><span class="co">#&gt; [1317] 1.1250763 2.1508337 1.3056081 1.4719237 1.6373696 1.1926972 1.6467304</span></span>
+<span><span class="co">#&gt; [1324] 1.1967850 1.5288154 1.6994916 1.3078353 1.7071282 1.6307058 2.0945353</span></span>
+<span><span class="co">#&gt; [1331] 1.5813155 1.5353813 1.8369776 1.7642609 1.7056686 1.9938155 2.0873159</span></span>
+<span><span class="co">#&gt; [1338] 1.6829740 1.9125649 1.7720332 1.7746976 2.1561757 0.9653558 0.8088880</span></span>
+<span><span class="co">#&gt; [1345] 0.7360886 0.7395960 0.8940323 0.8418392 0.7201133 0.8511230 0.6913129</span></span>
+<span><span class="co">#&gt; [1352] 1.0219706 0.8689029 0.5181278 0.5277838 0.7245848 0.7611660 0.5324247</span></span>
+<span><span class="co">#&gt; [1359] 0.5993920 0.6236139 0.8848116 0.4192274 0.6806630 0.4080807 0.4779475</span></span>
+<span><span class="co">#&gt; [1366] 0.5140040 0.5022263 0.6443545 0.4157305 0.8687701 0.6591495 0.6843288</span></span>
+<span><span class="co">#&gt; [1373] 0.8852431 0.8858092 0.6953236 0.7255371 1.1914329 0.8731844 0.7849798</span></span>
+<span><span class="co">#&gt; [1380] 0.9953081 0.8090009 0.5402882 0.7815379 0.8058473 0.6582348 0.4962809</span></span>
+<span><span class="co">#&gt; [1387] 0.4988824 0.4257798 0.4619465 0.4085881 0.6462098 0.4914837 0.7554860</span></span>
+<span><span class="co">#&gt; [1394] 0.7472177 0.6999301 0.5638754 0.7454765 0.6815110 0.8310953 1.0195647</span></span>
+<span><span class="co">#&gt; [1401] 0.8101851 0.8538987 0.8873966 0.6731303 0.4953527 0.5952867 0.9476776</span></span>
+<span><span class="co">#&gt; [1408] 0.4686318 0.3857080 0.7851322 0.5354460 0.5764285 0.8763402 0.8132314</span></span>
+<span><span class="co">#&gt; [1415] 0.5523675 0.3511134 0.5050648 0.6796039 0.5155442 0.5050880 0.7463906</span></span>
+<span><span class="co">#&gt; [1422] 0.7251611 1.3526618 1.1272332 0.8016495 0.6826865 0.7056803 1.1026667</span></span>
+<span><span class="co">#&gt; [1429] 0.9247235 0.8851372 0.6534319 0.5801436 0.3893488 0.6114579 0.6167070</span></span>
+<span><span class="co">#&gt; [1436] 0.6754668 0.8245834 0.8139450 0.7979698 1.4157208 0.5218744 0.7386448</span></span>
+<span><span class="co">#&gt; [1443] 0.6870876 0.6051782 0.5921110 0.5777571 1.0435589 1.0533465 1.0530631</span></span>
+<span><span class="co">#&gt; [1450] 0.7953334 1.4565100 0.9747399 0.7527319 0.6604109 0.3542887 1.0911197</span></span>
+<span><span class="co">#&gt; [1457] 0.7901656 0.7943126 0.8144576 0.5169447 0.8539651 0.6932919 0.4599519</span></span>
+<span><span class="co">#&gt; [1464] 0.6951089 0.8977796 1.0130326 0.6157421 0.5384808 0.6876578 0.5375342</span></span>
+<span><span class="co">#&gt; [1471] 0.7455276 0.8498052 0.7537698 1.1119474 0.6651347 0.6489344 0.6998483</span></span>
+<span><span class="co">#&gt; [1478] 0.6939484 1.0282467 1.2867972 0.9544156 2.0118871 0.5616915 0.4157957</span></span>
+<span><span class="co">#&gt; [1485] 0.5825153 0.7750856 0.8931690 0.6664378 0.4879787 0.7262067 0.8454136</span></span>
+<span><span class="co">#&gt; [1492] 0.6892062 0.7478006 0.8640789 0.4766958 0.6664301 0.6480702 0.7858980</span></span>
+<span><span class="co">#&gt; [1499] 0.8760208 0.9575838 0.9994447 0.9722927 1.0810623 0.7575799 0.6467193</span></span>
+<span><span class="co">#&gt; [1506] 0.9780209 0.9740309 1.1716945 1.0786408 0.9943956 0.5061224 0.4524044</span></span>
+<span><span class="co">#&gt; [1513] 0.5057673 0.4740530 1.0331030 0.5196038 0.7348322 1.1206846 0.6920994</span></span>
+<span><span class="co">#&gt; [1520] 1.1621855 0.7272086 0.8346632 0.9121902 0.8432456 1.1183990 0.7884524</span></span>
+<span><span class="co">#&gt; [1527] 1.3201840 1.5013425 1.0728153 1.1875924 0.9295014 0.7498272 0.7591448</span></span>
+<span><span class="co">#&gt; [1534] 0.5599025 0.5372163 0.9804927 0.7498926 0.5820417 0.4903905 0.7116135</span></span>
+<span><span class="co">#&gt; [1541] 1.0077901 1.1531920 0.8787868 0.8846637 0.9911535 0.9352925 0.5836973</span></span>
+<span><span class="co">#&gt; [1548] 0.7704072 0.9842912 0.5173397 0.7483261 0.6875950 0.7003904 0.6603721</span></span>
+<span><span class="co">#&gt; [1555] 0.9271906 0.8890525 0.8237133 1.0163698 0.7594113 0.8121115 1.8198729</span></span>
+<span><span class="co">#&gt; [1562] 1.5357705 1.4372282 1.1031280 1.4122130 1.4315779 0.5258931 0.7706262</span></span>
+<span><span class="co">#&gt; [1569] 1.1256164 0.7207678 0.6988243 0.9473092 1.0896225 0.8260061 1.0386023</span></span>
+<span><span class="co">#&gt; [1576] 1.0883189 0.8270599 1.2671909 1.2386844 0.8748349 0.7354412 0.8954159</span></span>
+<span><span class="co">#&gt; [1583] 1.0184482 0.9516339 0.5583479 0.7213641 0.5284113 0.7222739 0.9048404</span></span>
+<span><span class="co">#&gt; [1590] 1.1282593 0.7072499 1.1016535 0.8228369 0.8260160 1.0442151 1.0603454</span></span>
+<span><span class="co">#&gt; [1597] 1.4668654 0.5109011 0.7216269 0.9712953 0.7816815 0.7073726 0.7631673</span></span>
+<span><span class="co">#&gt; [1604] 0.8179849 1.0443102 1.1122032 0.9762749 0.9876565 1.0763955 1.1560530</span></span>
+<span><span class="co">#&gt; [1611] 1.3384748 1.0235572 1.8922754 0.7630282 1.0254020 0.9757036 1.0700090</span></span>
+<span><span class="co">#&gt; [1618] 0.9273128 0.8395983 1.6392733 1.1058986 1.0561444 1.6337118 1.1186396</span></span>
+<span><span class="co">#&gt; [1625] 1.1033191 1.0773524 1.8263244 1.0720210 0.2911117 1.4373436 2.4195393</span></span>
+<span><span class="co">#&gt; [1632] 1.1868709 1.1548829 1.1193327 0.9695513 0.8022943 1.4923693 0.6637413</span></span>
+<span><span class="co">#&gt; [1639] 0.8657324 0.7816868 0.9331310 1.0757870 0.3087072 0.5545849 0.7911884</span></span>
+<span><span class="co">#&gt; [1646] 0.2912017 0.4413287 0.4047777 0.6865842 0.5965641 0.7073914 0.7083717</span></span>
+<span><span class="co">#&gt; [1653] 0.3257121 1.2267367 0.6991645 0.5003331 0.8299406 0.3446821 0.5119481</span></span>
+<span><span class="co">#&gt; [1660] 0.5460494 0.2527538 0.4980215 0.4793745 0.2390909 0.3063718 0.4780652</span></span>
+<span><span class="co">#&gt; [1667] 0.3468704 0.5647756 0.5799160 0.5893349 0.6044347 1.3318968 0.9223936</span></span>
+<span><span class="co">#&gt; [1674] 1.2632257 0.7151569 2.6353804 0.7606637 1.8600487 1.1594456 0.6990555</span></span>
+<span><span class="co">#&gt; [1681] 1.6322244 1.3488994 0.9838737 0.8176246 1.3078982 0.6608375 0.7223215</span></span>
+<span><span class="co">#&gt; [1688] 0.3654063 0.4976277 1.4405905 0.4484513 0.3619810 0.4646215 0.4863196</span></span>
+<span><span class="co">#&gt; [1695] 1.2628293 0.5747780 0.4311496 0.2570045 0.4763998 0.3423045 0.4986576</span></span>
+<span><span class="co">#&gt; [1702] 0.1546115 0.2697218 0.5260067 0.6210552 0.7320022 0.4053707 0.8925925</span></span>
+<span><span class="co">#&gt; [1709] 0.3613431 0.4455241 0.5134008 0.5013095 0.7802967 0.5268212 0.4259175</span></span>
+<span><span class="co">#&gt; [1716] 0.5576820 0.5975482 0.6011044 0.4973374 0.6116289 0.5054736 0.6192072</span></span>
+<span><span class="co">#&gt; [1723] 0.5090478 0.5040769 0.9446011 0.8500495 0.7489095 1.0614800 0.9406836</span></span>
+<span><span class="co">#&gt; [1730] 0.5362001 1.2385027 0.6798513 0.9918448 0.7279280 1.2816965 0.5902391</span></span>
+<span><span class="co">#&gt; [1737] 0.6925330 1.3994519 1.4933212 0.5377329 0.5222376 0.9718772 1.0824840</span></span>
+<span><span class="co">#&gt; [1744] 0.7592822 0.7301152 0.9433451 1.2412503 0.7270139 1.3509821 0.6900271</span></span>
+<span><span class="co">#&gt; [1751] 0.7968342 0.6603002 0.6260857 0.7887641 0.4948665 0.2780412 0.4749624</span></span>
+<span><span class="co">#&gt; [1758] 0.2508551 0.2982464 0.5804526 0.5625477 0.4066206 0.3046059 1.2253597</span></span>
+<span><span class="co">#&gt; [1765] 0.5559651 1.0457118 0.7994551 1.3440013 0.9961839 1.0020388 0.5385029</span></span>
+<span><span class="co">#&gt; [1772] 0.4674314 0.2616294 1.2105138 0.4524819 0.4542351 0.7310676 0.3612578</span></span>
+<span><span class="co">#&gt; [1779] 0.5081622 1.3882393 0.6318721 1.1520620 0.4122325 0.4936302 0.5325540</span></span>
+<span><span class="co">#&gt; [1786] 0.7512715 0.8029994 0.2939272 0.4044326 0.3023137 0.6919864 0.5412266</span></span>
+<span><span class="co">#&gt; [1793] 0.4034261 0.4581508 0.4952783 0.4792820 0.4240549 0.8795449 0.5198946</span></span>
+<span><span class="co">#&gt; [1800] 0.4498185 0.5944958 0.4160601 0.3616347 0.3784102 0.3879226 0.3668270</span></span>
+<span><span class="co">#&gt; [1807] 1.0689319 1.3530525 0.6672569 0.5111265 0.5264421 0.4894098 0.5567643</span></span>
+<span><span class="co">#&gt; [1814] 0.2635722 0.3272222 0.3113549 0.5795473 0.4884843 0.4827135 0.3070431</span></span>
+<span><span class="co">#&gt; [1821] 0.9622414 0.5902189 0.6219537 0.6331766 0.8796945 1.2701423 0.4621150</span></span>
+<span><span class="co">#&gt; [1828] 0.9693789 0.6863603 0.6258230 0.8449143 0.5873824 0.4005487 0.6199068</span></span>
+<span><span class="co">#&gt; [1835] 0.4487902 0.6253062 1.0200908 0.6048290 0.6988500 0.4610389 0.5833347</span></span>
+<span><span class="co">#&gt; [1842] 0.4438454 0.5928337 0.6236207 0.3883815 0.4677255 0.7084155 0.6521611</span></span>
+<span><span class="co">#&gt; [1849] 0.9264167 0.4070021 0.6480348 0.4951042 0.5818162 0.7867157 0.8303511</span></span>
+<span><span class="co">#&gt; [1856] 1.6285373 0.9733055 0.4491801 0.6612826 0.7431446 0.8665191 1.0213992</span></span>
+<span><span class="co">#&gt; [1863] 0.6069557 0.3885037 0.4760245 1.0309520 0.8372552 0.4635037 0.9721007</span></span>
+<span><span class="co">#&gt; [1870] 0.6847242 0.6361946 0.8837353 1.0921986 0.6098380 0.7902345 0.5383318</span></span>
+<span><span class="co">#&gt; [1877] 0.6446980 0.6979953 0.4196233 0.4186904 0.5651838 0.6617430 0.9302860</span></span>
+<span><span class="co">#&gt; [1884] 1.3169632 0.3282824 0.7170733 0.3670739 1.1899200 0.8499313 0.4306886</span></span>
+<span><span class="co">#&gt; [1891] 1.0785692 0.3151203 0.9345436 0.3390976 0.4965932 0.7961058 0.5706065</span></span>
+<span><span class="co">#&gt; [1898] 0.9187941 0.6891014 0.6175564 0.4079581 0.5464646 0.5065788 0.4263459</span></span>
+<span><span class="co">#&gt; [1905] 0.7463988 0.8718825 0.6509877 0.3511409 0.6414118 0.4304407 0.6245323</span></span>
+<span><span class="co">#&gt; [1912] 1.1339294 0.5335999 0.5186633 0.4438136 0.8019067 0.7675673 0.8483450</span></span>
+<span><span class="co">#&gt; [1919] 0.4729379 0.6527594 1.4672563 0.4399404 0.7208876 0.5294233 0.4094581</span></span>
+<span><span class="co">#&gt; [1926] 0.4735922 0.4548688 0.4020252 0.7721232 1.2558609 0.9267072 0.3825402</span></span>
+<span><span class="co">#&gt; [1933] 0.3652230 0.6269795 0.5641959 0.3452133 0.3928226 0.5161994 0.5512446</span></span>
+<span><span class="co">#&gt; [1940] 1.2338821 0.4638423 0.6066752 0.4170909 0.4008721 0.3863312 0.4013191</span></span>
+<span><span class="co">#&gt; [1947] 0.4314811 0.5463247 0.2633923 0.5228119 0.3740951 0.5126126 0.2331486</span></span>
+<span><span class="co">#&gt; [1954] 0.3341242 0.5404200 0.5565543 0.4295936 0.3216725 0.3776489 0.3458137</span></span>
+<span><span class="co">#&gt; [1961] 0.4720188 0.9240084 0.4047615 0.3622011 0.3279143 0.3480292 0.3304065</span></span>
+<span><span class="co">#&gt; [1968] 0.2750190 0.3014467 0.2532567 0.3186137 0.3720056 0.2676346 0.3386728</span></span>
+<span><span class="co">#&gt; [1975] 0.8753460 0.4061477 0.2842846 0.2254836 0.2466870 0.3155173 0.2961903</span></span>
+<span><span class="co">#&gt; [1982] 0.2077289 0.3759241 0.5354238 0.2358507 0.1619807 0.2463813 0.2550037</span></span>
+<span><span class="co">#&gt; [1989] 0.3074768 0.2060943 1.2579911 0.5932873 0.2796345 0.6500187 0.3506551</span></span>
+<span><span class="co">#&gt; [1996] 0.2246158 0.1818966 0.2958629 0.2100690 0.3157083 0.3969760 0.2999422</span></span>
+<span><span class="co">#&gt; [2003] 0.2524608 0.2492081 0.4075342 0.2901719 0.3393726 0.2919893 0.4092746</span></span>
+<span><span class="co">#&gt; [2010] 0.3311639 0.9415432 0.5072848 0.4190125 0.8574011 0.8270439 0.6843318</span></span>
+<span><span class="co">#&gt; [2017] 0.3047039 0.5351327 0.4691358 1.4074926 0.6081978 0.9656880 0.5153933</span></span>
+<span><span class="co">#&gt; [2024] 0.2886532 0.4834876 0.4066724 0.5219218 0.3703168 0.6791694 0.3931903</span></span>
+<span><span class="co">#&gt; [2031] 0.4994441 0.4253156 0.3679932 0.4097774 0.4179452 0.2894216 0.5097507</span></span>
+<span><span class="co">#&gt; [2038] 0.5931507 0.5676834 0.7037546 0.2954604 0.2847767 0.3139241 0.3591782</span></span>
+<span><span class="co">#&gt; [2045] 0.3700514 0.9419805 0.7679279 0.2259706 0.4971050 0.3131396 0.3293400</span></span>
+<span><span class="co">#&gt; [2052] 0.3808412 0.2294010 0.1977593 0.8789923 0.2780995 0.3868216 0.3911774</span></span>
+<span><span class="co">#&gt; [2059] 0.2481172 0.2466739 0.9591529 0.3056657 0.3637453 0.4350124 0.2336056</span></span>
+<span><span class="co">#&gt; [2066] 0.3284589 0.3031779 0.3497253 0.4812900 0.3005270 0.8063567 0.3654640</span></span>
+<span><span class="co">#&gt; [2073] 0.5679070 0.3869461 0.3959355 0.3226061 0.4479985 0.2083477 0.4123446</span></span>
+<span><span class="co">#&gt; [2080] 0.5967332 0.4176557 0.5093769 0.3934224 0.2115775 0.3988500 0.8746273</span></span>
+<span><span class="co">#&gt; [2087] 0.5769037 0.4123359 0.4613252 0.2722316 0.6972135 0.4670983 0.4429698</span></span>
+<span><span class="co">#&gt; [2094] 0.4172959 0.2290493 0.4804406 1.2509093 0.2829198 0.6633743 0.2747363</span></span>
+<span><span class="co">#&gt; [2101] 0.3945378 0.6453250 2.2959056 0.2933780 0.3144920 0.2634070 0.3239291</span></span>
+<span><span class="co">#&gt; [2108] 0.4957374 0.3576186 0.3340109 0.4471038 0.2717489 0.4690844 0.3923683</span></span>
+<span><span class="co">#&gt; [2115] 0.3090569 0.3193750 0.2333399 0.2937070 0.2948800 0.2677876 0.2313617</span></span>
+<span><span class="co">#&gt; [2122] 0.6364412 0.5024070 0.1866584 0.5150607 0.2498373 0.3155827 0.4471219</span></span>
+<span><span class="co">#&gt; [2129] 0.1719359 0.1943005 0.2017262 0.2724710 0.3285416 0.2203443 0.4159256</span></span>
+<span><span class="co">#&gt; [2136] 0.4196351 0.2301003 0.8317642 0.1338864 0.1784346 0.3839533 0.1397454</span></span>
+<span><span class="co">#&gt; [2143] 0.2540023 0.7262252 0.3108532 0.1605738 0.2991070 0.2730480 0.3271999</span></span>
+<span><span class="co">#&gt; [2150] 0.2298224 0.5798367 0.3024647 0.3824327 0.2500173 0.4085065 0.8480274</span></span>
+<span><span class="co">#&gt; [2157] 0.3818955 0.3110832 0.2026175 0.3847243 0.5596895 0.1854043 0.5090915</span></span>
+<span><span class="co">#&gt; [2164] 0.4966700 0.8310243 0.5501934 0.3872394 0.9628184 0.2816797 0.5340677</span></span>
+<span><span class="co">#&gt; [2171] 0.4059914 0.2793635 0.6304969 0.2974488 0.2511299 0.4299391 0.3209973</span></span>
+<span><span class="co">#&gt; [2178] 0.2715077 0.1515817 0.3384499 0.2957582 0.3293122 0.4347742 0.6477881</span></span>
+<span><span class="co">#&gt; [2185] 0.6636268 0.4349038 0.5353818 0.1986231 1.0138863 0.2782783 0.5025696</span></span>
+<span><span class="co">#&gt; [2192] 0.3104328 0.2549752 0.3385694 0.2775399 0.8166846 0.4498288 0.3661325</span></span>
+<span><span class="co">#&gt; [2199] 0.6063422 0.3580387 1.0382955 0.2486334 0.4660297 0.1481857 0.3151760</span></span>
+<span><span class="co">#&gt; [2206] 0.3767768 0.4134927 0.2009403 0.4981774 0.3357615 0.3598718 0.5601545</span></span>
+<span><span class="co">#&gt; [2213] 0.3867702 0.3060634 0.5329099 0.1845309 0.3754400 0.3582437 0.2772678</span></span>
+<span><span class="co">#&gt; [2220] 0.4136815 0.2030331 0.2827223 0.3595073 0.4857523 0.3467909 0.2293891</span></span>
+<span><span class="co">#&gt; [2227] 0.4945056 0.7539187 0.2400091 0.3723597 0.2805319 0.3196303 0.2151282</span></span>
+<span><span class="co">#&gt; [2234] 0.6126489 0.6455950 0.3773039 0.3692933 0.3902774 0.4636191 0.7661175</span></span>
+<span><span class="co">#&gt; [2241] 0.3994208 0.2919770 0.3183749 0.4447788 0.7668559 0.2314136 0.4925914</span></span>
+<span><span class="co">#&gt; [2248] 0.8124874 0.5521009 0.7189629 0.6602622 0.3649289 0.3033085 0.4429471</span></span>
+<span><span class="co">#&gt; [2255] 2.9277190 0.7993884 0.3379693 0.4835457 0.5822415 0.6902686 0.4580242</span></span>
+<span><span class="co">#&gt; [2262] 0.6096529 0.2828681 0.1937415 0.5634228 0.3315439 0.5217990 0.4119918</span></span>
+<span><span class="co">#&gt; [2269] 0.3020709 0.5700104 0.4266720 0.3314343 1.1201103 0.2701472 0.5245469</span></span>
+<span><span class="co">#&gt; [2276] 0.5538259 0.7162064 0.5766364 0.9441206 0.9247033 0.4112339 0.4201593</span></span>
+<span><span class="co">#&gt; [2283] 0.9371560 0.4992336 0.5466830 0.4592743 0.5227295 0.3018594 0.3394750</span></span>
+<span><span class="co">#&gt; [2290] 1.3477624 0.2928928 0.4578168 0.8878936 1.1410114 0.2542868 0.3372272</span></span>
+<span><span class="co">#&gt; [2297] 0.4563875 0.4314396 0.9105045 0.3313652 0.4494479 0.3000139 0.3000866</span></span>
+<span><span class="co">#&gt; [2304] 0.6235051 0.4122679 0.6833321 0.4980124 0.3459037 0.3981625 0.3952567</span></span>
+<span><span class="co">#&gt; [2311] 0.5233365 0.5129183 0.4572469 0.7279957 0.4945273 0.6624391 0.4022587</span></span>
+<span><span class="co">#&gt; [2318] 0.5395278 0.4356956 0.3579911 0.6630037 0.5816756 0.4685089 0.6823472</span></span>
+<span><span class="co">#&gt; [2325] 0.5819805 0.9311662 1.0488614 0.9318283 1.6292467 0.6981743 0.6648595</span></span>
+<span><span class="co">#&gt; [2332] 0.6775941 0.4268293 0.7494903 0.4835852 0.5718912 0.5373147 1.1607007</span></span>
+<span><span class="co">#&gt; [2339] 0.8066709 0.4653635 0.7013220 0.6249051 0.6914545 0.4605551 0.4919683</span></span>
+<span><span class="co">#&gt; [2346] 0.7217936 0.6287437 0.6008857 0.8595073 0.5698717 0.3781724 0.5098608</span></span>
+<span><span class="co">#&gt; [2353] 0.5411919 0.5091915 0.3423090 1.0074896 1.0925127 1.1869311 0.4208647</span></span>
+<span><span class="co">#&gt; [2360] 0.4163492 0.8215561 1.0279051 0.7166196 0.7263878 0.8528227 0.4053844</span></span>
+<span><span class="co">#&gt; [2367] 1.2948969 1.0070887 0.5895896 0.9230134 0.4969995 0.4520987 1.4509265</span></span>
+<span><span class="co">#&gt; [2374] 0.5578303 0.6051646 0.5151992 0.5648480 0.5538298 0.4801829 0.8573574</span></span>
+<span><span class="co">#&gt; [2381] 0.8398927 0.7227336 0.7580617 0.5260110 0.5380821 0.7589127 0.5825038</span></span>
+<span><span class="co">#&gt; [2388] 0.5006498 0.4111484 0.4824041 0.6079369 0.7113848 0.6180898 0.5761356</span></span>
+<span><span class="co">#&gt; [2395] 0.5884400 0.6096206 0.4108353 0.3304339 1.0062956 0.2076443 0.7126168</span></span>
+<span><span class="co">#&gt; [2402] 0.2868410 0.4117384 0.5164422 0.1999613 0.2800385 0.3983793 0.2423988</span></span>
+<span><span class="co">#&gt; [2409] 0.2047528 0.3138491 0.1856415 0.2019871 0.2160289 0.5216748 0.2650189</span></span>
+<span><span class="co">#&gt; [2416] 0.1815483 0.3252232 0.4613807 0.3179969 0.3499368 0.3387076 0.5509831</span></span>
+<span><span class="co">#&gt; [2423] 0.5447549 0.5403906 0.2255327 0.4068846 0.5249015 0.7672507 0.5872768</span></span>
+<span><span class="co">#&gt; [2430] 0.4700469 0.3788719 0.5980767 0.3393054 0.3179006 0.3939546 0.2473771</span></span>
+<span><span class="co">#&gt; [2437] 0.4752199 0.9412012 0.6952965 0.9912573 0.2714045 0.5694427 0.5864496</span></span>
+<span><span class="co">#&gt; [2444] 0.3094394 0.4944054 0.3155485 0.3455518 0.3554037 0.5485801 0.5637233</span></span>
+<span><span class="co">#&gt; [2451] 0.4860388 0.2941673 0.4500015 0.5535388 0.4134069 0.5583496 0.3925462</span></span>
+<span><span class="co">#&gt; [2458] 0.6925893 0.2146080 0.2919583 0.3828987 0.6884410 0.2043576 0.1740035</span></span>
+<span><span class="co">#&gt; [2465] 0.8680209 0.5759633 0.5072931 0.3471606 0.2658161 0.1824395 0.2273628</span></span>
+<span><span class="co">#&gt; [2472] 0.1988667 0.4574221 0.1870769 0.3260304 0.1892063 0.6966907 0.4882125</span></span>
+<span><span class="co">#&gt; [2479] 0.3836444 0.3655271 0.8164587 0.1830506 0.4550484 0.3004721 0.1185658</span></span>
+<span><span class="co">#&gt; [2486] 0.2324333 0.2761192 0.3982234 0.2981836 0.2894114 0.3013962 1.2012092</span></span>
+<span><span class="co">#&gt; [2493] 2.4725929 0.2901326 1.3766797 0.8620510 0.7236363 0.3114939 0.2307754</span></span>
+<span><span class="co">#&gt; [2500] 0.2964688 0.4624136 0.2566711 0.3369860 0.3344777 0.3385442 0.3110918</span></span>
+<span><span class="co">#&gt; [2507] 0.2121480 0.3003881 0.3082711 0.1843243 0.2401711 0.2688840 0.6385495</span></span>
+<span><span class="co">#&gt; [2514] 0.4021759 0.2307940 0.2002314 0.7760884 1.3485700 0.3981584 0.5813856</span></span>
+<span><span class="co">#&gt; [2521] 0.6078029 0.4205376 0.3958241 0.5679613 0.8133076 0.3369549 0.5572460</span></span>
+<span><span class="co">#&gt; [2528] 0.6409976 0.3086102 0.2310904 0.2240608 0.3373634 0.3666926 0.1860829</span></span>
+<span><span class="co">#&gt; [2535] 0.4811159 0.6227676 0.5039504 1.1841169 0.4018291 0.3482626 0.2413254</span></span>
+<span><span class="co">#&gt; [2542] 0.1886398 0.4188107 0.6475609 0.4388209 0.2319748 0.1757912 0.5143676</span></span>
+<span><span class="co">#&gt; [2549] 0.3538551 0.5567272 0.2479046 0.4571197 0.2070337 0.6267536 1.5893273</span></span>
+<span><span class="co">#&gt; [2556] 0.4874952 0.5411368 0.5180651 0.6037162 0.2355265 0.3266229 0.2505072</span></span>
+<span><span class="co">#&gt; [2563] 0.6339140 0.5596668 0.2068564 0.5287665 0.1938271 0.3635211 0.8005122</span></span>
+<span><span class="co">#&gt; [2570] 0.3309513 0.2659026 0.5608869 0.4150862 0.3516087 0.5060428 0.3293715</span></span>
+<span><span class="co">#&gt; [2577] 0.6637494 0.2331143 0.1826957 0.1968636 0.1637478 0.2548292 0.6935695</span></span>
+<span><span class="co">#&gt; [2584] 0.1953248 0.6001239 0.3155270 0.2194079 0.1509978 0.2424578 0.2317265</span></span>
+<span><span class="co">#&gt; [2591] 0.3243732 0.3288374 0.3622562 0.4452402 0.3183281 0.4216950 0.1768032</span></span>
+<span><span class="co">#&gt; [2598] 0.3157800 0.2748601 0.5669095 0.9538581 0.5007944 0.4112026 0.5419732</span></span>
+<span><span class="co">#&gt; [2605] 0.6708303 0.6817836 0.4972728 0.6271715 0.6885709 0.9341907 0.4167574</span></span>
+<span><span class="co">#&gt; [2612] 0.4030011 0.2834534 0.5366840 0.9934301 0.3218117 0.3638974 0.4195645</span></span>
+<span><span class="co">#&gt; [2619] 0.3931779 0.3283593 0.2515434 0.6684912 0.6318029 0.4022234 0.3903859</span></span>
+<span><span class="co">#&gt; [2626] 0.5421202 0.6625022 0.4305596 0.4180285 0.9524911 0.2082381 0.5283789</span></span>
+<span><span class="co">#&gt; [2633] 0.2513484 0.2997781 0.3134889 0.1816127 0.2429556 0.1890579 0.3247658</span></span>
+<span><span class="co">#&gt; [2640] 0.3495208 0.3928180 0.3489503 0.3210952 0.3394099 0.8585630 0.2678618</span></span>
+<span><span class="co">#&gt; [2647] 0.3162043 0.3524275 0.2394644 0.2584395 0.1701799 0.1727409 0.1746249</span></span>
+<span><span class="co">#&gt; [2654] 0.5730624 0.2941838 0.1690575 0.1961935 0.1811626 0.2282455 0.9045508</span></span>
+<span><span class="co">#&gt; [2661] 0.2262194 0.2580276 0.3782178 0.3156207 0.2507244 0.5832143 0.4912288</span></span>
+<span><span class="co">#&gt; [2668] 0.6757900 0.4318327 0.3006227 0.5691340 0.2621215 1.1200184 0.5515888</span></span>
+<span><span class="co">#&gt; [2675] 0.2766747 0.2434754 0.2698712 0.2126860 0.4631313 0.4056000 0.3867958</span></span>
+<span><span class="co">#&gt; [2682] 0.2933197 0.2022617 0.1403880 0.1864157 0.2643433 0.3698243 0.2434626</span></span>
+<span><span class="co">#&gt; [2689] 0.2570670 0.3292387 0.3079758 0.4487707 0.3206108 0.1554492 0.5621817</span></span>
+<span><span class="co">#&gt; [2696] 0.1436284 0.1983419 0.5880159 0.1528923 0.3530707 0.1982939 0.1982902</span></span>
+<span><span class="co">#&gt; [2703] 0.2355622 0.1704211 0.1321239 0.7986746 0.3184677 0.3170377 0.3721524</span></span>
+<span><span class="co">#&gt; [2710] 0.5657967 0.3462929 0.2806170 0.4475955 0.4365709 0.4158947 0.4067549</span></span>
+<span><span class="co">#&gt; [2717] 0.8617303 0.7601747 0.4912575 0.4485458 0.5991391 0.3486318 0.4730358</span></span>
+<span><span class="co">#&gt; [2724] 0.4817742 0.9689694 0.4695508 0.3312377 0.2784567 0.4334092 0.1992452</span></span>
+<span><span class="co">#&gt; [2731] 0.2712010 0.3559502 0.4257551 0.1648501 0.4851980 0.1513140 0.2839699</span></span>
+<span><span class="co">#&gt; [2738] 0.3914359 0.1545951 0.3119780 0.2559816 0.2391704 0.1906621 0.8227662</span></span>
+<span><span class="co">#&gt; [2745] 0.7486176 0.2896909 0.2195900 0.5043748 1.4110073 0.2810749 2.7340267</span></span>
+<span><span class="co">#&gt; [2752] 1.0720169 0.3855015 0.7354700 0.3715817 0.5594359 0.7873926 0.2737729</span></span>
+<span><span class="co">#&gt; [2759] 0.5171470 0.3687170 0.3427423 0.9178332 1.3096429 0.2934791 0.2381196</span></span>
+<span><span class="co">#&gt; [2766] 0.1809482 0.2742789 0.5026276 0.5193515 0.3637623 0.1679808 0.2061580</span></span>
+<span><span class="co">#&gt; [2773] 0.2759568 0.2351670 0.1623629 0.2997975 0.3583705 0.2096810 0.2258624</span></span>
+<span><span class="co">#&gt; [2780] 0.2863432 0.5146719 0.3257726 0.2219938 0.4469241 0.4304666 0.2596782</span></span>
+<span><span class="co">#&gt; [2787] 0.3801490 0.2746723 0.4018288 0.2800701 0.8713919 0.1779662 0.3158951</span></span>
+<span><span class="co">#&gt; [2794] 0.4396445 0.6759492 0.2994991 0.2292734 0.2183087 0.2350233 0.4970463</span></span>
+<span><span class="co">#&gt; [2801] 0.3038212 0.4411677 0.2437759 0.1977158 0.5185834 0.3921943 0.4381089</span></span>
+<span><span class="co">#&gt; [2808] 0.2139585 0.2736933 0.4645330 0.4127345 0.4987151 0.3383534 0.3614454</span></span>
+<span><span class="co">#&gt; [2815] 0.3042653 0.1925791</span></span>
+<span></span>
+<span><span class="va">sce.zeisel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/logNormCounts.html">logNormCounts</a></span><span class="op">(</span><span class="va">sce.zeisel</span><span class="op">)</span></span>
+<span><span class="fu">assayNames</span><span class="op">(</span><span class="va">sce.zeisel</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "counts"    "logcounts"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/wanganlin00\.github\.io\/Bioinformatics\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./QC.html" class="pagination-link" aria-label="质量控制">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">质量控制</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./feature_selection.html" class="pagination-link" aria-label="特征选择">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">特征选择</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb13" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| echo: false</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="in">conflicts_prefer(GenomicRanges::setdiff)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="in">conflicts_prefer(dplyr::filter)</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># 标准化</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>由于难以制备完全一致的文库，在单细胞RNA测序数据中经常观察到文库之间测序覆盖率的系统差异,这通常源于细胞cDNA捕获效率或PCR扩增效率的技术差异。</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## scaling normalization</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>**标准化（normalization）**旨在消除这些差异，使它们不会干扰细胞之间表达谱的比较。 这确保了在细胞群体中观察到的任何异质性或差异表达都是由生物学差异而非技术差异造成的。 其中**缩放标准化（scaling normalization）**是最简单和最常用的一类标准化策略。这涉及将每个细胞的总计数除以细胞特定的比例因子，通常称为"缩放因子(size factor)"。</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>**假设**：任何细胞特异性偏差（如捕获或扩增效率）都会通过缩放该细胞的预期平均计数来平等地影响所有基因。 每个细胞的缩放因子表示该细胞中相对偏差的估计值，因此将其计数除以缩放因子应消除该偏差。由此产生的"标准化表达式值"可用于下游分析，如聚类和降维。</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: loading-ZeiselBrainData</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co">#--- loading ---#</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>sce.zeisel <span class="ot">&lt;-</span> scRNAseq<span class="sc">::</span><span class="fu">ZeiselBrainData</span>()</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scater)</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>sce.zeisel <span class="ot">&lt;-</span> <span class="fu">aggregateAcrossFeatures</span>(sce.zeisel, </span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">id=</span><span class="fu">sub</span>(<span class="st">"_loc[0-9]+$"</span>, <span class="st">""</span>, <span class="fu">rownames</span>(sce.zeisel)))</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="co">#--- gene-annotation ---#</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(org.Mm.eg.db)</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="fu">rowData</span>(sce.zeisel)<span class="sc">$</span>Ensembl <span class="ot">&lt;-</span> <span class="fu">mapIds</span>(org.Mm.eg.db, </span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">keys=</span><span class="fu">rownames</span>(sce.zeisel), <span class="at">keytype=</span><span class="st">"SYMBOL"</span>, <span class="at">column=</span><span class="st">"ENSEMBL"</span>)</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="co">#--- quality-control ---#</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">perCellQCMetrics</span>(sce.zeisel, <span class="at">subsets=</span><span class="fu">list</span>(</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mt=</span><span class="fu">rowData</span>(sce.zeisel)<span class="sc">$</span>featureType<span class="sc">==</span><span class="st">"mito"</span>))</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>qc <span class="ot">&lt;-</span> <span class="fu">quickPerCellQC</span>(stats, <span class="at">percent_subsets=</span><span class="fu">c</span>(<span class="st">"altexps_ERCC_percent"</span>, </span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"subsets_Mt_percent"</span>))</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>sce.zeisel <span class="ot">&lt;-</span> sce.zeisel[,<span class="sc">!</span>qc<span class="sc">$</span>discard]</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r sce.zeisel}</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="in">sce.zeisel </span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a><span class="fu">### 文库大小标准化</span></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>文库大小标准化是执行缩放标准化的最简单策略。我们将文库大小定义为每个细胞所有基因的计数总和，假设其期望值与任何细胞特异性偏差成比例。然后，每个细胞的"文库缩放因子"与其文库大小成正比，其中定义了比例常数，使得所有细胞的平均缩放因子等于 1。 此定义可确保标准化表达式值与原始计数的比例相同，这对解释很有用，尤其是在处理转换后的数据时。</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{r librarySizeFactors}</span></span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="in">lib.sf.zeisel &lt;- scuttle::librarySizeFactors(sce.zeisel)</span></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a><span class="in">summary(lib.sf.zeisel)</span></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>在ZeiselBrainData中，细胞文库缩放因子在细胞之间相差多达 10 倍 @fig-histogram-log10sizefactor 。这是scRNA-seq数据覆盖率变异的典型特征。</span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-histogram-log10sizefactor</span></span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Zeisel 大脑数据集中从文库大小得出的缩放因子分布"</span></span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">log10</span>(lib.sf.zeisel), <span class="at">xlab=</span><span class="st">"Log10[Size factor]"</span>, <span class="at">col=</span><span class="st">'grey80'</span>)</span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a><span class="fu">### 反卷积标准化 Normalization by deconvolution</span></span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>当样本之间存在任何不平衡的差异表达（DE）时，就会出现成分偏差。消除成分偏差可以使用&nbsp;<span class="co">[</span><span class="ot">*DESeq2*</span><span class="co">](https://bioconductor.org/packages/3.18/DESeq2)</span>&nbsp;包中的函数<span class="in">`estimateSizeFactorsFromMatrix()`</span>或&nbsp;<span class="co">[</span><span class="ot">*edgeR*</span><span class="co">](https://bioconductor.org/packages/3.18/edgeR)</span>&nbsp;包中的函数<span class="in">`calcNormFactors()`</span>执行标准化。</span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>假设：细胞之间大多数基因并非差异表达，假设两个细胞之间大多数非 DE 基因的计数大小的任何系统性差异代表被用于计算去除系统性差异的适当缩放因子的偏差。</span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>然而，由于低计数和零计数占主导地位，单细胞数据对于这些批量标准化方法来说可能是个问题。Pool-based size factors are then "deconvolved" into cell-based factors for normalization of each cell's expression profile.基于 pool 的缩放因子"反卷积"为基于细胞的缩放因子，以标准化每个细胞的表达谱。</span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>首先使用预聚类步骤<span class="in">`quickCluster()`</span>，其中每个聚类中的细胞单独标准化，缩放因子重新缩放以在聚类之间具有可比性。</span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r quickCluster}</span></span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a><span class="in">library(scran)</span></span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(100)</span></span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a><span class="in">clust.zeisel &lt;- quickCluster(sce.zeisel) </span></span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a><span class="in">table(clust.zeisel)</span></span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>然后使用&nbsp;<span class="co">[</span><span class="ot">*scran*</span><span class="co">](https://bioconductor.org/packages/3.18/scran)</span>&nbsp;中的函数<span class="in">`calculateSumFactors()`</span>执行反卷积缩放。</span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a><span class="in">```{r Deconvolution_sizeFactor}</span></span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a><span class="in">deconv.sf.zeisel &lt;- calculateSumFactors(sce.zeisel, cluster=clust.zeisel)</span></span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a><span class="in">summary(deconv.sf.zeisel)</span></span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a>可以看到 @fig-deconvolution_vs_library 反卷积缩放因子表现出与文库缩放因子细胞特定类型的偏差。 这与细胞类型之间的强差异表达所引入的成分偏差的存在是一致的。 使用反卷积缩放因子可以调整这些偏差，以提高下游分析的标准化精度。</span>
+<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-deconvolution_vs_library</span></span>
+<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "在ZeiselBrainData中，每个细胞的反卷积缩放因子与文库缩放因子进行比较。红线对应于两个缩放因子之间的同一性。"</span></span>
+<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x=</span>lib.sf.zeisel, <span class="at">y=</span>deconv.sf.zeisel) <span class="sc">|&gt;</span> </span>
+<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x,y))<span class="sc">+</span></span>
+<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>()<span class="sc">+</span></span>
+<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()<span class="sc">+</span></span>
+<span id="cb13-99"><a href="#cb13-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="fu">as.integer</span>(<span class="fu">factor</span>(sce.zeisel<span class="sc">$</span>level1class)))<span class="sc">+</span></span>
+<span id="cb13-100"><a href="#cb13-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>,<span class="at">intercept =</span> <span class="dv">0</span>,<span class="at">color=</span><span class="st">"red"</span>,<span class="at">linewidth=</span><span class="fl">1.2</span>)<span class="sc">+</span></span>
+<span id="cb13-101"><a href="#cb13-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Library size factor"</span>)<span class="sc">+</span></span>
+<span id="cb13-102"><a href="#cb13-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Deconvolution size factor"</span>)</span>
+<span id="cb13-103"><a href="#cb13-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-104"><a href="#cb13-104" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-105"><a href="#cb13-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-106"><a href="#cb13-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### Normalization by spike-ins</span></span>
+<span id="cb13-107"><a href="#cb13-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a>RNA-seq常用的spike-in有 External RNA Controls Consortium mix (ERCCs)，spike-in RNA variants (SIRVs)和sequencing spike-ins (Sequins) 。</span>
+<span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a>Spike-in normalization基于向每个细胞中添加相同数量的spike-in RNA 的假设。Spike-in transcripts覆盖率的系统性差异只能归因于细胞特异性偏差，如捕获效率或测序深度。</span>
+<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a>为了消除这些偏差，我们通过缩放"spike-in size factors "均衡细胞之间的 spike-in 覆盖率。</span>
+<span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a>与之前的方法相比，Spike-in normalization 不需要对系统的生物学特性进行假设（即，缺乏许多DE基因）。 </span>
+<span id="cb13-114"><a href="#cb13-114" aria-hidden="true" tabindex="-1"></a>相反，它假设spike-in transcripts （i） 以恒定水平添加到每个细胞中，（ii） 以与内源性基因相同的相对方式对偏差做出反应。</span>
+<span id="cb13-115"><a href="#cb13-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-116"><a href="#cb13-116" aria-hidden="true" tabindex="-1"></a>实际上，如果对单个细胞的总RNA含量的差异感兴趣，并且必须在下游分析中保留，则应使用 spike-in normalization 。 对于给定的细胞，其内源性RNA总量的增加不会增加其spike-in size factor。 这确保了总RNA含量对整个群体表达的影响不会在缩放时被消除。 相比之下，上述其他标准化方法简单地将总RNA含量的任何变化解释为偏倚的一部分并将其消除。</span>
+<span id="cb13-117"><a href="#cb13-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-120"><a href="#cb13-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-121"><a href="#cb13-121" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: loading-RichardTCellData</span></span>
+<span id="cb13-122"><a href="#cb13-122" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ensembldb)</span>
+<span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a>sce.richard <span class="ot">&lt;-</span> scRNAseq<span class="sc">::</span><span class="fu">RichardTCellData</span>()</span>
+<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a>sce.richard <span class="ot">&lt;-</span> sce.richard[,sce.richard<span class="sc">$</span><span class="st">`</span><span class="at">single cell quality</span><span class="st">`</span><span class="sc">==</span><span class="st">"OK"</span>]</span>
+<span id="cb13-125"><a href="#cb13-125" aria-hidden="true" tabindex="-1"></a>sce.richard</span>
+<span id="cb13-126"><a href="#cb13-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-128"><a href="#cb13-128" aria-hidden="true" tabindex="-1"></a>使用<span class="in">`computeSpikeFactors()`</span>估计每个细胞的spike-in size factors，这是通过使用与<span class="in">`librarySizeFactors()`</span>相同的方法</span>
+<span id="cb13-129"><a href="#cb13-129" aria-hidden="true" tabindex="-1"></a>将每个细胞的总spike-in 计数转换为缩放因子来定义的。随后缩放将消除细胞间 spike-in 覆盖率的任何差异。</span>
+<span id="cb13-130"><a href="#cb13-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-131"><a href="#cb13-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{r spike-in sizeFactor}</span></span>
+<span id="cb13-132"><a href="#cb13-132" aria-hidden="true" tabindex="-1"></a><span class="in">sce.richard &lt;- computeSpikeFactors(sce.richard, "ERCC")</span></span>
+<span id="cb13-133"><a href="#cb13-133" aria-hidden="true" tabindex="-1"></a><span class="in">summary(sizeFactors(sce.richard))</span></span>
+<span id="cb13-134"><a href="#cb13-134" aria-hidden="true" tabindex="-1"></a><span class="in">sce.richard$sizeFactor[1:4]</span></span>
+<span id="cb13-135"><a href="#cb13-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-136"><a href="#cb13-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-137"><a href="#cb13-137" aria-hidden="true" tabindex="-1"></a>可以观察到每个处理条件下的 spike-in 缩放因子和反卷积缩放因子之间存在正相关关系（@fig-SpikeFactor_vs_DeconvFactor），</span>
+<span id="cb13-138"><a href="#cb13-138" aria-hidden="true" tabindex="-1"></a>表明它们在测序深度和捕获效率方面捕获了类似的技术偏差。 </span>
+<span id="cb13-139"><a href="#cb13-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-140"><a href="#cb13-140" aria-hidden="true" tabindex="-1"></a>还观察到，增加对 T 细胞受体的刺激 - 就亲和力或时间增加而言 - 导致相对于文库缩放因子的 spike-in 因子降低。 这与刺激过程中生物合成活性和总RNA含量的增加一致，这降低了每个文库中的相对 spike-in 覆盖率（从而降低了 spike-in 缩放因子），但增加了内源性基因的覆盖率（从而增加了文库缩放因子）。</span>
+<span id="cb13-141"><a href="#cb13-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-144"><a href="#cb13-144" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-145"><a href="#cb13-145" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-SpikeFactor_vs_DeconvFactor</span></span>
+<span id="cb13-146"><a href="#cb13-146" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Spike-in normalization的spike-in缩放因子与 反卷积缩放因子作图。 每个图代表不同的配体处理，每个点都是一个细胞，根据刺激时间着色。"</span></span>
+<span id="cb13-147"><a href="#cb13-147" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb13-148"><a href="#cb13-148" aria-hidden="true" tabindex="-1"></a>    <span class="at">DeconvFactor=</span><span class="fu">calculateSumFactors</span>(sce.richard),</span>
+<span id="cb13-149"><a href="#cb13-149" aria-hidden="true" tabindex="-1"></a>    <span class="at">SpikeFactor=</span><span class="fu">sizeFactors</span>(sce.richard),</span>
+<span id="cb13-150"><a href="#cb13-150" aria-hidden="true" tabindex="-1"></a>    <span class="at">Stimulus=</span>sce.richard<span class="sc">$</span>stimulus, </span>
+<span id="cb13-151"><a href="#cb13-151" aria-hidden="true" tabindex="-1"></a>    <span class="at">Time=</span>sce.richard<span class="sc">$</span>time</span>
+<span id="cb13-152"><a href="#cb13-152" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-153"><a href="#cb13-153" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>DeconvFactor, <span class="at">y=</span>SpikeFactor, <span class="at">color=</span>Time)) <span class="sc">+</span></span>
+<span id="cb13-154"><a href="#cb13-154" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>Stimulus) <span class="sc">+</span> <span class="fu">scale_x_log10</span>() <span class="sc">+</span> </span>
+<span id="cb13-155"><a href="#cb13-155" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_log10</span>() <span class="sc">+</span> <span class="fu">geom_abline</span>(<span class="at">intercept=</span><span class="dv">0</span>, <span class="at">slope=</span><span class="dv">1</span>, <span class="at">color=</span><span class="st">"red"</span>)</span>
+<span id="cb13-156"><a href="#cb13-156" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-157"><a href="#cb13-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-158"><a href="#cb13-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-159"><a href="#cb13-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-160"><a href="#cb13-160" aria-hidden="true" tabindex="-1"></a>这两组缩放因子之间的差异对下游分析有实际影响。 如果将 spike-in 缩放因子应用于计数，则未刺激细胞中的表达值将放大，而刺激细胞中的表达将缩小。 但是，如果使用反卷积缩放因子，则会出现相反的情况。 当我们在标准化策略之间切换时，这可能表现为不同条件之间 DE 的大小和方向的变化，如 @fig-fig-switch-between-normalization-strategies 所示</span>
+<span id="cb13-161"><a href="#cb13-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-164"><a href="#cb13-164" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-165"><a href="#cb13-165" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-switch-between-normalization-strategies</span></span>
+<span id="cb13-166"><a href="#cb13-166" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用反卷积缩放因子（左）或 spike-in 缩放因子（右）进行标准化后 Malat1 的对数标准化表达值分布。细胞按配体亲和力分层，并按刺激时间着色"</span></span>
+<span id="cb13-167"><a href="#cb13-167" aria-hidden="true" tabindex="-1"></a>sce.richard.deconv <span class="ot">&lt;-</span> <span class="fu">logNormCounts</span>(sce.richard, <span class="at">size_factors=</span><span class="fu">calculateSumFactors</span>(sce.richard))</span>
+<span id="cb13-168"><a href="#cb13-168" aria-hidden="true" tabindex="-1"></a>sce.richard.spike <span class="ot">&lt;-</span> <span class="fu">logNormCounts</span>(sce.richard, <span class="at">size_factors=</span><span class="fu">sizeFactors</span>(sce.richard))</span>
+<span id="cb13-169"><a href="#cb13-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-170"><a href="#cb13-170" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(</span>
+<span id="cb13-171"><a href="#cb13-171" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plotExpression</span>(sce.richard.deconv, <span class="at">x=</span><span class="st">"stimulus"</span>, </span>
+<span id="cb13-172"><a href="#cb13-172" aria-hidden="true" tabindex="-1"></a>        <span class="at">colour_by=</span><span class="st">"time"</span>, <span class="at">features=</span><span class="st">"ENSMUSG00000092341"</span>) <span class="sc">+</span> </span>
+<span id="cb13-173"><a href="#cb13-173" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span> </span>
+<span id="cb13-174"><a href="#cb13-174" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggtitle</span>(<span class="st">"After deconvolution normalization"</span>),</span>
+<span id="cb13-175"><a href="#cb13-175" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plotExpression</span>(sce.richard.spike, <span class="at">x=</span><span class="st">"stimulus"</span>, </span>
+<span id="cb13-176"><a href="#cb13-176" aria-hidden="true" tabindex="-1"></a>        <span class="at">colour_by=</span><span class="st">"time"</span>, <span class="at">features=</span><span class="st">"ENSMUSG00000092341"</span>) <span class="sc">+</span> </span>
+<span id="cb13-177"><a href="#cb13-177" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span></span>
+<span id="cb13-178"><a href="#cb13-178" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggtitle</span>(<span class="st">"After spike-in normalization"</span>),</span>
+<span id="cb13-179"><a href="#cb13-179" aria-hidden="true" tabindex="-1"></a>    <span class="at">ncol=</span><span class="dv">2</span></span>
+<span id="cb13-180"><a href="#cb13-180" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-181"><a href="#cb13-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-182"><a href="#cb13-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-183"><a href="#cb13-183" aria-hidden="true" tabindex="-1"></a>标准化策略的选择取决于生物学假设。 在大多数情况下，总RNA含量的变化并不有趣，使用文库大小或反卷积因子标准化。 然而，如果总RNA的差异与感兴趣的生物学过程有关，例如细胞周期活性或T细胞活化，使用 spike-in 标准化将保留这些差异，以便生物组之间表达的任何变化都具有正确的符号。</span>
+<span id="cb13-184"><a href="#cb13-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-185"><a href="#cb13-185" aria-hidden="true" tabindex="-1"></a>spike-in transcripts 应该使用 spike-in size factors 标准化。</span>
+<span id="cb13-186"><a href="#cb13-186" aria-hidden="true" tabindex="-1"></a>从内源性基因计数计算的缩放因子不应该spike-in transcripts ，因为前者捕获了后者没有的总 RNA 含量差异。 尝试使用基于内源性基因计数的缩放因子对spike-in计数进行标准化将导致过度标准化和不正确的定量。 因此，如果需要标准化spike-in数据，必须为spike-in transcripts计算一组单独的缩放因子，可以使用 <span class="in">`modelGeneVarWithSpikes()`</span>等函数自动执行。</span>
+<span id="cb13-187"><a href="#cb13-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-188"><a href="#cb13-188" aria-hidden="true" tabindex="-1"></a><span class="fu">## 对数变换</span></span>
+<span id="cb13-189"><a href="#cb13-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-190"><a href="#cb13-190" aria-hidden="true" tabindex="-1"></a>The log-transformation is useful as differences in the log-values represent log-fold changes in expression. 这在基于欧几里得距离的下游分析中非常重要，其中包括多种形式的聚类和降维。 通过对数转换数据进行操作，我们确保这些程序是基于表达值的对数倍数变化测量细胞之间的距离。</span>
+<span id="cb13-191"><a href="#cb13-191" aria-hidden="true" tabindex="-1"></a>对数转换可以促进具有强相对差异的基因的显现。</span>
+<span id="cb13-192"><a href="#cb13-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-193"><a href="#cb13-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{r log-transformation}</span></span>
+<span id="cb13-194"><a href="#cb13-194" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(100)</span></span>
+<span id="cb13-195"><a href="#cb13-195" aria-hidden="true" tabindex="-1"></a><span class="in">clust.zeisel &lt;- quickCluster(sce.zeisel) </span></span>
+<span id="cb13-196"><a href="#cb13-196" aria-hidden="true" tabindex="-1"></a><span class="in">sce.zeisel &lt;- computeSumFactors(sce.zeisel, cluster=clust.zeisel, min.mean=0.1)</span></span>
+<span id="cb13-197"><a href="#cb13-197" aria-hidden="true" tabindex="-1"></a><span class="in">sce.zeisel$sizeFactor</span></span>
+<span id="cb13-198"><a href="#cb13-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-199"><a href="#cb13-199" aria-hidden="true" tabindex="-1"></a><span class="in">sce.zeisel &lt;- logNormCounts(sce.zeisel)</span></span>
+<span id="cb13-200"><a href="#cb13-200" aria-hidden="true" tabindex="-1"></a><span class="in">assayNames(sce.zeisel)</span></span>
+<span id="cb13-201"><a href="#cb13-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-202"><a href="#cb13-202" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Wanganlin00/Bioinformatics/edit/main/normalization.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Wanganlin00/Bioinformatics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

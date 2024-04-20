@@ -8,7 +8,7 @@
 
 该数据结构实际上是从父类 [SummarizedExperiment](https://bioconductor.org/packages/3.18/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) 继承。
 
-```{r include=FALSE}
+```{r echo=FALSE}
 conflicts_prefer(GenomicRanges::setdiff)
 ```
 
@@ -54,7 +54,7 @@ sce
 #### 自动添加`assays`
 
 ```{r}
-sce <- scuttle::logNormCounts(sce) #对数变换归一化表达矩阵
+sce <- scuttle::logNormCounts(sce) #对数变换标准化表达矩阵
 sce    #  assays 多了一个  "logcounts"
 
 dim(logcounts(sce))
