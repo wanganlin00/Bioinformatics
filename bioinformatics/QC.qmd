@@ -11,8 +11,7 @@ conflicts_prefer(GenomicRanges::setdiff)
 conflicts_prefer(dplyr::filter)
 ```
 
-```{r}
-#| label: loading-sce.416b
+```{r loading-sce.416b}
 library(scRNAseq)
 library(ensembldb)
 sce.416b <-LunSpikeInData(which="416b") 
@@ -102,6 +101,9 @@ outlying <- adjOutlyingness(stats, only.outlyingness = TRUE)
 multi.outlier <- isOutlier(outlying, type = "higher")
 summary(multi.outlier)
 ```
+
+
+
 
 ## 诊断图
 
