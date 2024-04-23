@@ -18,6 +18,12 @@
 
 `BlueprintEncodeData`参考最适合不需要精细分辨率的混合样品， 特别适用于需要快速易于解释的标签的情况。 它提供了不错的免疫细胞颗粒度，尽管不包含更精细的单核细胞和树突状细胞亚型。
 
+```{r eval=FALSE}
+library(celldex)
+ref <- BlueprintEncodeData()
+ref
+```
+
 调用`SingleR()`使用`BlueprintEncodeData`参考集中的主要细胞类型标签对`sce.pbmc`注释，返回一个`DataFrame`，每行对于一个测试集中的细胞和其注释标签， 参考集`ref=`需要包含测试集`test=`中预期的细胞类型
 
 使用每个细胞和标签分数的热图检查结果。理想情况下，每个细胞在一个标签中相对于所有其他标签都应表现出高分，表明对该标签的分配是明确的。
