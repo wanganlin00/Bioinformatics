@@ -1,8 +1,8 @@
 # Sequences Data to Expression Matrix
 
-基本不做，了解为主。
+了解为主
 
-## Fastq to Counts Matrix
+## Fastq
 
 ![](images/Fastq.jpg){fig-align="center"}
 

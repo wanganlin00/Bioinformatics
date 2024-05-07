@@ -25,6 +25,9 @@ library(SingleCellExperiment)
 ```{r}
 df <- read_tsv("data/OSCA/counts_Calero_20160113.tsv")
 
+# 分离出spike-in RNA
+spike.df <- df[str_detect(df$GeneID,"^ERCC-"),] #正则表达式，spike-in RNA
+
 # 只考虑内源性基因
 df<- df[str_detect(df$GeneID,"^ENSMUSG"),]  #正则表达式，内源性RNA
 
@@ -302,7 +305,6 @@ reducedDims(sce)
 `SingleCellExperiment`提供了"替代实验"的概念，其是一组不同特征但同一组样本/细胞的数据。经典应用是存储加标转录（spike-in transcripts）的每细胞计数，能够保留这些数据以供下游使用，但要将其与保存的内源性基因计数分离，因为此类替代特征通常需要单独处理。
 
 ```{r}
-spike.df <- df[str_detect(df$GeneID,"^ERCC-"),] #正则表达式，spike-in RNA
 spike.df <- spike.df |> column_to_rownames("GeneID")
 spike_length <- spike.df$Length
 spike.mat<- as.matrix(spike.df[,-1]) 

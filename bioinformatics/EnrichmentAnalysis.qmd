@@ -1,0 +1,239 @@
+# 富集分析
+
+```{r}
+# BiocManager::install('clusterProfiler')
+# BiocManager::install("org.Hs.eg.db")
+
+DEG <- read.csv("data/resOrdered.csv")
+DESeq2_DEG = na.omit(DEG) 
+```
+
+对于有参考基因组物种的分析，可以在相关软件包中直接加载该物种的背景基因集 （1）对于常见的模式物种，例如人类，有些专门的 R 包数据库，例如人类参考基因组 hg19 的 `library(org.Hs.eg.db)`
+
+## 数据预处理
+
+```{r}
+#| include: false
+conflicts_prefer(GenomicRanges::setdiff)
+```
+
+```{r}
+nrDEG <- DESeq2_DEG
+head(nrDEG)
+
+nrDEG$expression <- as.factor( 
+    ifelse( nrDEG$padj< 0.2 & abs(nrDEG$log2FoldChange) >= 1,
+            ifelse( nrDEG$log2FoldChange >= 1 , 'up', 'down' ),
+            'normal'))
+table(nrDEG$expression)
+
+nrDEG <- nrDEG |> 
+ inner_join(gtf_mrna_v22, by = c( "X"= "gene_name"))
+
+
+rownames(nrDEG) <- str_sub(nrDEG$gene_id, start = 1, end = 15)
+
+nrDEG$ENSEMBL <- rownames( nrDEG )
+
+
+library(clusterProfiler)
+library(org.Hs.eg.db)
+AnnotationDbi::keytypes(org.Hs.eg.db)
+head(keys(org.Hs.eg.db, "ENSEMBL"))
+
+
+valid_ensembl <- rownames(nrDEG) %in% keys(org.Hs.eg.db, "ENSEMBL")  
+nrDEG_filtered <- nrDEG[valid_ensembl, ]  
+
+
+df <- bitr(
+ geneID= rownames(nrDEG_filtered),
+ fromType = "ENSEMBL", 
+ toType = c( "ENTREZID","SYMBOL" ), 
+ OrgDb = org.Hs.eg.db )
+
+head(df)
+nrDEG_filtered$SYMBOL = rownames(nrDEG_filtered)
+nrDEG = inner_join(nrDEG_filtered, df, by='ENSEMBL' )
+
+gene_up = nrDEG[ nrDEG$expression == 'up', "ENTREZID" ] 
+gene_down = nrDEG[ nrDEG$expression == 'down', "ENTREZID"]
+
+gene_all = as.character(nrDEG[ ,"ENTREZID"])
+
+
+```
+
+## KEGG 通路富集
+
+对于各列内容：
+
+ID和Description，富集到的通路和功能描述；
+
+GeneRatio和BgRatio，分别为富集到该通路中的基因数目/给定基因的总数目，以及该通路中背景基因总数目/该物种所有已知的KEGG功能基因数目；
+
+pvalue、p.adjust和qvalue，p值、校正后p值和q值信息；
+
+geneID和Count，富集到该通路中的基因名称和数目。
+
+注：本示例分析中使用的entrze id，故这里也显示的entrze id。如使用其它类型的基因名称，如symbol id等类型，可在结果中对entrze id和symbol id做个转换。
+
+```{r}
+kegg_up <- clusterProfiler::enrichKEGG(gene = gene_up ,
+                    organism=  'hsa',
+                    keyType = "kegg",
+                    pvalueCutoff  =  0.1,
+                    pAdjustMethod = "fdr",  # FDR多重假设检验校正 qvalue
+                    universe=  gene_all,
+                    minGSSize = 10,
+                    maxGSSize = 500,
+                    qvalueCutoff  =  0.05 )
+kegg_down <- clusterProfiler::enrichKEGG( gene =  gene_down ,
+                    organism=  'hsa',
+                    keyType = "kegg",
+                    pvalueCutoff  =  0.05,
+                    pAdjustMethod = "fdr",
+                    universe=  gene_all,
+                    minGSSize = 10,
+                    maxGSSize = 500,
+                    qvalueCutoff  =  0.05 )
+```
+
+```{r}
+df_up<- as.data.frame(kegg_up)
+df_down<- as.data.frame(kegg_down)
+```
+
+```{r}
+df_up <- df_up[df_up$pvalue < 0.05, ]
+df_down <- df_down[df_down$pvalue < 0.05, ]
+```
+
+```{r}
+
+df_up <- df_up |> 
+    dplyr::mutate(group=1)
+df_down <- df_down |> 
+    dplyr::mutate(group=-1)
+
+```
+
+```{r}
+dat <- rbind(df_up,df_down)
+head(dat)
+```
+
+### 水平条图
+
+```{r}
+dat$Negative_log10pvalue = -log10(dat$pvalue)
+
+dat$Group_log10pvalue = dat$Negative_log10pvalue * dat$group
+
+dat = dat[order( dat$Group_log10pvalue, decreasing = F ), ]
+
+ggKEGG <- ggplot( dat,aes(x =  reorder(Description,
+                                       order(Group_log10pvalue,decreasing=F)),
+                          y = Group_log10pvalue, fill = group)) + 
+    geom_bar( stat = "identity" ) + 
+    scale_fill_gradient( low = "blue", high = "red" ) + 
+    scale_x_discrete( name = "Pathway names" ) +
+    scale_y_continuous( name = "log10 pvalue" ) +
+    coord_flip() + theme_bw() + 
+    theme( plot.title = element_text( hjust = 0.5 ) ,
+           legend.position = "none") +
+    ggtitle( "KEGG Pathway Enrichment" ) 
+ggKEGG
+```
+
+### 点图
+
+```{r}
+# GeneRatio 转化成数值型
+GR <- dat$GeneRatio |> 
+    str_split(pattern = "/",simplify = TRUE) |> as_tibble()
+
+dat$GeneRatio <- parse_number(GR$V1)/parse_number(GR$V2)
+
+dat <- dat[order(dat$GeneRatio,decreasing=F),]
+
+ggplot(data = dat,aes(x=GeneRatio,
+                      y=reorder(Description,order(GeneRatio,decreasing=F)),
+                      color = Negative_log10pvalue,
+                      size=Count
+                      )
+       )+
+    geom_point()+
+    scale_x_continuous( name = "GeneRatio" ,breaks = seq(0,1.0,0.1))+
+    scale_color_gradient(low = "blue", high = "red" )+
+    scale_y_discrete( name = "Pathway names" ) +
+    theme_bw() + 
+    theme( plot.title = element_text( hjust = 0.5 )) +
+    ggtitle( "KEGG Pathway Enrichment " )+
+    labs(color="-log10 pvalue")
+
+```
+
+## GO富集分析
+
+对于输出的GO富集结果表格中的各列内容：
+
+ONTOLOGY，GO的BP（生物学过程）、CC（细胞组分）或MF（分子功能）；
+
+ID和Description，富集到的GO term及其描述；
+
+GeneRatio和BgRatio，分别为富集到该GO term中的基因数目/给定基因的总数目，以及该GO term中背景基因总数目/该物种所有已知GO功能基因数目；
+
+pvalue、p.adjust和qvalue，p值、校正后p值和q值；
+
+geneID和Count，富集到该GO term中的基因名称和数目。
+
+注：以上示例分析中使用的entrze id，故输出的基因名称也显示的entrze id。如期望显示其它类型的基因名称，如symbol id等类型，除了更改为使用symbol id的基因名称做分析外，还可以通过基因名称转换的方式对entrze id和symbol id做个转换。
+
+```{r}
+GO_EA<- clusterProfiler::enrichGO(gene = gene_all ,
+                                   OrgDb = "org.Hs.eg.db",
+                                  keyType = "ENTREZID",
+                                  ont = "ALL",
+                                  pvalueCutoff  =  0.05 ,
+                                  qvalueCutoff  =  0.05,
+                                  readable = F)
+GO_EA_tbl <-  as_tibble(GO_EA)
+```
+
+### 可视化
+
+```{r}
+#clusterProfiler 包里的一些默认作图方法，例如
+barplot(GO_EA)  #富集柱形图
+dotplot(GO_EA)  #富集气泡图
+```
+
+```{r}
+dat2 <- GO_EA_tbl[GO_EA_tbl$pvalue< 0.05, ]
+dat2$Negative_log10pvalue <-  -log10(dat2$pvalue)
+dat2 = dat2[order( dat2$Negative_log10pvalue, decreasing = F ), ]
+
+dat2 <- dat2 |> 
+    group_by(ONTOLOGY) |> 
+    slice_max(order_by = Negative_log10pvalue,n=10) |> 
+    ungroup()
+
+
+ggplot(dat2,aes(x = Negative_log10pvalue, 
+                y = reorder(Description,
+                            order(ONTOLOGY,Negative_log10pvalue,decreasing=F)),
+                fill = ONTOLOGY ))+ 
+    geom_bar( stat = "identity" ) +
+    scale_x_continuous( name = "-log10 pvalue" ) +
+    scale_y_discrete( name = "Pathway names" ) +
+    theme_bw() + 
+    theme( plot.title = element_text( hjust = 0.5 ) ) +
+    ggtitle( "GO Pathway Enrichment" ) 
+```
+
+## 基因集GSEA
+
+![GSEA](https://img-blog.csdnimg.cn/20181105104509344.gif){fig-align="center"}
+
+![](data/GSEA.gif){fig-align="center"}

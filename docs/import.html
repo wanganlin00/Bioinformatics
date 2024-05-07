@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.553">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Bioinformatics - 2&nbsp; 获取scRNA-seq数据集</title>
+<title>Bioinformatics - 3&nbsp; 获取scRNA-seq表达值矩阵</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,7 +19,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -76,7 +76,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -85,6 +91,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -95,23 +102,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Single-cell Analysis</a></li><li class="breadcrumb-item"><a href="./import.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">获取scRNA-seq数据集</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">单细胞分析</a></li><li class="breadcrumb-item"><a href="./import.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">获取scRNA-seq表达值矩阵</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Bioinformatics</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/Wanganlin00/Bioinformatics" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/Wanganlin00/Bioinformatics" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -129,14 +136,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./genomics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><code>SummarizeExperiment</code>结构</span></span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">参考资料</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Single-cell Analysis</span></a>
+ <span class="menu-text">上游分析</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -144,56 +151,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">前言</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./import.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">获取scRNA-seq数据集</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./SCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code>结构</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">分析概述</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Basics</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./QC.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">质量控制</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./normalization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Normalization</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./feature_selection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">特征选择</span></span></a>
+  <a href="./Seq_to_Matrix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sequences Data to Expression Matrix</span></span></a>
   </div>
 </li>
       </ul>
@@ -201,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Seurat</span></a>
+ <span class="menu-text">单细胞分析</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -209,36 +168,159 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">写在前面</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./import.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">获取scRNA-seq表达值矩阵</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SCE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">工作流</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./QC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">质量控制</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./normalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">标准化</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./feature_selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">特征选择</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./DimensionalityReduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">降维</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">聚类</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MarkerGeneDetection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">conflicts_prefer(dplyr::filter)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CellTypeAnnotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">细胞类型注释</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Seurat</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./Seurat.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Seurat</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Seurat</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">DESeq2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TranscriptomicsDownstreamAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">转录组下游分析</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">基因组学</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./genomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title"><code>SummarizeExperiment</code>结构</span></span></a>
   </div>
 </li>
       </ul>
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1" id="toc-实验设计" class="nav-link active" data-scroll-target="#%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1"><span class="header-section-number">2.1</span> 实验设计</a></li>
-  <li><a href="#%E5%88%9B%E5%BB%BA%E8%AE%A1%E6%95%B0%E7%9F%A9%E9%98%B5" id="toc-创建计数矩阵" class="nav-link" data-scroll-target="#%E5%88%9B%E5%BB%BA%E8%AE%A1%E6%95%B0%E7%9F%A9%E9%98%B5"><span class="header-section-number">2.2</span> 创建计数矩阵</a></li>
-  <li>
-<a href="#%E5%AF%BC%E5%85%A5%E8%AE%A1%E6%95%B0%E7%9F%A9%E9%98%B5" id="toc-导入计数矩阵" class="nav-link" data-scroll-target="#%E5%AF%BC%E5%85%A5%E8%AE%A1%E6%95%B0%E7%9F%A9%E9%98%B5"><span class="header-section-number">2.3</span> 导入计数矩阵</a>
-  <ul class="collapse">
-<li><a href="#%E4%BB%8E%E8%A1%A8%E6%A0%BC%E6%A0%BC%E5%BC%8F" id="toc-从表格格式" class="nav-link" data-scroll-target="#%E4%BB%8E%E8%A1%A8%E6%A0%BC%E6%A0%BC%E5%BC%8F"><span class="header-section-number">2.3.1</span> 从表格格式</a></li>
-  <li><a href="#%E4%BB%8E-cellranger-%E8%BE%93%E5%87%BA" id="toc-从-cellranger-输出" class="nav-link" data-scroll-target="#%E4%BB%8E-cellranger-%E8%BE%93%E5%87%BA"><span class="header-section-number">2.3.2</span> 从 Cellranger 输出</a></li>
-  <li><a href="#%E6%9D%A5%E8%87%AA%E5%9F%BA%E4%BA%8E-hdf5-%E7%9A%84%E6%A0%BC%E5%BC%8F" id="toc-来自基于-hdf5-的格式" class="nav-link" data-scroll-target="#%E6%9D%A5%E8%87%AA%E5%9F%BA%E4%BA%8E-hdf5-%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="header-section-number">2.3.3</span> 来自基于 HDF5 的格式</a></li>
+<li>
+<a href="#%E5%8D%95%E7%BB%86%E8%83%9E%E6%B5%8B%E5%BA%8F%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1" id="toc-单细胞测序实验设计" class="nav-link active" data-scroll-target="#%E5%8D%95%E7%BB%86%E8%83%9E%E6%B5%8B%E5%BA%8F%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1"><span class="header-section-number">3.1</span> 单细胞测序实验设计</a>
+  <ul>
+<li><a href="#scrna-seq-experimental-protocols" id="toc-scrna-seq-experimental-protocols" class="nav-link" data-scroll-target="#scrna-seq-experimental-protocols"><span class="header-section-number">3.1.1</span> <strong>scRNA-Seq experimental protocols</strong>：</a></li>
+  <li><a href="#%E6%8D%95%E8%8E%B7%E7%BB%86%E8%83%9E%E6%95%B0%E7%9B%AE%E5%92%8C%E6%B5%8B%E5%BA%8F%E6%B7%B1%E5%BA%A6%E6%9C%80%E4%BD%B3%E6%9D%83%E8%A1%A1" id="toc-捕获细胞数目和测序深度最佳权衡" class="nav-link" data-scroll-target="#%E6%8D%95%E8%8E%B7%E7%BB%86%E8%83%9E%E6%95%B0%E7%9B%AE%E5%92%8C%E6%B5%8B%E5%BA%8F%E6%B7%B1%E5%BA%A6%E6%9C%80%E4%BD%B3%E6%9D%83%E8%A1%A1"><span class="header-section-number">3.1.2</span> <strong>捕获细胞数目和测序深度最佳权衡</strong></a></li>
   </ul>
 </li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/Wanganlin00/Bioinformatics/edit/main/import.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/Wanganlin00/Bioinformatics/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+  <li><a href="#%E6%B5%8B%E5%BA%8F%E6%95%B0%E6%8D%AE%E8%AE%A1%E6%95%B0%E7%9F%A9%E9%98%B5" id="toc-测序数据计数矩阵" class="nav-link" data-scroll-target="#%E6%B5%8B%E5%BA%8F%E6%95%B0%E6%8D%AE%E8%AE%A1%E6%95%B0%E7%9F%A9%E9%98%B5"><span class="header-section-number">3.2</span> 测序数据→计数矩阵</a></li>
+  <li>
+<a href="#%E5%AF%BC%E5%85%A5%E8%AE%A1%E6%95%B0%E7%9F%A9%E9%98%B5" id="toc-导入计数矩阵" class="nav-link" data-scroll-target="#%E5%AF%BC%E5%85%A5%E8%AE%A1%E6%95%B0%E7%9F%A9%E9%98%B5"><span class="header-section-number">3.3</span> 导入计数矩阵</a>
+  <ul>
+<li>
+<a href="#%E4%BB%8E%E8%A1%A8%E6%A0%BC%E6%A0%BC%E5%BC%8F" id="toc-从表格格式" class="nav-link" data-scroll-target="#%E4%BB%8E%E8%A1%A8%E6%A0%BC%E6%A0%BC%E5%BC%8F"><span class="header-section-number">3.3.1</span> 从表格格式</a>
+  <ul class="collapse">
+<li><a href="#csv" id="toc-csv" class="nav-link" data-scroll-target="#csv"><span class="header-section-number">3.3.1.1</span> csv</a></li>
+  <li><a href="#excel" id="toc-excel" class="nav-link" data-scroll-target="#excel"><span class="header-section-number">3.3.1.2</span> excel</a></li>
+  </ul>
+</li>
+  <li><a href="#x-genomics-cell-ranger" id="toc-x-genomics-cell-ranger" class="nav-link" data-scroll-target="#x-genomics-cell-ranger"><span class="header-section-number">3.3.2</span> 10X Genomics /Cell Ranger</a></li>
+  <li><a href="#hdf5-%E6%A0%BC%E5%BC%8F" id="toc-hdf5-格式" class="nav-link" data-scroll-target="#hdf5-%E6%A0%BC%E5%BC%8F"><span class="header-section-number">3.3.3</span> HDF5 格式</a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/Wanganlin00/Bioinformatics/edit/main/import.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Wanganlin00/Bioinformatics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">单细胞分析</a></li><li class="breadcrumb-item"><a href="./import.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">获取scRNA-seq表达值矩阵</span></a></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">
-<span class="chapter-number">2</span>&nbsp; <span class="chapter-title">获取scRNA-seq数据集</span>
+<span class="chapter-number">3</span>&nbsp; <span class="chapter-title">获取scRNA-seq表达值矩阵</span>
 </h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
@@ -252,52 +334,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header><p>来自单细胞RNA-seq实验的测序数据必须转换为表达值矩阵。这通常是一个计数矩阵，包含映射到<strong>每个细胞（列）中每个基因（行）</strong>的读取数。计数可以是唯一分子标识符 （unique molecular identifiers，UMI） 的数量。</p>
-<section id="实验设计" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="实验设计">
-<span class="header-section-number">2.1</span> 实验设计</h2>
-<p><strong>scRNA-Seq experimental protocols</strong>：</p>
+
+</header><p>通常是一个计数矩阵，包含<strong>基因（行）×细胞（列）</strong>的读取数。计数可以是<strong>唯一分子标识符 （unique molecular identifiers，UMI）</strong> 的数量。</p>
+<section id="单细胞测序实验设计" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="单细胞测序实验设计">
+<span class="header-section-number">3.1</span> 单细胞测序实验设计</h2>
+<section id="scrna-seq-experimental-protocols" class="level3" data-number="3.1.1"><h3 data-number="3.1.1" class="anchored" data-anchor-id="scrna-seq-experimental-protocols">
+<span class="header-section-number">3.1.1</span> <strong>scRNA-Seq experimental protocols</strong>：</h3>
 <ol type="1">
-<li><p>基于液滴的方案，高通量，低成本，如10X Genomics、inDrop和Drop-seq；</p></li>
-<li><p>基于平板的方案，捕获其他表型信息（如形态学），并且更易于自定义</p></li>
-<li><p>基于UMI的平板方案，减轻了PCR扩增噪声的影响，如CEL-seq（2）和MARS-seq；</p></li>
-<li><p>基于读取的平板方案，提供全转录覆盖，（如剪接、外显子组突变），主要是Smart-seq2；</p></li>
+<li><p>液滴，droplet-based protocols，事实标准，高通量，低成本，如<strong>10X Genomics</strong>、inDrop和Drop-seq;</p></li>
+<li>
+<p>平板，plate-based protocols，捕获其他表型信息（如形态学）;</p>
+<ul>
+<li><p>UMI平板，plate-based protocols with UMIs，减轻了PCR扩增噪声的影响，如CEL-seq（2）和MARS-seq；</p></li>
+<li><p>reads平板，plate-based protocols with reads，提供全转录覆盖（如剪接、外显子组突变），主要是Smart-seq2；</p></li>
+</ul>
+</li>
 <li><p>其他方案，如sciRNA-seq。</p></li>
-</ol>
-<p><strong>捕获细胞数目和测序深度</strong></p>
-</section><section id="创建计数矩阵" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="创建计数矩阵">
-<span class="header-section-number">2.2</span> 创建计数矩阵</h2>
-<p><code>Cellranger</code></p>
-<p><code>alevin</code></p>
-</section><section id="导入计数矩阵" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="导入计数矩阵">
-<span class="header-section-number">2.3</span> 导入计数矩阵</h2>
-<section id="从表格格式" class="level3" data-number="2.3.1"><h3 data-number="2.3.1" class="anchored" data-anchor-id="从表格格式">
-<span class="header-section-number">2.3.1</span> 从表格格式</h3>
-<p>从csv 文件导入计数矩阵，<a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE85241">点击下载胰腺scRNA-seq数据集：GSE85241_cellsystems_dataset_4donors_updated.csv.gz(HTTP)</a> 解压到<code>data</code>文件夹</p>
-<div class="cell" data-hash="import_cache/html/unnamed-chunk-1_b57480da08ea0491ffc1c588520c3157">
-<details><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.delim</a></span><span class="op">(</span><span class="st">"data/GSE85241_cellsystems_dataset_4donors_updated.csv"</span><span class="op">)</span><span class="op">)</span></span>
+</ol></section><section id="捕获细胞数目和测序深度最佳权衡" class="level3" data-number="3.1.2"><h3 data-number="3.1.2" class="anchored" data-anchor-id="捕获细胞数目和测序深度最佳权衡">
+<span class="header-section-number">3.1.2</span> <strong>捕获细胞数目和测序深度最佳权衡</strong>
+</h3>
+</section></section><section id="测序数据计数矩阵" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="测序数据计数矩阵">
+<span class="header-section-number">3.2</span> 测序数据→计数矩阵</h2>
+<ul>
+<li><p><code>Cellranger</code> <a href="https://www.nature.com/articles/ncomms14049" class="uri">https://www.nature.com/articles/ncomms14049</a></p></li>
+<li><p><code>alevin</code> 伪对比方法.<a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1670-y" class="uri">https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1670-y</a></p></li>
+<li><p><code>spike-in transcripts</code> 应将 spike-in sequences作为参考基因组的一部分</p></li>
+</ul></section><section id="导入计数矩阵" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="导入计数矩阵">
+<span class="header-section-number">3.3</span> 导入计数矩阵</h2>
+<section id="从表格格式" class="level3" data-number="3.3.1"><h3 data-number="3.3.1" class="anchored" data-anchor-id="从表格格式">
+<span class="header-section-number">3.3.1</span> 从表格格式</h3>
+<section id="csv" class="level4" data-number="3.3.1.1"><h4 data-number="3.3.1.1" class="anchored" data-anchor-id="csv">
+<span class="header-section-number">3.3.1.1</span> csv</h4>
+<p><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE85241">下载胰腺scRNA-seq数据集：GSE85241_cellsystems_dataset_4donors_updated.csv.gz(HTTP)</a></p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu">read_delim</span><span class="op">(</span><span class="st">"data/OSCA/GSE85241_cellsystems_dataset_4donors_updated.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 19140  3072</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>使用 scuttle 包中的函数以稀疏格式(sparse format)读取表。这仅存储非零值，并避免在低测序的scRNA-seq实验中将内存花费在大多数零上</p>
-<div class="cell" data-hash="import_cache/html/unnamed-chunk-3_ae86176ee740fd3b6e226648adf89ba8">
-<details><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sparse.mat</span> <span class="op">&lt;-</span> <span class="fu">readSparseCounts</span><span class="op">(</span><span class="st">"data/GSE85241_cellsystems_dataset_4donors_updated.csv"</span><span class="op">)</span></span>
+<p>使用 scuttle 包中 <code>readSparseCounts()</code> 以稀疏格式(sparse format)读取，仅存储非零值，避免在低测序的scRNA-seq实验中将内存花费在大多数零上。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sparse.mat</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">scuttle</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/readSparseCounts.html">readSparseCounts</a></span><span class="op">(</span><span class="st">"data/OSCA/GSE85241_cellsystems_dataset_4donors_updated.csv"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">sparse.mat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 19140  3072</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>比较两种方法的内存大小,查看Environment中的size大小，或者</p>
-<div class="cell" data-hash="import_cache/html/unnamed-chunk-4_643eb8198ac2c4f3d85defbbd03f00e2">
-<details><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">sparse.mat</span><span class="op">)</span></span>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">sparse.mat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 150978872 bytes</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/object.size.html">object.size</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 471999152 bytes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 471886952 bytes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>从Excel 文件中导入计数矩阵,<a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE61533">点击下载：GSE61533_HTSEQ_count_results.xls.gz(HTTP)</a>解压到<code>data</code>文件夹</p>
-<div class="cell" data-hash="import_cache/html/unnamed-chunk-5_24b8e94c0ffebe6f686d7059986b35de">
-<details><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span>
-<span><span class="va">all.counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="st">"data/GSE61533_HTSEQ_count_results.xls"</span><span class="op">)</span></span>
+</section><section id="excel" class="level4" data-number="3.3.1.2"><h4 data-number="3.3.1.2" class="anchored" data-anchor-id="excel">
+<span class="header-section-number">3.3.1.2</span> excel</h4>
+<p><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE61533">下载：GSE61533_HTSEQ_count_results.xls.gz(HTTP)</a></p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">all.counts</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="st">"data/OSCA/GSE61533_HTSEQ_count_results.xls"</span><span class="op">)</span></span>
 <span><span class="va">gene.names</span> <span class="op">&lt;-</span> <span class="va">all.counts</span><span class="op">$</span><span class="va">ID</span></span>
 <span><span class="va">all.counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">all.counts</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">all.counts</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">gene.names</span></span>
@@ -305,12 +401,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; [1] 38498    96</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="从-cellranger-输出" class="level3" data-number="2.3.2"><h3 data-number="2.3.2" class="anchored" data-anchor-id="从-cellranger-输出">
-<span class="header-section-number">2.3.2</span> 从 Cellranger 输出</h3>
-<p>对于 10X Genomics 数据，Cellranger 软件套件将生成一个包含计数和特征/条形码注释的输出目录。 <a href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/2.1.0/pbmc4k">点击下载：Gene / cell matrix (filtered)</a></p>
-<div class="cell" data-hash="import_cache/html/unnamed-chunk-6_1da82f4abe5f5cb45ef877f046eff946">
-<details><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">DropletUtils</span><span class="op">)</span></span>
-<span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DropletUtils/man/read10xCounts.html">read10xCounts</a></span><span class="op">(</span><span class="st">"data/filtered_gene_bc_matrices/GRCh38"</span><span class="op">)</span></span>
+</section></section><section id="x-genomics-cell-ranger" class="level3" data-number="3.3.2"><h3 data-number="3.3.2" class="anchored" data-anchor-id="x-genomics-cell-ranger">
+<span class="header-section-number">3.3.2</span> 10X Genomics /Cell Ranger</h3>
+<p>对于 10X Genomics 数据，Cell Ranger 软件套件将生成一个包含计数和特征/条形码注释的输出目录。<a href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/2.1.0/pbmc4k">下载：Gene / cell matrix (filtered)</a></p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">DropletUtils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DropletUtils/man/read10xCounts.html">read10xCounts</a></span><span class="op">(</span><span class="st">"data/OSCA/pbmc4k_filtered_gene_bc_matrices/filtered_gene_bc_matrices/GRCh38"</span><span class="op">)</span></span>
 <span><span class="va">sce</span></span>
 <span><span class="co">#&gt; class: SingleCellExperiment </span></span>
 <span><span class="co">#&gt; dim: 33694 4340 </span></span>
@@ -326,11 +421,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; altExpNames(0):</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>通过将多个目录路径传递给<code><a href="https://rdrr.io/pkg/DropletUtils/man/read10xCounts.html">read10xCounts()</a></code>来读取多个计数矩阵。如果所有数据集都具有相同的基因注释，则该函数将能够将它们组合到单个对象中。</p>
-<div class="cell" data-hash="import_cache/html/unnamed-chunk-7_1f1cfdb09e300965650a224aa79088a9">
-<details><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dirA</span> <span class="op">&lt;-</span> <span class="st">"data/filtered_gene_bc_matrices/GRCh38"</span></span>
-<span><span class="va">dirB</span> <span class="op">&lt;-</span> <span class="st">"data/filtered_gene_bc_matrices - 副本/GRCh38"</span> <span class="co">#复制 </span></span>
-<span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DropletUtils/man/read10xCounts.html">read10xCounts</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dirA</span>, <span class="va">dirB</span><span class="op">)</span><span class="op">)</span></span>
+<p>通过将多个目录路径传递给<code>read10xCounts()</code>来读取多个计数矩阵。如果所有数据集都具有相同的基因注释，则该函数将能够将它们组合到单个对象中。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dirA</span> <span class="op">&lt;-</span> <span class="st">"data/OSCA/pbmc4k_filtered_gene_bc_matrices/filtered_gene_bc_matrices/GRCh38"</span></span>
+<span><span class="va">dirB</span> <span class="op">&lt;-</span> <span class="st">"data/OSCA/filtered_gene_bc_matrices - 副本/GRCh38"</span> <span class="co">#复制 </span></span>
+<span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">DropletUtils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DropletUtils/man/read10xCounts.html">read10xCounts</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dirA</span>, <span class="va">dirB</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">sce</span></span>
 <span><span class="co">#&gt; class: SingleCellExperiment </span></span>
 <span><span class="co">#&gt; dim: 33694 8680 </span></span>
@@ -346,22 +441,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; altExpNames(0):</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="来自基于-hdf5-的格式" class="level3" data-number="2.3.3"><h3 data-number="2.3.3" class="anchored" data-anchor-id="来自基于-hdf5-的格式">
-<span class="header-section-number">2.3.3</span> 来自基于 HDF5 的格式</h3>
-<p>一系列scRNA-seq存储格式基于分层数据格式第5版（HDF5）,无需将所有数据读入 R 即可进行基于bioconductor的分析,这使得在计算机内存有限的情况下分析非常大的数据集。 这些格式能够在同一文件中存储表达值以及相关的基因和细胞注释。</p>
-<p>这种方法的一种风格是 H5AD 格式。<a href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/2.1.0/pbmc4k">点击下载：Gene / cell matrix HDF5 (raw)</a></p>
-<div class="cell" data-hash="import_cache/html/unnamed-chunk-8_b462c23bdfcf5a99f28f2af79c073967">
-<details><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">zellkonverter</span><span class="op">)</span></span>
-<span><span class="va">demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"krumsiek11.h5ad"</span>, package <span class="op">=</span> <span class="st">"zellkonverter"</span><span class="op">)</span></span>
-<span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">zellkonverter</span><span class="fu">::</span><span class="fu">readH5AD</span><span class="op">(</span><span class="va">demo</span><span class="op">)</span></span>
-<span><span class="va">sce</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="hdf5-格式" class="level3" data-number="3.3.3"><h3 data-number="3.3.3" class="anchored" data-anchor-id="hdf5-格式">
+<span class="header-section-number">3.3.3</span> HDF5 格式</h3>
+<p>一系列scRNA-seq存储格式基于分层数据格式第5版（HDF5）,无需将所有数据读入 R 即可进行基于bioconductor的分析,这使得在计算机内存有限的情况下分析非常大的数据集。 这些格式能够在同一文件中存储表达值以及相关的基因和细胞注释。例如：<a href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/2.1.0/pbmc4k">Gene / cell matrix HDF5 (raw)</a></p>
+<p>一种是 H5AD 格式。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"krumsiek11.h5ad"</span>, package <span class="op">=</span> <span class="st">"zellkonverter"</span><span class="op">)</span></span>
+<span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">zellkonverter</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zellkonverter/man/readH5AD.html">readH5AD</a></span><span class="op">(</span><span class="va">demo</span><span class="op">)</span></span>
+<span><span class="va">sce</span></span>
+<span><span class="co">#&gt; class: SingleCellExperiment </span></span>
+<span><span class="co">#&gt; dim: 11 640 </span></span>
+<span><span class="co">#&gt; metadata(2): highlights iroot</span></span>
+<span><span class="co">#&gt; assays(1): X</span></span>
+<span><span class="co">#&gt; rownames(11): Gata2 Gata1 ... EgrNab Gfi1</span></span>
+<span><span class="co">#&gt; rowData names(0):</span></span>
+<span><span class="co">#&gt; colnames(640): 0 1 ... 158-3 159-3</span></span>
+<span><span class="co">#&gt; colData names(1): cell_type</span></span>
+<span><span class="co">#&gt; reducedDimNames(0):</span></span>
+<span><span class="co">#&gt; mainExpName: NULL</span></span>
+<span><span class="co">#&gt; altExpNames(0):</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>另一种风格是Loom 文件格式</p>
-<div class="cell" data-hash="import_cache/html/unnamed-chunk-9_fc1f9880d5152cd6e035066d8d60b218">
-<details><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">LoomExperiment</span>,quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"L1_DRG_20_example.loom"</span>, package <span class="op">=</span> <span class="st">"LoomExperiment"</span><span class="op">)</span></span>
-<span><span class="va">scle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocIO/man/IO.html">import</a></span><span class="op">(</span><span class="va">demo</span>, type<span class="op">=</span><span class="st">"SingleCellLoomExperiment"</span><span class="op">)</span></span>
+<p>另一种是 Loom 格式</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"L1_DRG_20_example.loom"</span>, package <span class="op">=</span> <span class="st">"LoomExperiment"</span><span class="op">)</span></span>
+<span><span class="va">scle</span> <span class="op">&lt;-</span> <span class="fu">LoomExperiment</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocIO/man/IO.html">import</a></span><span class="op">(</span><span class="va">demo</span>, type<span class="op">=</span><span class="st">"SingleCellLoomExperiment"</span><span class="op">)</span></span>
 <span><span class="va">scle</span></span>
 <span><span class="co">#&gt; class: SingleCellLoomExperiment </span></span>
 <span><span class="co">#&gt; dim: 20 20 </span></span>
@@ -513,10 +617,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/wanganlin00\.github\.io\/Bioinformatics\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -526,8 +647,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -539,7 +669,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -583,6 +836,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -608,6 +862,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -667,135 +947,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./intro.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      <a href="./intro.html" class="pagination-link" aria-label="写在前面">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">写在前面</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./SCE.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code>结构</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./SCE.html" class="pagination-link" aria-label="`SingleCellExperiment`">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 获取scRNA-seq数据集</span></span>
+<div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 获取scRNA-seq表达值矩阵</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>来自单细胞RNA-seq实验的测序数据必须转换为表达值矩阵。这通常是一个计数矩阵，包含映射到**每个细胞（列）中每个基因（行）**的读取数。计数可以是唯一分子标识符 （unique molecular identifiers，UMI） 的数量。</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>通常是一个计数矩阵，包含**基因（行）×细胞（列）**的读取数。计数可以是**唯一分子标识符 （unique molecular identifiers，UMI）** 的数量。</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## 实验设计</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## 单细胞测序实验设计</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>**scRNA-Seq experimental protocols**：</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">### **scRNA-Seq experimental protocols**：</span></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>基于液滴的方案，高通量，低成本，如10X Genomics、inDrop和Drop-seq；</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>液滴，droplet-based protocols，事实标准，高通量，低成本，如**10X Genomics**、inDrop和Drop-seq;</span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>基于平板的方案，捕获其他表型信息（如形态学），并且更易于自定义</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>平板，plate-based protocols，捕获其他表型信息（如形态学）;</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>基于UMI的平板方案，减轻了PCR扩增噪声的影响，如CEL-seq（2）和MARS-seq；</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>UMI平板，plate-based protocols with UMIs，减轻了PCR扩增噪声的影响，如CEL-seq（2）和MARS-seq；</span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>基于读取的平板方案，提供全转录覆盖，（如剪接、外显子组突变），主要是Smart-seq2；</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>reads平板，plate-based protocols with reads，提供全转录覆盖（如剪接、外显子组突变），主要是Smart-seq2；</span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>其他方案，如sciRNA-seq。</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>其他方案，如sciRNA-seq。</span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>**捕获细胞数目和测序深度**</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### **捕获细胞数目和测序深度最佳权衡**</span></span>
 <span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## 创建计数矩阵</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## 测序数据→计数矩阵</span></span>
 <span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="in">`Cellranger`</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`Cellranger`</span> <span class="ot">&lt;https://www.nature.com/articles/ncomms14049&gt;</span></span>
 <span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="in">`alevin`</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`alevin`</span> 伪对比方法.<span class="ot">&lt;https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1670-y&gt;</span></span>
 <span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## 导入计数矩阵</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`spike-in transcripts`</span> 应将 spike-in sequences作为参考基因组的一部分</span>
 <span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="fu">### 从表格格式</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## 导入计数矩阵</span></span>
 <span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>从csv 文件导入计数矩阵，<span class="co">[</span><span class="ot">点击下载胰腺scRNA-seq数据集：GSE85241_cellsystems_dataset_4donors_updated.csv.gz(HTTP)</span><span class="co">](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE85241)</span> 解压到<span class="in">`data`</span>文件夹</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="fu">### 从表格格式</span></span>
 <span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">read.delim</span>(<span class="st">"data/GSE85241_cellsystems_dataset_4donors_updated.csv"</span>))</span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(mat)</span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>使用 scuttle 包中的函数以稀疏格式(sparse format)读取表。这仅存储非零值，并避免在低测序的scRNA-seq实验中将内存花费在大多数零上</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scuttle,<span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(GenomicRanges<span class="sc">::</span>setdiff)</span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>sparse.mat <span class="ot">&lt;-</span> <span class="fu">readSparseCounts</span>(<span class="st">"data/GSE85241_cellsystems_dataset_4donors_updated.csv"</span>)</span>
-<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(sparse.mat)</span>
-<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>比较两种方法的内存大小,查看Environment中的size大小，或者</span>
-<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(sparse.mat)</span>
-<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(mat)</span>
-<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>从Excel 文件中导入计数矩阵,<span class="co">[</span><span class="ot">点击下载：GSE61533_HTSEQ_count_results.xls.gz(HTTP)</span><span class="co">](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE61533)</span>解压到<span class="in">`data`</span>文件夹</span>
-<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>all.counts <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/GSE61533_HTSEQ_count_results.xls"</span>)</span>
-<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>gene.names <span class="ot">&lt;-</span> all.counts<span class="sc">$</span>ID</span>
-<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>all.counts <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(all.counts[,<span class="sc">-</span><span class="dv">1</span>])</span>
-<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(all.counts) <span class="ot">&lt;-</span> gene.names</span>
-<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(all.counts)</span>
-<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a><span class="fu">### 从 Cellranger 输出</span></span>
-<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a>对于 10X Genomics 数据，Cellranger 软件套件将生成一个包含计数和特征/条形码注释的输出目录。 <span class="co">[</span><span class="ot">点击下载：Gene / cell matrix (filtered)</span><span class="co">](https://support.10xgenomics.com/single-cell-gene-expression/datasets/2.1.0/pbmc4k)</span></span>
-<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DropletUtils)</span>
-<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a>sce <span class="ot">&lt;-</span> <span class="fu">read10xCounts</span>(<span class="st">"data/filtered_gene_bc_matrices/GRCh38"</span>)</span>
-<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a>sce</span>
-<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a>通过将多个目录路径传递给<span class="in">`read10xCounts()`</span>来读取多个计数矩阵。如果所有数据集都具有相同的基因注释，则该函数将能够将它们组合到单个对象中。</span>
-<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a>dirA <span class="ot">&lt;-</span> <span class="st">"data/filtered_gene_bc_matrices/GRCh38"</span></span>
-<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a>dirB <span class="ot">&lt;-</span> <span class="st">"data/filtered_gene_bc_matrices - 副本/GRCh38"</span> <span class="co">#复制 </span></span>
-<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a>sce <span class="ot">&lt;-</span> <span class="fu">read10xCounts</span>(<span class="fu">c</span>(dirA, dirB))</span>
-<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a>sce</span>
-<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### 来自基于 HDF5 的格式</span></span>
-<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a>一系列scRNA-seq存储格式基于分层数据格式第5版（HDF5）,无需将所有数据读入 R 即可进行基于bioconductor的分析,这使得在计算机内存有限的情况下分析非常大的数据集。 这些格式能够在同一文件中存储表达值以及相关的基因和细胞注释。</span>
-<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a>这种方法的一种风格是 H5AD 格式。<span class="co">[</span><span class="ot">点击下载：Gene / cell matrix HDF5 (raw)</span><span class="co">](https://support.10xgenomics.com/single-cell-gene-expression/datasets/2.1.0/pbmc4k)</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="fu">#### csv</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">下载胰腺scRNA-seq数据集：GSE85241_cellsystems_dataset_4donors_updated.csv.gz(HTTP)</span><span class="co">](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE85241)</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/OSCA/GSE85241_cellsystems_dataset_4donors_updated.csv"</span>)</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(mat)</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(mat)</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>使用 scuttle 包中 <span class="in">`readSparseCounts()`</span> 以稀疏格式(sparse format)读取，仅存储非零值，避免在低测序的scRNA-seq实验中将内存花费在大多数零上。</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>sparse.mat <span class="ot">&lt;-</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>  scuttle<span class="sc">::</span><span class="fu">readSparseCounts</span>(<span class="st">"data/OSCA/GSE85241_cellsystems_dataset_4donors_updated.csv"</span>)</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(sparse.mat)</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(sparse.mat)</span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(mat)</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a><span class="fu">#### excel</span></span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">下载：GSE61533_HTSEQ_count_results.xls.gz(HTTP)</span><span class="co">](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE61533)</span></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>all.counts <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">"data/OSCA/GSE61533_HTSEQ_count_results.xls"</span>)</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>gene.names <span class="ot">&lt;-</span> all.counts<span class="sc">$</span>ID</span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>all.counts <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(all.counts[,<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(all.counts) <span class="ot">&lt;-</span> gene.names</span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(all.counts)</span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### 10X Genomics /Cell Ranger</span></span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>对于 10X Genomics 数据，Cell Ranger 软件套件将生成一个包含计数和特征/条形码注释的输出目录。<span class="co">[</span><span class="ot">下载：Gene / cell matrix (filtered)</span><span class="co">](https://support.10xgenomics.com/single-cell-gene-expression/datasets/2.1.0/pbmc4k)</span></span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a>sce <span class="ot">&lt;-</span> DropletUtils<span class="sc">::</span><span class="fu">read10xCounts</span>(<span class="st">"data/OSCA/pbmc4k_filtered_gene_bc_matrices/filtered_gene_bc_matrices/GRCh38"</span>)</span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a>sce</span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a>通过将多个目录路径传递给<span class="in">`read10xCounts()`</span>来读取多个计数矩阵。如果所有数据集都具有相同的基因注释，则该函数将能够将它们组合到单个对象中。</span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a>dirA <span class="ot">&lt;-</span> <span class="st">"data/OSCA/pbmc4k_filtered_gene_bc_matrices/filtered_gene_bc_matrices/GRCh38"</span></span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a>dirB <span class="ot">&lt;-</span> <span class="st">"data/OSCA/filtered_gene_bc_matrices - 副本/GRCh38"</span> <span class="co">#复制 </span></span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a>sce <span class="ot">&lt;-</span> DropletUtils<span class="sc">::</span><span class="fu">read10xCounts</span>(<span class="fu">c</span>(dirA, dirB))</span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a>sce</span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a><span class="fu">### HDF5 格式</span></span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a>一系列scRNA-seq存储格式基于分层数据格式第5版（HDF5）,无需将所有数据读入 R 即可进行基于bioconductor的分析,这使得在计算机内存有限的情况下分析非常大的数据集。 这些格式能够在同一文件中存储表达值以及相关的基因和细胞注释。例如：<span class="co">[</span><span class="ot">Gene / cell matrix HDF5 (raw)</span><span class="co">](https://support.10xgenomics.com/single-cell-gene-expression/datasets/2.1.0/pbmc4k)</span></span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a>一种是 H5AD 格式。</span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"krumsiek11.h5ad"</span>, <span class="at">package =</span> <span class="st">"zellkonverter"</span>)</span>
+<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a>sce <span class="ot">&lt;-</span> zellkonverter<span class="sc">::</span><span class="fu">readH5AD</span>(demo)</span>
+<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a>sce</span>
+<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zellkonverter)</span>
-<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"krumsiek11.h5ad"</span>, <span class="at">package =</span> <span class="st">"zellkonverter"</span>)</span>
-<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a>sce <span class="ot">&lt;-</span> zellkonverter<span class="sc">::</span><span class="fu">readH5AD</span>(demo)</span>
-<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a>sce</span>
+<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a>另一种是 Loom 格式</span>
+<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"L1_DRG_20_example.loom"</span>, <span class="at">package =</span> <span class="st">"LoomExperiment"</span>)</span>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a>scle <span class="ot">&lt;-</span> LoomExperiment<span class="sc">::</span><span class="fu">import</span>(demo, <span class="at">type=</span><span class="st">"SingleCellLoomExperiment"</span>)</span>
+<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a>scle</span>
 <span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a>另一种风格是Loom 文件格式</span>
-<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(LoomExperiment,<span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"L1_DRG_20_example.loom"</span>, <span class="at">package =</span> <span class="st">"LoomExperiment"</span>)</span>
-<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a>scle <span class="ot">&lt;-</span> <span class="fu">import</span>(demo, <span class="at">type=</span><span class="st">"SingleCellLoomExperiment"</span>)</span>
-<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a>scle</span>
-<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Wanganlin00/Bioinformatics/edit/main/import.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Wanganlin00/Bioinformatics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

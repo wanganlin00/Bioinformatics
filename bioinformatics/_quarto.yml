@@ -13,13 +13,13 @@ book:
   chapters:
     - index.qmd
     
-    - part: "Upstream Analysis"
+    - part: "上游分析"
       chapters: 
         - Seq_to_Matrix.qmd
 
-    - part: "Single-Cell Analysis with Bioconductor"
+    - part: "单细胞分析"
       chapters: 
-        - intro.qmd
+        - prerequisites.qmd
         - import.qmd
         - SCE.qmd
         - workflow.qmd
@@ -31,29 +31,26 @@ book:
         - MarkerGeneDetection.qmd
         - CellTypeAnnotation.qmd
         
-    # - part: "SingleR"
-    #   chapters: 
-    #     - SingleR.qmd
-        
     - part: "Seurat"
       chapters: 
         - Seurat.qmd
-        
-    - part: "DESeq2"
+
+    - part: "下游分析"
       chapters: 
-        - TranscriptomicsDownstreamAnalysis.qmd
+        - DifferentExpressionGeneAnalysis.qmd
+        - EnrichmentAnalysis.qmd
+        # - PseudotimeAnalysis.qmd
         
      # - part: "clusterProfiler"
      # - part: "monocle"
         
-    - part: "其他"
-      chapters: 
-        - genomics.qmd
+    # - part: "基因组学"
+    #   chapters: 
+    #     - genomics.qmd
 
       
 execute:
   cache: true
-  error: true
   message: false
   warning: false
 
@@ -75,7 +72,6 @@ format:
     code-fold: true
     code-tools: true
     code-link: true
-    html-math-method: katex
     callout-appearance: simple
     
 editor: visual
