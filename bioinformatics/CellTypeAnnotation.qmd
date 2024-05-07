@@ -2,10 +2,10 @@
 
 利用先验信息为未表征的scRNA-seq数据集分配意义，也就是将新数据集中的细胞与已知细胞类型的精选参考谱进行比较，将每个新细胞分配给与其表达谱最相似的参考类型。
 
-最明显的先验信息来源是与特定生物过程相关的精选基因集，例如，**基因本体论 （Gene Ontology，GO） 或京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）**。[**clusterProfiler**](https://yulab-smu.top/biomedical-knowledge-mining-book/)
+最明显的先验信息来源是与特定生物过程相关的精选基因集，例如，**基因本体论 （Gene Ontology，GO） 或京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）**。[**clusterProfiler**](https://yulab-smu.top/biomedical-knowledge-mining-book/){style="color:red"}
 
 或者，直接将单细胞表达谱与已发表的参考数据集进行比较，其中每个样本或细胞都已经由领域专家用其假定的生物学状态进行注释。[**Assigning cell types with SingleR**](https://bioconductor.org/books/release/SingleRBook/){style="color:red"}
 
-[SingleR](https://bioconductor.org/packages/3.18/bioc/html/SingleR.html)是自动注释方法的一种实现，可以被认为是最近邻分类的稳健变体。
+[SingleR](https://bioconductor.org/packages/3.18/bioc/html/SingleR.html){style="color:red"}是自动注释方法的一种实现，可以被认为是最近邻分类的稳健变体。
 
 基于具有最高Spearman rank correlations的参考样本为细胞分配标签注释， 仅使用参考数据中标签之间的成对比较确定的标记基因的并集来关注细胞类型之间的相关差异（默认为 0.8）。它还可以选择对每个细胞执行微调步骤，其中仅用最高分标签的标记基因重新计算标签子集相关性。这旨在通过消除其他标签的不相关标记的噪声来解决这些标签之间的任何歧义。
