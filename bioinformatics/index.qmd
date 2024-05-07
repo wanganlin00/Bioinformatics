@@ -6,4 +6,4 @@
 -   [clusterProfiler](https://yulab-smu.top/biomedical-knowledge-mining-book/)
 -   。。。
 
-主要内容是单细胞分析、差异表达基因分析、富集分析
+主要内容是单细胞分析、差异表达基因分析、富集分析、伪时序分析。。。。。。

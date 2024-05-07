@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Bioinformatics - 11&nbsp; 标记基因检测</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./CellTypeAnnotation.html" rel="next">
+<link href="./Clustering.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prerequisites.html">单细胞分析</a></li><li class="breadcrumb-item"><a href="./MarkerGeneDetection.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">conflicts_prefer(dplyr::filter)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Bioinformatics</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/Wanganlin00/Bioinformatics" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">参考资料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">上游分析</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Seq_to_Matrix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sequences Data to Expression Matrix</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">单细胞分析</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prerequisites.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">写在前面</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">获取scRNA-seq表达值矩阵</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SCE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">工作流</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./QC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">质量控制</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./normalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">标准化</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./feature_selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">特征选择</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./DimensionalityReduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">降维</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">聚类</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MarkerGeneDetection.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">conflicts_prefer(dplyr::filter)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CellTypeAnnotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">细胞类型注释</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Seurat</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Seurat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Seurat</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">下游分析</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./DifferentExpressionGeneAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EnrichmentAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">富集分析</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./PseudotimeAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">伪时序分析</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">基因组学</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Biostrings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title"><code>Biostrings</code>包</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./eQTL.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">eQTL</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#%E9%80%9A%E8%BF%87%E6%88%90%E5%AF%B9%E6%AF%94%E8%BE%83%E5%AF%B9%E6%A0%87%E8%AE%B0%E5%9F%BA%E5%9B%A0%E8%AE%A1%E5%88%86" id="toc-通过成对比较对标记基因计分" class="nav-link active" data-scroll-target="#%E9%80%9A%E8%BF%87%E6%88%90%E5%AF%B9%E6%AF%94%E8%BE%83%E5%AF%B9%E6%A0%87%E8%AE%B0%E5%9F%BA%E5%9B%A0%E8%AE%A1%E5%88%86"><span class="header-section-number">11.1</span> 通过成对比较对标记基因计分</a></li>
+  <li>
+<a href="#%E6%95%88%E5%BA%94%E5%80%BC" id="toc-效应值" class="nav-link" data-scroll-target="#%E6%95%88%E5%BA%94%E5%80%BC"><span class="header-section-number">11.2</span> 效应值</a>
+  <ul>
+<li><a href="#auc" id="toc-auc" class="nav-link" data-scroll-target="#auc"><span class="header-section-number">11.2.1</span> AUC</a></li>
+  <li><a href="#logfc.cohen" id="toc-logfc.cohen" class="nav-link" data-scroll-target="#logfc.cohen"><span class="header-section-number">11.2.2</span> LogFC.cohen</a></li>
+  <li><a href="#logfc.detected" id="toc-logfc.detected" class="nav-link" data-scroll-target="#logfc.detected"><span class="header-section-number">11.2.3</span> logFC.detected</a></li>
+  </ul>
+</li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">11.3</span> summary</a></li>
+  <li><a href="#full-effects" id="toc-full-effects" class="nav-link" data-scroll-target="#full-effects"><span class="header-section-number">11.4</span> full effects</a></li>
+  <li><a href="#log-fold-change-threshold" id="toc-log-fold-change-threshold" class="nav-link" data-scroll-target="#log-fold-change-threshold"><span class="header-section-number">11.5</span> log-fold change threshold</a></li>
+  <li><a href="#blocking-factors" id="toc-blocking-factors" class="nav-link" data-scroll-target="#blocking-factors"><span class="header-section-number">11.6</span> blocking factors</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/Wanganlin00/Bioinformatics/edit/main/MarkerGeneDetection.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Wanganlin00/Bioinformatics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prerequisites.html">单细胞分析</a></li><li class="breadcrumb-item"><a href="./MarkerGeneDetection.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">conflicts_prefer(dplyr::filter)</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">
+<span class="chapter-number">11</span>&nbsp; <span class="chapter-title">标记基因检测</span>
+</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><p>标记基因检测最直接的方法包括检测簇之间的差异表达。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span></span>
+<span><span class="co">#--- loading ---#</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">DropletUtils</span><span class="op">)</span></span>
+<span><span class="va">sce.pbmc</span> <span class="op">&lt;-</span> <span class="fu">DropletUtils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DropletUtils/man/read10xCounts.html">read10xCounts</a></span><span class="op">(</span><span class="st">"data/OSCA/raw_gene_bc_matrices/GRCh38"</span>,</span>
+<span>                                        col.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- gene-annotation ---#</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://bioconductor.org/packages/scater/">scater</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sce.pbmc</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/uniquifyFeatureNames.html">uniquifyFeatureNames</a></span><span class="op">(</span></span>
+<span>    <span class="fu">rowData</span><span class="op">(</span><span class="va">sce.pbmc</span><span class="op">)</span><span class="op">$</span><span class="va">ID</span>, <span class="fu">rowData</span><span class="op">(</span><span class="va">sce.pbmc</span><span class="op">)</span><span class="op">$</span><span class="va">Symbol</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">EnsDb.Hsapiens.v86</span><span class="op">)</span></span>
+<span><span class="va">location</span> <span class="op">&lt;-</span> <span class="fu">mapIds</span><span class="op">(</span><span class="va">EnsDb.Hsapiens.v86</span>, keys<span class="op">=</span><span class="fu">rowData</span><span class="op">(</span><span class="va">sce.pbmc</span><span class="op">)</span><span class="op">$</span><span class="va">ID</span>, </span>
+<span>    column<span class="op">=</span><span class="st">"SEQNAME"</span>, keytype<span class="op">=</span><span class="st">"GENEID"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- cell-detection ---#</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">e.out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DropletUtils/man/emptyDrops.html">emptyDrops</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html">counts</a></span><span class="op">(</span><span class="va">sce.pbmc</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">sce.pbmc</span> <span class="op">&lt;-</span> <span class="va">sce.pbmc</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">e.out</span><span class="op">$</span><span class="va">FDR</span> <span class="op">&lt;=</span> <span class="fl">0.001</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co">#--- quality-control ---#</span></span>
+<span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/perCellQCMetrics.html">perCellQCMetrics</a></span><span class="op">(</span><span class="va">sce.pbmc</span>, subsets<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>Mito<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">location</span><span class="op">==</span><span class="st">"MT"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">high.mito</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/isOutlier.html">isOutlier</a></span><span class="op">(</span><span class="va">stats</span><span class="op">$</span><span class="va">subsets_Mito_percent</span>, type<span class="op">=</span><span class="st">"higher"</span><span class="op">)</span></span>
+<span><span class="va">sce.pbmc</span> <span class="op">&lt;-</span> <span class="va">sce.pbmc</span><span class="op">[</span>,<span class="op">!</span><span class="va">high.mito</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co">#--- normalization ---#</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">scran</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="va">clusters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/quickCluster.html">quickCluster</a></span><span class="op">(</span><span class="va">sce.pbmc</span><span class="op">)</span></span>
+<span><span class="va">sce.pbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/computeSumFactors.html">computeSumFactors</a></span><span class="op">(</span><span class="va">sce.pbmc</span>, cluster<span class="op">=</span><span class="va">clusters</span><span class="op">)</span></span>
+<span><span class="va">sce.pbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/logNormCounts.html">logNormCounts</a></span><span class="op">(</span><span class="va">sce.pbmc</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- variance-modelling ---#</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1001</span><span class="op">)</span></span>
+<span><span class="va">dec.pbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/modelGeneVarByPoisson.html">modelGeneVarByPoisson</a></span><span class="op">(</span><span class="va">sce.pbmc</span><span class="op">)</span></span>
+<span><span class="va">top.pbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/getTopHVGs.html">getTopHVGs</a></span><span class="op">(</span><span class="va">dec.pbmc</span>, prop<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- dimensionality-reduction ---#</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">10000</span><span class="op">)</span></span>
+<span><span class="va">sce.pbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/denoisePCA.html">denoisePCA</a></span><span class="op">(</span><span class="va">sce.pbmc</span>, subset.row<span class="op">=</span><span class="va">top.pbmc</span>, technical<span class="op">=</span><span class="va">dec.pbmc</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">100000</span><span class="op">)</span></span>
+<span><span class="va">sce.pbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scater/man/runTSNE.html">runTSNE</a></span><span class="op">(</span><span class="va">sce.pbmc</span>, dimred<span class="op">=</span><span class="st">"PCA"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1000000</span><span class="op">)</span></span>
+<span><span class="va">sce.pbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scater/man/runUMAP.html">runUMAP</a></span><span class="op">(</span><span class="va">sce.pbmc</span>, dimred<span class="op">=</span><span class="st">"PCA"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- clustering ---#</span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/buildSNNGraph.html">buildSNNGraph</a></span><span class="op">(</span><span class="va">sce.pbmc</span>, k<span class="op">=</span><span class="fl">10</span>, use.dimred <span class="op">=</span> <span class="st">'PCA'</span><span class="op">)</span></span>
+<span><span class="va">clust</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/cluster_walktrap.html">cluster_walktrap</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">membership</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/colLabels.html">colLabels</a></span><span class="op">(</span><span class="va">sce.pbmc</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">clust</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sce.pbmc</span></span>
+<span><span class="co">#&gt; class: SingleCellExperiment </span></span>
+<span><span class="co">#&gt; dim: 33694 3985 </span></span>
+<span><span class="co">#&gt; metadata(1): Samples</span></span>
+<span><span class="co">#&gt; assays(2): counts logcounts</span></span>
+<span><span class="co">#&gt; rownames(33694): RP11-34P13.3 FAM138A ... AC213203.1 FAM231B</span></span>
+<span><span class="co">#&gt; rowData names(2): ID Symbol</span></span>
+<span><span class="co">#&gt; colnames(3985): AAACCTGAGAAGGCCT-1 AAACCTGAGACAGACC-1 ...</span></span>
+<span><span class="co">#&gt;   TTTGTCAGTTAAGACA-1 TTTGTCATCCCAAGAT-1</span></span>
+<span><span class="co">#&gt; colData names(4): Sample Barcode sizeFactor label</span></span>
+<span><span class="co">#&gt; reducedDimNames(3): PCA TSNE UMAP</span></span>
+<span><span class="co">#&gt; mainExpName: NULL</span></span>
+<span><span class="co">#&gt; altExpNames(0):</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="通过成对比较对标记基因计分" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="通过成对比较对标记基因计分">
+<span class="header-section-number">11.1</span> 通过成对比较对标记基因计分</h2>
+<p><code><a href="https://rdrr.io/pkg/scran/man/scoreMarkers.html">scoreMarkers()</a></code></p>
+<p><code>self.average</code> 在X簇中的某基因平均对数表达值</p>
+<p><code>other.average</code> 所有其他簇的总体平均值</p>
+<p><code>self.detected</code> 在X簇中检测到某基因表达的细胞比例</p>
+<p><code>other.detected</code> 所有其他簇的平均检测到的细胞比例</p>
+<p><code>AUC</code> ，<code>logFC.cohen</code> ，<code>log.C.detected</code> 成对比较中生成的效应值汇总</p>
+<p>AUC 或 Cohen’s d 通常是通用标记检测的最佳选择，因为无论表达值的大小如何，它们都是有效的。 检测到表达值的细胞比例的对数倍数变化对于识别表达的binary changes特别有用。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">scran</span><span class="op">)</span></span>
+<span><span class="va">marker.info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/scoreMarkers.html">scoreMarkers</a></span><span class="op">(</span><span class="va">sce.pbmc</span>, <span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/colLabels.html">colLabels</a></span><span class="op">(</span><span class="va">sce.pbmc</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">marker.info</span></span>
+<span><span class="co">#&gt; List of length 16</span></span>
+<span><span class="co">#&gt; names(16): 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">marker.info</span><span class="op">[[</span><span class="st">"1"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="co"># statistics for cluster 1.</span></span>
+<span><span class="co">#&gt;  [1] "self.average"          "other.average"         "self.detected"        </span></span>
+<span><span class="co">#&gt;  [4] "other.detected"        "mean.logFC.cohen"      "min.logFC.cohen"      </span></span>
+<span><span class="co">#&gt;  [7] "median.logFC.cohen"    "max.logFC.cohen"       "rank.logFC.cohen"     </span></span>
+<span><span class="co">#&gt; [10] "mean.AUC"              "min.AUC"               "median.AUC"           </span></span>
+<span><span class="co">#&gt; [13] "max.AUC"               "rank.AUC"              "mean.logFC.detected"  </span></span>
+<span><span class="co">#&gt; [16] "min.logFC.detected"    "median.logFC.detected" "max.logFC.detected"   </span></span>
+<span><span class="co">#&gt; [19] "rank.logFC.detected"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>例如，根据<strong>簇1</strong>的<code>mean.AUC</code>作为排序</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chosen</span> <span class="op">&lt;-</span> <span class="va">marker.info</span><span class="op">[[</span><span class="st">"1"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">ordered</span> <span class="op">&lt;-</span> <span class="va">chosen</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">chosen</span><span class="op">$</span><span class="va">mean.AUC</span>, decreasing<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,<span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ordered</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span> <span class="co"># showing basic stats only, for brevity.</span></span>
+<span><span class="co">#&gt; DataFrame with 6 rows and 4 columns</span></span>
+<span><span class="co">#&gt;       self.average other.average self.detected other.detected</span></span>
+<span><span class="co">#&gt;          &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;      &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; NKG7       4.39503     0.7486412      0.985366      0.3768438</span></span>
+<span><span class="co">#&gt; GNLY       4.40275     0.3489056      0.956098      0.2010344</span></span>
+<span><span class="co">#&gt; CTSW       2.60281     0.4618797      0.960976      0.2898534</span></span>
+<span><span class="co">#&gt; HOPX       1.99060     0.1607469      0.907317      0.1160658</span></span>
+<span><span class="co">#&gt; PRF1       2.22297     0.1659853      0.887805      0.1263180</span></span>
+<span><span class="co">#&gt; KLRF1      1.60598     0.0379703      0.858537      0.0346691</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://bioconductor.org/packages/scater/">scater</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotExpression.html">plotExpression</a></span><span class="op">(</span><span class="va">sce.pbmc</span>, features<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">ordered</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>    x<span class="op">=</span><span class="st">"label"</span>, colour_by<span class="op">=</span><span class="st">"label"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-mean.AUC_cluster1" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-mean.AUC_cluster1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MarkerGeneDetection_files/figure-html/fig-mean.AUC_cluster1-1.png" id="fig-mean.AUC_cluster1" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-mean.AUC_cluster1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.1
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="效应值" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="效应值">
+<span class="header-section-number">11.2</span> 效应值</h2>
+<p>Effect sizes for pairwise comparisons</p>
+<section id="auc" class="level3" data-number="11.2.1"><h3 data-number="11.2.1" class="anchored" data-anchor-id="auc">
+<span class="header-section-number">11.2.1</span> AUC</h3>
+<p>AUC 表示X簇中随机选择的观测值大于从其他簇中随机选择的观测值的概率。 值1对应于上调，其中X簇的所有值都大于其他簇的任何值；值0.5意味着分布的位置没有净差异；值0对应于下调。</p>
+<p>AUC 与 Wilcoxon ranked sum test（又名 Mann-Whitney U 检验）中的U-statistic 密切相关。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chosen</span></span>
+<span><span class="co">#&gt; DataFrame with 33694 rows and 19 columns</span></span>
+<span><span class="co">#&gt;              self.average other.average self.detected other.detected</span></span>
+<span><span class="co">#&gt;                 &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;      &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; RP11-34P13.3            0   0.000000000             0    0.000000000</span></span>
+<span><span class="co">#&gt; FAM138A                 0   0.000000000             0    0.000000000</span></span>
+<span><span class="co">#&gt; OR4F5                   0   0.000000000             0    0.000000000</span></span>
+<span><span class="co">#&gt; RP11-34P13.7            0   0.002147662             0    0.002845981</span></span>
+<span><span class="co">#&gt; RP11-34P13.8            0   0.000383217             0    0.000375072</span></span>
+<span><span class="co">#&gt; ...                   ...           ...           ...            ...</span></span>
+<span><span class="co">#&gt; AC233755.2       0.000000    0.00000000     0.0000000      0.0000000</span></span>
+<span><span class="co">#&gt; AC233755.1       0.000000    0.00000000     0.0000000      0.0000000</span></span>
+<span><span class="co">#&gt; AC240274.1       0.012495    0.00779986     0.0146341      0.0086369</span></span>
+<span><span class="co">#&gt; AC213203.1       0.000000    0.00000000     0.0000000      0.0000000</span></span>
+<span><span class="co">#&gt; FAM231B          0.000000    0.00000000     0.0000000      0.0000000</span></span>
+<span><span class="co">#&gt;              mean.logFC.cohen min.logFC.cohen median.logFC.cohen</span></span>
+<span><span class="co">#&gt;                     &lt;numeric&gt;       &lt;numeric&gt;          &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; RP11-34P13.3       0.00000000       0.0000000                  0</span></span>
+<span><span class="co">#&gt; FAM138A            0.00000000       0.0000000                  0</span></span>
+<span><span class="co">#&gt; OR4F5              0.00000000       0.0000000                  0</span></span>
+<span><span class="co">#&gt; RP11-34P13.7      -0.04251980      -0.2062842                  0</span></span>
+<span><span class="co">#&gt; RP11-34P13.8      -0.00996135      -0.0813788                  0</span></span>
+<span><span class="co">#&gt; ...                       ...             ...                ...</span></span>
+<span><span class="co">#&gt; AC233755.2          0.0000000          0.0000          0.0000000</span></span>
+<span><span class="co">#&gt; AC233755.1          0.0000000          0.0000          0.0000000</span></span>
+<span><span class="co">#&gt; AC240274.1          0.0640153         -0.1179          0.0486982</span></span>
+<span><span class="co">#&gt; AC213203.1          0.0000000          0.0000          0.0000000</span></span>
+<span><span class="co">#&gt; FAM231B             0.0000000          0.0000          0.0000000</span></span>
+<span><span class="co">#&gt;              max.logFC.cohen rank.logFC.cohen  mean.AUC   min.AUC median.AUC</span></span>
+<span><span class="co">#&gt;                    &lt;numeric&gt;        &lt;integer&gt; &lt;numeric&gt; &lt;numeric&gt;  &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; RP11-34P13.3               0             5838  0.500000  0.500000        0.5</span></span>
+<span><span class="co">#&gt; FAM138A                    0             5838  0.500000  0.500000        0.5</span></span>
+<span><span class="co">#&gt; OR4F5                      0             5838  0.500000  0.500000        0.5</span></span>
+<span><span class="co">#&gt; RP11-34P13.7               0             5838  0.498577  0.489362        0.5</span></span>
+<span><span class="co">#&gt; RP11-34P13.8               0             5838  0.499812  0.498344        0.5</span></span>
+<span><span class="co">#&gt; ...                      ...              ...       ...       ...        ...</span></span>
+<span><span class="co">#&gt; AC233755.2          0.000000             5838  0.500000  0.500000   0.500000</span></span>
+<span><span class="co">#&gt; AC233755.1          0.000000             5838  0.500000  0.500000   0.500000</span></span>
+<span><span class="co">#&gt; AC240274.1          0.169635             1831  0.502997  0.489547   0.503794</span></span>
+<span><span class="co">#&gt; AC213203.1          0.000000             5838  0.500000  0.500000   0.500000</span></span>
+<span><span class="co">#&gt; FAM231B             0.000000             5838  0.500000  0.500000   0.500000</span></span>
+<span><span class="co">#&gt;                max.AUC  rank.AUC mean.logFC.detected min.logFC.detected</span></span>
+<span><span class="co">#&gt;              &lt;numeric&gt; &lt;integer&gt;           &lt;numeric&gt;          &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; RP11-34P13.3       0.5      2978        -4.27124e-17       -3.20343e-16</span></span>
+<span><span class="co">#&gt; FAM138A            0.5      2978        -4.27124e-17       -3.20343e-16</span></span>
+<span><span class="co">#&gt; OR4F5              0.5      2978        -4.27124e-17       -3.20343e-16</span></span>
+<span><span class="co">#&gt; RP11-34P13.7       0.5      2978        -3.45538e-01       -1.60237e+00</span></span>
+<span><span class="co">#&gt; RP11-34P13.8       0.5      2978        -8.71800e-02       -7.47437e-01</span></span>
+<span><span class="co">#&gt; ...                ...       ...                 ...                ...</span></span>
+<span><span class="co">#&gt; AC233755.2    0.500000      2978        -4.27124e-17       -3.20343e-16</span></span>
+<span><span class="co">#&gt; AC233755.1    0.500000      2978        -4.27124e-17       -3.20343e-16</span></span>
+<span><span class="co">#&gt; AC240274.1    0.507317      1649         4.64243e-01       -8.43430e-01</span></span>
+<span><span class="co">#&gt; AC213203.1    0.500000      2978        -4.27124e-17       -3.20343e-16</span></span>
+<span><span class="co">#&gt; FAM231B       0.500000      2978        -4.27124e-17       -3.20343e-16</span></span>
+<span><span class="co">#&gt;              median.logFC.detected max.logFC.detected rank.logFC.detected</span></span>
+<span><span class="co">#&gt;                          &lt;numeric&gt;          &lt;numeric&gt;           &lt;integer&gt;</span></span>
+<span><span class="co">#&gt; RP11-34P13.3                     0        3.20343e-16                2645</span></span>
+<span><span class="co">#&gt; FAM138A                          0        3.20343e-16                2645</span></span>
+<span><span class="co">#&gt; OR4F5                            0        3.20343e-16                2645</span></span>
+<span><span class="co">#&gt; RP11-34P13.7                     0        1.60171e-16                2645</span></span>
+<span><span class="co">#&gt; RP11-34P13.8                     0        3.20343e-16                2645</span></span>
+<span><span class="co">#&gt; ...                            ...                ...                 ...</span></span>
+<span><span class="co">#&gt; AC233755.2                0.000000        3.20343e-16                2645</span></span>
+<span><span class="co">#&gt; AC233755.1                0.000000        3.20343e-16                2645</span></span>
+<span><span class="co">#&gt; AC240274.1                0.613645        9.20433e-01                 835</span></span>
+<span><span class="co">#&gt; AC213203.1                0.000000        3.20343e-16                2645</span></span>
+<span><span class="co">#&gt; FAM231B                   0.000000        3.20343e-16                2645</span></span>
+<span><span class="va">auc.only</span> <span class="op">&lt;-</span> <span class="va">chosen</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"AUC"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">chosen</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">auc.only</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">auc.only</span><span class="op">$</span><span class="va">mean.AUC</span>,decreasing<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,<span class="op">]</span></span>
+<span><span class="co">#&gt; DataFrame with 33694 rows and 5 columns</span></span>
+<span><span class="co">#&gt;         mean.AUC    min.AUC median.AUC   max.AUC  rank.AUC</span></span>
+<span><span class="co">#&gt;        &lt;numeric&gt;  &lt;numeric&gt;  &lt;numeric&gt; &lt;numeric&gt; &lt;integer&gt;</span></span>
+<span><span class="co">#&gt; NKG7    0.963726   0.805885   0.988947  0.991803         1</span></span>
+<span><span class="co">#&gt; GNLY    0.958868   0.877404   0.973347  0.974913         2</span></span>
+<span><span class="co">#&gt; CTSW    0.932352   0.709079   0.966638  0.978873         2</span></span>
+<span><span class="co">#&gt; HOPX    0.928138   0.780016   0.949129  0.953659         3</span></span>
+<span><span class="co">#&gt; PRF1    0.924690   0.837420   0.940300  0.943902         5</span></span>
+<span><span class="co">#&gt; ...          ...        ...        ...       ...       ...</span></span>
+<span><span class="co">#&gt; RPS13   0.174413 0.00684690  0.0806435  0.695732       426</span></span>
+<span><span class="co">#&gt; RPL26   0.170493 0.01334117  0.0724876  0.813720       104</span></span>
+<span><span class="co">#&gt; RPL18A  0.169516 0.01090122  0.0760620  0.749735       264</span></span>
+<span><span class="co">#&gt; RPL39   0.152346 0.00405525  0.0626341  0.774848       185</span></span>
+<span><span class="co">#&gt; FTH1    0.147289 0.00121951  0.0639979  0.645732       766</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section id="logfc.cohen" class="level3" data-number="11.2.2"><h3 data-number="11.2.2" class="anchored" data-anchor-id="logfc.cohen">
+<span class="header-section-number">11.2.2</span> LogFC.cohen</h3>
+<p>Cohen’s d是一种标准化的对数倍数变化(log-fold change),</p>
+<p>正值表示该基因在簇中上调，负值表示下调，接近零的值表示差异不大。Cohen’s d大致类似于双样本t-检验的t-statistic</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cohen.only</span> <span class="op">&lt;-</span> <span class="va">chosen</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"logFC.cohen"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">chosen</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">cohen.only</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">cohen.only</span><span class="op">$</span><span class="va">mean.logFC.cohen</span>,decreasing<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,<span class="op">]</span></span>
+<span><span class="co">#&gt; DataFrame with 33694 rows and 5 columns</span></span>
+<span><span class="co">#&gt;         mean.logFC.cohen min.logFC.cohen median.logFC.cohen max.logFC.cohen</span></span>
+<span><span class="co">#&gt;                &lt;numeric&gt;       &lt;numeric&gt;          &lt;numeric&gt;       &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; NKG7             4.84346        1.025337            5.84606         6.30987</span></span>
+<span><span class="co">#&gt; GNLY             3.71574        1.793853            4.04410         4.36929</span></span>
+<span><span class="co">#&gt; CTSW             2.96940        0.699433            3.19968         3.96973</span></span>
+<span><span class="co">#&gt; GZMA             2.69683        0.399487            3.18392         3.44040</span></span>
+<span><span class="co">#&gt; HOPX             2.67330        1.108548            2.92242         3.06690</span></span>
+<span><span class="co">#&gt; ...                  ...             ...                ...             ...</span></span>
+<span><span class="co">#&gt; FTH1            -2.28562        -5.19176          -2.533685       0.2995322</span></span>
+<span><span class="co">#&gt; HLA-DRA         -2.39933        -7.13493          -2.032812       0.0146072</span></span>
+<span><span class="co">#&gt; FTL             -2.40544        -5.82525          -1.285601       0.2569453</span></span>
+<span><span class="co">#&gt; CST3            -2.56767        -7.92584          -0.950339       0.0336350</span></span>
+<span><span class="co">#&gt; LYZ             -2.84045        -9.00815          -0.341198      -0.1797338</span></span>
+<span><span class="co">#&gt;         rank.logFC.cohen</span></span>
+<span><span class="co">#&gt;                &lt;integer&gt;</span></span>
+<span><span class="co">#&gt; NKG7                   1</span></span>
+<span><span class="co">#&gt; GNLY                   1</span></span>
+<span><span class="co">#&gt; CTSW                   3</span></span>
+<span><span class="co">#&gt; GZMA                   2</span></span>
+<span><span class="co">#&gt; HOPX                   4</span></span>
+<span><span class="co">#&gt; ...                  ...</span></span>
+<span><span class="co">#&gt; FTH1                4362</span></span>
+<span><span class="co">#&gt; HLA-DRA             6202</span></span>
+<span><span class="co">#&gt; FTL                 5319</span></span>
+<span><span class="co">#&gt; CST3                5608</span></span>
+<span><span class="co">#&gt; LYZ                30966</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section id="logfc.detected" class="level3" data-number="11.2.3"><h3 data-number="11.2.3" class="anchored" data-anchor-id="logfc.detected">
+<span class="header-section-number">11.2.3</span> logFC.detected</h3>
+<p>成对比较检测到表达值的细胞比例的对数倍数变化，这忽略了有关表达量的任何信息，只考虑是否检测到表达值。 正值表示与其他簇相比，X簇中表达基因的细胞比例更大。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">detect.only</span> <span class="op">&lt;-</span> <span class="va">chosen</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"logFC.detected"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">chosen</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">detect.only</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">detect.only</span><span class="op">$</span><span class="va">mean.logFC.detected</span>,decreasing<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,<span class="op">]</span></span>
+<span><span class="co">#&gt; DataFrame with 33694 rows and 5 columns</span></span>
+<span><span class="co">#&gt;        mean.logFC.detected min.logFC.detected median.logFC.detected</span></span>
+<span><span class="co">#&gt;                  &lt;numeric&gt;          &lt;numeric&gt;             &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; KLRF1              4.80539           2.532196               5.33959</span></span>
+<span><span class="co">#&gt; PRSS23             4.43836           2.354538               4.57967</span></span>
+<span><span class="co">#&gt; XCL1               4.42946           1.398559               4.91134</span></span>
+<span><span class="co">#&gt; XCL2               4.42099           1.304208               4.87151</span></span>
+<span><span class="co">#&gt; SH2D1B             4.17329           0.804099               4.54737</span></span>
+<span><span class="co">#&gt; ...                    ...                ...                   ...</span></span>
+<span><span class="co">#&gt; MARCKS            -3.14645           -6.96050              -2.00000</span></span>
+<span><span class="co">#&gt; RAB31             -3.23328           -6.63557              -2.58496</span></span>
+<span><span class="co">#&gt; SLC7A7            -3.28244           -6.95262              -2.64295</span></span>
+<span><span class="co">#&gt; RAB32             -3.42074           -6.72160              -3.32193</span></span>
+<span><span class="co">#&gt; NCF2              -3.76139           -7.00693              -3.38863</span></span>
+<span><span class="co">#&gt;        max.logFC.detected rank.logFC.detected</span></span>
+<span><span class="co">#&gt;                 &lt;numeric&gt;           &lt;integer&gt;</span></span>
+<span><span class="co">#&gt; KLRF1             6.50482                   1</span></span>
+<span><span class="co">#&gt; PRSS23            5.98530                   2</span></span>
+<span><span class="co">#&gt; XCL1              6.16993                   1</span></span>
+<span><span class="co">#&gt; XCL2              6.21524                   1</span></span>
+<span><span class="co">#&gt; SH2D1B            5.85007                   3</span></span>
+<span><span class="co">#&gt; ...                   ...                 ...</span></span>
+<span><span class="co">#&gt; MARCKS                  0               11805</span></span>
+<span><span class="co">#&gt; RAB31                  -1               31423</span></span>
+<span><span class="co">#&gt; SLC7A7                  0               11796</span></span>
+<span><span class="co">#&gt; RAB32                   0               11805</span></span>
+<span><span class="co">#&gt; NCF2                    0               11805</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section></section><section id="summary" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">11.3</span> summary</h2>
+<p>mean，与其他簇的平均值相比，对于簇X，较大的均值（&gt;0 for the log-fold changes, &gt;0.5 for the AUCs）表示在簇X中该基因上调。</p>
+<p>median，与大多数 （&gt;50%） 其他簇相比，较大的值表示该基因在X簇中上调。对于异常值， 中位数比均值提供更大的稳健性robustness，而均值可能是可取的，也可能是不可取的。 一方面，如果只有少数成对比较具有较大的效应，则中位数可以避免夸大效应值; 另一方面，它也会通过忽略少数具有相反效果的成对比较来夸大效应值。</p>
+<p>minimum value，是鉴定上调基因最严格的。因为最小值是个大值表示与所有其他集群相比，该基因在X簇中上调。 相反，如果最小值很小（&lt;0 for the log-fold changes, &lt;0.5 for the AUCs），与至少一个其他簇相比，该基因在X簇中下调。</p>
+<p>maximum value， 是识别上调基因最不严格的，因为与任何一个其他集群相比，如果在X簇中存在强烈上调，最大值可以是个大值。 相反，如果最大值很小，与所有其他集群相比，该基因在X簇中下调。</p>
+<p>minimum rank，是所有成对比较中每个基因的最小排序。具体来说，根据效应值降序，在每个成对比较中对基因进行排序，然后为每个基因报告所有成对比较中的最小排序。如果一个基因的最小秩很小，在至少一个簇X与另一个簇的成对比较中，它是最上调的基因之一。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chosen</span> <span class="op">&lt;-</span> <span class="va">marker.info</span><span class="op">[[</span><span class="st">"4"</span><span class="op">]</span><span class="op">]</span> <span class="co"># using another cluster, for some variety.</span></span>
+<span><span class="va">ordered</span> <span class="op">&lt;-</span> <span class="va">chosen</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">chosen</span><span class="op">$</span><span class="va">median.logFC.cohen</span>,decreasing<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,<span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ordered</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span> <span class="co"># showing basic stats only, for brevity.</span></span>
+<span><span class="co">#&gt; DataFrame with 6 rows and 4 columns</span></span>
+<span><span class="co">#&gt;        self.average other.average self.detected other.detected</span></span>
+<span><span class="co">#&gt;           &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;      &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; LYZ         4.97589      2.188256      1.000000       0.657832</span></span>
+<span><span class="co">#&gt; S100A9      4.94461      2.059524      1.000000       0.705775</span></span>
+<span><span class="co">#&gt; FTL         5.58358      4.140706      1.000000       0.961428</span></span>
+<span><span class="co">#&gt; S100A8      4.61729      1.834030      1.000000       0.639031</span></span>
+<span><span class="co">#&gt; CTSS        3.28383      1.568992      1.000000       0.630574</span></span>
+<span><span class="co">#&gt; CSTA        1.76876      0.685007      0.982143       0.337978</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotExpression.html">plotExpression</a></span><span class="op">(</span><span class="va">sce.pbmc</span>, features<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">ordered</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>    x<span class="op">=</span><span class="st">"label"</span>, colour_by<span class="op">=</span><span class="st">"label"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-median.logFC.cohen" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-median.logFC.cohen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MarkerGeneDetection_files/figure-html/fig-median.logFC.cohen-1.png" id="fig-median.logFC.cohen" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-median.logFC.cohen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.2
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ordered</span> <span class="op">&lt;-</span> <span class="va">chosen</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">chosen</span><span class="op">$</span><span class="va">rank.logFC.cohen</span><span class="op">)</span>,<span class="op">]</span></span>
+<span><span class="va">top.ranked</span> <span class="op">&lt;-</span> <span class="va">ordered</span><span class="op">[</span><span class="va">ordered</span><span class="op">$</span><span class="va">rank.logFC.cohen</span> <span class="op">&lt;=</span> <span class="fl">5</span>,<span class="op">]</span>  <span class="co"># 最小排序小于或等于 5</span></span>
+<span><span class="va">top.ranked</span><span class="op">$</span><span class="va">rank.logFC.cohen</span></span>
+<span><span class="co">#&gt;        S100A8        S100A4         RPS27        MALAT1           LYZ </span></span>
+<span><span class="co">#&gt;             1             1             1             1             1 </span></span>
+<span><span class="co">#&gt;        TYROBP          CTSS         RPL31        EEF1B2           LTB </span></span>
+<span><span class="co">#&gt;             1             2             2             2             2 </span></span>
+<span><span class="co">#&gt;         RPS21           FTL        S100A9          RPSA          GPX1 </span></span>
+<span><span class="co">#&gt;             2             2             3             3             3 </span></span>
+<span><span class="co">#&gt;         RPS29         RPLP1         RPL17          CST3       S100A11 </span></span>
+<span><span class="co">#&gt;             3             3             3             3             4 </span></span>
+<span><span class="co">#&gt;        RPS27A        RPS15A        MT-ND2        FCER1G         RPS12 </span></span>
+<span><span class="co">#&gt;             4             4             4             5             5 </span></span>
+<span><span class="co">#&gt;        RPL36A RP11-1143G9.4          IL32        RPL23A </span></span>
+<span><span class="co">#&gt;             5             5             5             5</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">top.ranked</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "S100A8"        "S100A4"        "RPS27"         "MALAT1"       </span></span>
+<span><span class="co">#&gt;  [5] "LYZ"           "TYROBP"        "CTSS"          "RPL31"        </span></span>
+<span><span class="co">#&gt;  [9] "EEF1B2"        "LTB"           "RPS21"         "FTL"          </span></span>
+<span><span class="co">#&gt; [13] "S100A9"        "RPSA"          "GPX1"          "RPS29"        </span></span>
+<span><span class="co">#&gt; [17] "RPLP1"         "RPL17"         "CST3"          "S100A11"      </span></span>
+<span><span class="co">#&gt; [21] "RPS27A"        "RPS15A"        "MT-ND2"        "FCER1G"       </span></span>
+<span><span class="co">#&gt; [25] "RPS12"         "RPL36A"        "RP11-1143G9.4" "IL32"         </span></span>
+<span><span class="co">#&gt; [29] "RPL23A"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotGroupedHeatmap.html">plotGroupedHeatmap</a></span><span class="op">(</span><span class="va">sce.pbmc</span>, features<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">top.ranked</span><span class="op">)</span>, group<span class="op">=</span><span class="st">"label"</span>, </span>
+<span>    center<span class="op">=</span><span class="cn">TRUE</span>, zlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-rank.logFC.cohen" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-rank.logFC.cohen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MarkerGeneDetection_files/figure-html/fig-rank.logFC.cohen-1.png" id="fig-rank.logFC.cohen" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-rank.logFC.cohen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.3
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Omitting the decreasing=TRUE to focus on negative effects.</span></span>
+<span><span class="va">ordered</span> <span class="op">&lt;-</span> <span class="va">chosen</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">chosen</span><span class="op">$</span><span class="va">median.logFC.cohen</span><span class="op">)</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>  <span class="co">#检查一些升序靠前的基因，看看与其他簇相比是否有任何一致的下调</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ordered</span><span class="op">)</span></span>
+<span><span class="co">#&gt; DataFrame with 6 rows and 4 columns</span></span>
+<span><span class="co">#&gt;       self.average other.average self.detected other.detected</span></span>
+<span><span class="co">#&gt;          &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;      &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; HLA-B     4.013806      4.438053      1.000000       0.971760</span></span>
+<span><span class="co">#&gt; HLA-E     1.789158      2.093695      0.982143       0.871183</span></span>
+<span><span class="co">#&gt; RPSA      2.685950      2.563913      1.000000       0.829648</span></span>
+<span><span class="co">#&gt; HLA-C     3.116699      3.527693      1.000000       0.934941</span></span>
+<span><span class="co">#&gt; BIN2      0.410471      0.667019      0.464286       0.456757</span></span>
+<span><span class="co">#&gt; RAC2      0.823508      0.982662      0.714286       0.630389</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section id="full-effects" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="full-effects">
+<span class="header-section-number">11.4</span> full effects</h2>
+<p>设置 <code>full.stats=TRUE</code> 获取涉及特定聚类的所有成对比较的效应值</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># cluster 4 vs any other cluster</span></span>
+<span><span class="va">marker.info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/scoreMarkers.html">scoreMarkers</a></span><span class="op">(</span><span class="va">sce.pbmc</span>, <span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/colLabels.html">colLabels</a></span><span class="op">(</span><span class="va">sce.pbmc</span><span class="op">)</span>, full.stats<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">chosen</span> <span class="op">&lt;-</span> <span class="va">marker.info</span><span class="op">[[</span><span class="st">"4"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">chosen</span><span class="op">$</span><span class="va">full.AUC</span></span>
+<span><span class="co">#&gt; DataFrame with 33694 rows and 15 columns</span></span>
+<span><span class="co">#&gt;                      1         2         3         5         6         7</span></span>
+<span><span class="co">#&gt;              &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; RP11-34P13.3       0.5  0.500000  0.500000  0.500000       0.5       0.5</span></span>
+<span><span class="co">#&gt; FAM138A            0.5  0.500000  0.500000  0.500000       0.5       0.5</span></span>
+<span><span class="co">#&gt; OR4F5              0.5  0.500000  0.500000  0.500000       0.5       0.5</span></span>
+<span><span class="co">#&gt; RP11-34P13.7       0.5  0.499016  0.499076  0.497326       0.5       0.5</span></span>
+<span><span class="co">#&gt; RP11-34P13.8       0.5  0.500000  0.500000  0.500000       0.5       0.5</span></span>
+<span><span class="co">#&gt; ...                ...       ...       ...       ...       ...       ...</span></span>
+<span><span class="co">#&gt; AC233755.2    0.500000  0.500000  0.500000  0.500000     0.500       0.5</span></span>
+<span><span class="co">#&gt; AC233755.1    0.500000  0.500000  0.500000  0.500000     0.500       0.5</span></span>
+<span><span class="co">#&gt; AC240274.1    0.492683  0.496063  0.494455  0.495989     0.496       0.5</span></span>
+<span><span class="co">#&gt; AC213203.1    0.500000  0.500000  0.500000  0.500000     0.500       0.5</span></span>
+<span><span class="co">#&gt; FAM231B       0.500000  0.500000  0.500000  0.500000     0.500       0.5</span></span>
+<span><span class="co">#&gt;                      8         9        10        11        12        13</span></span>
+<span><span class="co">#&gt;              &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; RP11-34P13.3  0.500000  0.500000       0.5  0.500000       0.5       0.5</span></span>
+<span><span class="co">#&gt; FAM138A       0.500000  0.500000       0.5  0.500000       0.5       0.5</span></span>
+<span><span class="co">#&gt; OR4F5         0.500000  0.500000       0.5  0.500000       0.5       0.5</span></span>
+<span><span class="co">#&gt; RP11-34P13.7  0.498843  0.495033       0.5  0.489362       0.5       0.5</span></span>
+<span><span class="co">#&gt; RP11-34P13.8  0.498843  0.498344       0.5  0.500000       0.5       0.5</span></span>
+<span><span class="co">#&gt; ...                ...       ...       ...       ...       ...       ...</span></span>
+<span><span class="co">#&gt; AC233755.2    0.500000  0.500000  0.500000  0.500000  0.500000  0.500000</span></span>
+<span><span class="co">#&gt; AC233755.1    0.500000  0.500000  0.500000  0.500000  0.500000  0.500000</span></span>
+<span><span class="co">#&gt; AC240274.1    0.496528  0.496689  0.494233  0.489362  0.496774  0.496988</span></span>
+<span><span class="co">#&gt; AC213203.1    0.500000  0.500000  0.500000  0.500000  0.500000  0.500000</span></span>
+<span><span class="co">#&gt; FAM231B       0.500000  0.500000  0.500000  0.500000  0.500000  0.500000</span></span>
+<span><span class="co">#&gt;                     14        15        16</span></span>
+<span><span class="co">#&gt;              &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; RP11-34P13.3       0.5       0.5       0.5</span></span>
+<span><span class="co">#&gt; FAM138A            0.5       0.5       0.5</span></span>
+<span><span class="co">#&gt; OR4F5              0.5       0.5       0.5</span></span>
+<span><span class="co">#&gt; RP11-34P13.7       0.5       0.5       0.5</span></span>
+<span><span class="co">#&gt; RP11-34P13.8       0.5       0.5       0.5</span></span>
+<span><span class="co">#&gt; ...                ...       ...       ...</span></span>
+<span><span class="co">#&gt; AC233755.2         0.5  0.500000       0.5</span></span>
+<span><span class="co">#&gt; AC233755.1         0.5  0.500000       0.5</span></span>
+<span><span class="co">#&gt; AC240274.1         0.5  0.482143       0.5</span></span>
+<span><span class="co">#&gt; AC213203.1         0.5  0.500000       0.5</span></span>
+<span><span class="co">#&gt; FAM231B            0.5  0.500000       0.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>假设我们想确定将簇 4 与其他具有高 LYZ 表达的簇区分开来的基因。 对相关比较进行取子集，并对汇总统计量进行排序，以获得该子集中标记基因的排名。 这使我们能够轻松地表征密切相关的集群之间的细微差异。 为了说明这一点，与其他 高LYZ 簇相比，我们使用最小的排名<code><a href="https://rdrr.io/pkg/scran/man/computeMinRank.html">computeMinRank()</a></code>来识别簇 4 中排名靠前的 DE 基因。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lyz.high</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"4"</span>, <span class="st">"6"</span>, <span class="st">"8"</span>, <span class="st">"9"</span>, <span class="st">"14"</span><span class="op">)</span> <span class="co"># based on inspection of the previous Figure.</span></span>
+<span><span class="va">subset</span> <span class="op">&lt;-</span> <span class="va">chosen</span><span class="op">$</span><span class="va">full.AUC</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">chosen</span><span class="op">$</span><span class="va">full.AUC</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">lyz.high</span><span class="op">]</span></span>
+<span><span class="va">to.show</span> <span class="op">&lt;-</span> <span class="va">subset</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/scran/man/computeMinRank.html">computeMinRank</a></span><span class="op">(</span><span class="va">subset</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">10</span>,<span class="op">]</span></span>
+<span><span class="va">to.show</span></span>
+<span><span class="co">#&gt; DataFrame with 27 rows and 4 columns</span></span>
+<span><span class="co">#&gt;                 6         8         9        14</span></span>
+<span><span class="co">#&gt;         &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; CTSS     0.942286  0.195230  0.203288  0.208138</span></span>
+<span><span class="co">#&gt; S100A12  0.885571  0.204034  0.605428  0.287178</span></span>
+<span><span class="co">#&gt; S100A8   0.898143  0.156457  0.639368  0.112705</span></span>
+<span><span class="co">#&gt; RPS27    0.906286  0.943576  0.905866  0.949063</span></span>
+<span><span class="co">#&gt; RPS27A   0.810000  0.862021  0.832663  0.932084</span></span>
+<span><span class="co">#&gt; ...           ...       ...       ...       ...</span></span>
+<span><span class="co">#&gt; FTL      0.941857  0.115369  0.118023 0.0954333</span></span>
+<span><span class="co">#&gt; RPL13A   0.637143  0.858466  0.813683 0.9396956</span></span>
+<span><span class="co">#&gt; RPL3     0.383143  0.819651  0.764250 0.8934426</span></span>
+<span><span class="co">#&gt; MT-ND2   0.922143  0.576100  0.536128 0.7391686</span></span>
+<span><span class="co">#&gt; MT-ND3   0.906857  0.432746  0.514487 0.5386417</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotGroupedHeatmap.html">plotGroupedHeatmap</a></span><span class="op">(</span><span class="va">sce.pbmc</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/colLabels.html">colLabels</a></span><span class="op">(</span><span class="va">sce.pbmc</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">lyz.high</span><span class="op">]</span>,</span>
+<span>    features<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">to.show</span><span class="op">)</span>, group<span class="op">=</span><span class="st">"label"</span>, center<span class="op">=</span><span class="cn">TRUE</span>, zlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-cluster4_vs_high-LYZ_DE" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-cluster4_vs_high-LYZ_DE-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MarkerGeneDetection_files/figure-html/fig-cluster4_vs_high-LYZ_DE-1.png" id="fig-cluster4_vs_high-LYZ_DE" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-cluster4_vs_high-LYZ_DE-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.4
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>自定义汇总统计量例如，对于相对于其他集群的某个百分比（例如80%）上调的标记物感兴趣。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">stat</span> <span class="op">&lt;-</span> <span class="fu">MatrixGenerics</span><span class="fu">::</span><span class="fu">rowQuantiles</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">chosen</span><span class="op">$</span><span class="va">full.AUC</span><span class="op">)</span>, p<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span></span>
+<span><span class="va">chosen</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">stat</span>, decreasing<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> </span>
+<span><span class="co">#&gt; DataFrame with 33694 rows and 4 columns</span></span>
+<span><span class="co">#&gt;         self.average other.average self.detected other.detected</span></span>
+<span><span class="co">#&gt;            &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;      &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; S100A12      1.94300      0.609079      0.928571       0.263675</span></span>
+<span><span class="co">#&gt; JUND         1.42774      0.619368      0.910714       0.442422</span></span>
+<span><span class="co">#&gt; S100A9       4.94461      2.059524      1.000000       0.705775</span></span>
+<span><span class="co">#&gt; VCAN         1.63794      0.436597      0.875000       0.222359</span></span>
+<span><span class="co">#&gt; S100A8       4.61729      1.834030      1.000000       0.639031</span></span>
+<span><span class="co">#&gt; ...              ...           ...           ...            ...</span></span>
+<span><span class="co">#&gt; RPL23A       3.96991       3.74428             1       0.905175</span></span>
+<span><span class="co">#&gt; RPSA         2.68595       2.56391             1       0.829648</span></span>
+<span><span class="co">#&gt; HLA-C        3.11670       3.52769             1       0.934941</span></span>
+<span><span class="co">#&gt; RPS29        4.57983       4.27407             1       0.919797</span></span>
+<span><span class="co">#&gt; HLA-B        4.01381       4.43805             1       0.971760</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section id="log-fold-change-threshold" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="log-fold-change-threshold">
+<span class="header-section-number">11.5</span> log-fold change threshold</h2>
+<p>设置 <code>lfc=</code> 来计算相对于对数倍数变化阈值的效应值</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">marker.info.lfc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/scoreMarkers.html">scoreMarkers</a></span><span class="op">(</span><span class="va">sce.pbmc</span>, <span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/colLabels.html">colLabels</a></span><span class="op">(</span><span class="va">sce.pbmc</span><span class="op">)</span>, lfc<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">chosen2</span> <span class="op">&lt;-</span> <span class="va">marker.info.lfc</span><span class="op">[[</span><span class="st">"5"</span><span class="op">]</span><span class="op">]</span> </span>
+<span><span class="va">chosen2</span> <span class="op">&lt;-</span> <span class="va">chosen2</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">chosen2</span><span class="op">$</span><span class="va">mean.AUC</span>, decreasing<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,<span class="op">]</span></span>
+<span><span class="va">chosen2</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"self.average"</span>, <span class="st">"other.average"</span>, <span class="st">"mean.AUC"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; DataFrame with 33694 rows and 3 columns</span></span>
+<span><span class="co">#&gt;            self.average other.average  mean.AUC</span></span>
+<span><span class="co">#&gt;               &lt;numeric&gt;     &lt;numeric&gt; &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; CCL5            3.81358      1.047986  0.747609</span></span>
+<span><span class="co">#&gt; NKG7            3.17038      0.830285  0.654736</span></span>
+<span><span class="co">#&gt; IL32            3.29770      1.076383  0.633969</span></span>
+<span><span class="co">#&gt; GZMA            1.92877      0.426848  0.454187</span></span>
+<span><span class="co">#&gt; TRAC            2.25881      0.848025  0.434530</span></span>
+<span><span class="co">#&gt; ...                 ...           ...       ...</span></span>
+<span><span class="co">#&gt; AC233755.2   0.00000000    0.00000000         0</span></span>
+<span><span class="co">#&gt; AC233755.1   0.00000000    0.00000000         0</span></span>
+<span><span class="co">#&gt; AC240274.1   0.00942441    0.00800457         0</span></span>
+<span><span class="co">#&gt; AC213203.1   0.00000000    0.00000000         0</span></span>
+<span><span class="co">#&gt; FAM231B      0.00000000    0.00000000         0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotDots.html">plotDots</a></span><span class="op">(</span><span class="va">sce.pbmc</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">chosen2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, group<span class="op">=</span><span class="st">"label"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="MarkerGeneDetection_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="blocking-factors" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="blocking-factors">
+<span class="header-section-number">11.6</span> blocking factors</h2>
+<p>变异因素（例如，批次效应、性别差异）</p>
+<p><code>block=</code></p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#--- loading ---#</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">scRNAseq</span><span class="op">)</span></span>
+<span><span class="va">sce.416b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scRNAseq/man/LunSpikeInData.html">LunSpikeInData</a></span><span class="op">(</span>which<span class="op">=</span><span class="st">"416b"</span><span class="op">)</span> </span>
+<span><span class="va">sce.416b</span><span class="op">$</span><span class="va">block</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">sce.416b</span><span class="op">$</span><span class="va">block</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- gene-annotation ---#</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">AnnotationHub</span><span class="op">)</span></span>
+<span><span class="va">ens.mm.v97</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationHub/man/AnnotationHub-class.html">AnnotationHub</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"AH73905"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="fu">rowData</span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span><span class="op">$</span><span class="va">ENSEMBL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html">rownames</a></span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span></span>
+<span><span class="fu">rowData</span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span><span class="op">$</span><span class="va">SYMBOL</span> <span class="op">&lt;-</span> <span class="fu">mapIds</span><span class="op">(</span><span class="va">ens.mm.v97</span>, keys<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html">rownames</a></span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span>,</span>
+<span>    keytype<span class="op">=</span><span class="st">"GENEID"</span>, column<span class="op">=</span><span class="st">"SYMBOL"</span><span class="op">)</span></span>
+<span><span class="fu">rowData</span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span><span class="op">$</span><span class="va">SEQNAME</span> <span class="op">&lt;-</span> <span class="fu">mapIds</span><span class="op">(</span><span class="va">ens.mm.v97</span>, keys<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html">rownames</a></span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span>,</span>
+<span>    keytype<span class="op">=</span><span class="st">"GENEID"</span>, column<span class="op">=</span><span class="st">"SEQNAME"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://bioconductor.org/packages/scater/">scater</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html">rownames</a></span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/uniquifyFeatureNames.html">uniquifyFeatureNames</a></span><span class="op">(</span><span class="fu">rowData</span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span><span class="op">$</span><span class="va">ENSEMBL</span>, </span>
+<span>    <span class="fu">rowData</span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span><span class="op">$</span><span class="va">SYMBOL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- quality-control ---#</span></span>
+<span><span class="va">mito</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html">which</a></span><span class="op">(</span><span class="fu">rowData</span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span><span class="op">$</span><span class="va">SEQNAME</span><span class="op">==</span><span class="st">"MT"</span><span class="op">)</span></span>
+<span><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/perCellQCMetrics.html">perCellQCMetrics</a></span><span class="op">(</span><span class="va">sce.416b</span>, subsets<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>Mt<span class="op">=</span><span class="va">mito</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">qc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/quickPerCellQC.html">quickPerCellQC</a></span><span class="op">(</span><span class="va">stats</span>, percent_subsets<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"subsets_Mt_percent"</span>,</span>
+<span>    <span class="st">"altexps_ERCC_percent"</span><span class="op">)</span>, batch<span class="op">=</span><span class="va">sce.416b</span><span class="op">$</span><span class="va">block</span><span class="op">)</span></span>
+<span><span class="va">sce.416b</span> <span class="op">&lt;-</span> <span class="va">sce.416b</span><span class="op">[</span>,<span class="op">!</span><span class="va">qc</span><span class="op">$</span><span class="va">discard</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co">#--- normalization ---#</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">scran</span><span class="op">)</span></span>
+<span><span class="va">sce.416b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/computeSumFactors.html">computeSumFactors</a></span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span></span>
+<span><span class="va">sce.416b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/logNormCounts.html">logNormCounts</a></span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- variance-modelling ---#</span></span>
+<span><span class="va">dec.416b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/modelGeneVarWithSpikes.html">modelGeneVarWithSpikes</a></span><span class="op">(</span><span class="va">sce.416b</span>, <span class="st">"ERCC"</span>, block<span class="op">=</span><span class="va">sce.416b</span><span class="op">$</span><span class="va">block</span><span class="op">)</span></span>
+<span><span class="va">chosen.hvgs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/getTopHVGs.html">getTopHVGs</a></span><span class="op">(</span><span class="va">dec.416b</span>, prop<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- batch-correction ---#</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bioinf.wehi.edu.au/limma/">limma</a></span><span class="op">)</span></span>
+<span><span class="fu">assay</span><span class="op">(</span><span class="va">sce.416b</span>, <span class="st">"corrected"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/limma/man/removeBatchEffect.html">removeBatchEffect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/assays.html">logcounts</a></span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span>, </span>
+<span>    design<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="op">~</span><span class="va">sce.416b</span><span class="op">$</span><span class="va">phenotype</span><span class="op">)</span>, batch<span class="op">=</span><span class="va">sce.416b</span><span class="op">$</span><span class="va">block</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- dimensionality-reduction ---#</span></span>
+<span><span class="va">sce.416b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocSingular/man/runPCA.html">runPCA</a></span><span class="op">(</span><span class="va">sce.416b</span>, ncomponents<span class="op">=</span><span class="fl">10</span>, subset_row<span class="op">=</span><span class="va">chosen.hvgs</span>,</span>
+<span>    exprs_values<span class="op">=</span><span class="st">"corrected"</span>, BSPARAM<span class="op">=</span><span class="fu">BiocSingular</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocSingular/man/BiocSingularParam.html">ExactParam</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1010</span><span class="op">)</span></span>
+<span><span class="va">sce.416b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scater/man/runTSNE.html">runTSNE</a></span><span class="op">(</span><span class="va">sce.416b</span>, dimred<span class="op">=</span><span class="st">"PCA"</span>, perplexity<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#--- clustering ---#</span></span>
+<span><span class="va">my.dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/reducedDims.html">reducedDim</a></span><span class="op">(</span><span class="va">sce.416b</span>, <span class="st">"PCA"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">my.tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="va">my.dist</span>, method<span class="op">=</span><span class="st">"ward.D2"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.genetics.ucla.edu/labs/horvath/CoexpressionNetwork/BranchCutting/">dynamicTreeCut</a></span><span class="op">)</span></span>
+<span><span class="va">my.clusters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/dynamicTreeCut/man/cutreeDynamic.html">cutreeDynamic</a></span><span class="op">(</span><span class="va">my.tree</span>, distM<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">my.dist</span><span class="op">)</span>,</span>
+<span>    minClusterSize<span class="op">=</span><span class="fl">10</span>, verbose<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/colLabels.html">colLabels</a></span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">my.clusters</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m.out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scran/man/scoreMarkers.html">scoreMarkers</a></span><span class="op">(</span><span class="va">sce.416b</span>, <span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/colLabels.html">colLabels</a></span><span class="op">(</span><span class="va">sce.416b</span><span class="op">)</span>, block<span class="op">=</span><span class="va">sce.416b</span><span class="op">$</span><span class="va">block</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>在每个批次内进行成对比较，抵消了任何批次效应。然后使用加权平均数对各批次的效应值进行平均以获得每个成对比较的单个值，该加权平均数考虑了每个批次中参与成对比较的细胞数。对每个簇内外的平均对数表达和检测到的细胞比例进行了类似的校正。</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">demo</span> <span class="op">&lt;-</span> <span class="va">m.out</span><span class="op">[[</span><span class="st">"1"</span><span class="op">]</span><span class="op">]</span> </span>
+<span><span class="va">ordered</span> <span class="op">&lt;-</span> <span class="va">demo</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/order.html">order</a></span><span class="op">(</span><span class="va">demo</span><span class="op">$</span><span class="va">median.logFC.cohen</span>, decreasing<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,<span class="op">]</span></span>
+<span><span class="va">ordered</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
+<span><span class="co">#&gt; DataFrame with 46604 rows and 4 columns</span></span>
+<span><span class="co">#&gt;         self.average other.average self.detected other.detected</span></span>
+<span><span class="co">#&gt;            &lt;numeric&gt;     &lt;numeric&gt;     &lt;numeric&gt;      &lt;numeric&gt;</span></span>
+<span><span class="co">#&gt; Myh11        4.03436      0.861019      0.988132       0.303097</span></span>
+<span><span class="co">#&gt; Cd200r3      7.97667      3.524762      0.977675       0.624507</span></span>
+<span><span class="co">#&gt; Pi16         6.27654      2.644421      0.957126       0.530395</span></span>
+<span><span class="co">#&gt; Actb        15.48533     14.808584      1.000000       1.000000</span></span>
+<span><span class="co">#&gt; Ctsd        11.61247      9.130141      1.000000       1.000000</span></span>
+<span><span class="co">#&gt; ...              ...           ...           ...            ...</span></span>
+<span><span class="co">#&gt; Spc24      0.4772577       5.03548      0.222281       0.862153</span></span>
+<span><span class="co">#&gt; Ska1       0.0787421       4.43426      0.118743       0.773950</span></span>
+<span><span class="co">#&gt; Pimreg     0.5263611       5.35494      0.258150       0.910706</span></span>
+<span><span class="co">#&gt; Birc5      1.5580536       7.07230      0.698746       0.976929</span></span>
+<span><span class="co">#&gt; Ccna2      0.9664521       6.55243      0.554104       0.948520</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/plotExpression.html">plotExpression</a></span><span class="op">(</span><span class="va">sce.416b</span>, features<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html">rownames</a></span><span class="op">(</span><span class="va">ordered</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>,</span>
+<span>    x<span class="op">=</span><span class="st">"label"</span>, colour_by<span class="op">=</span><span class="st">"block"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-block" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-block-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MarkerGeneDetection_files/figure-html/fig-block-1.png" id="fig-block" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-block-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.5
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>该参数<code>block=</code>适用于上面显示的所有效应值，并且对批次之间对数倍数变化或方差的差异具有鲁棒性。 但是，它假定每对簇至少存在于一个批次中。如果来自两个簇的细胞从未在同一批次中同时出现，则无法进行关联的成对比较，并且在计算汇总统计量时会忽略该比较。</p>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/wanganlin00\.github\.io\/Bioinformatics\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./Clustering.html" class="pagination-link" aria-label="聚类">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">聚类</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./CellTypeAnnotation.html" class="pagination-link" aria-label="细胞类型注释">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">细胞类型注释</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb23" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| include: false</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="in">conflicts_prefer(GenomicRanges::setdiff)</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="in"># conflicts_prefer(dplyr::filter)</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># 标记基因检测</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>标记基因检测最直接的方法包括检测簇之间的差异表达。</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r loading-sce.pbmc_to_clustering}</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="in">#--- loading ---#</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="in">library(DropletUtils)</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="in">sce.pbmc &lt;- DropletUtils::read10xCounts("data/OSCA/raw_gene_bc_matrices/GRCh38",</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="in">                                        col.names = TRUE)</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="in">#--- gene-annotation ---#</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="in">library(scater)</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="in">rownames(sce.pbmc) &lt;- uniquifyFeatureNames(</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="in">    rowData(sce.pbmc)$ID, rowData(sce.pbmc)$Symbol)</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="in">library(EnsDb.Hsapiens.v86)</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="in">location &lt;- mapIds(EnsDb.Hsapiens.v86, keys=rowData(sce.pbmc)$ID, </span></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="in">    column="SEQNAME", keytype="GENEID")</span></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="in">#--- cell-detection ---#</span></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(100)</span></span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="in">e.out &lt;- emptyDrops(counts(sce.pbmc))</span></span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a><span class="in">sce.pbmc &lt;- sce.pbmc[,which(e.out$FDR &lt;= 0.001)]</span></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="in">#--- quality-control ---#</span></span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a><span class="in">stats &lt;- perCellQCMetrics(sce.pbmc, subsets=list(Mito=which(location=="MT")))</span></span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a><span class="in">high.mito &lt;- isOutlier(stats$subsets_Mito_percent, type="higher")</span></span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a><span class="in">sce.pbmc &lt;- sce.pbmc[,!high.mito]</span></span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a><span class="in">#--- normalization ---#</span></span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a><span class="in">library(scran)</span></span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(1000)</span></span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a><span class="in">clusters &lt;- quickCluster(sce.pbmc)</span></span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a><span class="in">sce.pbmc &lt;- computeSumFactors(sce.pbmc, cluster=clusters)</span></span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a><span class="in">sce.pbmc &lt;- logNormCounts(sce.pbmc)</span></span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a><span class="in">#--- variance-modelling ---#</span></span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(1001)</span></span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a><span class="in">dec.pbmc &lt;- modelGeneVarByPoisson(sce.pbmc)</span></span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a><span class="in">top.pbmc &lt;- getTopHVGs(dec.pbmc, prop=0.1)</span></span>
+<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a><span class="in">#--- dimensionality-reduction ---#</span></span>
+<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(10000)</span></span>
+<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a><span class="in">sce.pbmc &lt;- denoisePCA(sce.pbmc, subset.row=top.pbmc, technical=dec.pbmc)</span></span>
+<span id="cb23-53"><a href="#cb23-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-54"><a href="#cb23-54" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(100000)</span></span>
+<span id="cb23-55"><a href="#cb23-55" aria-hidden="true" tabindex="-1"></a><span class="in">sce.pbmc &lt;- runTSNE(sce.pbmc, dimred="PCA")</span></span>
+<span id="cb23-56"><a href="#cb23-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-57"><a href="#cb23-57" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(1000000)</span></span>
+<span id="cb23-58"><a href="#cb23-58" aria-hidden="true" tabindex="-1"></a><span class="in">sce.pbmc &lt;- runUMAP(sce.pbmc, dimred="PCA")</span></span>
+<span id="cb23-59"><a href="#cb23-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-60"><a href="#cb23-60" aria-hidden="true" tabindex="-1"></a><span class="in">#--- clustering ---#</span></span>
+<span id="cb23-61"><a href="#cb23-61" aria-hidden="true" tabindex="-1"></a><span class="in">g &lt;- buildSNNGraph(sce.pbmc, k=10, use.dimred = 'PCA')</span></span>
+<span id="cb23-62"><a href="#cb23-62" aria-hidden="true" tabindex="-1"></a><span class="in">clust &lt;- igraph::cluster_walktrap(g)$membership</span></span>
+<span id="cb23-63"><a href="#cb23-63" aria-hidden="true" tabindex="-1"></a><span class="in">colLabels(sce.pbmc) &lt;- factor(clust)</span></span>
+<span id="cb23-64"><a href="#cb23-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-65"><a href="#cb23-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-68"><a href="#cb23-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-69"><a href="#cb23-69" aria-hidden="true" tabindex="-1"></a>sce.pbmc</span>
+<span id="cb23-70"><a href="#cb23-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-71"><a href="#cb23-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-72"><a href="#cb23-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-73"><a href="#cb23-73" aria-hidden="true" tabindex="-1"></a><span class="fu">## 通过成对比较对标记基因计分</span></span>
+<span id="cb23-74"><a href="#cb23-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-75"><a href="#cb23-75" aria-hidden="true" tabindex="-1"></a><span class="in">`scoreMarkers()`</span> </span>
+<span id="cb23-76"><a href="#cb23-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-77"><a href="#cb23-77" aria-hidden="true" tabindex="-1"></a><span class="in">`self.average`</span> 在X簇中的某基因平均对数表达值</span>
+<span id="cb23-78"><a href="#cb23-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-79"><a href="#cb23-79" aria-hidden="true" tabindex="-1"></a><span class="in">`other.average`</span> 所有其他簇的总体平均值</span>
+<span id="cb23-80"><a href="#cb23-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-81"><a href="#cb23-81" aria-hidden="true" tabindex="-1"></a><span class="in">`self.detected`</span> 在X簇中检测到某基因表达的细胞比例</span>
+<span id="cb23-82"><a href="#cb23-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-83"><a href="#cb23-83" aria-hidden="true" tabindex="-1"></a><span class="in">`other.detected`</span> 所有其他簇的平均检测到的细胞比例</span>
+<span id="cb23-84"><a href="#cb23-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-85"><a href="#cb23-85" aria-hidden="true" tabindex="-1"></a><span class="in">`AUC`</span> ，<span class="in">`logFC.cohen`</span> ，<span class="in">`log.C.detected`</span> 成对比较中生成的效应值汇总</span>
+<span id="cb23-86"><a href="#cb23-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-87"><a href="#cb23-87" aria-hidden="true" tabindex="-1"></a>AUC 或 Cohen's d 通常是通用标记检测的最佳选择，因为无论表达值的大小如何，它们都是有效的。 检测到表达值的细胞比例的对数倍数变化对于识别表达的binary changes特别有用。</span>
+<span id="cb23-88"><a href="#cb23-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-91"><a href="#cb23-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-92"><a href="#cb23-92" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scran)</span>
+<span id="cb23-93"><a href="#cb23-93" aria-hidden="true" tabindex="-1"></a>marker.info <span class="ot">&lt;-</span> <span class="fu">scoreMarkers</span>(sce.pbmc, <span class="fu">colLabels</span>(sce.pbmc))</span>
+<span id="cb23-94"><a href="#cb23-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-95"><a href="#cb23-95" aria-hidden="true" tabindex="-1"></a>marker.info</span>
+<span id="cb23-96"><a href="#cb23-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-97"><a href="#cb23-97" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(marker.info[[<span class="st">"1"</span>]]) <span class="co"># statistics for cluster 1.</span></span>
+<span id="cb23-98"><a href="#cb23-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-99"><a href="#cb23-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-100"><a href="#cb23-100" aria-hidden="true" tabindex="-1"></a>例如，根据**簇1**的<span class="in">`mean.AUC`</span>作为排序</span>
+<span id="cb23-101"><a href="#cb23-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-104"><a href="#cb23-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-105"><a href="#cb23-105" aria-hidden="true" tabindex="-1"></a>chosen <span class="ot">&lt;-</span> marker.info[[<span class="st">"1"</span>]]</span>
+<span id="cb23-106"><a href="#cb23-106" aria-hidden="true" tabindex="-1"></a>ordered <span class="ot">&lt;-</span> chosen[<span class="fu">order</span>(chosen<span class="sc">$</span>mean.AUC, <span class="at">decreasing=</span><span class="cn">TRUE</span>),]</span>
+<span id="cb23-107"><a href="#cb23-107" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ordered[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="co"># showing basic stats only, for brevity.</span></span>
+<span id="cb23-108"><a href="#cb23-108" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-109"><a href="#cb23-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-110"><a href="#cb23-110" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-mean.AUC_cluster1}</span></span>
+<span id="cb23-111"><a href="#cb23-111" aria-hidden="true" tabindex="-1"></a><span class="in">library(scater)</span></span>
+<span id="cb23-112"><a href="#cb23-112" aria-hidden="true" tabindex="-1"></a><span class="in">plotExpression(sce.pbmc, features=head(rownames(ordered)), </span></span>
+<span id="cb23-113"><a href="#cb23-113" aria-hidden="true" tabindex="-1"></a><span class="in">    x="label", colour_by="label")</span></span>
+<span id="cb23-114"><a href="#cb23-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-115"><a href="#cb23-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## 效应值</span></span>
+<span id="cb23-116"><a href="#cb23-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-117"><a href="#cb23-117" aria-hidden="true" tabindex="-1"></a>Effect sizes for pairwise comparisons</span>
+<span id="cb23-118"><a href="#cb23-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-119"><a href="#cb23-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-120"><a href="#cb23-120" aria-hidden="true" tabindex="-1"></a><span class="fu">### AUC</span></span>
+<span id="cb23-121"><a href="#cb23-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-122"><a href="#cb23-122" aria-hidden="true" tabindex="-1"></a>AUC 表示X簇中随机选择的观测值大于从其他簇中随机选择的观测值的概率。</span>
+<span id="cb23-123"><a href="#cb23-123" aria-hidden="true" tabindex="-1"></a>值1对应于上调，其中X簇的所有值都大于其他簇的任何值；值0.5意味着分布的位置没有净差异；值0对应于下调。</span>
+<span id="cb23-124"><a href="#cb23-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-125"><a href="#cb23-125" aria-hidden="true" tabindex="-1"></a>AUC 与 Wilcoxon ranked sum test（又名 Mann-Whitney U 检验）中的U-statistic 密切相关。</span>
+<span id="cb23-126"><a href="#cb23-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-129"><a href="#cb23-129" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-130"><a href="#cb23-130" aria-hidden="true" tabindex="-1"></a>chosen</span>
+<span id="cb23-131"><a href="#cb23-131" aria-hidden="true" tabindex="-1"></a>auc.only <span class="ot">&lt;-</span> chosen[,<span class="fu">grepl</span>(<span class="st">"AUC"</span>, <span class="fu">colnames</span>(chosen))]</span>
+<span id="cb23-132"><a href="#cb23-132" aria-hidden="true" tabindex="-1"></a>auc.only[<span class="fu">order</span>(auc.only<span class="sc">$</span>mean.AUC,<span class="at">decreasing=</span><span class="cn">TRUE</span>),]</span>
+<span id="cb23-133"><a href="#cb23-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-134"><a href="#cb23-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-135"><a href="#cb23-135" aria-hidden="true" tabindex="-1"></a><span class="fu">### LogFC.cohen</span></span>
+<span id="cb23-136"><a href="#cb23-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-137"><a href="#cb23-137" aria-hidden="true" tabindex="-1"></a>Cohen’s d是一种标准化的对数倍数变化(log-fold change),</span>
+<span id="cb23-138"><a href="#cb23-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-139"><a href="#cb23-139" aria-hidden="true" tabindex="-1"></a>正值表示该基因在簇中上调，负值表示下调，接近零的值表示差异不大。Cohen’s d大致类似于双样本t-检验的t-statistic </span>
+<span id="cb23-140"><a href="#cb23-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-143"><a href="#cb23-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-144"><a href="#cb23-144" aria-hidden="true" tabindex="-1"></a>cohen.only <span class="ot">&lt;-</span> chosen[,<span class="fu">grepl</span>(<span class="st">"logFC.cohen"</span>, <span class="fu">colnames</span>(chosen))]</span>
+<span id="cb23-145"><a href="#cb23-145" aria-hidden="true" tabindex="-1"></a>cohen.only[<span class="fu">order</span>(cohen.only<span class="sc">$</span>mean.logFC.cohen,<span class="at">decreasing=</span><span class="cn">TRUE</span>),]</span>
+<span id="cb23-146"><a href="#cb23-146" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-147"><a href="#cb23-147" aria-hidden="true" tabindex="-1"></a><span class="fu">### logFC.detected</span></span>
+<span id="cb23-148"><a href="#cb23-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-149"><a href="#cb23-149" aria-hidden="true" tabindex="-1"></a>成对比较检测到表达值的细胞比例的对数倍数变化，这忽略了有关表达量的任何信息，只考虑是否检测到表达值。</span>
+<span id="cb23-150"><a href="#cb23-150" aria-hidden="true" tabindex="-1"></a>正值表示与其他簇相比，X簇中表达基因的细胞比例更大。</span>
+<span id="cb23-151"><a href="#cb23-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-154"><a href="#cb23-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-155"><a href="#cb23-155" aria-hidden="true" tabindex="-1"></a>detect.only <span class="ot">&lt;-</span> chosen[,<span class="fu">grepl</span>(<span class="st">"logFC.detected"</span>, <span class="fu">colnames</span>(chosen))]</span>
+<span id="cb23-156"><a href="#cb23-156" aria-hidden="true" tabindex="-1"></a>detect.only[<span class="fu">order</span>(detect.only<span class="sc">$</span>mean.logFC.detected,<span class="at">decreasing=</span><span class="cn">TRUE</span>),]</span>
+<span id="cb23-157"><a href="#cb23-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-158"><a href="#cb23-158" aria-hidden="true" tabindex="-1"></a><span class="fu">## summary</span></span>
+<span id="cb23-159"><a href="#cb23-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-160"><a href="#cb23-160" aria-hidden="true" tabindex="-1"></a>mean，与其他簇的平均值相比，对于簇X，较大的均值（&gt;0 for the log-fold changes, &gt;0.5 for the AUCs）表示在簇X中该基因上调。</span>
+<span id="cb23-161"><a href="#cb23-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-162"><a href="#cb23-162" aria-hidden="true" tabindex="-1"></a>median，与大多数 （&gt;50%） 其他簇相比，较大的值表示该基因在X簇中上调。对于异常值， 中位数比均值提供更大的稳健性robustness，而均值可能是可取的，也可能是不可取的。 一方面，如果只有少数成对比较具有较大的效应，则中位数可以避免夸大效应值; 另一方面，它也会通过忽略少数具有相反效果的成对比较来夸大效应值。</span>
+<span id="cb23-163"><a href="#cb23-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-164"><a href="#cb23-164" aria-hidden="true" tabindex="-1"></a>minimum value，是鉴定上调基因最严格的。因为最小值是个大值表示与所有其他集群相比，该基因在X簇中上调。 相反，如果最小值很小（&lt;0 for the log-fold changes, &lt;0.5 for the AUCs），与至少一个其他簇相比，该基因在X簇中下调。</span>
+<span id="cb23-165"><a href="#cb23-165" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb23-166"><a href="#cb23-166" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb23-167"><a href="#cb23-167" aria-hidden="true" tabindex="-1"></a>maximum value， 是识别上调基因最不严格的，因为与任何一个其他集群相比，如果在X簇中存在强烈上调，最大值可以是个大值。 相反，如果最大值很小，与所有其他集群相比，该基因在X簇中下调。</span>
+<span id="cb23-168"><a href="#cb23-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-169"><a href="#cb23-169" aria-hidden="true" tabindex="-1"></a>minimum rank，是所有成对比较中每个基因的最小排序。具体来说，根据效应值降序，在每个成对比较中对基因进行排序，然后为每个基因报告所有成对比较中的最小排序。如果一个基因的最小秩很小，在至少一个簇X与另一个簇的成对比较中，它是最上调的基因之一。</span>
+<span id="cb23-170"><a href="#cb23-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-173"><a href="#cb23-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-174"><a href="#cb23-174" aria-hidden="true" tabindex="-1"></a>chosen <span class="ot">&lt;-</span> marker.info[[<span class="st">"4"</span>]] <span class="co"># using another cluster, for some variety.</span></span>
+<span id="cb23-175"><a href="#cb23-175" aria-hidden="true" tabindex="-1"></a>ordered <span class="ot">&lt;-</span> chosen[<span class="fu">order</span>(chosen<span class="sc">$</span>median.logFC.cohen,<span class="at">decreasing=</span><span class="cn">TRUE</span>),]</span>
+<span id="cb23-176"><a href="#cb23-176" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ordered[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="co"># showing basic stats only, for brevity.</span></span>
+<span id="cb23-177"><a href="#cb23-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-178"><a href="#cb23-178" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-median.logFC.cohen}</span></span>
+<span id="cb23-179"><a href="#cb23-179" aria-hidden="true" tabindex="-1"></a><span class="in">plotExpression(sce.pbmc, features=head(rownames(ordered)), </span></span>
+<span id="cb23-180"><a href="#cb23-180" aria-hidden="true" tabindex="-1"></a><span class="in">    x="label", colour_by="label")</span></span>
+<span id="cb23-181"><a href="#cb23-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-182"><a href="#cb23-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-183"><a href="#cb23-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-184"><a href="#cb23-184" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-rank.logFC.cohen}</span></span>
+<span id="cb23-185"><a href="#cb23-185" aria-hidden="true" tabindex="-1"></a><span class="in">ordered &lt;- chosen[order(chosen$rank.logFC.cohen),]</span></span>
+<span id="cb23-186"><a href="#cb23-186" aria-hidden="true" tabindex="-1"></a><span class="in">top.ranked &lt;- ordered[ordered$rank.logFC.cohen &lt;= 5,]  # 最小排序小于或等于 5</span></span>
+<span id="cb23-187"><a href="#cb23-187" aria-hidden="true" tabindex="-1"></a><span class="in">top.ranked$rank.logFC.cohen</span></span>
+<span id="cb23-188"><a href="#cb23-188" aria-hidden="true" tabindex="-1"></a><span class="in">rownames(top.ranked)</span></span>
+<span id="cb23-189"><a href="#cb23-189" aria-hidden="true" tabindex="-1"></a><span class="in">plotGroupedHeatmap(sce.pbmc, features=rownames(top.ranked), group="label", </span></span>
+<span id="cb23-190"><a href="#cb23-190" aria-hidden="true" tabindex="-1"></a><span class="in">    center=TRUE, zlim=c(-3, 3))</span></span>
+<span id="cb23-191"><a href="#cb23-191" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-192"><a href="#cb23-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-195"><a href="#cb23-195" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-196"><a href="#cb23-196" aria-hidden="true" tabindex="-1"></a><span class="co"># Omitting the decreasing=TRUE to focus on negative effects.</span></span>
+<span id="cb23-197"><a href="#cb23-197" aria-hidden="true" tabindex="-1"></a>ordered <span class="ot">&lt;-</span> chosen[<span class="fu">order</span>(chosen<span class="sc">$</span>median.logFC.cohen),<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]  <span class="co">#检查一些升序靠前的基因，看看与其他簇相比是否有任何一致的下调</span></span>
+<span id="cb23-198"><a href="#cb23-198" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ordered)</span>
+<span id="cb23-199"><a href="#cb23-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-200"><a href="#cb23-200" aria-hidden="true" tabindex="-1"></a><span class="fu">## full effects</span></span>
+<span id="cb23-201"><a href="#cb23-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-202"><a href="#cb23-202" aria-hidden="true" tabindex="-1"></a>设置 <span class="in">`full.stats=TRUE`</span> 获取涉及特定聚类的所有成对比较的效应值</span>
+<span id="cb23-203"><a href="#cb23-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-206"><a href="#cb23-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-207"><a href="#cb23-207" aria-hidden="true" tabindex="-1"></a><span class="co"># cluster 4 vs any other cluster</span></span>
+<span id="cb23-208"><a href="#cb23-208" aria-hidden="true" tabindex="-1"></a>marker.info <span class="ot">&lt;-</span> <span class="fu">scoreMarkers</span>(sce.pbmc, <span class="fu">colLabels</span>(sce.pbmc), <span class="at">full.stats=</span><span class="cn">TRUE</span>)</span>
+<span id="cb23-209"><a href="#cb23-209" aria-hidden="true" tabindex="-1"></a>chosen <span class="ot">&lt;-</span> marker.info[[<span class="st">"4"</span>]]</span>
+<span id="cb23-210"><a href="#cb23-210" aria-hidden="true" tabindex="-1"></a>chosen<span class="sc">$</span>full.AUC</span>
+<span id="cb23-211"><a href="#cb23-211" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-212"><a href="#cb23-212" aria-hidden="true" tabindex="-1"></a>假设我们想确定将簇 4 与其他具有高 LYZ 表达的簇区分开来的基因。 对相关比较进行取子集，并对汇总统计量进行排序，以获得该子集中标记基因的排名。 这使我们能够轻松地表征密切相关的集群之间的细微差异。 为了说明这一点，与其他 高LYZ 簇相比，我们使用最小的排名<span class="in">`computeMinRank()`</span>来识别簇 4 中排名靠前的 DE 基因。</span>
+<span id="cb23-213"><a href="#cb23-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-216"><a href="#cb23-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-217"><a href="#cb23-217" aria-hidden="true" tabindex="-1"></a>lyz.high <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"4"</span>, <span class="st">"6"</span>, <span class="st">"8"</span>, <span class="st">"9"</span>, <span class="st">"14"</span>) <span class="co"># based on inspection of the previous Figure.</span></span>
+<span id="cb23-218"><a href="#cb23-218" aria-hidden="true" tabindex="-1"></a>subset <span class="ot">&lt;-</span> chosen<span class="sc">$</span>full.AUC[,<span class="fu">colnames</span>(chosen<span class="sc">$</span>full.AUC) <span class="sc">%in%</span> lyz.high]</span>
+<span id="cb23-219"><a href="#cb23-219" aria-hidden="true" tabindex="-1"></a>to.show <span class="ot">&lt;-</span> subset[<span class="fu">computeMinRank</span>(subset) <span class="sc">&lt;=</span> <span class="dv">10</span>,]</span>
+<span id="cb23-220"><a href="#cb23-220" aria-hidden="true" tabindex="-1"></a>to.show</span>
+<span id="cb23-221"><a href="#cb23-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-222"><a href="#cb23-222" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-cluster4_vs_high-LYZ_DE}</span></span>
+<span id="cb23-223"><a href="#cb23-223" aria-hidden="true" tabindex="-1"></a><span class="in">plotGroupedHeatmap(sce.pbmc[,colLabels(sce.pbmc) %in% lyz.high],</span></span>
+<span id="cb23-224"><a href="#cb23-224" aria-hidden="true" tabindex="-1"></a><span class="in">    features=rownames(to.show), group="label", center=TRUE, zlim=c(-3, 3))</span></span>
+<span id="cb23-225"><a href="#cb23-225" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-226"><a href="#cb23-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-227"><a href="#cb23-227" aria-hidden="true" tabindex="-1"></a>自定义汇总统计量例如，对于相对于其他集群的某个百分比（例如80%）上调的标记物感兴趣。</span>
+<span id="cb23-228"><a href="#cb23-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-231"><a href="#cb23-231" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-232"><a href="#cb23-232" aria-hidden="true" tabindex="-1"></a>stat <span class="ot">&lt;-</span> MatrixGenerics<span class="sc">::</span><span class="fu">rowQuantiles</span>(<span class="fu">as.matrix</span>(chosen<span class="sc">$</span>full.AUC), <span class="at">p=</span><span class="fl">0.2</span>)</span>
+<span id="cb23-233"><a href="#cb23-233" aria-hidden="true" tabindex="-1"></a>chosen[<span class="fu">order</span>(stat, <span class="at">decreasing=</span><span class="cn">TRUE</span>), <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] </span>
+<span id="cb23-234"><a href="#cb23-234" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-235"><a href="#cb23-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-236"><a href="#cb23-236" aria-hidden="true" tabindex="-1"></a><span class="fu">## log-fold change threshold</span></span>
+<span id="cb23-237"><a href="#cb23-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-238"><a href="#cb23-238" aria-hidden="true" tabindex="-1"></a>设置 <span class="in">`lfc=  `</span> 来计算相对于对数倍数变化阈值的效应值</span>
+<span id="cb23-239"><a href="#cb23-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-242"><a href="#cb23-242" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-243"><a href="#cb23-243" aria-hidden="true" tabindex="-1"></a>marker.info.lfc <span class="ot">&lt;-</span> <span class="fu">scoreMarkers</span>(sce.pbmc, <span class="fu">colLabels</span>(sce.pbmc), <span class="at">lfc=</span><span class="dv">2</span>)</span>
+<span id="cb23-244"><a href="#cb23-244" aria-hidden="true" tabindex="-1"></a>chosen2 <span class="ot">&lt;-</span> marker.info.lfc[[<span class="st">"5"</span>]] </span>
+<span id="cb23-245"><a href="#cb23-245" aria-hidden="true" tabindex="-1"></a>chosen2 <span class="ot">&lt;-</span> chosen2[<span class="fu">order</span>(chosen2<span class="sc">$</span>mean.AUC, <span class="at">decreasing=</span><span class="cn">TRUE</span>),]</span>
+<span id="cb23-246"><a href="#cb23-246" aria-hidden="true" tabindex="-1"></a>chosen2[,<span class="fu">c</span>(<span class="st">"self.average"</span>, <span class="st">"other.average"</span>, <span class="st">"mean.AUC"</span>)]</span>
+<span id="cb23-247"><a href="#cb23-247" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-250"><a href="#cb23-250" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-251"><a href="#cb23-251" aria-hidden="true" tabindex="-1"></a><span class="fu">plotDots</span>(sce.pbmc, <span class="fu">rownames</span>(chosen2)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">group=</span><span class="st">"label"</span>)</span>
+<span id="cb23-252"><a href="#cb23-252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-253"><a href="#cb23-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-254"><a href="#cb23-254" aria-hidden="true" tabindex="-1"></a><span class="fu">## blocking factors</span></span>
+<span id="cb23-255"><a href="#cb23-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-256"><a href="#cb23-256" aria-hidden="true" tabindex="-1"></a>变异因素（例如，批次效应、性别差异）</span>
+<span id="cb23-257"><a href="#cb23-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-258"><a href="#cb23-258" aria-hidden="true" tabindex="-1"></a><span class="in">` block= `</span> </span>
+<span id="cb23-259"><a href="#cb23-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-260"><a href="#cb23-260" aria-hidden="true" tabindex="-1"></a><span class="in">```{r loading-sce.416b_to_clustering}</span></span>
+<span id="cb23-261"><a href="#cb23-261" aria-hidden="true" tabindex="-1"></a><span class="in">#--- loading ---#</span></span>
+<span id="cb23-262"><a href="#cb23-262" aria-hidden="true" tabindex="-1"></a><span class="in">library(scRNAseq)</span></span>
+<span id="cb23-263"><a href="#cb23-263" aria-hidden="true" tabindex="-1"></a><span class="in">sce.416b &lt;- LunSpikeInData(which="416b") </span></span>
+<span id="cb23-264"><a href="#cb23-264" aria-hidden="true" tabindex="-1"></a><span class="in">sce.416b$block &lt;- factor(sce.416b$block)</span></span>
+<span id="cb23-265"><a href="#cb23-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-266"><a href="#cb23-266" aria-hidden="true" tabindex="-1"></a><span class="in">#--- gene-annotation ---#</span></span>
+<span id="cb23-267"><a href="#cb23-267" aria-hidden="true" tabindex="-1"></a><span class="in">library(AnnotationHub)</span></span>
+<span id="cb23-268"><a href="#cb23-268" aria-hidden="true" tabindex="-1"></a><span class="in">ens.mm.v97 &lt;- AnnotationHub()[["AH73905"]]</span></span>
+<span id="cb23-269"><a href="#cb23-269" aria-hidden="true" tabindex="-1"></a><span class="in">rowData(sce.416b)$ENSEMBL &lt;- rownames(sce.416b)</span></span>
+<span id="cb23-270"><a href="#cb23-270" aria-hidden="true" tabindex="-1"></a><span class="in">rowData(sce.416b)$SYMBOL &lt;- mapIds(ens.mm.v97, keys=rownames(sce.416b),</span></span>
+<span id="cb23-271"><a href="#cb23-271" aria-hidden="true" tabindex="-1"></a><span class="in">    keytype="GENEID", column="SYMBOL")</span></span>
+<span id="cb23-272"><a href="#cb23-272" aria-hidden="true" tabindex="-1"></a><span class="in">rowData(sce.416b)$SEQNAME &lt;- mapIds(ens.mm.v97, keys=rownames(sce.416b),</span></span>
+<span id="cb23-273"><a href="#cb23-273" aria-hidden="true" tabindex="-1"></a><span class="in">    keytype="GENEID", column="SEQNAME")</span></span>
+<span id="cb23-274"><a href="#cb23-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-275"><a href="#cb23-275" aria-hidden="true" tabindex="-1"></a><span class="in">library(scater)</span></span>
+<span id="cb23-276"><a href="#cb23-276" aria-hidden="true" tabindex="-1"></a><span class="in">rownames(sce.416b) &lt;- uniquifyFeatureNames(rowData(sce.416b)$ENSEMBL, </span></span>
+<span id="cb23-277"><a href="#cb23-277" aria-hidden="true" tabindex="-1"></a><span class="in">    rowData(sce.416b)$SYMBOL)</span></span>
+<span id="cb23-278"><a href="#cb23-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-279"><a href="#cb23-279" aria-hidden="true" tabindex="-1"></a><span class="in">#--- quality-control ---#</span></span>
+<span id="cb23-280"><a href="#cb23-280" aria-hidden="true" tabindex="-1"></a><span class="in">mito &lt;- which(rowData(sce.416b)$SEQNAME=="MT")</span></span>
+<span id="cb23-281"><a href="#cb23-281" aria-hidden="true" tabindex="-1"></a><span class="in">stats &lt;- perCellQCMetrics(sce.416b, subsets=list(Mt=mito))</span></span>
+<span id="cb23-282"><a href="#cb23-282" aria-hidden="true" tabindex="-1"></a><span class="in">qc &lt;- quickPerCellQC(stats, percent_subsets=c("subsets_Mt_percent",</span></span>
+<span id="cb23-283"><a href="#cb23-283" aria-hidden="true" tabindex="-1"></a><span class="in">    "altexps_ERCC_percent"), batch=sce.416b$block)</span></span>
+<span id="cb23-284"><a href="#cb23-284" aria-hidden="true" tabindex="-1"></a><span class="in">sce.416b &lt;- sce.416b[,!qc$discard]</span></span>
+<span id="cb23-285"><a href="#cb23-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-286"><a href="#cb23-286" aria-hidden="true" tabindex="-1"></a><span class="in">#--- normalization ---#</span></span>
+<span id="cb23-287"><a href="#cb23-287" aria-hidden="true" tabindex="-1"></a><span class="in">library(scran)</span></span>
+<span id="cb23-288"><a href="#cb23-288" aria-hidden="true" tabindex="-1"></a><span class="in">sce.416b &lt;- computeSumFactors(sce.416b)</span></span>
+<span id="cb23-289"><a href="#cb23-289" aria-hidden="true" tabindex="-1"></a><span class="in">sce.416b &lt;- logNormCounts(sce.416b)</span></span>
+<span id="cb23-290"><a href="#cb23-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-291"><a href="#cb23-291" aria-hidden="true" tabindex="-1"></a><span class="in">#--- variance-modelling ---#</span></span>
+<span id="cb23-292"><a href="#cb23-292" aria-hidden="true" tabindex="-1"></a><span class="in">dec.416b &lt;- modelGeneVarWithSpikes(sce.416b, "ERCC", block=sce.416b$block)</span></span>
+<span id="cb23-293"><a href="#cb23-293" aria-hidden="true" tabindex="-1"></a><span class="in">chosen.hvgs &lt;- getTopHVGs(dec.416b, prop=0.1)</span></span>
+<span id="cb23-294"><a href="#cb23-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-295"><a href="#cb23-295" aria-hidden="true" tabindex="-1"></a><span class="in">#--- batch-correction ---#</span></span>
+<span id="cb23-296"><a href="#cb23-296" aria-hidden="true" tabindex="-1"></a><span class="in">library(limma)</span></span>
+<span id="cb23-297"><a href="#cb23-297" aria-hidden="true" tabindex="-1"></a><span class="in">assay(sce.416b, "corrected") &lt;- removeBatchEffect(logcounts(sce.416b), </span></span>
+<span id="cb23-298"><a href="#cb23-298" aria-hidden="true" tabindex="-1"></a><span class="in">    design=model.matrix(~sce.416b$phenotype), batch=sce.416b$block)</span></span>
+<span id="cb23-299"><a href="#cb23-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-300"><a href="#cb23-300" aria-hidden="true" tabindex="-1"></a><span class="in">#--- dimensionality-reduction ---#</span></span>
+<span id="cb23-301"><a href="#cb23-301" aria-hidden="true" tabindex="-1"></a><span class="in">sce.416b &lt;- runPCA(sce.416b, ncomponents=10, subset_row=chosen.hvgs,</span></span>
+<span id="cb23-302"><a href="#cb23-302" aria-hidden="true" tabindex="-1"></a><span class="in">    exprs_values="corrected", BSPARAM=BiocSingular::ExactParam())</span></span>
+<span id="cb23-303"><a href="#cb23-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-304"><a href="#cb23-304" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(1010)</span></span>
+<span id="cb23-305"><a href="#cb23-305" aria-hidden="true" tabindex="-1"></a><span class="in">sce.416b &lt;- runTSNE(sce.416b, dimred="PCA", perplexity=10)</span></span>
+<span id="cb23-306"><a href="#cb23-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-307"><a href="#cb23-307" aria-hidden="true" tabindex="-1"></a><span class="in">#--- clustering ---#</span></span>
+<span id="cb23-308"><a href="#cb23-308" aria-hidden="true" tabindex="-1"></a><span class="in">my.dist &lt;- dist(reducedDim(sce.416b, "PCA"))</span></span>
+<span id="cb23-309"><a href="#cb23-309" aria-hidden="true" tabindex="-1"></a><span class="in">my.tree &lt;- hclust(my.dist, method="ward.D2")</span></span>
+<span id="cb23-310"><a href="#cb23-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-311"><a href="#cb23-311" aria-hidden="true" tabindex="-1"></a><span class="in">library(dynamicTreeCut)</span></span>
+<span id="cb23-312"><a href="#cb23-312" aria-hidden="true" tabindex="-1"></a><span class="in">my.clusters &lt;- unname(cutreeDynamic(my.tree, distM=as.matrix(my.dist),</span></span>
+<span id="cb23-313"><a href="#cb23-313" aria-hidden="true" tabindex="-1"></a><span class="in">    minClusterSize=10, verbose=0))</span></span>
+<span id="cb23-314"><a href="#cb23-314" aria-hidden="true" tabindex="-1"></a><span class="in">colLabels(sce.416b) &lt;- factor(my.clusters)</span></span>
+<span id="cb23-315"><a href="#cb23-315" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-316"><a href="#cb23-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-317"><a href="#cb23-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-320"><a href="#cb23-320" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-321"><a href="#cb23-321" aria-hidden="true" tabindex="-1"></a>m.out <span class="ot">&lt;-</span> <span class="fu">scoreMarkers</span>(sce<span class="fl">.416</span>b, <span class="fu">colLabels</span>(sce<span class="fl">.416</span>b), <span class="at">block=</span>sce<span class="fl">.416</span>b<span class="sc">$</span>block)</span>
+<span id="cb23-322"><a href="#cb23-322" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-323"><a href="#cb23-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-324"><a href="#cb23-324" aria-hidden="true" tabindex="-1"></a>在每个批次内进行成对比较，抵消了任何批次效应。然后使用加权平均数对各批次的效应值进行平均以获得每个成对比较的单个值，该加权平均数考虑了每个批次中参与成对比较的细胞数。对每个簇内外的平均对数表达和检测到的细胞比例进行了类似的校正。</span>
+<span id="cb23-325"><a href="#cb23-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-328"><a href="#cb23-328" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-329"><a href="#cb23-329" aria-hidden="true" tabindex="-1"></a>demo <span class="ot">&lt;-</span> m.out[[<span class="st">"1"</span>]] </span>
+<span id="cb23-330"><a href="#cb23-330" aria-hidden="true" tabindex="-1"></a>ordered <span class="ot">&lt;-</span> demo[<span class="fu">order</span>(demo<span class="sc">$</span>median.logFC.cohen, <span class="at">decreasing=</span><span class="cn">TRUE</span>),]</span>
+<span id="cb23-331"><a href="#cb23-331" aria-hidden="true" tabindex="-1"></a>ordered[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb23-332"><a href="#cb23-332" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-333"><a href="#cb23-333" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-block}</span></span>
+<span id="cb23-334"><a href="#cb23-334" aria-hidden="true" tabindex="-1"></a><span class="in">plotExpression(sce.416b, features=rownames(ordered)[1:6],</span></span>
+<span id="cb23-335"><a href="#cb23-335" aria-hidden="true" tabindex="-1"></a><span class="in">    x="label", colour_by="block")</span></span>
+<span id="cb23-336"><a href="#cb23-336" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-337"><a href="#cb23-337" aria-hidden="true" tabindex="-1"></a>该参数<span class="in">`block=`</span>适用于上面显示的所有效应值，并且对批次之间对数倍数变化或方差的差异具有鲁棒性。 但是，它假定每对簇至少存在于一个批次中。如果来自两个簇的细胞从未在同一批次中同时出现，则无法进行关联的成对比较，并且在计算汇总统计量时会忽略该比较。</span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Wanganlin00/Bioinformatics/edit/main/MarkerGeneDetection.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Wanganlin00/Bioinformatics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

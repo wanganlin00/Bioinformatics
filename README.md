@@ -12,7 +12,7 @@ gene marker ：COSG，<https://academic.oup.com/bib/article/23/2/bbab579/6511197
 
 T细胞亚群注释辅助工具：**ProjecTILs** ，Projecting scRNA-seq data onto a reference map，<https://www.nature.com/articles/s41467-021-23324-4> ，<https://carmonalab.github.io/ProjecTILs.demo/tutorial.html>
 
-upstream analysis : Cell Ranger [10XGenomics/cellranger](https://github.com/10XGenomics/cellranger) <https://www.nature.com/articles/ncomms14049>。。。
+upstream analysis : Cell Ranger [10XGenomics/cellranger](https://github.com/10XGenomics/cellranger) <https://www.nature.com/articles/ncomms14049>
 
 其他：
 

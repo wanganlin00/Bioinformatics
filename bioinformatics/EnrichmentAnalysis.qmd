@@ -1,5 +1,11 @@
 # 富集分析
 
+```{r include=FALSE}
+conflicts_prefer(GenomicRanges::setdiff)
+```
+
+**基因本体论 （Gene Ontology，GO） 或京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）**。[**clusterProfiler**](https://yulab-smu.top/biomedical-knowledge-mining-book/){style="color:red"}
+
 ```{r}
 # BiocManager::install('clusterProfiler')
 # BiocManager::install("org.Hs.eg.db")
@@ -13,11 +19,6 @@ DESeq2_DEG = na.omit(DEG)
 ## 数据预处理
 
 ```{r}
-#| include: false
-conflicts_prefer(GenomicRanges::setdiff)
-```
-
-```{r}
 nrDEG <- DESeq2_DEG
 head(nrDEG)
 
@@ -26,6 +27,8 @@ nrDEG$expression <- as.factor(
             ifelse( nrDEG$log2FoldChange >= 1 , 'up', 'down' ),
             'normal'))
 table(nrDEG$expression)
+
+gtf_mrna_v22 <- read_csv(file = "data/gtf_mrna_v22.csv")
 
 nrDEG <- nrDEG |> 
  inner_join(gtf_mrna_v22, by = c( "X"= "gene_name"))
@@ -232,7 +235,7 @@ ggplot(dat2,aes(x = Negative_log10pvalue,
     ggtitle( "GO Pathway Enrichment" ) 
 ```
 
-## 基因集GSEA
+## 基因集富集分析 GSEA
 
 ![GSEA](https://img-blog.csdnimg.cn/20181105104509344.gif){fig-align="center"}
 

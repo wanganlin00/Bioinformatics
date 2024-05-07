@@ -1,0 +1,156 @@
+```{r include=FALSE}
+conflicts_prefer(GenomicRanges::setdiff)
+```
+
+# eQTL
+
+**表达数量性状位点(expression quantitative trait loci,eQTL)**是指基因组中的特定位点，这些位点上的遗传变异能够影响基因表达水平的变异。eQTL研究是基因组学研究中的一个重要领域，它有助于我们理解基因表达的遗传基础以及复杂性状的分子机制。
+
+eQTL可以分为两大类：
+
+-   顺式eQTL (cis-eQTL)：这类eQTL位于基因表达变化所在的染色体区域内，通常接近或在基因的附近（比如1Mb范围内）。顺式作用eQTL可能涉及基因的启动子或增强子区域的变异，影响基因的转录效率。
+-   反式eQTL (trans-eQTL)：与顺式eQTL不同，反式eQTL位于距离基因较远的染色体区域，甚至可能位于不同的染色体上。反式作用eQTL可能通过远程调控元件，如远程增强子或转录因子，来影响基因表达。
+
+eQTL分析的一般流程包括：
+
+1.  数据收集：需要样本的基因表达数据、基因型数据以及可能的样本表型信息。
+2.  数据预处理：包括数据的质量控制、标准化等步骤。
+3.  统计分析：通常使用线性回归模型来识别与基因表达水平显著相关的SNP位点。模型可能会包括其他协变量，如性别、年龄或批次效应，以校正混杂因素。
+4.  结果解释：识别出显著的eQTL后，进一步分析其生物学意义和可能的分子机制。
+
+进行eQTL分析的R包包括但不限于：
+
+-   MatrixEQTL：一个用于快速进行大规模eQTL分析的R包，支持多种遗传模型和错误结构。 eQTpLot：一个用户友好的R包，用于eQTL和GWAS信号的可视化和共定位。
+
+eQTL研究的结果可以帮助我们理解遗传变异如何影响基因表达，进而影响个体的性状和疾病风险。此外，eQTL数据还可以用于基因功能的研究、疾病机制的探索以及药物靶点的发现。
+
+值得注意的是，eQTL效应可能具有人群、组织和细胞类型的特异性，这意味着不同背景下eQTL效应可能不同。因此，在应用eQTL结果时需要考虑这些因素。
+
+**全基因组关联研究（Genome-Wide Association Study，GWAS）**是一种在全基因组范围内识别与特定表型或疾病相关联的遗传变异的研究方法。GWAS通过检测大量个体的遗传变异（通常是单核苷酸多态性，或称为SNPs），来找出与疾病或性状相关的遗传标记。
+
+GWAS的主要步骤包括：
+
+1.  样本收集：收集足够数量的个体样本，包括患病个体和对照个体。
+
+2.  基因分型：利用高密度的SNP芯片对个体的全基因组进行分型，以获取遗传信息。
+
+3.  质量控制：对基因分型数据进行质量控制，包括去除低质量的SNP位点和样本，校正人群分层等。
+
+4.  统计分析：使用统计方法（如线性回归、逻辑回归等）对每个SNP位点与表型之间的关联进行检验。
+
+5.  结果解释：对统计显著的SNP位点进行解释，以识别可能的疾病相关基因或遗传区域。
+
+6.  验证研究：在独立的样本中对显著的关联结果进行验证，以确认其可靠性。
+
+7.  生物信息学分析：对GWAS结果进行更深入的生物信息学分析，如路径分析、网络分析等，以理解遗传变异如何影响疾病机制。
+
+GWAS的应用： GWAS已被广泛应用于多种复杂疾病的遗传研究，包括但不限于阿尔茨海默病、乳腺癌、糖尿病、冠心病、肺癌、前列腺癌和肥胖等。通过GWAS，科学家们已经鉴定出与这些疾病相关的多个易感基因。
+
+GWAS的挑战和限制： 样本量：GWAS需要非常大的样本量来提高统计功效，确定可复现的全基因组显著关联。 混杂因素：如人群分层、年龄、性别等混杂因素可能影响GWAS的结果。 多重检验：由于测试大量的SNP位点，需要进行多重检验校正，这可能导致错过一些真实的关联信号。 罕见变异：GWAS主要检测常见的遗传变异，对罕见变异的检测能力有限。
+
+```{r snpdata}
+# install.packages("MatrixEQTL")
+library(MatrixEQTL)
+path <- find.package("MatrixEQTL") 
+path
+# 把"MatrixEQTL"包的data复制到当前工作目录
+expr <- read.table("data/GE.txt",sep = "\t",header = T,row.names = 1)
+expr
+
+snp <- read.table("data/SNP.txt",sep = "\t",header = T,row.names = 1)
+snp
+
+covar <- read.table("data/Covariates.txt",sep = "\t",header = T,row.names = 1)
+covar
+```
+
+```{r}
+e1 <- as.numeric(expr[1,])
+s1 <- as.numeric(snp[1,])
+e1
+s1
+lm1 <- lm(e1~s1)
+broom::tidy(lm1)
+
+
+ggplot(data = tibble(e1,
+                     s1=factor(s1,labels = c("AA","Aa","aa"))
+                     ),
+       mapping = aes(x=s1,y=e1)
+)+
+  geom_point(aes(color=s1),position = position_jitter())+
+  geom_smooth(aes(group=1),formula = "y~x",method = "lm",se=F)+
+  xlab("Genetype")+
+  ylab("Expression")
+```
+
+```{r}
+# 设置参数
+pOutputThreshold <- 1e-2
+errorCovariance <- numeric()
+useModel <- modelLINEAR
+
+### SNP
+snp <- SlicedData$new()
+snp$fileDelimiter <- "\t"
+snp$fileOmitCharacters <- "NA"
+snp$fileSkipRows <- 1              # 跳过列名
+snp$fileSkipColumns <- 1           # 跳过行名
+snp$fileSliceSize <- 2000         # nrows
+snp$LoadFile("data/SNP.txt")
+snp
+
+### gene
+gene <- SlicedData$new()
+gene$fileDelimiter <- "\t"
+gene$fileOmitCharacters <- "NA"
+gene$fileSkipRows <- 1     
+gene$fileSkipColumns <- 1
+gene$fileSliceSize <- 2000  
+gene$LoadFile("data/GE.txt")
+gene
+
+# 协变量
+covar <- SlicedData$new()
+covar$fileDelimiter <- "\t"
+covar$fileOmitCharacters <- "NA"
+covar$fileSkipRows <- 1        
+covar$fileSkipColumns <- 1
+covar$fileSliceSize <- 2000    
+covar$LoadFile("data/Covariates.txt")
+covar
+```
+
+```{r eQTL}
+eqtl <- Matrix_eQTL_engine(
+  snps = snp,
+  gene = gene,
+  cvrt = covar,
+  output_file_name = "",
+  pvOutputThreshold = pOutputThreshold,
+  useModel = useModel,
+  errorCovariance = errorCovariance,
+  verbose = T,
+  pvalue.hist = T,
+  min.pv.by.genesnp = F,
+  noFDRsaveMemory = F
+)
+```
+
+```{r}
+eqtl$all
+
+plot(eqtl)
+```
+
+```{r}
+#===================Results==================================#
+
+cat('Analysis done in: ', eqtl$time.in.sec, ' seconds', '\n');
+cat('Detected eQTLs:', '\n');
+show(eqtl$all$eqtls)
+
+## Plot the histogram of all p-values
+
+plot(eqtl)
+```

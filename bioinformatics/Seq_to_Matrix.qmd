@@ -29,6 +29,6 @@ DDDCDDDDDDFFGGGGGGGGGGHHHHHHHHHHHHHHH...HHHHGGGGHHHHHHHHHHHHHHHGHHGHHHHHHGGGGGGH
 
 **Trimmomatic**软件
 
-**Cell Ranger**
+**Cell Ranger** [10XGenomics/cellranger](https://github.com/10XGenomics/cellranger) <https://www.nature.com/articles/ncomms14049>。。。
 
 。。。。。。

@@ -17,6 +17,7 @@ book:
       chapters: 
         - Seq_to_Matrix.qmd
 
+        
     - part: "单细胞分析"
       chapters: 
         - prerequisites.qmd
@@ -39,15 +40,12 @@ book:
       chapters: 
         - DifferentExpressionGeneAnalysis.qmd
         - EnrichmentAnalysis.qmd
-        # - PseudotimeAnalysis.qmd
+        - PseudotimeAnalysis.qmd
         
-     # - part: "clusterProfiler"
-     # - part: "monocle"
-        
-    # - part: "基因组学"
-    #   chapters: 
-    #     - genomics.qmd
-
+    - part: "基因组学"
+      chapters:
+        - Biostrings.qmd
+        - eQTL.qmd
       
 execute:
   cache: true
@@ -59,6 +57,10 @@ toc-depth: 4
 number-sections: true
 number-depth: 4
 
+code-fold: true
+code-tools: true
+code-link: true
+    
 knitr:
   opts_chunk: 
     comment: "#>" 
@@ -69,9 +71,6 @@ format:
   html: 
     theme: cosmo
     df-print: kable
-    code-fold: true
-    code-tools: true
-    code-link: true
     callout-appearance: simple
     
 editor: visual

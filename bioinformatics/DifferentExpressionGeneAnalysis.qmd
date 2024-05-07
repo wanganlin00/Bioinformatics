@@ -1,6 +1,12 @@
+# 差异表达基因分析
+
+```{r include=FALSE}
+conflicts_prefer(GenomicRanges::setdiff)
+```
+
 ## Assays
 
-### logCount→ mRNA Count
+### 对数计数矩阵
 
 ```{r}
 # 读取计数矩阵 log2(count+1)
@@ -8,6 +14,8 @@ raw_logCount <- read_tsv("data/TCGA-CHOL.htseq_counts.tsv")
 
 # 60488 个gene ×  45 个sample
 ```
+
+### 基因编码文件
 
 ```{r}
 # 基因编码  BiocManager::install("rtracklayer")
@@ -24,8 +32,9 @@ gtf_mrna_v22 <- dplyr::select(gtf_v22,
     distinct()
 
 gtf_mrna_v22 
-write_csv(gtf_mrna_v22,file = "data/gtf_mrna_v22.csv")
 ```
+
+### 比对基因id
 
 ```{r}
 # 根据注释文件把Ensembl ID转换为gene ID
@@ -82,6 +91,8 @@ tibble(
 
 ## Sample metadata
 
+### 表型注释文件
+
 ```{r}
 #首先载入下载好胆管癌的样本信息文件
 
@@ -130,6 +141,8 @@ head(sample)
 ```
 
 到这里，就从71个样本中挑出了45个样本，但是，我们只要这45个样本中成对样本的表达数据，即同一个病人既有癌旁~~正常~~细胞的表达蛋白，又有肿瘤细胞的异常表达蛋白。
+
+### 成对样本
 
 ```{r}
 # 前缀1~12字符
@@ -194,7 +207,7 @@ all(sample$phenotypeID %in% colnames(exprCounts))
 all(sample$phenotypeID == colnames(exprCounts))
 ```
 
-## 建立DEG对象
+## 构造DEG实例
 
 ```{r}
 dim(exprCounts)
@@ -217,7 +230,7 @@ sample
 
 ```{r}
 library(DESeq2)
-conflicts_prefer(GenomicRanges::setdiff)
+
 dds <- DESeqDataSetFromMatrix(countData = exprCounts,
                               colData = sample,
                               design = ~ condition)
@@ -241,7 +254,7 @@ counts(dds)[1,]
 pre_filtered_exprCounts <- counts(dds)  # 14815×16
 ```
 
-# 差异表达基因分析
+## 差异分析
 
 ```{r}
 dds <- DESeq(dds)
@@ -262,7 +275,7 @@ res <- as.data.frame(resOrdered)
 write.csv(res, file="data/resOrdered.csv")
 ```
 
-### 结果分析
+## 结果分析
 
 ```{r}
 mcols(resOrdered)$description
@@ -433,7 +446,7 @@ abline(h=qf(.99, p, m - p))
 colData(dds)
 ```
 
-### 导出到 CSV 文件
+## 导出到 CSV 文件
 
 ```{r}
 
@@ -443,4 +456,3 @@ resSig
 write_csv(as.data.frame(resSig), 
  file="data/padjust_0.05_resOrdered_tumor_normal.csv")
 ```
-

@@ -1,0 +1,11 @@
+# 伪时序分析
+
+```{r include=FALSE}
+conflicts_prefer(GenomicRanges::setdiff)
+```
+
+pseudotime analysis / trajectory analysis：[monocle](https://cole-trapnell-lab.github.io/monocle-release/docs/#installing-monocle)，[bioconductor/**monocle**](https://bioconductor.org/packages/release/bioc/html/monocle.html)
+
+```{r}
+library(monocle)
+```
