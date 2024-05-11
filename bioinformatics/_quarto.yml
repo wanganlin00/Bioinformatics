@@ -35,10 +35,11 @@ book:
     - part: "Seurat"
       chapters: 
         - Seurat.qmd
+        
 
     - part: "下游分析"
       chapters: 
-        - DifferentExpressionGeneAnalysis.qmd
+        - DEGs_Analysis.qmd
         - EnrichmentAnalysis.qmd
         - PseudotimeAnalysis.qmd
         

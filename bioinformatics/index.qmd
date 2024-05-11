@@ -7,3 +7,7 @@
 -   。。。
 
 主要内容是单细胞分析、差异表达基因分析、富集分析、伪时序分析。。。。。。
+
+由于R处理大数据较慢，部分使用python
+
+-   [scanpy](https://scanpy.readthedocs.io/en/stable/)

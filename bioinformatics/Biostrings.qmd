@@ -5,6 +5,7 @@
 ```{r}
 # BiocManager::install("Biostrings") 
 library(Biostrings) 
+conflicts_prefer(Biostrings::setdiff)
 dna_strings <- DNAStringSet(c("ATCG", "GCAT", "ATCGAT", "GCTA")) 
 dna_strings
 
