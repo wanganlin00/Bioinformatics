@@ -1,10 +1,22 @@
 # 富集分析
 
+## 基因集富集分析 GSEA
+
+基因集表示基因集中基因的一般共享生物属性的先验知识。
+
+![GSEA](https://img-blog.csdnimg.cn/20181105104509344.gif){alt="GSEA" fig-align="center"}
+
+![](data/GSEA.gif){fig-align="center"}
+
+### over-representation analysis (ORA)
+
+**基因本体论 （Gene Ontology，GO） 基因集**
+
+**京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）基因集**
+
 ```{r include=FALSE}
 conflicts_prefer(GenomicRanges::setdiff)
 ```
-
-**基因本体论 （Gene Ontology，GO） 或京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）**。[**clusterProfiler**](https://yulab-smu.top/biomedical-knowledge-mining-book/){style="color:red"}
 
 ```{r}
 # BiocManager::install('clusterProfiler')
@@ -43,6 +55,8 @@ deg_df$ENSEMBL <- str_sub(deg_df$id, start = 1, end = 15)
 R 语言中 `AnnotationDbi` 包提供的一个函数名`bitr()` 代表 "Biological Identifier Translation"，即生物学标识符转换。这个函数用于在不同的基因标识符之间进行转换，例如从基因的 Ensembl ID 转换为 **Entrez ID**（特定基因产物）)、基因符号（**symbol**）或基因名称（**gene name**）。
 
 Entrez是National Center for Biotechnology Information (NCBI) 提供的一个综合性生物信息数据库查询系统。它允许用户搜索和检索包括基因、蛋白质、核酸序列、3D蛋白质结构、基因表达数据、基因组数据、遗传多态性、生物项目、生物文献等各种生物医学信息。Entrez Gene数据库中的基因ID是唯一的数字标识符，用于在NCBI的Entrez系统内标识特定的基因。
+
+[**clusterProfiler**](https://yulab-smu.top/biomedical-knowledge-mining-book/){style="color:red"}
 
 ```{r}
 conflicts_prefer(IRanges::setdiff)
@@ -235,6 +249,13 @@ ggplot(data = up_down,aes(x=GeneRatio,
 
 ## GO富集分析
 
+Gene Ontology 基因集
+
+| **Package**  | **Organism** |
+|--------------|--------------|
+| org.Hs.eg.db | Human        |
+| org.Mm.eg.db | Mouse        |
+
 对于输出的GO富集结果表格中的各列内容：
 
 ONTOLOGY，GO的BP（生物学过程）、CC（细胞组分）或MF（分子功能）；
@@ -289,9 +310,3 @@ ggplot(dat2,aes(x = Negative_log10pvalue,
     theme( plot.title = element_text( hjust = 0.5 ) ) +
     ggtitle( "GO Pathway Enrichment" ) 
 ```
-
-## 基因集富集分析 GSEA
-
-![GSEA](https://img-blog.csdnimg.cn/20181105104509344.gif){fig-align="center"}
-
-![](data/GSEA.gif){fig-align="center"}

@@ -1,4 +1,4 @@
-# Sequences Data to Expression Matrix
+# **From reads to count matrix**
 
 了解为主
 
@@ -32,3 +32,11 @@ DDDCDDDDDDFFGGGGGGGGGGHHHHHHHHHHHHHHH...HHHHGGGGHHHHHHHHHHHHHHHGHHGHHHHHHGGGGGGH
 **Cell Ranger** [10XGenomics/cellranger](https://github.com/10XGenomics/cellranger) <https://www.nature.com/articles/ncomms14049>。。。
 
 。。。。。。
+
+# **RNA-seq quantification**
+
+1.  将读数与基因组对齐，并计算每个基因外显子内的读数数量。[R 包 Rsubread 更简单、更快、更便宜、更适合 RNA 测序的比对和定量](https://doi.org/10.1093/nar/gkz114)
+
+2.  将读数与转录组对齐，量化转录表达，并将转录表达总结为基因表达
+
+3.  Pseudoalign针对转录组进行读取，使用相应的基因组作为诱饵，量化该过程中的转录物表达，并将转录物水平的表达总结为基因水平的表达

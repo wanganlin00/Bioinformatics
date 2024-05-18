@@ -46,9 +46,9 @@ se <- SummarizedExperiment(assays=list(counts=counts),
 se
 ```
 
-## 类`SingleCellExperiments`
+## 子类`SingleCellExperiment`
 
-`SingleCellExperiments`如 @fig-sce 所示。
+`SingleCellExperiment` 如 @fig-sce 所示。
 
 ![\`SingleCellExperiment \`的结构概述：assays的每一行对应于 rowData（粉色阴影）的一行，而assays的每一列对应于 colData 和 reducedDims（黄色阴影）的一行](images/SCE.png){#fig-sce fig-align="center"}
 

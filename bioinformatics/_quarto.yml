@@ -12,15 +12,10 @@ book:
   
   chapters:
     - index.qmd
-    
-    - part: "上游分析"
-      chapters: 
-        - Seq_to_Matrix.qmd
 
-        
-    - part: "单细胞分析"
+    - part: sca.qmd
       chapters: 
-        - prerequisites.qmd
+        - Reads_to_CountMatrix.qmd
         - import.qmd
         - SCE.qmd
         - workflow.qmd
@@ -32,16 +27,19 @@ book:
         - MarkerGeneDetection.qmd
         - CellTypeAnnotation.qmd
         
-    - part: "Seurat"
-      chapters: 
-        - Seurat.qmd
-        
-
     - part: "下游分析"
       chapters: 
         - DEGs_Analysis.qmd
         - EnrichmentAnalysis.qmd
         - PseudotimeAnalysis.qmd
+        
+    - part: "包"
+      chapters: 
+        - Seurat.qmd
+        - AnnotationHub.qmd
+        
+
+
         
     - part: "基因组学"
       chapters:

@@ -1,6 +1,10 @@
-# 写在前面
+# 单细胞分析
 
--   [Orchestrating Single-Cell Analysis with ***Bioconductor***](https://bioconductor.org/books/release/OSCA/)
+## **RNA-seq**
+
+![https://doi.org/10.1038/nrg3068](images/RNA-seq.webp){fig-align="center"}
+
+![](images/factors-affecting-measurements.png){fig-align="center"}
 
 ## library {style="color:gray"}
 
