@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bioinformatics - 12&nbsp; 细胞类型注释</title>
+<title>Bioinformatics - 1&nbsp; From reads to count matrix</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Seurat.html" rel="next">
-<link href="./MarkerGeneDetection.html" rel="prev">
+<link href="./import.html" rel="next">
+<link href="./sca.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prerequisites.html">单细胞分析</a></li><li class="breadcrumb-item"><a href="./CellTypeAnnotation.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">细胞类型注释</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sca.html">单细胞分析</a></li><li class="breadcrumb-item"><a href="./Reads_to_CountMatrix.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><strong>From reads to count matrix</strong></span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -156,8 +156,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">上游分析</span></a>
+            <a href="./sca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">单细胞分析</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -165,8 +165,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Seq_to_Matrix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sequences Data to Expression Matrix</span></span></a>
+  <a href="./Reads_to_CountMatrix.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><strong>From reads to count matrix</strong></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">获取scRNA-seq表达值矩阵</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SCE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">工作流</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./QC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">质量控制</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./normalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">标准化</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./feature_selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">特征选择</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./DimensionalityReduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">降维</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">聚类</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MarkerGeneDetection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">conflicts_prefer(dplyr::filter)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CellTypeAnnotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">细胞类型注释</span></span></a>
   </div>
 </li>
       </ul>
@@ -174,7 +234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">单细胞分析</span></a>
+ <span class="menu-text">下游分析</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -182,68 +242,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prerequisites.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">写在前面</span></span></a>
+  <a href="./DEGs_Analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">获取scRNA-seq表达值矩阵</span></span></a>
+  <a href="./EnrichmentAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">富集分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./SCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./workflow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">工作流</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./QC.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">质量控制</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./normalization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">标准化</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./feature_selection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">特征选择</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./DimensionalityReduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">降维</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">聚类</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./MarkerGeneDetection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">conflicts_prefer(dplyr::filter)</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./CellTypeAnnotation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">细胞类型注释</span></span></a>
+  <a href="./PseudotimeAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">伪时序分析</span></span></a>
   </div>
 </li>
       </ul>
@@ -251,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">Seurat</span></a>
+ <span class="menu-text">包</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -260,7 +272,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Seurat.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Seurat</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Seurat</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./AnnotationHub.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">AnnotationHub</span></span></a>
   </div>
 </li>
       </ul>
@@ -268,41 +286,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
- <span class="menu-text">下游分析</span></a>
+ <span class="menu-text">基因组学</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./DEGs_Analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./EnrichmentAnalysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">富集分析</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./PseudotimeAnalysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">伪时序分析</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
- <span class="menu-text">基因组学</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Biostrings.html" class="sidebar-item-text sidebar-link">
@@ -323,14 +312,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#fastq" id="toc-fastq" class="nav-link active" data-scroll-target="#fastq"><span class="header-section-number">1.1</span> Fastq</a></li>
+  <li><a href="#rna-seq-quantification" id="toc-rna-seq-quantification" class="nav-link" data-scroll-target="#rna-seq-quantification"><span class="header-section-number">2</span> <strong>RNA-seq quantification</strong></a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Wanganlin00/Bioinformatics/edit/main/Reads_to_CountMatrix.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Wanganlin00/Bioinformatics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prerequisites.html">单细胞分析</a></li><li class="breadcrumb-item"><a href="./CellTypeAnnotation.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">细胞类型注释</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sca.html">单细胞分析</a></li><li class="breadcrumb-item"><a href="./Reads_to_CountMatrix.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><strong>From reads to count matrix</strong></span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">细胞类型注释</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><strong>From reads to count matrix</strong></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -347,15 +343,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>利用先验信息为未表征的scRNA-seq数据集分配意义，也就是将新数据集中的细胞与已知细胞类型的精选参考谱进行比较，将每个新细胞分配给与其表达谱最相似的参考类型。</p>
-<p>最明显的先验信息来源是与特定生物过程相关的精选基因集，例如，<strong>基因本体论 （Gene Ontology，GO） 或京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）</strong>。<a href="https://yulab-smu.top/biomedical-knowledge-mining-book/" style="color:red"><strong>clusterProfiler</strong></a></p>
-<p>或者，直接将单细胞表达谱与已发表的参考数据集进行比较，其中每个样本或细胞都已经由领域专家用其假定的生物学状态进行注释。<a href="https://bioconductor.org/books/release/SingleRBook/" style="color:red"><strong>Assigning cell types with SingleR</strong></a></p>
-<p><a href="https://bioconductor.org/packages/3.18/bioc/html/SingleR.html" style="color:red">SingleR</a>是自动注释方法的一种实现，可以被认为是最近邻分类的稳健变体。</p>
-<p>基于具有最高Spearman rank correlations的参考样本为细胞分配标签注释， 仅使用参考数据中标签之间的成对比较确定的标记基因的并集来关注细胞类型之间的相关差异（默认为 0.8）。它还可以选择对每个细胞执行微调步骤，其中仅用最高分标签的标记基因重新计算标签子集相关性。这旨在通过消除其他标签的不相关标记的噪声来解决这些标签之间的任何歧义。</p>
+<p>了解为主</p>
+<section id="fastq" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="fastq"><span class="header-section-number">1.1</span> Fastq</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Fastq.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p><code>@&lt;instrument&gt;:&lt;run num&gt;:&lt;flowcell ID&gt;:&lt;lane&gt;:&lt;tile&gt;:&lt;x&gt;:&lt;y&gt;:&lt;UMI&gt; &lt;read&gt;:&lt;filtered&gt;:&lt;control num&gt;:&lt;index&gt;</code></p>
+<p>Fastq文件形如：</p>
+<pre><code>@M00970:337:000000000-BR5KF:1:1102:17745:1557 1:N:0:CGCAGAAC+ACAGAGTT
+ACCAACCAACTTTCGATCTCTTGTAGATCTGTTCTCT...AAACGAACTTTAAAATCTGTGTGGCTGTCACTCGGCTGCATGC
++
+DDDCDDDDDDFFGGGGGGGGGGHHHHHHHHHHHHHHH...HHHHGGGGHHHHHHHHHHHHHHHGHHGHHHHHHGGGGGGHHHH</code></pre>
+<p>每个碱基对应的字符在ASCII码中对应的十进制数字减去33即为该碱基质量（也即Phred33体系），例如上述序列中第一个碱基的质量为D，对应的十进制数字为68（见下表），则碱基质量为68-33=35。碱基质量Q=-10*lgP，P为碱基被测错的概率。也即Q为30代表被测错的概率为0.001，碱基质量越高，则被测错的概率越低。</p>
+<p><code>Q = -10 log10(P)</code></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/PhredQ_ASCII_base33.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Q_Error_Accuary.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p><a href="https://www.bioinformatics.babraham.ac.uk/projects/download.html#fastqc">FastQC v0.12.1 (Win/Linux zip file)</a></p>
+<p><strong>Trimmomatic</strong>软件</p>
+<p><strong>Cell Ranger</strong> <a href="https://github.com/10XGenomics/cellranger">10XGenomics/cellranger</a> <a href="https://www.nature.com/articles/ncomms14049" class="uri">https://www.nature.com/articles/ncomms14049</a>。。。</p>
+<p>。。。。。。</p>
+</section>
+<section id="rna-seq-quantification" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> <strong>RNA-seq quantification</strong></h1>
+<ol type="1">
+<li><p>将读数与基因组对齐，并计算每个基因外显子内的读数数量。<a href="https://doi.org/10.1093/nar/gkz114">R 包 Rsubread 更简单、更快、更便宜、更适合 RNA 测序的比对和定量</a></p></li>
+<li><p>将读数与转录组对齐，量化转录表达，并将转录表达总结为基因表达</p></li>
+<li><p>Pseudoalign针对转录组进行读取，使用相应的基因组作为诱饵，量化该过程中的转录物表达，并将转录物水平的表达总结为基因水平的表达</p></li>
+</ol>
 
 
 <!-- -->
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -820,31 +850,62 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./MarkerGeneDetection.html" class="pagination-link" aria-label="conflicts_prefer(dplyr::filter)">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">conflicts_prefer(dplyr::filter)</span></span>
+      <a href="./sca.html" class="pagination-link" aria-label="单细胞分析">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">单细胞分析</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Seurat.html" class="pagination-link" aria-label="Seurat">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Seurat</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./import.html" class="pagination-link" aria-label="获取scRNA-seq表达值矩阵">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">获取scRNA-seq表达值矩阵</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 细胞类型注释</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>利用先验信息为未表征的scRNA-seq数据集分配意义，也就是将新数据集中的细胞与已知细胞类型的精选参考谱进行比较，将每个新细胞分配给与其表达谱最相似的参考类型。</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>最明显的先验信息来源是与特定生物过程相关的精选基因集，例如，**基因本体论 （Gene Ontology，GO） 或京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）**。[**clusterProfiler**](https://yulab-smu.top/biomedical-knowledge-mining-book/){style="color:red"}</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>或者，直接将单细胞表达谱与已发表的参考数据集进行比较，其中每个样本或细胞都已经由领域专家用其假定的生物学状态进行注释。<span class="co">[</span><span class="ot">**Assigning cell types with SingleR**</span><span class="co">](https://bioconductor.org/books/release/SingleRBook/)</span>{style="color:red"}</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">SingleR</span><span class="co">](https://bioconductor.org/packages/3.18/bioc/html/SingleR.html)</span>{style="color:red"}是自动注释方法的一种实现，可以被认为是最近邻分类的稳健变体。</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>基于具有最高Spearman rank correlations的参考样本为细胞分配标签注释， 仅使用参考数据中标签之间的成对比较确定的标记基因的并集来关注细胞类型之间的相关差异（默认为 0.8）。它还可以选择对每个细胞执行微调步骤，其中仅用最高分标签的标记基因重新计算标签子集相关性。这旨在通过消除其他标签的不相关标记的噪声来解决这些标签之间的任何歧义。</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># **From reads to count matrix**</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>了解为主</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fastq</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/Fastq.jpg)</span>{fig-align="center"}</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="in">`@&lt;instrument&gt;:&lt;run num&gt;:&lt;flowcell ID&gt;:&lt;lane&gt;:&lt;tile&gt;:&lt;x&gt;:&lt;y&gt;:&lt;UMI&gt; &lt;read&gt;:&lt;filtered&gt;:&lt;control num&gt;:&lt;index&gt;`</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>Fastq文件形如：</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="in">@M00970:337:000000000-BR5KF:1:1102:17745:1557 1:N:0:CGCAGAAC+ACAGAGTT</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="in">ACCAACCAACTTTCGATCTCTTGTAGATCTGTTCTCT...AAACGAACTTTAAAATCTGTGTGGCTGTCACTCGGCTGCATGC</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="in">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="in">DDDCDDDDDDFFGGGGGGGGGGHHHHHHHHHHHHHHH...HHHHGGGGHHHHHHHHHHHHHHHGHHGHHHHHHGGGGGGHHHH</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>每个碱基对应的字符在ASCII码中对应的十进制数字减去33即为该碱基质量（也即Phred33体系），例如上述序列中第一个碱基的质量为D，对应的十进制数字为68（见下表），则碱基质量为68-33=35。碱基质量Q=-10<span class="sc">\*</span>lgP，P为碱基被测错的概率。也即Q为30代表被测错的概率为0.001，碱基质量越高，则被测错的概率越低。</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="in">`Q = -10 log10(P)`</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/PhredQ_ASCII_base33.jpg)</span>{fig-align="center"}</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/Q_Error_Accuary.jpg)</span>{fig-align="center"}</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">FastQC v0.12.1 (Win/Linux zip file)</span><span class="co">](https://www.bioinformatics.babraham.ac.uk/projects/download.html#fastqc)</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>**Trimmomatic**软件</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>**Cell Ranger** <span class="co">[</span><span class="ot">10XGenomics/cellranger</span><span class="co">](https://github.com/10XGenomics/cellranger)</span> <span class="ot">&lt;https://www.nature.com/articles/ncomms14049&gt;</span>。。。</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>。。。。。。</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="fu"># **RNA-seq quantification**</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>将读数与基因组对齐，并计算每个基因外显子内的读数数量。<span class="co">[</span><span class="ot">R 包 Rsubread 更简单、更快、更便宜、更适合 RNA 测序的比对和定量</span><span class="co">](https://doi.org/10.1093/nar/gkz114)</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>将读数与转录组对齐，量化转录表达，并将转录表达总结为基因表达</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Pseudoalign针对转录组进行读取，使用相应的基因组作为诱饵，量化该过程中的转录物表达，并将转录物水平的表达总结为基因水平的表达</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/Wanganlin00/Bioinformatics/edit/main/CellTypeAnnotation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Wanganlin00/Bioinformatics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Wanganlin00/Bioinformatics/edit/main/Reads_to_CountMatrix.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Wanganlin00/Bioinformatics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

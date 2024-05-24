@@ -2,7 +2,7 @@
 
 ## **RNA-seq**
 
-![https://doi.org/10.1038/nrg3068](images/RNA-seq.webp){fig-align="center"}
+![<https://doi.org/10.1038/nrg3068>](images/RNA-seq.webp){fig-align="center"}
 
 ![](images/factors-affecting-measurements.png){fig-align="center"}
 

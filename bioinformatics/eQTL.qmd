@@ -4,7 +4,7 @@ conflicts_prefer(GenomicRanges::setdiff)
 
 # eQTL
 
-**表达数量性状位点(expression quantitative trait loci,eQTL)**是指基因组中的特定位点，这些位点上的遗传变异能够影响基因表达水平的变异。eQTL研究是基因组学研究中的一个重要领域，它有助于我们理解基因表达的遗传基础以及复杂性状的分子机制。
+**表达数量性状基因座(expression quantitative trait loci,eQTL)**是指基因组中的特定位点，这些位点上的遗传变异能够影响基因表达水平的变异。eQTL研究是基因组学研究中的一个重要领域，它有助于我们理解基因表达的遗传基础以及复杂性状的分子机制。
 
 eQTL可以分为两大类：
 

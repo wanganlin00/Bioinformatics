@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.553">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Bioinformatics - 4&nbsp; SingleCellExperiment</title>
+<title>Bioinformatics - 3&nbsp; SingleCellExperiment</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -105,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prerequisites.html">单细胞分析</a></li><li class="breadcrumb-item"><a href="./SCE.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sca.html">单细胞分析</a></li><li class="breadcrumb-item"><a href="./SCE.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -142,8 +142,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">上游分析</span></a>
+            <a href="./sca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">单细胞分析</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -151,8 +151,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Seq_to_Matrix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sequences Data to Expression Matrix</span></span></a>
+  <a href="./Reads_to_CountMatrix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><strong>From reads to count matrix</strong></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">获取scRNA-seq表达值矩阵</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SCE.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">工作流</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./QC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">质量控制</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./normalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">标准化</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./feature_selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">特征选择</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./DimensionalityReduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">降维</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">聚类</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MarkerGeneDetection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">conflicts_prefer(dplyr::filter)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./CellTypeAnnotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">细胞类型注释</span></span></a>
   </div>
 </li>
       </ul>
@@ -160,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">单细胞分析</span></a>
+ <span class="menu-text">下游分析</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -168,68 +228,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prerequisites.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">写在前面</span></span></a>
+  <a href="./DEGs_Analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">获取scRNA-seq表达值矩阵</span></span></a>
+  <a href="./EnrichmentAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">富集分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./SCE.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./workflow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">工作流</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./QC.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">质量控制</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./normalization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">标准化</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./feature_selection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">特征选择</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./DimensionalityReduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">降维</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">聚类</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./MarkerGeneDetection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">conflicts_prefer(dplyr::filter)</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./CellTypeAnnotation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">细胞类型注释</span></span></a>
+  <a href="./PseudotimeAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">伪时序分析</span></span></a>
   </div>
 </li>
       </ul>
@@ -237,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">Seurat</span></a>
+ <span class="menu-text">包</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -246,7 +258,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Seurat.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Seurat</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Seurat</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./AnnotationHub.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">AnnotationHub</span></span></a>
   </div>
 </li>
       </ul>
@@ -254,41 +272,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
- <span class="menu-text">下游分析</span></a>
+ <span class="menu-text">基因组学</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./DEGs_Analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./EnrichmentAnalysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">富集分析</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./PseudotimeAnalysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">伪时序分析</span></span></a>
-  </div>
-</li>
-      </ul>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
- <span class="menu-text">基因组学</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Biostrings.html" class="sidebar-item-text sidebar-link">
@@ -312,70 +301,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li>
-<a href="#%E7%88%B6%E7%B1%BBsummarizeexperiment" id="toc-父类summarizeexperiment" class="nav-link active" data-scroll-target="#%E7%88%B6%E7%B1%BBsummarizeexperiment"><span class="header-section-number">4.1</span> 父类<code>SummarizeExperiment</code></a>
+<a href="#%E7%88%B6%E7%B1%BBsummarizeexperiment" id="toc-父类summarizeexperiment" class="nav-link active" data-scroll-target="#%E7%88%B6%E7%B1%BBsummarizeexperiment"><span class="header-section-number">3.1</span> 父类<code>SummarizeExperiment</code></a>
   <ul>
-<li><a href="#%E6%9E%84%E9%80%A0summarizedexperiment%E5%AE%9E%E4%BE%8B" id="toc-构造summarizedexperiment实例" class="nav-link" data-scroll-target="#%E6%9E%84%E9%80%A0summarizedexperiment%E5%AE%9E%E4%BE%8B"><span class="header-section-number">4.1.1</span> 构造<code>SummarizedExperiment</code>实例</a></li>
+<li><a href="#%E6%9E%84%E9%80%A0summarizedexperiment%E5%AE%9E%E4%BE%8B" id="toc-构造summarizedexperiment实例" class="nav-link" data-scroll-target="#%E6%9E%84%E9%80%A0summarizedexperiment%E5%AE%9E%E4%BE%8B"><span class="header-section-number">3.1.1</span> 构造<code>SummarizedExperiment</code>实例</a></li>
   </ul>
 </li>
-  <li><a href="#%E7%B1%BBsinglecellexperiments" id="toc-类singlecellexperiments" class="nav-link" data-scroll-target="#%E7%B1%BBsinglecellexperiments"><span class="header-section-number">4.2</span> 类<code>SingleCellExperiments</code></a></li>
+  <li><a href="#%E5%AD%90%E7%B1%BBsinglecellexperiment" id="toc-子类singlecellexperiment" class="nav-link" data-scroll-target="#%E5%AD%90%E7%B1%BBsinglecellexperiment"><span class="header-section-number">3.2</span> 子类<code>SingleCellExperiment</code></a></li>
   <li>
-<a href="#%E8%A1%A8%E8%BE%BE%E7%9F%A9%E9%98%B5rawtransformed-counts" id="toc-表达矩阵rawtransformed-counts" class="nav-link" data-scroll-target="#%E8%A1%A8%E8%BE%BE%E7%9F%A9%E9%98%B5rawtransformed-counts"><span class="header-section-number">4.3</span> 表达矩阵（raw/transformed counts）</a>
+<a href="#%E8%A1%A8%E8%BE%BE%E7%9F%A9%E9%98%B5rawtransformed-counts" id="toc-表达矩阵rawtransformed-counts" class="nav-link" data-scroll-target="#%E8%A1%A8%E8%BE%BE%E7%9F%A9%E9%98%B5rawtransformed-counts"><span class="header-section-number">3.3</span> 表达矩阵（raw/transformed counts）</a>
   <ul>
-<li><a href="#assays" id="toc-assays" class="nav-link" data-scroll-target="#assays"><span class="header-section-number">4.3.1</span> <code>assays</code></a></li>
+<li><a href="#assays" id="toc-assays" class="nav-link" data-scroll-target="#assays"><span class="header-section-number">3.3.1</span> <code>assays</code></a></li>
   <li>
-<a href="#%E6%B7%BB%E5%8A%A0assays" id="toc-添加assays" class="nav-link" data-scroll-target="#%E6%B7%BB%E5%8A%A0assays"><span class="header-section-number">4.3.2</span> 添加<code>assays</code></a>
+<a href="#%E6%B7%BB%E5%8A%A0assays" id="toc-添加assays" class="nav-link" data-scroll-target="#%E6%B7%BB%E5%8A%A0assays"><span class="header-section-number">3.3.2</span> 添加<code>assays</code></a>
   <ul class="collapse">
-<li><a href="#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0assays" id="toc-自动添加assays" class="nav-link" data-scroll-target="#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0assays"><span class="header-section-number">4.3.2.1</span> 自动添加<code>assays</code></a></li>
-  <li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B7%BB%E5%8A%A0assays" id="toc-自定义添加assays" class="nav-link" data-scroll-target="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B7%BB%E5%8A%A0assays"><span class="header-section-number">4.3.2.2</span> 自定义添加<code>assays</code></a></li>
-  <li><a href="#%E8%AE%BF%E9%97%AE%E5%92%8C%E5%88%87%E7%89%87" id="toc-访问和切片" class="nav-link" data-scroll-target="#%E8%AE%BF%E9%97%AE%E5%92%8C%E5%88%87%E7%89%87"><span class="header-section-number">4.3.2.3</span> 访问和切片</a></li>
+<li><a href="#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0assays" id="toc-自动添加assays" class="nav-link" data-scroll-target="#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0assays"><span class="header-section-number">3.3.2.1</span> 自动添加<code>assays</code></a></li>
+  <li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B7%BB%E5%8A%A0assays" id="toc-自定义添加assays" class="nav-link" data-scroll-target="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B7%BB%E5%8A%A0assays"><span class="header-section-number">3.3.2.2</span> 自定义添加<code>assays</code></a></li>
+  <li><a href="#%E8%AE%BF%E9%97%AE%E5%92%8C%E5%88%87%E7%89%87" id="toc-访问和切片" class="nav-link" data-scroll-target="#%E8%AE%BF%E9%97%AE%E5%92%8C%E5%88%87%E7%89%87"><span class="header-section-number">3.3.2.3</span> 访问和切片</a></li>
   </ul>
 </li>
   </ul>
 </li>
   <li>
-<a href="#cell-metadatacoldata" id="toc-cell-metadatacoldata" class="nav-link" data-scroll-target="#cell-metadatacoldata"><span class="header-section-number">4.4</span> cell metadata（<code>colData</code>）</a>
+<a href="#cell-metadatacoldata" id="toc-cell-metadatacoldata" class="nav-link" data-scroll-target="#cell-metadatacoldata"><span class="header-section-number">3.4</span> cell metadata（<code>colData</code>）</a>
   <ul>
-<li><a href="#coldata" id="toc-coldata" class="nav-link" data-scroll-target="#coldata"><span class="header-section-number">4.4.1</span> <code>colData</code></a></li>
+<li><a href="#coldata" id="toc-coldata" class="nav-link" data-scroll-target="#coldata"><span class="header-section-number">3.4.1</span> <code>colData</code></a></li>
   <li>
-<a href="#%E6%B7%BB%E5%8A%A0coldata" id="toc-添加coldata" class="nav-link" data-scroll-target="#%E6%B7%BB%E5%8A%A0coldata"><span class="header-section-number">4.4.2</span> <strong>添加<code>colData</code></strong></a>
+<a href="#%E6%B7%BB%E5%8A%A0coldata" id="toc-添加coldata" class="nav-link" data-scroll-target="#%E6%B7%BB%E5%8A%A0coldata"><span class="header-section-number">3.4.2</span> <strong>添加<code>colData</code></strong></a>
   <ul class="collapse">
-<li><a href="#%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B" id="toc-从头开始" class="nav-link" data-scroll-target="#%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B"><span class="header-section-number">4.4.2.1</span> 从头开始</a></li>
-  <li><a href="#%E5%90%91%E7%8E%B0%E6%9C%89%E5%AF%B9%E8%B1%A1%E6%B7%BB%E5%8A%A0" id="toc-向现有对象添加" class="nav-link" data-scroll-target="#%E5%90%91%E7%8E%B0%E6%9C%89%E5%AF%B9%E8%B1%A1%E6%B7%BB%E5%8A%A0"><span class="header-section-number">4.4.2.2</span> 向现有对象添加</a></li>
+<li><a href="#%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B" id="toc-从头开始" class="nav-link" data-scroll-target="#%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B"><span class="header-section-number">3.4.2.1</span> 从头开始</a></li>
+  <li><a href="#%E5%90%91%E7%8E%B0%E6%9C%89%E5%AF%B9%E8%B1%A1%E6%B7%BB%E5%8A%A0" id="toc-向现有对象添加" class="nav-link" data-scroll-target="#%E5%90%91%E7%8E%B0%E6%9C%89%E5%AF%B9%E8%B1%A1%E6%B7%BB%E5%8A%A0"><span class="header-section-number">3.4.2.2</span> 向现有对象添加</a></li>
   </ul>
 </li>
-  <li><a href="#%E5%87%BD%E6%95%B0%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0" id="toc-函数自动添加" class="nav-link" data-scroll-target="#%E5%87%BD%E6%95%B0%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0"><span class="header-section-number">4.4.3</span> 函数自动添加</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#featuregene-metadata-rowdata" id="toc-featuregene-metadata-rowdata" class="nav-link" data-scroll-target="#featuregene-metadata-rowdata"><span class="header-section-number">4.5</span> feature/gene metadata ( <code>rowData</code>)</a>
-  <ul>
-<li><a href="#rowdata" id="toc-rowdata" class="nav-link" data-scroll-target="#rowdata"><span class="header-section-number">4.5.0.1</span> <code>rowData</code></a></li>
-  <li><a href="#rowranges" id="toc-rowranges" class="nav-link" data-scroll-target="#rowranges"><span class="header-section-number">4.5.0.2</span> <code>rowRanges</code></a></li>
-  <li><a href="#%E5%85%B6%E4%BB%96%E5%85%83%E6%95%B0%E6%8D%AE" id="toc-其他元数据" class="nav-link" data-scroll-target="#%E5%85%B6%E4%BB%96%E5%85%83%E6%95%B0%E6%8D%AE"><span class="header-section-number">4.5.1</span> 其他元数据</a></li>
+  <li><a href="#%E5%87%BD%E6%95%B0%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0" id="toc-函数自动添加" class="nav-link" data-scroll-target="#%E5%87%BD%E6%95%B0%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0"><span class="header-section-number">3.4.3</span> 函数自动添加</a></li>
   </ul>
 </li>
   <li>
-<a href="#%E5%AD%90%E9%9B%86%E5%92%8C%E7%BB%84%E5%90%88" id="toc-子集和组合" class="nav-link" data-scroll-target="#%E5%AD%90%E9%9B%86%E5%92%8C%E7%BB%84%E5%90%88"><span class="header-section-number">4.6</span> 子集和组合</a>
+<a href="#featuregene-metadata-rowdata" id="toc-featuregene-metadata-rowdata" class="nav-link" data-scroll-target="#featuregene-metadata-rowdata"><span class="header-section-number">3.5</span> feature/gene metadata ( <code>rowData</code>)</a>
   <ul>
-<li><a href="#%E5%AD%90%E9%9B%86" id="toc-子集" class="nav-link" data-scroll-target="#%E5%AD%90%E9%9B%86"><span class="header-section-number">4.6.1</span> 子集</a></li>
-  <li><a href="#%E7%BB%84%E5%90%88" id="toc-组合" class="nav-link" data-scroll-target="#%E7%BB%84%E5%90%88"><span class="header-section-number">4.6.2</span> 组合</a></li>
+<li><a href="#rowdata" id="toc-rowdata" class="nav-link" data-scroll-target="#rowdata"><span class="header-section-number">3.5.0.1</span> <code>rowData</code></a></li>
+  <li><a href="#rowranges" id="toc-rowranges" class="nav-link" data-scroll-target="#rowranges"><span class="header-section-number">3.5.0.2</span> <code>rowRanges</code></a></li>
+  <li><a href="#%E5%85%B6%E4%BB%96%E5%85%83%E6%95%B0%E6%8D%AE" id="toc-其他元数据" class="nav-link" data-scroll-target="#%E5%85%B6%E4%BB%96%E5%85%83%E6%95%B0%E6%8D%AE"><span class="header-section-number">3.5.1</span> 其他元数据</a></li>
   </ul>
 </li>
   <li>
-<a href="#%E5%8D%95%E7%BB%86%E8%83%9E%E7%89%B9%E5%AE%9A%E5%AD%97%E6%AE%B5" id="toc-单细胞特定字段" class="nav-link" data-scroll-target="#%E5%8D%95%E7%BB%86%E8%83%9E%E7%89%B9%E5%AE%9A%E5%AD%97%E6%AE%B5"><span class="header-section-number">4.7</span> 单细胞特定字段</a>
+<a href="#%E5%AD%90%E9%9B%86%E5%92%8C%E7%BB%84%E5%90%88" id="toc-子集和组合" class="nav-link" data-scroll-target="#%E5%AD%90%E9%9B%86%E5%92%8C%E7%BB%84%E5%90%88"><span class="header-section-number">3.6</span> 子集和组合</a>
   <ul>
-<li><a href="#%E9%99%8D%E7%BB%B4-reduceddims" id="toc-降维-reduceddims" class="nav-link" data-scroll-target="#%E9%99%8D%E7%BB%B4-reduceddims"><span class="header-section-number">4.7.1</span> 降维 <code>reducedDims</code></a></li>
-  <li><a href="#%E6%9B%BF%E4%BB%A3%E8%AF%95%E9%AA%8C-alternative-experiments" id="toc-替代试验-alternative-experiments" class="nav-link" data-scroll-target="#%E6%9B%BF%E4%BB%A3%E8%AF%95%E9%AA%8C-alternative-experiments"><span class="header-section-number">4.7.2</span> 替代试验 Alternative Experiments</a></li>
-  <li><a href="#%E7%BC%A9%E6%94%BE%E5%9B%A0%E5%AD%90sizefactors" id="toc-缩放因子sizefactors" class="nav-link" data-scroll-target="#%E7%BC%A9%E6%94%BE%E5%9B%A0%E5%AD%90sizefactors"><span class="header-section-number">4.7.3</span> 缩放因子<code>sizeFactors</code></a></li>
-  <li><a href="#%E5%88%97%E6%A0%87%E7%AD%BE" id="toc-列标签" class="nav-link" data-scroll-target="#%E5%88%97%E6%A0%87%E7%AD%BE"><span class="header-section-number">4.7.4</span> 列标签</a></li>
+<li><a href="#%E5%AD%90%E9%9B%86" id="toc-子集" class="nav-link" data-scroll-target="#%E5%AD%90%E9%9B%86"><span class="header-section-number">3.6.1</span> 子集</a></li>
+  <li><a href="#%E7%BB%84%E5%90%88" id="toc-组合" class="nav-link" data-scroll-target="#%E7%BB%84%E5%90%88"><span class="header-section-number">3.6.2</span> 组合</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#%E5%8D%95%E7%BB%86%E8%83%9E%E7%89%B9%E5%AE%9A%E5%AD%97%E6%AE%B5" id="toc-单细胞特定字段" class="nav-link" data-scroll-target="#%E5%8D%95%E7%BB%86%E8%83%9E%E7%89%B9%E5%AE%9A%E5%AD%97%E6%AE%B5"><span class="header-section-number">3.7</span> 单细胞特定字段</a>
+  <ul>
+<li><a href="#%E9%99%8D%E7%BB%B4-reduceddims" id="toc-降维-reduceddims" class="nav-link" data-scroll-target="#%E9%99%8D%E7%BB%B4-reduceddims"><span class="header-section-number">3.7.1</span> 降维 <code>reducedDims</code></a></li>
+  <li><a href="#%E6%9B%BF%E4%BB%A3%E8%AF%95%E9%AA%8C-alternative-experiments" id="toc-替代试验-alternative-experiments" class="nav-link" data-scroll-target="#%E6%9B%BF%E4%BB%A3%E8%AF%95%E9%AA%8C-alternative-experiments"><span class="header-section-number">3.7.2</span> 替代试验 Alternative Experiments</a></li>
+  <li><a href="#%E7%BC%A9%E6%94%BE%E5%9B%A0%E5%AD%90sizefactors" id="toc-缩放因子sizefactors" class="nav-link" data-scroll-target="#%E7%BC%A9%E6%94%BE%E5%9B%A0%E5%AD%90sizefactors"><span class="header-section-number">3.7.3</span> 缩放因子<code>sizeFactors</code></a></li>
+  <li><a href="#%E5%88%97%E6%A0%87%E7%AD%BE" id="toc-列标签" class="nav-link" data-scroll-target="#%E5%88%97%E6%A0%87%E7%AD%BE"><span class="header-section-number">3.7.4</span> 列标签</a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/Wanganlin00/Bioinformatics/edit/main/SCE.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Wanganlin00/Bioinformatics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prerequisites.html">单细胞分析</a></li><li class="breadcrumb-item"><a href="./SCE.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sca.html">单细胞分析</a></li><li class="breadcrumb-item"><a href="./SCE.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></a></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">
-<span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span>
+<span class="chapter-number">3</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span>
 </h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
@@ -390,8 +379,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="父类summarizeexperiment" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="父类summarizeexperiment">
-<span class="header-section-number">4.1</span> 父类<code>SummarizeExperiment</code>
+</header><section id="父类summarizeexperiment" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="父类summarizeexperiment">
+<span class="header-section-number">3.1</span> 父类<code>SummarizeExperiment</code>
 </h2>
 <p><code>SummarizeExperiment</code> 如 <a href="#fig-SummarizeExperiment" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-SummarizeExperiment</span></a> 所示</p>
 <div id="fig-SummarizeExperiment" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center" width="80%">
@@ -399,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <img src="images/SummarizedExperiment.webp" id="fig-SummarizeExperiment" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" style="width:80.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-SummarizeExperiment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.1
+Figure&nbsp;3.1
 </figcaption></figure>
 </div>
 <p>具体可参考 <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html">SummarizedExperiment docs</a> 。</p>
@@ -407,8 +396,8 @@ Figure&nbsp;4.1
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/SummarizedExperiment">SummarizedExperiment</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="构造summarizedexperiment实例" class="level3" data-number="4.1.1"><h3 data-number="4.1.1" class="anchored" data-anchor-id="构造summarizedexperiment实例">
-<span class="header-section-number">4.1.1</span> 构造<code>SummarizedExperiment</code>实例</h3>
+<section id="构造summarizedexperiment实例" class="level3" data-number="3.1.1"><h3 data-number="3.1.1" class="anchored" data-anchor-id="构造summarizedexperiment实例">
+<span class="header-section-number">3.1.1</span> 构造<code>SummarizedExperiment</code>实例</h3>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 计数矩阵</span></span>
 <span><span class="va">nrows</span> <span class="op">&lt;-</span> <span class="fl">200</span></span>
@@ -424,12 +413,12 @@ Figure&nbsp;4.1
 <span><span class="co">#&gt; GRanges object with 6 ranges and 1 metadata column:</span></span>
 <span><span class="co">#&gt;       seqnames        ranges strand |  feature_id</span></span>
 <span><span class="co">#&gt;          &lt;Rle&gt;     &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;</span></span>
-<span><span class="co">#&gt;   [1]     chr1 313525-313624      - |       ID001</span></span>
-<span><span class="co">#&gt;   [2]     chr1 431440-431539      - |       ID002</span></span>
-<span><span class="co">#&gt;   [3]     chr1 407554-407653      - |       ID003</span></span>
-<span><span class="co">#&gt;   [4]     chr1 669336-669435      - |       ID004</span></span>
-<span><span class="co">#&gt;   [5]     chr1 648855-648954      - |       ID005</span></span>
-<span><span class="co">#&gt;   [6]     chr1 209609-209708      + |       ID006</span></span>
+<span><span class="co">#&gt;   [1]     chr1 624862-624961      + |       ID001</span></span>
+<span><span class="co">#&gt;   [2]     chr1 771280-771379      + |       ID002</span></span>
+<span><span class="co">#&gt;   [3]     chr1 186103-186202      - |       ID003</span></span>
+<span><span class="co">#&gt;   [4]     chr1 553355-553454      + |       ID004</span></span>
+<span><span class="co">#&gt;   [5]     chr1 795149-795248      + |       ID005</span></span>
+<span><span class="co">#&gt;   [6]     chr1 469767-469866      + |       ID006</span></span>
 <span><span class="co">#&gt;   -------</span></span>
 <span><span class="co">#&gt;   seqinfo: 2 sequences from an unspecified genome; no seqlengths</span></span>
 <span></span>
@@ -465,16 +454,16 @@ Figure&nbsp;4.1
 <span><span class="co">#&gt; colData names(1): Treatment</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section></section><section id="类singlecellexperiments" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="类singlecellexperiments">
-<span class="header-section-number">4.2</span> 类<code>SingleCellExperiments</code>
+</section></section><section id="子类singlecellexperiment" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="子类singlecellexperiment">
+<span class="header-section-number">3.2</span> 子类<code>SingleCellExperiment</code>
 </h2>
-<p><code>SingleCellExperiments</code>如 <a href="#fig-sce" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-sce</span></a> 所示。</p>
+<p><code>SingleCellExperiment</code> 如 <a href="#fig-sce" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-sce</span></a> 所示。</p>
 <div id="fig-sce" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-sce-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/SCE.png" class="img-fluid quarto-figure quarto-figure-center figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sce-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对应于 rowData（粉色阴影）的一行，而assays的每一列对应于 colData 和 reducedDims（黄色阴影）的一行
+Figure&nbsp;3.2: `SingleCellExperiment `的结构概述：assays的每一行对应于 rowData（粉色阴影）的一行，而assays的每一列对应于 colData 和 reducedDims（黄色阴影）的一行
 </figcaption></figure>
 </div>
 <p>该数据结构实际上是从父类 <a href="https://bioconductor.org/packages/3.18/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html">SummarizedExperiment</a> 继承。</p>
@@ -482,11 +471,11 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">SingleCellExperiment</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="表达矩阵rawtransformed-counts" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="表达矩阵rawtransformed-counts">
-<span class="header-section-number">4.3</span> 表达矩阵（raw/transformed counts）</h2>
+</section><section id="表达矩阵rawtransformed-counts" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="表达矩阵rawtransformed-counts">
+<span class="header-section-number">3.3</span> 表达矩阵（raw/transformed counts）</h2>
 <p>要构造一个<code>SingleCellExperiment</code>对象，我们只需要导入<code>assays</code> ( <a href="#fig-sce" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-sce</span></a> ,蓝色框 )，其中行对应于特征（基因），列对应于样本（细胞）。<a href="https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MTAB-5522" id="sce-sce-sce-sce-sce-sce-sce-sce-sce-sce-sce-sce-sce-sce-sce-sce-sce-sce-tbl-counts_Calero_20160113.tsv">下载：counts_Calero_20160113.tsv</a>。</p>
-<section id="assays" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="assays">
-<span class="header-section-number">4.3.1</span> <code>assays</code>
+<section id="assays" class="level3" data-number="3.3.1"><h3 data-number="3.3.1" class="anchored" data-anchor-id="assays">
+<span class="header-section-number">3.3.1</span> <code>assays</code>
 </h3>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">read_tsv</span><span class="op">(</span><span class="st">"data/OSCA/counts_Calero_20160113.tsv"</span><span class="op">)</span></span>
@@ -518,8 +507,8 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 </div>
 </div>
 </div>
-</section><section id="添加assays" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="添加assays">
-<span class="header-section-number">4.3.2</span> 添加<code>assays</code>
+</section><section id="添加assays" class="level3" data-number="3.3.2"><h3 data-number="3.3.2" class="anchored" data-anchor-id="添加assays">
+<span class="header-section-number">3.3.2</span> 添加<code>assays</code>
 </h3>
 <p>然后使用函数 <code><a href="https://rdrr.io/pkg/SingleCellExperiment/man/SingleCellExperiment.html">SingleCellExperiment()</a></code> 以命名列表的形式提供数据，其中列表的每个对象都是一个矩阵。</p>
 <div class="cell">
@@ -542,8 +531,8 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <span><span class="co">#&gt; altExpNames(0):</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="自动添加assays" class="level4" data-number="4.3.2.1"><h4 data-number="4.3.2.1" class="anchored" data-anchor-id="自动添加assays">
-<span class="header-section-number">4.3.2.1</span> 自动添加<code>assays</code>
+<section id="自动添加assays" class="level4" data-number="3.3.2.1"><h4 data-number="3.3.2.1" class="anchored" data-anchor-id="自动添加assays">
+<span class="header-section-number">3.3.2.1</span> 自动添加<code>assays</code>
 </h4>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">scuttle</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/logNormCounts.html">logNormCounts</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span> <span class="co">#对数变换标准化表达矩阵</span></span>
@@ -568,8 +557,8 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <span><span class="co">#&gt; [1] 46603    96</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="自定义添加assays" class="level4" data-number="4.3.2.2"><h4 data-number="4.3.2.2" class="anchored" data-anchor-id="自定义添加assays">
-<span class="header-section-number">4.3.2.2</span> 自定义添加<code>assays</code>
+</section><section id="自定义添加assays" class="level4" data-number="3.3.2.2"><h4 data-number="3.3.2.2" class="anchored" data-anchor-id="自定义添加assays">
+<span class="header-section-number">3.3.2.2</span> 自定义添加<code>assays</code>
 </h4>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">counts_100</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html">counts</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span> <span class="op">+</span> <span class="fl">100</span></span>
@@ -579,8 +568,8 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <span><span class="co">#&gt; names(3): counts logcounts counts_100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="访问和切片" class="level4" data-number="4.3.2.3"><h4 data-number="4.3.2.3" class="anchored" data-anchor-id="访问和切片">
-<span class="header-section-number">4.3.2.3</span> 访问和切片</h4>
+</section><section id="访问和切片" class="level4" data-number="3.3.2.3"><h4 data-number="3.3.2.3" class="anchored" data-anchor-id="访问和切片">
+<span class="header-section-number">3.3.2.3</span> 访问和切片</h4>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#访问计数矩阵</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">assayNames</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
@@ -598,11 +587,11 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <span><span class="co">#&gt; [1] "counts"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section></section></section><section id="cell-metadatacoldata" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="cell-metadatacoldata">
-<span class="header-section-number">4.4</span> cell metadata（<code>colData</code>）</h2>
+</section></section></section><section id="cell-metadatacoldata" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="cell-metadatacoldata">
+<span class="header-section-number">3.4</span> cell metadata（<code>colData</code>）</h2>
 <p>为了进一步构造对象<code>SingleCellExperiment</code>，需要添加列元数据<code>colData</code>注释细胞或样本，该对象<code>DataFrame</code>中的行对应于细胞，列对应于样本元数据字段，例如原产地批次batch of origin、处理条件treatment condition等（ <a href="#fig-sce" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-sce</span></a> ,橙色框）。<a href="https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MTAB-5522">下载：E-MTAB-5522.sdrf.txt（第2页）</a></p>
-<section id="coldata" class="level3" data-number="4.4.1"><h3 data-number="4.4.1" class="anchored" data-anchor-id="coldata">
-<span class="header-section-number">4.4.1</span> <code>colData</code>
+<section id="coldata" class="level3" data-number="3.4.1"><h3 data-number="3.4.1" class="anchored" data-anchor-id="coldata">
+<span class="header-section-number">3.4.1</span> <code>colData</code>
 </h3>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">coldata</span> <span class="op">&lt;-</span> <span class="fu">read_tsv</span><span class="op">(</span><span class="st">"data/OSCA/E-MTAB-5522.sdrf.txt"</span><span class="op">)</span></span>
@@ -653,19 +642,19 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">coldata</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="添加coldata" class="level3" data-number="4.4.2"><h3 data-number="4.4.2" class="anchored" data-anchor-id="添加coldata">
-<span class="header-section-number">4.4.2</span> <strong>添加<code>colData</code></strong>
+</section><section id="添加coldata" class="level3" data-number="3.4.2"><h3 data-number="3.4.2" class="anchored" data-anchor-id="添加coldata">
+<span class="header-section-number">3.4.2</span> <strong>添加<code>colData</code></strong>
 </h3>
-<section id="从头开始" class="level4" data-number="4.4.2.1"><h4 data-number="4.4.2.1" class="anchored" data-anchor-id="从头开始">
-<span class="header-section-number">4.4.2.1</span> 从头开始</h4>
+<section id="从头开始" class="level4" data-number="3.4.2.1"><h4 data-number="3.4.2.1" class="anchored" data-anchor-id="从头开始">
+<span class="header-section-number">3.4.2.1</span> 从头开始</h4>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sce0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/SingleCellExperiment.html">SingleCellExperiment</a></span><span class="op">(</span>assays <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>counts<span class="op">=</span><span class="va">mat</span><span class="op">)</span>, colData<span class="op">=</span><span class="va">coldata</span><span class="op">)</span></span>
 <span><span class="va">sce0</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">sce0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="向现有对象添加" class="level4" data-number="4.4.2.2"><h4 data-number="4.4.2.2" class="anchored" data-anchor-id="向现有对象添加">
-<span class="header-section-number">4.4.2.2</span> 向现有对象添加</h4>
+</section><section id="向现有对象添加" class="level4" data-number="3.4.2.2"><h4 data-number="3.4.2.2" class="anchored" data-anchor-id="向现有对象添加">
+<span class="header-section-number">3.4.2.2</span> 向现有对象添加</h4>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sce</span></span>
 <span><span class="co">#&gt; class: SingleCellExperiment </span></span>
@@ -723,8 +712,8 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <span><span class="co">#&gt; SLX-9555.N712_S517.C89V9ANXX.s_1.r_1    wild type phenotype</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section></section><section id="函数自动添加" class="level3" data-number="4.4.3"><h3 data-number="4.4.3" class="anchored" data-anchor-id="函数自动添加">
-<span class="header-section-number">4.4.3</span> 函数自动添加</h3>
+</section></section><section id="函数自动添加" class="level3" data-number="3.4.3"><h3 data-number="3.4.3" class="anchored" data-anchor-id="函数自动添加">
+<span class="header-section-number">3.4.3</span> 函数自动添加</h3>
 <p>某些函数在<code>colData</code>中返回额外样本元数据字段，自动添加列元数据。</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">scuttle</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/addPerCellQCMetrics.html">addPerCellQC</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span>  <span class="co">#quality control metrics质量控制指标</span></span>
@@ -787,11 +776,11 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <span><span class="co">#&gt; altExpNames(0):</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section></section><section id="featuregene-metadata-rowdata" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="featuregene-metadata-rowdata">
-<span class="header-section-number">4.5</span> feature/gene metadata ( <code>rowData</code>)</h2>
+</section></section><section id="featuregene-metadata-rowdata" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="featuregene-metadata-rowdata">
+<span class="header-section-number">3.5</span> feature/gene metadata ( <code>rowData</code>)</h2>
 <p>添加行元数据<code>rawData</code>注释基因，<code>DataFrame</code>中每行对应一个基因，每列对应一个基因元数据字段，例如转录本长度、基因符号等注释。（ <a href="#fig-sce" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-sce</span></a> ,绿色框）</p>
-<section id="rowdata" class="level4" data-number="4.5.0.1"><h4 data-number="4.5.0.1" class="anchored" data-anchor-id="rowdata">
-<span class="header-section-number">4.5.0.1</span> <code>rowData</code>
+<section id="rowdata" class="level4" data-number="3.5.0.1"><h4 data-number="3.5.0.1" class="anchored" data-anchor-id="rowdata">
+<span class="header-section-number">3.5.0.1</span> <code>rowData</code>
 </h4>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">rowData</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
@@ -834,8 +823,8 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <span><span class="co">#&gt; ENSMUSG00000095742       243         0         0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="rowranges" class="level4" data-number="4.5.0.2"><h4 data-number="4.5.0.2" class="anchored" data-anchor-id="rowranges">
-<span class="header-section-number">4.5.0.2</span> <code>rowRanges</code>
+</section><section id="rowranges" class="level4" data-number="3.5.0.2"><h4 data-number="3.5.0.2" class="anchored" data-anchor-id="rowranges">
+<span class="header-section-number">3.5.0.2</span> <code>rowRanges</code>
 </h4>
 <p><code>rowRanges</code>：以<code>GRangesList</code>或 <code>GRanges</code>的形式保存基因组坐标，描述了特征（基因、基因组区域）的染色体、起始坐标和结束坐标。</p>
 <div class="cell">
@@ -1016,8 +1005,8 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <span><span class="co">#&gt; altExpNames(0):</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="其他元数据" class="level3" data-number="4.5.1"><h3 data-number="4.5.1" class="anchored" data-anchor-id="其他元数据">
-<span class="header-section-number">4.5.1</span> 其他元数据</h3>
+</section><section id="其他元数据" class="level3" data-number="3.5.1"><h3 data-number="3.5.1" class="anchored" data-anchor-id="其他元数据">
+<span class="header-section-number">3.5.1</span> 其他元数据</h3>
 <p>其他注释以命名列表存储在<code>metadata</code> 中。 例如，实验元数据，高度可变基因（highly variable genes）。。。，缺点是与表达矩阵的行或列的操作不同步。</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">DEG_up</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene_x"</span>, <span class="st">"gene_y"</span><span class="op">)</span></span>
@@ -1052,10 +1041,10 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <span><span class="co">#&gt; altExpNames(0):</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section></section><section id="子集和组合" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="子集和组合">
-<span class="header-section-number">4.6</span> 子集和组合</h2>
-<section id="子集" class="level3" data-number="4.6.1"><h3 data-number="4.6.1" class="anchored" data-anchor-id="子集">
-<span class="header-section-number">4.6.1</span> 子集</h3>
+</section></section><section id="子集和组合" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="子集和组合">
+<span class="header-section-number">3.6</span> 子集和组合</h2>
+<section id="子集" class="level3" data-number="3.6.1"><h3 data-number="3.6.1" class="anchored" data-anchor-id="子集">
+<span class="header-section-number">3.6.1</span> 子集</h3>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">first.10</span> <span class="op">&lt;-</span> <span class="va">sce</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html">counts</a></span><span class="op">(</span><span class="va">first.10</span><span class="op">)</span><span class="op">)</span> <span class="co">#  计数矩阵仅有 10 列</span></span>
@@ -1170,8 +1159,8 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <span><span class="co">#&gt; ENSMUSG00000095742        ensembl protein_coding                  NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="组合" class="level3" data-number="4.6.2"><h3 data-number="4.6.2" class="anchored" data-anchor-id="组合">
-<span class="header-section-number">4.6.2</span> 组合</h3>
+</section><section id="组合" class="level3" data-number="3.6.2"><h3 data-number="3.6.2" class="anchored" data-anchor-id="组合">
+<span class="header-section-number">3.6.2</span> 组合</h3>
 <p>按列组合，假设所有涉及的对象都具有相同的行注释值和兼容的列注释字段</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sce2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">sce</span>, <span class="va">sce</span><span class="op">)</span></span>
@@ -1255,10 +1244,10 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <span><span class="co">#&gt; ENSMUSG00000095742        ensembl       protein_coding                  NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section></section><section id="单细胞特定字段" class="level2" data-number="4.7"><h2 data-number="4.7" class="anchored" data-anchor-id="单细胞特定字段">
-<span class="header-section-number">4.7</span> 单细胞特定字段</h2>
-<section id="降维-reduceddims" class="level3" data-number="4.7.1"><h3 data-number="4.7.1" class="anchored" data-anchor-id="降维-reduceddims">
-<span class="header-section-number">4.7.1</span> 降维 <code>reducedDims</code>
+</section></section><section id="单细胞特定字段" class="level2" data-number="3.7"><h2 data-number="3.7" class="anchored" data-anchor-id="单细胞特定字段">
+<span class="header-section-number">3.7</span> 单细胞特定字段</h2>
+<section id="降维-reduceddims" class="level3" data-number="3.7.1"><h3 data-number="3.7.1" class="anchored" data-anchor-id="降维-reduceddims">
+<span class="header-section-number">3.7.1</span> 降维 <code>reducedDims</code>
 </h3>
 <p>降维结果保存在一个列表中，列表的每一个对象是一个代表计数矩阵的低维的数值矩阵，其中行表示计数矩阵的列（如细胞），列表示维度。</p>
 <div class="cell">
@@ -1289,25 +1278,25 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <details class="code-fold"><summary>tSNE</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">scater</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/runTSNE.html">runTSNE</a></span><span class="op">(</span><span class="va">sce</span>, perplexity <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Perplexity should be lower than K!</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/reducedDims.html">reducedDim</a></span><span class="op">(</span><span class="va">sce</span>, <span class="st">"TSNE"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                           TSNE1      TSNE2</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S502.C89V9ANXX.s_1.r_1   548.4412 -219.68769</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S503.C89V9ANXX.s_1.r_1   642.7446   33.43924</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S504.C89V9ANXX.s_1.r_1   898.8680  151.30741</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S505.C89V9ANXX.s_1.r_1 -1191.2253 -135.97727</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S506.C89V9ANXX.s_1.r_1  -827.7419 -958.72969</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S507.C89V9ANXX.s_1.r_1  -294.8303 -867.20137</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;                                            TSNE1      TSNE2</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S502.C89V9ANXX.s_1.r_1  -494.97985 -1199.5044</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S503.C89V9ANXX.s_1.r_1    93.29840  1393.4762</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S504.C89V9ANXX.s_1.r_1 -1085.87787  -202.2574</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S505.C89V9ANXX.s_1.r_1  -494.96873  -623.1168</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S506.C89V9ANXX.s_1.r_1   320.59270   510.6343</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S507.C89V9ANXX.s_1.r_1   -26.86469   260.5305</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold"><summary>UMAP</summary><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">scater</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scater/man/runUMAP.html">runUMAP</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/reducedDims.html">reducedDim</a></span><span class="op">(</span><span class="va">sce</span>,<span class="st">"UMAP"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                          UMAP1     UMAP2</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S502.C89V9ANXX.s_1.r_1 -2.915830 -4.855348</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S503.C89V9ANXX.s_1.r_1 -2.255113 -4.339309</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S504.C89V9ANXX.s_1.r_1 -2.745740 -5.377293</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S505.C89V9ANXX.s_1.r_1 -3.738179 -7.343237</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S506.C89V9ANXX.s_1.r_1  4.381729  7.615599</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S507.C89V9ANXX.s_1.r_1  4.752352  7.368036</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; SLX-9555.N701_S502.C89V9ANXX.s_1.r_1 -7.874679  4.870060</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S503.C89V9ANXX.s_1.r_1 -6.914416  4.838631</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S504.C89V9ANXX.s_1.r_1 -7.786286  4.746195</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S505.C89V9ANXX.s_1.r_1 -9.237695  6.157400</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S506.C89V9ANXX.s_1.r_1  9.499993 -6.079987</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S507.C89V9ANXX.s_1.r_1 10.134163 -5.920231</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
@@ -1317,13 +1306,13 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <span><span class="co">#&gt; List of length 4</span></span>
 <span><span class="co">#&gt; names(4): PCA TSNE UMAP UMAP_uwot</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/reducedDims.html">reducedDim</a></span><span class="op">(</span><span class="va">sce</span>, <span class="st">"UMAP_uwot"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                           [,1]        [,2]</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S502.C89V9ANXX.s_1.r_1  2.528333 -1.22023178</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S503.C89V9ANXX.s_1.r_1  1.831814  0.91103887</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S504.C89V9ANXX.s_1.r_1  3.373020  0.06124734</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S505.C89V9ANXX.s_1.r_1  3.981762 -2.07711912</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S506.C89V9ANXX.s_1.r_1 -7.307404 -5.91599203</span></span>
-<span><span class="co">#&gt; SLX-9555.N701_S507.C89V9ANXX.s_1.r_1 -5.876931 -4.32073761</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;                                             [,1]        [,2]</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S502.C89V9ANXX.s_1.r_1  3.20233921 -0.30910193</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S503.C89V9ANXX.s_1.r_1  4.15532545 -1.91858077</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S504.C89V9ANXX.s_1.r_1  4.49050001  0.06075192</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S505.C89V9ANXX.s_1.r_1  6.66577200 -5.30471324</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S506.C89V9ANXX.s_1.r_1 -1.60163995  1.98342181</span></span>
+<span><span class="co">#&gt; SLX-9555.N701_S507.C89V9ANXX.s_1.r_1 -0.08030256  4.76132393</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
@@ -1332,8 +1321,8 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <span><span class="co">#&gt; names(4): PCA TSNE UMAP UMAP_uwot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="替代试验-alternative-experiments" class="level3" data-number="4.7.2"><h3 data-number="4.7.2" class="anchored" data-anchor-id="替代试验-alternative-experiments">
-<span class="header-section-number">4.7.2</span> 替代试验 Alternative Experiments</h3>
+</section><section id="替代试验-alternative-experiments" class="level3" data-number="3.7.2"><h3 data-number="3.7.2" class="anchored" data-anchor-id="替代试验-alternative-experiments">
+<span class="header-section-number">3.7.2</span> 替代试验 Alternative Experiments</h3>
 <p><code>SingleCellExperiment</code>提供了”替代实验”的概念，其是一组不同特征但同一组样本/细胞的数据。经典应用是存储加标转录（spike-in transcripts）的每细胞计数，能够保留这些数据以供下游使用，但要将其与保存的内源性基因计数分离，因为此类替代特征通常需要单独处理。</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">spike.df</span> <span class="op">&lt;-</span> <span class="va">spike.df</span> <span class="op">|&gt;</span> <span class="fu">column_to_rownames</span><span class="op">(</span><span class="st">"GeneID"</span><span class="op">)</span></span>
@@ -1389,8 +1378,8 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 </details>
 </div>
 <p>任何<code>SummarizedExperiment</code>对象都可以存储为<code>alternative Experiment</code>, 包括另一个 <code>SingleCellExperiment</code>。</p>
-</section><section id="缩放因子sizefactors" class="level3" data-number="4.7.3"><h3 data-number="4.7.3" class="anchored" data-anchor-id="缩放因子sizefactors">
-<span class="header-section-number">4.7.3</span> 缩放因子<code>sizeFactors</code>
+</section><section id="缩放因子sizefactors" class="level3" data-number="3.7.3"><h3 data-number="3.7.3" class="anchored" data-anchor-id="缩放因子sizefactors">
+<span class="header-section-number">3.7.3</span> 缩放因子<code>sizeFactors</code>
 </h3>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 反卷积deconvolution-based size factors</span></span>
@@ -1409,8 +1398,8 @@ Figure&nbsp;4.2: `SingleCellExperiment `的结构概述：assays的每一行对�
 <span><span class="co">#&gt;  0.1703  0.7657  0.9513  1.0000  1.1064  3.6050</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="列标签" class="level3" data-number="4.7.4"><h3 data-number="4.7.4" class="anchored" data-anchor-id="列标签">
-<span class="header-section-number">4.7.4</span> 列标签</h3>
+</section><section id="列标签" class="level3" data-number="3.7.4"><h3 data-number="3.7.4" class="anchored" data-anchor-id="列标签">
+<span class="header-section-number">3.7.4</span> 列标签</h3>
 <p>该函数允许我们获取或设置每个细胞标签的向量或因子，通常对应于由无监督聚类分析的分组 或从分类算法预测细胞类型身份。</p>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/colLabels.html">colLabels</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">scran</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scran/man/clusterCells.html">clusterCells</a></span><span class="op">(</span><span class="va">sce</span>, use.dimred<span class="op">=</span><span class="st">"PCA"</span><span class="op">)</span></span>
@@ -1885,12 +1874,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./import.html" class="pagination-link" aria-label="获取scRNA-seq表达值矩阵">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">获取scRNA-seq表达值矩阵</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">获取scRNA-seq表达值矩阵</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./workflow.html" class="pagination-link" aria-label="工作流">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">工作流</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">工作流</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
@@ -1942,9 +1931,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb37-50"><a href="#cb37-50" aria-hidden="true" tabindex="-1"></a>se</span>
 <span id="cb37-51"><a href="#cb37-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb37-52"><a href="#cb37-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-53"><a href="#cb37-53" aria-hidden="true" tabindex="-1"></a><span class="fu">## 类`SingleCellExperiments`</span></span>
+<span id="cb37-53"><a href="#cb37-53" aria-hidden="true" tabindex="-1"></a><span class="fu">## 子类`SingleCellExperiment`</span></span>
 <span id="cb37-54"><a href="#cb37-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-55"><a href="#cb37-55" aria-hidden="true" tabindex="-1"></a><span class="in">`SingleCellExperiments`</span>如 @fig-sce 所示。</span>
+<span id="cb37-55"><a href="#cb37-55" aria-hidden="true" tabindex="-1"></a><span class="in">`SingleCellExperiment`</span> 如 @fig-sce 所示。</span>
 <span id="cb37-56"><a href="#cb37-56" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-57"><a href="#cb37-57" aria-hidden="true" tabindex="-1"></a><span class="al">![\`SingleCellExperiment \`的结构概述：assays的每一行对应于 rowData（粉色阴影）的一行，而assays的每一列对应于 colData 和 reducedDims（黄色阴影）的一行](images/SCE.png)</span>{#fig-sce fig-align="center"}</span>
 <span id="cb37-58"><a href="#cb37-58" aria-hidden="true" tabindex="-1"></a></span>
