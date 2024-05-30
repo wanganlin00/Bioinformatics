@@ -1,0 +1,24 @@
+# GWAS
+
+全基因组关联研究（genome-wide association studies, GWAS）常用于展示成千上万个SNP（单核苷酸多态性）的P值来寻找与疾病或性状相关的基因标记和遗传变异的统计方法。
+
+GWAS:$ y=a+bx+e$
+
+主成分GWAS：$ y=a+bx+pcx+e$
+
+Eigen GWAS: $ pc=a+bx+e$
+
+
+```{r}
+Counts <- read_rds("data/Counts.rds") |> column_to_rownames("gene")
+
+DE <- read_csv("data/resOrdered.csv")
+
+
+GWAS <- Counts[which(rownames(Counts) %in% DE$gene[1:25]),]
+
+cor_matrix <- cor(t(GWAS))
+
+
+```
+

@@ -1,0 +1,12 @@
+# WGCNA
+
+加权基因共表达网络分析
+
+```{r}
+Counts <- read_rds("data/Counts.rds") |> column_to_rownames("gene")
+
+DE <- read_csv("data/resOrdered.csv")
+
+
+WCGNA <- Counts[which(rownames(Counts) %in% DE$gene[1:25]),]
+```

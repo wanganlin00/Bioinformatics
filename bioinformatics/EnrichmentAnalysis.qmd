@@ -4,7 +4,7 @@
 
 基因集表示基因集中基因的一般共享生物属性的先验知识。
 
-![GSEA](https://img-blog.csdnimg.cn/20181105104509344.gif){alt="GSEA" fig-align="center"}
+![GSEA](https://img-blog.csdnimg.cn/20181105104509344.gif){fig-align="center"}
 
 ![](data/GSEA.gif){fig-align="center"}
 

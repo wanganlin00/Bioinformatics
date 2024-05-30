@@ -32,11 +32,13 @@ book:
         - DEGs_Analysis.qmd
         - EnrichmentAnalysis.qmd
         - PseudotimeAnalysis.qmd
+        - GWAS.qmd
+        - WGCNA.qmd
         
-    - part: "包"
+    - part: "workflow"
       chapters: 
         - Seurat.qmd
-        - AnnotationHub.qmd
+        - annotation.qmd
         
 
 

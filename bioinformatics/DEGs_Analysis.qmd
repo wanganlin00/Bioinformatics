@@ -16,10 +16,10 @@ conflicts_prefer(GenomicRanges::setdiff)
 
 [arrorw 包](https://arrow.apache.org/docs/r/articles/arrow.html)
 
--  read_parquet()：读取 Parquet 格式的文件
--  read_delim_arrow()：读取带分隔符的文本文件
--  read_csv_arrow()：读取逗号分隔值 （CSV） 文件
--  read_tsv_arrow()：读取制表符分隔值 （TSV） 文件
+-   read_parquet()：读取 Parquet 格式的文件
+-   read_delim_arrow()：读取带分隔符的文本文件
+-   read_csv_arrow()：读取逗号分隔值 （CSV） 文件
+-   read_tsv_arrow()：读取制表符分隔值 （TSV） 文件
 
 ```{r}
 library(arrow, warn.conflicts = FALSE)
@@ -31,7 +31,6 @@ raw_logCount[1:6,1:3]
 ```
 
 ### 基因编码文件
-
 
 我想要分析总的转录本，不需要把mRNA、lncRNA等挑出来，所以下载的这个自带注释文件[ID/Gene Mapping](https://gdc-hub.s3.us-east-1.amazonaws.com/download/gencode.v22.annotation.gene.probeMap)
 
@@ -59,7 +58,6 @@ head(gtf_v22_mRNA )
 write.csv(gtf_v22_mRNA,"data/gtf_v22_mRNA.csv")
 ```
 
-
 ### 根据 ENSEBML 编码内连接
 
 ```{r eval=FALSE}
@@ -71,7 +69,6 @@ gene_logCount <- raw_logCount |>
 ```{r include=FALSE}
 gene_logCount <- read_csv_arrow("data/gene_logCount.csv")
 ```
-
 
 ```{r}
 
@@ -110,15 +107,21 @@ conflicts_prefer(GenomicRanges::setdiff)
 
 ```{r}
 library(data.table)
-data.table::setDT(gene_Count)
+setDT(gene_Count)
 Counts <- gene_Count[,lapply(.SD,mean),by=gene, .SDcols=patterns("^(TCGA)")]
 
-Counts <- Counts |> column_to_rownames("gene")
-dim(Counts)
+
 
 ```
 
-提取lncRNA、miRNA等也是类似的操作
+```{r eval=FALSE}
+Counts <- write_rds(Counts,"data/Counts.rds")
+```
+
+```{r}
+Counts <- Counts |> column_to_rownames("gene")
+dim(Counts)
+```
 
 ::: {#summarise_all .callout-note}
 ```{r}
@@ -139,9 +142,10 @@ df|> group_by(g) |> summarise_all(list(mean))
 setDT(df)
 # 对基因g进行分组，并对x和y列计算均值
 df[, lapply(.SD, mean), by = g, .SDcols = patterns("x|y")]
-
 ```
 :::
+
+提取lncRNA、miRNA等也是类似的操作
 
 ## Sample metadata
 
