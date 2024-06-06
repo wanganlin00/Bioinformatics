@@ -1,12 +1,13 @@
 # **Genomic Annotation Resources**
 
-| Object Type                                              | Example Package Name                                           | Contents                                                                                                                                                                     |
-|:---------------------------------------------------------|:---------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| OrgDb                                                    | [org.Hs.eg.db](http://bioconductor.org/packages/org.Hs.eg.db/) | Gene-based information for Homo sapiens; useful for mapping between gene IDs, Names, Symbols, GO and KEGG identifiers, etc.                                                  |
-| [AnnotationHub](https://annotationhub.bioconductor.org/) | [AnnotationHub](https://annotationhub.bioconductor.org/)       | Provides a convenient interface to annotations from many different sources; objects are returned as fully parsed Bioconductor data objects or as the name of a file on disk. |
+| Object Type   | Example Package Name                                           | Contents                                                                                                                                                                     |
+|:--------------|:---------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| OrgDb         | [org.Hs.eg.db](http://bioconductor.org/packages/org.Hs.eg.db/) | Gene-based information for Homo sapiens; useful for mapping between gene IDs, Names, Symbols, GO and KEGG identifiers, etc.                                                  |
+| AnnotationHub | [AnnotationHub](https://annotationhub.bioconductor.org/)       | Provides a convenient interface to annotations from many different sources; objects are returned as fully parsed Bioconductor data objects or as the name of a file on disk. |
 
 ```{r eval=FALSE}
 suppressMessages(library(AnnotationHub))
+#ah <- AnnotationHub()
 ah <- refreshHub(hubClass=c("AnnotationHub", "ExperimentHub"))
 ah
 save(ah,file = "data/AnnotationHub.Rdata")

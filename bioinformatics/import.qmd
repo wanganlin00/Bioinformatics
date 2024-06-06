@@ -14,7 +14,7 @@
 
     -   reads平板，plate-based protocols with reads，提供全转录覆盖（如剪接、外显子组突变），主要是Smart-seq2；
 
-3.  其他方案，如sciRNA-seq。
+3.  其他方案，如ssci-RNA-seq, Seq-Well
 
 ### **捕获细胞数目和测序深度最佳权衡**
 
@@ -28,9 +28,7 @@
 
 ## 导入计数矩阵
 
-### 从表格格式
-
-#### csv
+### csv
 
 [下载胰腺scRNA-seq数据集：GSE85241_cellsystems_dataset_4donors_updated.csv.gz(HTTP)](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE85241)
 
@@ -54,7 +52,7 @@ object.size(sparse.mat)
 object.size(mat)
 ```
 
-#### excel
+### excel
 
 [下载：GSE61533_HTSEQ_count_results.xls.gz(HTTP)](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE61533)
 
