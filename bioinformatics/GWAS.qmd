@@ -2,23 +2,36 @@
 
 全基因组关联研究（genome-wide association studies, GWAS）常用于展示成千上万个SNP（单核苷酸多态性）的P值来寻找与疾病或性状相关的基因标记和遗传变异的统计方法。
 
-GWAS:$ y=a+bx+e$
+全基因组关联分析（Genome wide association study，GWAS）是对多个个体在全基因组范围的遗传变异（标记）多态性进行检测，获得基因型，进而将基因型与可观测的性状，即表型，进行群体水平的统计学分析，根据统计量或显著性P值筛选出最有可能影响该性状的遗传变异（标记），挖掘与性状变异相关的基因。
 
-主成分GWAS：$ y=a+bx+pcx+e$
+GWAS分析模型介绍 GWAS 分析一般会构建回归模型检验标记与表型之间是否存在关联。GWAS中的零假设（H0 null hypothesis）是标记的回归系数为零, 标记对表型没有影响。备择假设(H1，也叫对立假设，Alternative Hypothesis)是标记的回归系数不为零，SNP和表型相关。GWAS中的模型主要分为两种：
 
-Eigen GWAS: $ pc=a+bx+e$
+一般线性模型GLM(General Linear Model)：y = Xβ + Zα + e，直接将基因型x和表型y做回归拟合。也可以加入群体结果控制假阳性。
 
+![](images/glm.png){fig-align="center"}
+
+GLM模型中，如果两个表型差异很大，但群体本身还含有其他的遗传差异（如地域等），则那些与该表型无关的遗传差异也会影响到相关性。
+
+混合线性模型MLM(Mixed Linear Model)：y = Xβ + Zα + Wμ+ e
+
+y: 所要研究的表型性状；
+
+Xβ：固定效应（Fixed Effect），影响y的其他因素，主要指群体结构；
+
+Zα：标记效应（Marker Effect  SNP）；
+
+Wμ：随机效应（RandomEffect），这里一般指个体的亲缘关系。
+
+MLM模型可以把群体结构的影响设为协方差，把这种位点校正掉。此外，材料间的公共祖先关系也会导致非连锁相关，可加入亲缘关系矩阵作为随机效应来矫正。
+
+FarmCPU：GWAS的瓶颈一是计算速度，二是统计准确性。FarmCPU能提升速度和准确性，首先把随机效应的亲缘关系矩阵（Kinship）转换为固定效应的关联SNP矩阵（S矩阵/QTNs矩阵），使计算速度大大加快；再利用QTN矩阵当做协变量，重新做关联分析，提升准确率。
+
+主成分GWAS：\$ y=a+bx+pcx+e\$
+
+Eigen GWAS: \$ pc=a+bx+e\$
 
 ```{r}
-Counts <- read_rds("data/Counts.rds") |> column_to_rownames("gene")
 
-DE <- read_csv("data/resOrdered.csv")
-
-
-GWAS <- Counts[which(rownames(Counts) %in% DE$gene[1:25]),]
-
-cor_matrix <- cor(t(GWAS))
 
 
 ```
-
