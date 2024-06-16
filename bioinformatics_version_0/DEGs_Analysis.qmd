@@ -1,14 +1,11 @@
 # 差异表达基因分析
 
-```{r include=FALSE}
-conflicts_prefer(GenomicRanges::setdiff)
-```
-
 ## 数据
 
 肺腺癌
 
 [Lung Adenocarcinoma (LUAD) gene expression RNAseq HTSeq - Counts （n=585） GDC 中心 和Phenotype (n=877)](https://xenabrowser.net/datapages/?cohort=GDC%20TCGA%20Lung%20Adenocarcinoma%20(LUAD)&removeHub=https%3A%2F%2Fxena.treehouse.gi.ucsc.edu%3A443)
+
 
 ## Assays
 
@@ -20,6 +17,8 @@ conflicts_prefer(GenomicRanges::setdiff)
 -   read_delim_arrow()：读取带分隔符的文本文件
 -   read_csv_arrow()：读取逗号分隔值 （CSV） 文件
 -   read_tsv_arrow()：读取制表符分隔值 （TSV） 文件
+
+
 
 ```{r}
 library(arrow, warn.conflicts = FALSE)
@@ -154,8 +153,9 @@ df[, lapply(.SD, mean), by = g, .SDcols = patterns("x|y")]
 ```{r}
 #首先载入下载好胆管癌的样本信息文件
 # 877 个sample × 125 个样本变量
+library(data.table)
 colData <- fread("data/TCGA-LUAD.GDC_phenotype.tsv.gz", sep = "\t", header = TRUE)
-
+colData_DLBC <- fread("data/TCGA-DLBC.GDC_phenotype.tsv.gz", sep = "\t", header = TRUE)
 
 
 # 选择样本  放疗与kras基因
