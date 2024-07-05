@@ -1,7 +1,5 @@
 # **From reads to count matrix**
 
-了解为主
-
 ## Fastq
 
 ![](images/Fastq.jpg){fig-align="center"}
