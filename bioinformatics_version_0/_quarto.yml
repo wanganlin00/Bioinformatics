@@ -12,13 +12,15 @@ book:
   
   chapters:
     - index.qmd
-
+    - Biostrings.qmd
+    - ExpressionSet.qmd
+    - SCE.qmd     # SingleCellExperiment   SummarizedExperiment
+    - annotation_database.qmd
+    
     - part: sca.qmd
       chapters: 
         - Reads_to_CountMatrix.qmd
         - import.qmd
-        - SCE.qmd
-        - workflow.qmd
         - QC.qmd
         - normalization.qmd
         - feature_selection.qmd
@@ -29,24 +31,19 @@ book:
         
     - part: "下游分析"
       chapters: 
+      
         - DEGs_Analysis.qmd
         - EnrichmentAnalysis.qmd
         - PseudotimeAnalysis.qmd
+        - eQTL.qmd
         - GWAS.qmd
         - WGCNA.qmd
-        
+       
     - part: "workflow"
       chapters: 
         - Seurat.qmd
-        - annotation.qmd
-        
-
-
-        
-    - part: "基因组学"
-      chapters:
-        - Biostrings.qmd
-        - eQTL.qmd
+        - workflow.qmd
+    
       
 execute:
   cache: true
