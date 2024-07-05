@@ -26,12 +26,51 @@ MLM模型可以把群体结构的影响设为协方差，把这种位点校正�
 
 FarmCPU：GWAS的瓶颈一是计算速度，二是统计准确性。FarmCPU能提升速度和准确性，首先把随机效应的亲缘关系矩阵（Kinship）转换为固定效应的关联SNP矩阵（S矩阵/QTNs矩阵），使计算速度大大加快；再利用QTN矩阵当做协变量，重新做关联分析，提升准确率。
 
-主成分GWAS：\$ y=a+bx+pcx+e\$
+## [GWASTools](https://bioconductor.org/packages/release/bioc/html/GWASTools.html)
 
-Eigen GWAS: \$ pc=a+bx+e\$
+-   **GenotypeReader: NcdfGenotypeReader, GdsGenotypeReader, or MatrixGenotypeReader**
+
+-   **IntensityReader: NcdfIntensityReader or GdsIntensityReader**
+
+-   **SnpAnnotationReader: SnpAnnotationDataFrame or SnpAnnotationSQLite**
+
+-   **ScanAnnotationReader: ScanAnnotationDataFrame or ScanAnnotationSQLite**
+
+### 
+
+### GenotypeData 类 和 IntensityData 类
+
+-   Network Common Data Form ([NetCDF](http://www.unidata.ucar.edu/software/netcdf/))
+
+-   Genomic Data Structure ([GDS)](http://corearray.sourceforge.net/)
+
+-   Matrix
+
+### 注释类
+
+`SnpAnnotationDataFrame`和`ScanAnnotationDataFrame`类扩展了**`Biobase`**包中的`AnnotatedDataFrame`类
+
+可移植跨平台类 `SQLite` 类
+
+## 导入
+
+### 纯文本
+
+### Plink
 
 ```{r}
-
-
-
+library(GWASTools)
+library(SNPRelate)
+bed.fn <- system.file("extdata", "plinkhapmap.bed.gz", package="SNPRelate")
+fam.fn <- system.file("extdata", "plinkhapmap.fam.gz", package="SNPRelate")
+bim.fn <- system.file("extdata", "plinkhapmap.bim.gz", package="SNPRelate")
+gdsfile <- "snps.gds"
+snpgdsBED2GDS(bed.fn, fam.fn, bim.fn, gdsfile, family=TRUE,
+              cvt.chr="int", cvt.snpid="int", verbose=FALSE)
 ```
+
+```{r}
+(gds <- GdsGenotypeReader(gdsfile, YchromCode=24L, XYchromCode=25L))
+```
+
+## 导出

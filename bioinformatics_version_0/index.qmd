@@ -1,11 +1,17 @@
 # 参考资料 {.unnumbered style="color:red"}
 
 -   [Orchestrating Single-Cell Analysis with ***Bioconductor***](https://bioconductor.org/books/release/OSCA/)
+
 -   [***Seurat***](https://satijalab.org/seurat/)
+
 -   [DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)
--   [clusterProfiler](https://yulab-smu.top/biomedical-knowledge-mining-book/)
--   。。。
 
-主要内容是单细胞分析、差异表达基因分析、富集分析、伪时序分析。。。。。。
+-   [clusterProfiler、Disease Ontology Semantic and Enrichment analysis](https://yulab-smu.top/biomedical-knowledge-mining-book/)
 
-R处理大数据较慢，data.table，arrow
+-   [monocle2](https://cole-trapnell-lab.github.io/monocle-release/docs/)
+
+-   <https://cole-trapnell-lab.github.io/monocle3/>
+
+-   [系统发育树](https://yulab-smu.top/treedata-book/)
+
+-   

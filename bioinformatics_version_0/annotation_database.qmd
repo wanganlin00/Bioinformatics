@@ -1,0 +1,132 @@
+# 注释数据库
+
+## [BioMart](https://bioconductor.org/packages/release/bioc/html/biomaRt.html)
+
+即Ensembl ID
+
+查找智人（homo sapien）基因组
+
+<https://bioconductor.org/packages/release/bioc/vignettes/biomaRt/inst/doc/accessing_ensembl.html#introduction>
+
+```{r}
+library(biomaRt)
+
+listEnsembl()
+
+# 选择数据库
+ensembl <- useEnsembl(biomart = "genes")
+ensembl
+
+# 选择数据集
+datasets <- listDatasets(ensembl) |> as_tibble()
+datasets
+
+# 查找智人
+searchDatasets(mart = ensembl, pattern = "hsapiens")
+
+# 使用
+ensembl <- useDataset(dataset = "hsapiens_gene_ensembl", mart = ensembl)
+ensembl
+```
+
+```{r}
+# 人类基因BioMart
+ensembl <- useEnsembl(biomart = "ensembl", 
+                   dataset = "hsapiens_gene_ensembl", 
+                   mirror = "asia")
+```
+
+## **使用 Ensembl 的存档版本**
+
+```{r}
+listEnsemblArchives()
+listEnsembl(version = 112)
+ensembl_112 <- useEnsembl(biomart = 'genes', 
+                       dataset = 'hsapiens_gene_ensembl',
+                       mirror = "asia",
+                       version = 112)
+```
+
+## **使用 Ensembl 基因组**
+
+```{r}
+listEnsemblGenomes()
+ensembl_plants <- useEnsemblGenomes(biomart = "plants_mart")
+searchDatasets(ensembl_plants, pattern = "Arabidopsis")
+ensembl_arabidopsis <- useEnsemblGenomes(biomart = "plants_mart", 
+                                         dataset = "athaliana_eg_gene")
+```
+
+## [AnnotationHub](https://bioconductor.org/packages/release/bioc/html/AnnotationHub.html)
+
+```{r eval=FALSE}
+if (!require("AnnotationHub", quietly = TRUE))
+  BiocManager::install("AnnotationHub")
+```
+
+[基于annotationhub构建所需orgdb，用于clusterprofiler富集分析](https://www.jingege.wang/2023/12/12/%E5%9F%BA%E4%BA%8Eannotationhub%E6%9E%84%E5%BB%BA%E6%89%80%E9%9C%80orgdb%EF%BC%8C%E7%94%A8%E4%BA%8Eclusterprofiler%E5%AF%8C%E9%9B%86%E5%88%86%E6%9E%90/)
+
+```{r}
+suppressMessages(library(AnnotationHub))
+
+
+proxy <- httr::use_proxy(Sys.getenv('http_proxy'))
+httr::set_config(proxy)
+AnnotationHub::setAnnotationHubOption("PROXY", proxy)
+
+ah <- AnnotationHub()
+ah
+```
+
+```{r}
+ah
+snapshotDate(ah)
+
+# C:\Users\DELL\AppData\Local\R\cache\R\AnnotationHub
+hubCache(ah)
+
+# https://annotationhub.bioconductor.org
+hubUrl(ah)
+isLocalHub(ah)
+dbconn(ah)
+```
+
+```{r}
+length(ah)
+ah$dataprovider |> unique()
+```
+
+```{r}
+head(unique(ah$species))
+head(unique(ah$rdataclass))
+```
+
+```{r}
+query(ah, c("OrgDb"))
+query(ah, c("^UCSC"))
+```
+
+```{r}
+ah[ah$dataprovider=="UCSC"]
+```
+
+## AnnotationDbi
+
+<https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html>
+
+| Package Name                                                                         | Contents                                                                                                             |
+|:------------------------------|:----------------------------------------|
+| [org.Hs.eg.db](http://bioconductor.org/packages/org.Hs.eg.db/)                       | Genome wide annotation for Human；useful for mapping between gene IDs, Names, Symbols, GO and KEGG identifiers, etc. |
+| org.Mm.eg.db                                                                         | Genome wide annotation for Mouse                                                                                     |
+| GO.db                                                                                | A set of annotation maps describing the entire Gene Ontology                                                         |
+| [HPO.db](https://bioconductor.org/packages/release/data/annotation/html/HPO.db.html) | A set of annotation maps describing the entire Human Phenotype Ontology                                              |
+| [MPO.db](https://bioconductor.org/packages/release/data/annotation/html/MPO.db.html) | A set of annotation maps describing the Mouse Phenotype Ontology                                                     |
+|                                                                                      |                                                                                                                      |
+
+### OrgDb
+
+### GODb
+
+### EnsDb
+
+## ExperimentHub
