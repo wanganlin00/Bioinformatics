@@ -1,0 +1,14 @@
+---
+execute: 
+  cache: true
+  message: false
+
+knitr: 
+  opts_chunk: 
+    collaspe: TRUE
+    comment: "#>"
+---
+
+# UCSC
+
+[rtracklayer](https://bioconductor.org/packages/release/bioc/html/rtracklayer.html)
