@@ -4,8 +4,8 @@
 
 ```{r eval=FALSE}
 BiocManager::install("GO.db")
-BiocManager::install("impute")
-BiocManager::install("preprocessCore")
+# install.packages("H:/压缩包/impute_1.78.0.tar.gz", repos = NULL, type = "source")
+# install.packages("H:/压缩包/preprocessCore_1.66.0.tar.gz", repos = NULL, type = "source")
 install.packages("WGCNA")
 ```
 
@@ -14,6 +14,7 @@ install.packages("WGCNA")
 [简书示例](https://www.jianshu.com/p/e9cc3f43441d)
 
 ```{r}
+library(WGCNA)
 Counts <- read_rds("data/Counts.rds") |> column_to_rownames("gene")
 
 DE <- read_csv("data/resOrdered.csv")
