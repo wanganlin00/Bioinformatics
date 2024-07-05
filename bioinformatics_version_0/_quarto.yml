@@ -13,6 +13,7 @@ book:
   chapters:
     - index.qmd
     - Biostrings.qmd
+    - Sequence.qmd
     - ExpressionSet.qmd
     - SCE.qmd     # SingleCellExperiment   SummarizedExperiment
     - annotation_database.qmd

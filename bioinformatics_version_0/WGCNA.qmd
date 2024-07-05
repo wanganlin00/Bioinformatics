@@ -2,6 +2,13 @@
 
 加权基因共表达网络分析
 
+```{r eval=FALSE}
+BiocManager::install("GO.db")
+BiocManager::install("impute")
+BiocManager::install("preprocessCore")
+install.packages("WGCNA")
+```
+
 <https://cran.r-project.org/web/packages/WGCNA/index.html>
 
 [简书示例](https://www.jianshu.com/p/e9cc3f43441d)
