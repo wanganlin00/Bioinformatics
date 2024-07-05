@@ -1,11 +1,18 @@
 # 差异表达基因分析
 
+```{r}
+if (!require("DESeq2", quietly = TRUE))
+    BiocManager::install("DESeq2")
+
+```
+
+<https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html>
+
 ## 数据
 
 肺腺癌
 
 [Lung Adenocarcinoma (LUAD) gene expression RNAseq HTSeq - Counts （n=585） GDC 中心 和Phenotype (n=877)](https://xenabrowser.net/datapages/?cohort=GDC%20TCGA%20Lung%20Adenocarcinoma%20(LUAD)&removeHub=https%3A%2F%2Fxena.treehouse.gi.ucsc.edu%3A443)
-
 
 ## Assays
 
@@ -17,8 +24,6 @@
 -   read_delim_arrow()：读取带分隔符的文本文件
 -   read_csv_arrow()：读取逗号分隔值 （CSV） 文件
 -   read_tsv_arrow()：读取制表符分隔值 （TSV） 文件
-
-
 
 ```{r}
 library(arrow, warn.conflicts = FALSE)
@@ -398,6 +403,13 @@ ggplot(nrDEG,aes( x = log2FoldChange,y = -log10(padj),color=group,shape=group))+
         size=2)+
     theme_pubr()
 
+```
+
+### **EnhancedVolcano**
+
+```{r}
+if(!require(EnhancedVolcano))
+  BiocManager::install('EnhancedVolcano')
 ```
 
 ### LFC收缩和pagj
