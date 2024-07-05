@@ -74,3 +74,7 @@ snpgdsBED2GDS(bed.fn, fam.fn, bim.fn, gdsfile, family=TRUE,
 ```
 
 ## 导出
+
+## CMplot
+
+<https://cran.r-project.org/web//packages/CMplot/index.html>
