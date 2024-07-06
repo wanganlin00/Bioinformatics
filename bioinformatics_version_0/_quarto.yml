@@ -12,38 +12,38 @@ book:
   
   chapters:
     - index.qmd
-    - Biostrings.qmd
     - Sequence.qmd
     - ExpressionSet.qmd
-    - SCE.qmd     # SingleCellExperiment   SummarizedExperiment
+    # - SCE.qmd     # SingleCellExperiment   SummarizedExperiment
+    - biobroom.qmd
     - annotation_database.qmd
-    
-    - part: sca.qmd
-      chapters: 
-        - Reads_to_CountMatrix.qmd
-        - import.qmd
-        - QC.qmd
-        - normalization.qmd
-        - feature_selection.qmd
-        - DimensionalityReduction.qmd
-        - Clustering.qmd
-        - MarkerGeneDetection.qmd
-        - CellTypeAnnotation.qmd
-        
+
     - part: "下游分析"
-      chapters: 
-      
+      chapters:
+
         - DEGs_Analysis.qmd
         - EnrichmentAnalysis.qmd
         - PseudotimeAnalysis.qmd
         - eQTL.qmd
         - GWAS.qmd
         - WGCNA.qmd
-       
-    - part: "workflow"
-      chapters: 
-        - Seurat.qmd
-        - workflow.qmd
+    # - part: sca.qmd
+    #   chapters: 
+    #     - Reads_to_CountMatrix.qmd
+    #     - import.qmd
+    #     - QC.qmd
+    #     - normalization.qmd
+    #     - feature_selection.qmd
+    #     - DimensionalityReduction.qmd
+    #     - Clustering.qmd
+    #     - MarkerGeneDetection.qmd
+    #     - CellTypeAnnotation.qmd
+    #     
+    #    
+    # - part: "workflow"
+    #   chapters: 
+    #     - Seurat.qmd
+    #     - workflow.qmd
     
       
 execute:

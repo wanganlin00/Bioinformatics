@@ -1,3 +1,132 @@
-# Sequence
+# 序列
 
 <https://bioconductor.org/packages/release/workflows/html/sequencing.html>
+
+![](images/sequence.png){fig-align="center"}
+
+## DataFrame
+
+```{r}
+df <- S4Vectors::DataFrame(iris)
+
+df[1:6,1:4]
+```
+
+## Ranges
+
+`IRanges` 和 `GenomicRanges`
+
+```{r}
+set.seed(10)
+ranges <- IRanges::IRanges(start = round(runif(10,1,100)),
+                 width = round(runif(10,0,50)),
+                 names = paste0("exton_",letters[sample(1:26,10)])
+                 )
+ranges
+
+ranges@NAMES
+```
+
+```{r}
+library(GenomicRanges)
+# help("GRanges-class")
+
+set.seed(10)
+Granges <- GRanges(seqnames = Rle(values =  c('chr1', 'chr2', 'chr3'),lengths =  c(3, 3, 4)),
+                   ranges = ranges,
+                   strand = '-',
+                   score = 101:110,
+                   GC = runif(10)
+                   )
+Granges
+Granges@ranges
+
+```
+
+## `Biostrings`
+
+`DNAstringSet`、`RNAStringSet`、`AAStringSet`、`BStringSet`
+
+```{r}
+# BiocManager::install("Biostrings") 
+library(Biostrings) 
+
+d <- DNAString("TTGAAAA-CTC-NACGT-")
+d
+length(d)
+r <- RNAStringSet(c("AUCG", "GCAU", "AUCGAU", "GCUA"))
+r
+```
+
+```{r}
+
+protein_strings <- AAStringSet(c("MATH", "GCAU", "MATHMATH", "CUMA"))
+protein_strings
+
+# 二进制字符串存储 如seq_id、quality
+binary_strings <- BStringSet(c("ERCC010101", "CRCC110011", "101010", "111000"))
+binary_strings
+```
+
+从 Ensembl 的FASTA文件'Homo_sapiens.GRCh38.cdna.all.fa'中下载所有智人cDNA序列
+
+```{r}
+library(AnnotationHub)
+proxy <- httr::use_proxy(Sys.getenv('http_proxy'))
+httr::set_config(proxy)
+AnnotationHub::setAnnotationHubOption("PROXY", proxy)
+
+ah <- AnnotationHub()
+ah
+ah2 <- query(ah, c("fasta", "homo sapiens", "Ensembl", "cdna"))
+ah2
+
+# 下载为TwoBitFile文件
+dna <- ah2[["AH68262"]]
+dna
+
+Biostrings::getSeq(dna)
+```
+
+## BSgenome
+
+从UCSC hg38中加载智人的全基因组序列，计算14号染色体GC含量
+
+```{r eval=FALSE}
+library(BSgenome.Hsapiens.UCSC.hg38)
+chr14_range = GRanges("chr14", IRanges(1, seqlengths(Hsapiens)["chr14"]))
+chr14_dna <- getSeq(Hsapiens, chr14_range)
+letterFrequency(chr14_dna, "GC", as.prob=TRUE)
+```
+
+## FASTQ 文件
+
+```{r eval=FALSE}
+## 1. attach ShortRead and BiocParallel
+library(ShortRead)
+library(BiocParallel)
+
+## 2. create a vector of file paths
+fls <- dir("~/fastq", pattern="*fastq", full=TRUE)
+
+## 3. collect statistics
+stats0 <- qa(fls)
+
+## 4. generate and browse the report
+if (interactive())
+    browseURL(report(stats0))
+```
+
+## BAM 文件
+
+Binary alignment 二进制对齐
+
+[`GenomicAlignments`](https://bioconductor.org/packages/3.19/bioc/html/GenomicAlignments.html)
+
+## VCF 文件
+
+`VariantAnnotation` `readVcf()`
+
+## BED、WIG、GTF 等注释文件
+
+[rtracklayer](https://bioconductor.org/packages/3.19/bioc/html/rtracklayer.html) `impart()`
