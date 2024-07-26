@@ -1,0 +1,12 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Bioinformatics",
+    "section": "",
+    "text": "参考资料\n\nOrchestrating Single-Cell Analysis with Bioconductor\nSeurat\nDESeq2\nclusterProfiler、Disease Ontology Semantic and Enrichment analysis\nmonocle2\nhttps://cole-trapnell-lab.github.io/monocle3/\n系统发育树",
+    "crumbs": [
+      "参考资料"
+    ]
+  }
+]

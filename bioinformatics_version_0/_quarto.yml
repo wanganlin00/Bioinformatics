@@ -12,7 +12,7 @@ book:
   
   chapters:
     - index.qmd
-    - Sequence.qmd
+    - sequence_class.qmd
     - ExpressionSet.qmd
     # - SCE.qmd     # SingleCellExperiment   SummarizedExperiment
     - biobroom.qmd
@@ -57,7 +57,6 @@ number-sections: true
 number-depth: 4
 
 code-fold: true
-code-tools: true
 code-link: true
     
 knitr:
