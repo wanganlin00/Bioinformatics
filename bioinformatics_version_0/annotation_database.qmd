@@ -119,7 +119,7 @@ ah[ah$dataprovider=="UCSC"]
 <https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html>
 
 | Package Name                                                                         | Contents                                                                                                             |
-|:------------------------------|:----------------------------------------|
+|:-------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------|
 | [org.Hs.eg.db](http://bioconductor.org/packages/org.Hs.eg.db/)                       | Genome wide annotation for Human；useful for mapping between gene IDs, Names, Symbols, GO and KEGG identifiers, etc. |
 | org.Mm.eg.db                                                                         | Genome wide annotation for Mouse                                                                                     |
 | GO.db                                                                                | A set of annotation maps describing the entire Gene Ontology                                                         |

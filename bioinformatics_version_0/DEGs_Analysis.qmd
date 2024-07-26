@@ -1,9 +1,9 @@
 # 差异表达基因分析
 
-```{r}
+```{r echo=FALSE}
 if (!require("DESeq2", quietly = TRUE))
     BiocManager::install("DESeq2")
-
+conflict_prefer("setdiff","GenomicRanges")
 ```
 
 <https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html>
@@ -18,20 +18,13 @@ if (!require("DESeq2", quietly = TRUE))
 
 ### 对数计数矩阵
 
-[arrorw 包](https://arrow.apache.org/docs/r/articles/arrow.html)
-
--   read_parquet()：读取 Parquet 格式的文件
--   read_delim_arrow()：读取带分隔符的文本文件
--   read_csv_arrow()：读取逗号分隔值 （CSV） 文件
--   read_tsv_arrow()：读取制表符分隔值 （TSV） 文件
-
 ```{r}
 library(arrow, warn.conflicts = FALSE)
-raw_logCount <- read_tsv_arrow("data/TCGA-LUAD.htseq_counts.tsv")
+logCount <- read_tsv_arrow("data/TCGA-LUAD.htseq_counts.tsv.gz")
 # 读取计数矩阵 log2(count+1)  # 60488 个gene ×  586 个sample
 
 
-raw_logCount[1:6,1:3]
+logCount[1:6,1:3]
 ```
 
 ### 基因编码文件
@@ -42,7 +35,7 @@ raw_logCount[1:6,1:3]
 gtf_v22_transcripts <- read_delim("data/gencode.v22.annotation.gene.probeMap")
 ```
 
-如果只想用蛋白质编码（protein_coding）相关基因，用全基因编码注释文件 [gencode.v22.annotation](https://www.encodeproject.org/files/gencode.v22.annotation/)
+如果只想用蛋白质编码（protein_coding）相关基因，用全基因编码注释文件 [gencode.v46.annotation.gtf.gz](https://www.gencodegenes.org/human/)
 
 ```{r eval=FALSE}
 # 全基因编码  BiocManager::install("rtracklayer")
@@ -64,34 +57,29 @@ write.csv(gtf_v22_mRNA,"data/gtf_v22_mRNA.csv")
 
 ### 根据 ENSEBML 编码内连接
 
-```{r eval=FALSE}
-gene_logCount <- raw_logCount |> 
+```{r}
+gene_logCount <- logCount |> 
   inner_join(gtf_v22_transcripts, by = c("Ensembl_ID" = "id")) |> 
   dplyr::select(gene, starts_with("TCGA") )
 ```
 
-```{r include=FALSE}
-gene_logCount <- read_csv_arrow("data/gene_logCount.csv")
-```
-
 ```{r}
-
-
 dim(gene_logCount)
 gene_logCount[1:6,1:3]
 ```
 
-### 去对数
+### 还原原始数据
 
 先去对数 log2(count+1)
 
 ```{r}
-gene_Count <- gene_logCount |> 
- mutate_if(is.numeric,~2^(.)-1)
-gene_Count[1:6,1:3]
-```
+library(Rcpp)
+Rcpp::sourceCpp("data/exponential_base2_transform.cpp")
 
-### 去重
+# 该函数将 `log2(count + 1)` 转换为原始计数
+gene_Count <- gene_logCount %>%
+  mutate_if(is.numeric, ~ exponential_base2_transform(.))
+```
 
 基因名是有重复的，查看重复情况
 
@@ -105,21 +93,10 @@ sum(repeat_n$重复n次的基因个数)
 
 根据基因名分组，重复则取平均值去重，去掉重复的行
 
-```{r include=FALSE}
-conflicts_prefer(GenomicRanges::setdiff)
-```
-
 ```{r}
 library(data.table)
 setDT(gene_Count)
 Counts <- gene_Count[,lapply(.SD,mean),by=gene, .SDcols=patterns("^(TCGA)")]
-
-
-
-```
-
-```{r eval=FALSE}
-Counts <- write_rds(Counts,"data/Counts.rds")
 ```
 
 ```{r}
@@ -160,7 +137,6 @@ df[, lapply(.SD, mean), by = g, .SDcols = patterns("x|y")]
 # 877 个sample × 125 个样本变量
 library(data.table)
 colData <- fread("data/TCGA-LUAD.GDC_phenotype.tsv.gz", sep = "\t", header = TRUE)
-colData_DLBC <- fread("data/TCGA-DLBC.GDC_phenotype.tsv.gz", sep = "\t", header = TRUE)
 
 
 # 选择样本  放疗与kras基因
@@ -318,12 +294,14 @@ sum(results$padj < 0.05, na.rm=TRUE)
 
 # 根据padj 升序
 resOrdered <- results[order(results$padj),]
-
-x <- as.data.frame(resOrdered) |> rownames_to_column(var = "gene")
 ```
 
+### 保存结果
+
+保存csv以备热图、火山图、富集分析。
+
 ```{r eval=FALSE}
-# 导出到csv
+x <- as.data.frame(resOrdered) |> rownames_to_column(var = "gene")
 write_csv(x, file="data/resOrdered.csv")
 ```
 
@@ -359,7 +337,9 @@ library(pheatmap)
 pheatmap(log2exprCounts[(head(DESeq2_DEG$gene,n=25)) , ])
 ```
 
-### 挑选指定第一个基因看它在同一个病人的配对表达情况
+### 配对图
+
+挑选指定第一个基因看它在同一个病人的配对表达情况
 
 ```{r}
 library(ggpubr)
@@ -417,20 +397,20 @@ if(!require(EnhancedVolcano))
 ```{r}
 resultsNames(des)
 # BiocManager::install("apeglm")  自适应 t 先验收缩估计器  默认
-resLFC <- lfcShrink(des, coef="condition_tumor_vs_normal", type="apeglm")
+# resLFC <- lfcShrink(des, coef="condition_tumor_vs_normal", type="apeglm")
 
 # `normal`是原始的 DESeq2 收缩估计器，是先验的自适应正态分布
 resNorm <- lfcShrink(des, coef=2, type="normal")
 
 # BiocManager::install("ashr")
-resAsh <- lfcShrink(des, coef=2, type="ashr")
+# resAsh <- lfcShrink(des, coef=2, type="ashr")
 
 
 ## 先验信息
 
-priorInfo(resLFC)
+# priorInfo(resLFC)
 priorInfo(resNorm)
-priorInfo(resAsh)
+# priorInfo(resAsh)
 
 ```
 
@@ -458,12 +438,12 @@ ggplot(DESeq2_DEG, aes(baseMean, log2FoldChange, colour=significant)) +
 xlim <- c(1,10e6)
 ylim <- c(-3,3)
 plotMA(resOrdered,  xlim=xlim, ylim=ylim,main="none")
-plotMA(resLFC, xlim=xlim, ylim=ylim, main="apeglm")
+# plotMA(resLFC, xlim=xlim, ylim=ylim, main="apeglm")
 plotMA(resNorm, xlim=xlim, ylim=ylim, main="normal")
-plotMA(resAsh, xlim=xlim, ylim=ylim, main="ashr")
+# plotMA(resAsh, xlim=xlim, ylim=ylim, main="ashr")
 ```
 
-### readCounts
+### 读取计数
 
 ```{r}
 #  the counts of reads for a single gene across the groups
