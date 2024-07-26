@@ -8,7 +8,6 @@ library(biobroom)
 # ?qvalue_tidiers
 ```
 
-
 ## ExpressionSet 对象
 
 ```{r}
@@ -57,9 +56,10 @@ results
 tidy_results <- tidy(results)
 tidy_results
 ```
+
 estimate 即 log2FoldChange，
 
-stderror 即 lfcSE 
+stderror 即 lfcSE
 
 ```{r}
 ggplot(tidy_results, aes(x=estimate, y=-log(p.value),
@@ -122,9 +122,6 @@ EnhancedVolcano(
   colAlpha = 1,)
 ```
 
-
-
-
 ## limma 对象
 
 ## edgeR 对象
@@ -165,6 +162,3 @@ library(dplyr)
 sig.genes <- augment(qobj) %>% filter(q.value < 0.05)
 head(sig.genes)
 ```
-
-
-

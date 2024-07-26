@@ -2,12 +2,11 @@
 
 ```{r}
 library(Biobase)
-
 ```
 
 ## Assay data
 
-表达值矩阵
+包含实际的表达数据。通常是一个矩阵，其中行代表基因，列代表样本。数据可以是原始计数值、归一化的表达值等。
 
 ```{r}
 dataDirectory <- system.file("extdata", package="Biobase")
@@ -21,7 +20,9 @@ colnames(exprs)
 head(exprs[,1:5])
 ```
 
-## 表型元数据
+## 样本元数据
+
+包含样本的元数据。这个部分存储有关样本的信息，比如样本的处理条件、时间点等。通常以 `AnnotatedDataFrame` 的形式存储。
 
 ```{r}
 pDataFile <- file.path(dataDirectory, "pData.txt")
@@ -65,13 +66,17 @@ pData(phenoData[phenoData$score>0.8,])
 
 ## 基因元数据及其注释
 
+包含基因的元数据。这个部分存储有关基因的信息，比如基因的注释、位置等。通常以 `AnnotatedDataFrame` 的形式存储。
+
 **`annotation`**和**`AnnotationDbi`**包为元数据包提供了基本的数据操作
 
 ```{r}
 annotation <- "hgu95av2"
 ```
 
-## Experiment description
+## 实验元数据
+
+包含实验的元数据，比如实验设计、数据处理流程等。
 
 *`MIAME`* ob ject
 
@@ -88,7 +93,7 @@ experimentData <- new("MIAME",name="Pierre Fermat",lab="Francis Galton Lab",
 experimentData
 ```
 
-## 组装ExpressionSet
+## 构造ExpressionSet
 
 ```{r}
 #help("ExpressionSet-class")
@@ -101,6 +106,17 @@ exampleSet <- ExpressionSet(assayData=exprs,
                             annotation="hgu95av2")
 
 exampleSet
+```
+
+### 访问
+
+```{r}
+exprs(exampleSet) %>% head()
+
+pData(exampleSet)
+
+fData(exampleSet)
+experimentData(exampleSet)
 ```
 
 ### 切片

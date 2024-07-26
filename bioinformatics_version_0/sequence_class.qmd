@@ -39,30 +39,36 @@ print(rle_obj)
 
 ## Ranges
 
-`IRanges` 和 `GenomicRanges`
+### `IRanges`
 
 ```{r}
 set.seed(10)
-ranges <- IRanges::IRanges(start = round(runif(10,1,100)),
-                 width = round(runif(10,0,50)),
-                 names = paste0("exton_",letters[sample(1:26,10)])
-                 )
+ranges <- IRanges::IRanges(
+  start = round(runif(10, 1, 100)),
+  width = round(runif(10, 0, 50)),
+  names = paste0("exton_", letters[sample(1:26, 10)])
+)
 ranges
 
 ranges@NAMES
 ```
+
+### **`GRanges`**
+
+**`GRanges`**：用于表示基因组范围的数据结构，支持高效的基因组区域操作。
 
 ```{r}
 library(GenomicRanges)
 # help("GRanges-class")
 
 set.seed(10)
-Granges <- GRanges(seqnames = Rle(values =  c('chr1', 'chr2', 'chr3'),lengths =  c(3, 3, 4)),
-                   ranges = ranges,
-                   strand = '-',
-                   score = 101:110,
-                   GC = runif(10)
-                   )
+Granges <- GRanges(
+  seqnames = Rle( values =  c('chr1', 'chr2', 'chr3'), lengths =  c(3, 3, 4)),
+  ranges = ranges,
+  strand = c(rep("+",8),"-","*"),
+  score = 101:110,
+  GC = runif(10)
+)
 Granges
 Granges@ranges
 
@@ -123,14 +129,16 @@ Biostrings::getSeq(dna)
 
 从UCSC hg38中加载智人的全基因组序列，计算14号染色体GC含量
 
-```{r eval=FALSE}
+```{r}
 library(BSgenome.Hsapiens.UCSC.hg38)
 chr14_range = GRanges("chr14", IRanges(1, seqlengths(Hsapiens)["chr14"]))
 chr14_dna <- getSeq(Hsapiens, chr14_range)
 letterFrequency(chr14_dna, "GC", as.prob=TRUE)
 ```
 
-## FASTQ 文件
+## 测序文件
+
+### FASTQ 文件
 
 ```{r eval=FALSE}
 ## 1. attach ShortRead and BiocParallel
@@ -148,16 +156,16 @@ if (interactive())
     browseURL(report(stats0))
 ```
 
-## BAM 文件
+### BAM 文件
 
 Binary alignment 二进制对齐
 
 [`GenomicAlignments`](https://bioconductor.org/packages/3.19/bioc/html/GenomicAlignments.html)
 
-## VCF 文件
+### VCF 文件
 
 `VariantAnnotation` `readVcf()`
 
-## BED、WIG、GTF 等注释文件
+### BED、WIG、GTF 等注释文件
 
 [rtracklayer](https://bioconductor.org/packages/3.19/bioc/html/rtracklayer.html) `impart()`

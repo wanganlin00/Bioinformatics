@@ -15,9 +15,12 @@ book:
     - sequence_class.qmd
     - ExpressionSet.qmd
     # - SCE.qmd     # SingleCellExperiment   SummarizedExperiment
-    - biobroom.qmd
     - annotation_database.qmd
 
+
+
+    - biobroom.qmd
+    
     - part: "下游分析"
       chapters:
 
