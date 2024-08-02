@@ -14,9 +14,6 @@
 
 **京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）基因集**
 
-```{r include=FALSE}
-conflicts_prefer(GenomicRanges::setdiff)
-```
 
 ```{r}
 # BiocManager::install('clusterProfiler')
@@ -59,7 +56,6 @@ Entrez是National Center for Biotechnology Information (NCBI) 提供的一个综
 [**clusterProfiler**](https://yulab-smu.top/biomedical-knowledge-mining-book/){style="color:red"}
 
 ```{r}
-conflicts_prefer(IRanges::setdiff)
 library(clusterProfiler)
 library(org.Hs.eg.db)
 AnnotationDbi::keytypes(org.Hs.eg.db)
