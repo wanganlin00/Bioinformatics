@@ -1,6 +1,6 @@
 # 全基因组关联研究GWAS
 
-全基因组关联分析（Genome Wide Association Study，GWAS）是指在全基因组层面上，开展多中心、大样本、反复验证的基因与疾病的关联研究，是通过对大规模的群体DNA样本进行全基因组高密度遗传标记（如单核苷酸多态性SNP或CNV等）分型，进而将基因型与可观测的性状，即表型，进行群体水平的统计学分析，根据统计量或显著性 p 值筛选出最有可能影响该性状的遗传变异（标记），全面揭示疾病发生、发展与治疗相关的遗传基因
+**全基因组关联分析（Genome Wide Association Study，GWAS）**是指在全基因组层面上，开展多中心、大样本、反复验证的基因与疾病的关联研究，是通过对大规模的群体DNA样本进行全基因组高密度遗传标记（如单核苷酸多态性SNP或CNV等）分型，进而将基因型与可观测的性状，即表型，进行群体水平的统计学分析，根据统计量或显著性 p 值筛选出最有可能影响该性状的遗传变异（标记），全面揭示疾病发生、发展与治疗相关的遗传基因
 
 GWAS的主要步骤包括：
 
@@ -18,19 +18,13 @@ GWAS的主要步骤包括：
 
 7.  生物信息学分析：对GWAS结果进行更深入的生物信息学分析，如路径分析、网络分析等，以理解遗传变异如何影响疾病机制。
 
-GWAS的应用： GWAS已被广泛应用于多种复杂疾病的遗传研究，包括但不限于阿尔茨海默病、乳腺癌、糖尿病、冠心病、肺癌、前列腺癌和肥胖等。通过GWAS，科学家们已经鉴定出与这些疾病相关的多个易感基因。
+**GWAS分析模型介绍**
 
-GWAS的挑战和限制： 样本量：GWAS需要非常大的样本量来提高统计功效，确定可复现的全基因组显著关联。 混杂因素：如人群分层、年龄、性别等混杂因素可能影响GWAS的结果。 多重检验：由于测试大量的SNP位点，需要进行多重检验校正，这可能导致错过一些真实的关联信号。 罕见变异：GWAS主要检测常见的遗传变异，对罕见变异的检测能力有限。
+GWAS 分析一般会构建回归模型检验标记与表型之间是否存在关联。GWAS中的零假设（H0 null hypothesis）是标记的回归系数为零, 标记对表型没有影响。备择假设(H1，也叫对立假设，Alternative Hypothesis)是标记的回归系数不为零，SNP和表型相关。GWAS中的模型主要分为两种：
 
-GWAS分析模型介绍 GWAS 分析一般会构建回归模型检验标记与表型之间是否存在关联。GWAS中的零假设（H0 null hypothesis）是标记的回归系数为零, 标记对表型没有影响。备择假设(H1，也叫对立假设，Alternative Hypothesis)是标记的回归系数不为零，SNP和表型相关。GWAS中的模型主要分为两种：
+-   广义线性模型GLM(General Linear Model)：y = Xβ + Zα + e，直接将基因型x和表型y做回归拟合。也可以加入群体结果控制假阳性。GLM模型中，如果两个表型差异很大，但群体本身还含有其他的遗传差异（如地域等），则那些与该表型无关的遗传差异也会影响到相关性。
 
-一般线性模型GLM(General Linear Model)：y = Xβ + Zα + e，直接将基因型x和表型y做回归拟合。也可以加入群体结果控制假阳性。
-
-![](images/glm.png){fig-align="center"}
-
-GLM模型中，如果两个表型差异很大，但群体本身还含有其他的遗传差异（如地域等），则那些与该表型无关的遗传差异也会影响到相关性。
-
-混合线性模型MLM(Mixed Linear Model)：y = Xβ + Zα + Wμ+ e
+-   混合线性模型MLM(Mixed Linear Model)：y = Xβ + Zα + Wμ+ e
 
 y: 所要研究的表型性状；
 
@@ -47,7 +41,8 @@ FarmCPU：GWAS的瓶颈一是计算速度，二是统计准确性。FarmCPU能�
 ## [GWASTools](https://bioconductor.org/packages/release/bioc/html/GWASTools.html)
 
 ```{r eval=FALSE}
-BiocManager::install("GWASTools")
+BiocManager::install("GWASTools","SNPRelate")
+install.packages("plink")
 ```
 
 -   **GenotypeReader: NcdfGenotypeReader, GdsGenotypeReader, or MatrixGenotypeReader**
@@ -57,8 +52,6 @@ BiocManager::install("GWASTools")
 -   **SnpAnnotationReader: SnpAnnotationDataFrame or SnpAnnotationSQLite**
 
 -   **ScanAnnotationReader: ScanAnnotationDataFrame or ScanAnnotationSQLite**
-
-### 
 
 ### GenotypeData 类 和 IntensityData 类
 
@@ -76,23 +69,66 @@ BiocManager::install("GWASTools")
 
 ## 导入
 
-### 纯文本
+```{r}
+library(plink)
 
-### Plink
+# 设置参数
+num_samples <- 100  # 样本数量
+num_snps <- 10      # SNP数量
+
+# 生成随机基因型数据（0, 1, 2表示不同的基因型）
+genotypes <- matrix(sample(0:2, num_samples * num_snps, replace = TRUE), nrow = num_samples)
+
+# 生成SNP信息
+snp_ids <- paste0("SNP", seq(1, num_snps))
+chromosomes <- sample(1:22, num_snps, replace = TRUE)
+positions <- sample(1:1e6, num_snps, replace = TRUE)
+
+snp_info <- data.frame(
+  SNP = snp_ids,
+  Chromosome = chromosomes,
+  Position = positions
+)
+
+# 生成样本信息
+sample_ids <- paste0("Sample", seq(1, num_samples))
+sex <- sample(c("M", "F"), num_samples, replace = TRUE)
+pheno <- sample(c(0, 1), num_samples, replace = TRUE)
+
+fam_info <- data.frame(
+  FamilyID = rep(1, num_samples),
+  SampleID = sample_ids,
+  FatherID = rep(0, num_samples),
+  MotherID = rep(0, num_samples),
+  Sex = sex,
+  Phenotype = pheno
+)
+
+# 保存到文件
+write.table(genotypes, file = "data/GWAS/genotype.txt", row.names = FALSE, col.names = FALSE)
+write.table(snp_info, file = "data/GWAS/snp_info.txt", row.names = FALSE, col.names = FALSE)
+write.table(fam_info, file = "data/GWAS/fam_info.txt", row.names = FALSE, col.names = FALSE)
+
+# 使用plink工具将TXT文件转换为PLINK格式
+
+```
+
+### 基因型数据Plink
+
+-   `genotype.bed` (二进制文件)
+
+-   `genotype.bim` (SNP信息文件)
+
+-   `genotype.fam` (样本信息文件)
 
 ```{r}
 library(GWASTools)
-library(SNPRelate)
-bed.fn <- system.file("extdata", "plinkhapmap.bed.gz", package="SNPRelate")
-fam.fn <- system.file("extdata", "plinkhapmap.fam.gz", package="SNPRelate")
-bim.fn <- system.file("extdata", "plinkhapmap.bim.gz", package="SNPRelate")
-gdsfile <- "snps.gds"
-snpgdsBED2GDS(bed.fn, fam.fn, bim.fn, gdsfile, family=TRUE,
-              cvt.chr="int", cvt.snpid="int", verbose=FALSE)
+
 ```
 
 ```{r}
-(gds <- GdsGenotypeReader(gdsfile, YchromCode=24L, XYchromCode=25L))
+
+
 ```
 
 ## 导出
@@ -100,5 +136,3 @@ snpgdsBED2GDS(bed.fn, fam.fn, bim.fn, gdsfile, family=TRUE,
 ## CMplot
 
 <https://cran.r-project.org/web//packages/CMplot/index.html>
-
-

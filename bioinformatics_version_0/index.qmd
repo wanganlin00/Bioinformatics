@@ -14,4 +14,4 @@
 
 -   [系统发育树](https://yulab-smu.top/treedata-book/)
 
--   
+-   [plink 2.0](https://www.cog-genomics.org/plink/2.0/)

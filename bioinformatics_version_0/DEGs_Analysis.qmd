@@ -317,7 +317,7 @@ qvalue，False Discovery Rate，FDR，所有假阳性结果占所有拒绝零假
 
 log2FoldChange：对数倍数变化，1.5倍差异即0.585，2倍差异即1。
 
-![](data/FoldChange.jpg){fig-align="center" width="60%"}
+![](images/FoldChange.jpg){fig-align="center" width="60%"}
 
 ```{r}
 DEG <- read_csv("data/resOrdered.csv")

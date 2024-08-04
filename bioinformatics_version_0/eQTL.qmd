@@ -56,18 +56,14 @@ library(MatrixEQTL)
 path <- find.package("MatrixEQTL") 
 path
 
-
-dataDirectory <- system.file("data", package="MatrixEQTL")
-exprsFile <- file.path(dataDirectory, "exprsData.txt")
-
 # 把"MatrixEQTL"包的data复制到当前工作目录
-expr <- read.table("data/GE.txt",sep = "\t",header = T,row.names = 1)
+expr <- read.table("data/eQTL/GE.txt",sep = "\t",header = T,row.names = 1)
 expr
 
-snp <- read.table("data/SNP.txt",sep = "\t",header = T,row.names = 1)
+snp <- read.table("data/eQTL/SNP.txt",sep = "\t",header = T,row.names = 1)
 snp
 
-covar <- read.table("data/Covariates.txt",sep = "\t",header = T,row.names = 1)
+covar <- read.table("data/eQTL/Covariates.txt",sep = "\t",header = T,row.names = 1)
 covar
 ```
 

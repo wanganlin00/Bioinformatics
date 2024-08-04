@@ -4,16 +4,13 @@
 
 基因集表示基因集中基因的一般共享生物属性的先验知识。
 
-![GSEA](https://img-blog.csdnimg.cn/20181105104509344.gif){fig-align="center"}
-
-![](data/GSEA.gif){fig-align="center"}
+![](images/GSEA.gif){fig-align="center"}
 
 ### over-representation analysis (ORA)
 
 **基因本体论 （Gene Ontology，GO） 基因集**
 
 **京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）基因集**
-
 
 ```{r}
 # BiocManager::install('clusterProfiler')
