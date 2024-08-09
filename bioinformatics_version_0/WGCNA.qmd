@@ -59,7 +59,6 @@ moduleColors = labels2colors(moduleLabels)
 
 ```
 
-
 ```{r}
 # 绘制模块基因树状图
 plotDendroAndColors(
@@ -72,4 +71,3 @@ plotDendroAndColors(
 )
 
 ```
-
