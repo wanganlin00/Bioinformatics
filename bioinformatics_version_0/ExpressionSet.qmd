@@ -4,7 +4,9 @@
 library(Biobase)
 ```
 
-## Assay data
+## 组件
+
+### Assay data
 
 包含实际的表达数据。通常是一个矩阵，其中行代表基因，列代表样本。数据可以是原始计数值、归一化的表达值等。
 
@@ -20,7 +22,7 @@ colnames(exprs)
 head(exprs[,1:5])
 ```
 
-## 样本元数据
+### 样本元数据
 
 包含样本的元数据。这个部分存储有关样本的信息，比如样本的处理条件、时间点等。通常以 `AnnotatedDataFrame` 的形式存储。
 
@@ -64,7 +66,7 @@ phenoData[c("A","Z"),"gender"]
 pData(phenoData[phenoData$score>0.8,])
 ```
 
-## 基因元数据及其注释
+### 基因元数据及其注释
 
 包含基因的元数据。这个部分存储有关基因的信息，比如基因的注释、位置等。通常以 `AnnotatedDataFrame` 的形式存储。
 
@@ -74,7 +76,7 @@ pData(phenoData[phenoData$score>0.8,])
 annotation <- "hgu95av2"
 ```
 
-## 实验元数据
+### 实验元数据
 
 包含实验的元数据，比如实验设计、数据处理流程等。
 

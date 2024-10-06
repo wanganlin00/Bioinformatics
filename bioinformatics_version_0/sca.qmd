@@ -1,12 +1,16 @@
 # 单细胞分析
 
+## 上游分析
+
+**Cell Ranger** [10XGenomics/cellranger](https://github.com/10XGenomics/cellranger) <https://www.nature.com/articles/ncomms14049>
+
 ## **RNA-seq**
 
 ![<https://doi.org/10.1038/nrg3068>](images/RNA-seq.webp){fig-align="center"}
 
 ![](images/factors-affecting-measurements.png){fig-align="center"}
 
-## library {style="color:gray"}
+## Packages {style="color:gray"}
 
 ```{r}
 #| eval: false
@@ -28,7 +32,7 @@ BiocManager::install("mbkmeans")
 BiocManager::install("SingleR")
 ```
 
-## 配置环境 {style="color:gray"}
+## Session Information {style="color:gray"}
 
 ```{r}
 Sys.Date()

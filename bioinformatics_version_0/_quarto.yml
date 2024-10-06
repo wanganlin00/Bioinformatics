@@ -12,14 +12,15 @@ book:
   
   chapters:
     - index.qmd
-    - sequence_class.qmd
+    
+    - biodata_structure.qmd
     - ExpressionSet.qmd
-    # - SCE.qmd     # SingleCellExperiment   SummarizedExperiment
-    - annotation_database.qmd
-
-
-
+    - SCE.qmd     # SingleCellExperiment   SummarizedExperiment
     - biobroom.qmd
+    
+    - annotation_database.qmd
+    
+    - part: upstream_analysis.qmd
     
     - part: "下游分析"
       chapters:
@@ -30,9 +31,8 @@ book:
         - eQTL.qmd
         - GWAS.qmd
         - WGCNA.qmd
-    # - part: sca.qmd
+     - part: sca.qmd
     #   chapters: 
-    #     - Reads_to_CountMatrix.qmd
     #     - import.qmd
     #     - QC.qmd
     #     - normalization.qmd

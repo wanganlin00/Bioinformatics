@@ -15,20 +15,19 @@ library(biomaRt)
 
 listEnsembl()
 
-# 选择数据库
+# 连接到Ensembl BioMart
 ensembl <- useEnsembl(biomart = "genes")
 ensembl
 
-# 选择数据集
-datasets <- listDatasets(ensembl) |> as_tibble()
-datasets
+# 列出数据集
+listDatasets(ensembl) |> as_tibble()
 
 # 查找智人
 searchDatasets(mart = ensembl, pattern = "hsapiens")
 
-# 使用
-ensembl <- useDataset(dataset = "hsapiens_gene_ensembl", mart = ensembl)
-ensembl
+# 选择数据集
+dataset <- useDataset(dataset = "hsapiens_gene_ensembl", mart = ensembl)
+dataset
 ```
 
 [GRCh38（Genome Research Consortium human genome build 38）](https://asia.ensembl.org/index.html)
@@ -40,7 +39,27 @@ ensembl <- useEnsembl(biomart = "ensembl",
                    mirror = "asia")
 ```
 
-## **使用 Ensembl 的存档版本**
+### 映射
+
+```{r}
+listMarts()
+# 连接到Ensembl BioMart
+mart <- useMart("ENSEMBL_MART_ENSEMBL", dataset = "hsapiens_gene_ensembl")
+listAttributes(mart) %>% DT::datatable()
+
+
+
+
+gene_ids <- c("1017", "1018", "1019")  
+
+getBM(attributes = c("entrezgene_id", "ensembl_gene_id", "external_gene_name"),
+                  filters = "entrezgene_id",
+                  values = gene_ids,
+                  mart = mart)
+ 
+```
+
+### **使用 Ensembl 的存档版本**
 
 ```{r}
 listEnsemblArchives()
@@ -51,7 +70,7 @@ ensembl_112 <- useEnsembl(biomart = 'genes',
                        version = 112)
 ```
 
-## **使用 Ensembl 基因组**
+### **使用 Ensembl 基因组**
 
 ```{r}
 listEnsemblGenomes()
@@ -73,20 +92,19 @@ if (!require("AnnotationHub", quietly = TRUE))
 ```{r}
 suppressMessages(library(AnnotationHub))
 
-
-proxy <- httr::use_proxy(Sys.getenv('http_proxy'))
-httr::set_config(proxy)
-AnnotationHub::setAnnotationHubOption("PROXY", proxy)
+# proxy <- httr::use_proxy(Sys.getenv('http_proxy'))
+# httr::set_config(proxy)
+# AnnotationHub::setAnnotationHubOption("PROXY", proxy)
 
 ah <- AnnotationHub()
 ah
 ```
 
 ```{r}
-ah
+# 当前可用数据的更新时间
 snapshotDate(ah)
 
-# C:\Users\DELL\AppData\Local\R\cache\R\AnnotationHub
+# 缓存路径 C:\Users\DELL\AppData\Local\R\cache\R\AnnotationHub
 hubCache(ah)
 
 # https://annotationhub.bioconductor.org
@@ -97,29 +115,42 @@ dbconn(ah)
 
 ```{r}
 length(ah)
-ah$dataprovider |> unique()
+ah$dataprovider |> unique()%>% DT::datatable()
 ```
 
 ```{r}
-head(unique(ah$species))
-head(unique(ah$rdataclass))
+unique(ah$species) %>% as.data.frame() %>% DT::datatable()
+unique(ah$rdataclass) 
 ```
 
-```{r}
-query(ah, c("OrgDb"))
-query(ah, c("^UCSC"))
-```
+### 子集
 
 ```{r}
 ah[ah$dataprovider=="UCSC"]
+
+subset(ah, species == "homo sapiens")
 ```
+
+### 查询
+
+```{r}
+query(ah, c("Ensembl"))
+query(ah, c("Gencode"))
+```
+
+```{r eval=FALSE}
+# Web界面
+BiocHubsShiny::BiocHubsShiny()
+```
+
+![](images/BiocHubsShiny.png){fig-align="center"}
 
 ## AnnotationDbi
 
 <https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html>
 
 | Package Name                                                                         | Contents                                                                                                             |
-|:-------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------|
+|:------------------------------|:----------------------------------------|
 | [org.Hs.eg.db](http://bioconductor.org/packages/org.Hs.eg.db/)                       | Genome wide annotation for Human；useful for mapping between gene IDs, Names, Symbols, GO and KEGG identifiers, etc. |
 | org.Mm.eg.db                                                                         | Genome wide annotation for Mouse                                                                                     |
 | GO.db                                                                                | A set of annotation maps describing the entire Gene Ontology                                                         |
@@ -128,6 +159,32 @@ ah[ah$dataprovider=="UCSC"]
 |                                                                                      |                                                                                                                      |
 
 ### OrgDb
+
+```{r eval=FALSE}
+library(AnnotationDbi)
+library(org.Hs.eg.db)
+
+
+keytypes(org.Hs.eg.db) # 等价 AnnotationDbi::columns(org.Hs.eg.db)
+
+
+# 示例 GeneId
+gene_ids <- c("1017", "1018", "1019")  # 替换为你自己的 GeneId
+
+# 进行映射
+AnnotationDbi::select(org.Hs.eg.db, 
+                       keys = gene_ids, 
+                       columns = c("GENENAME","SYMBOL","GO","ONTOLOGY"), 
+                       keytype = "ENTREZID")
+
+
+
+# mapIds can only use one column.
+mapIds(org.Hs.eg.db, 
+     keys = gene_ids, 
+     column = c("GENENAME"), 
+     keytype = "ENTREZID")
+```
 
 ### GODb
 
