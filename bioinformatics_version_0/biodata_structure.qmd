@@ -30,9 +30,14 @@ lst@listData
 
 ```{r}
 # 创建一个 Rle 对象
+
 rle_obj <- Rle(c(rep("A", 5), rep("B", 3), rep("C", 2), "D", rep("A", 2)))
 
 print(rle_obj)
+
+
+# class?Rle
+runLength(rle_obj)
 ```
 
 在 RLE 中，连续的重复元素（称为“运行”）被压缩成一个值和一个计数对。这个值表示重复的元素，计数表示它们的数量。例如，序列 `[AAAAABBBCCDAA]` 可以被编码为 `(A5, B3, C2, D1, A2)`。
@@ -252,7 +257,6 @@ r <- RNAStringSet(c("AUCG", "GCAU", "AUCGAU", "GCUA"))
 r
 ```
 
-
 ### 蛋白质
 
 组成人体蛋白质的21种氨基酸，20 + 硒代半胱氨酸（UGA-终止密码子）
@@ -289,7 +293,6 @@ Biostrings::getSeq(dna)
 library(BSgenome)
 available.genomes()
 ```
-
 
 从UCSC hg38中加载智人的全基因组序列，计算14号染色体GC含量
 
