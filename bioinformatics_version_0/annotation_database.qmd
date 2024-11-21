@@ -1,3 +1,8 @@
+---
+execute: 
+  cache: true
+---
+
 # 注释数据库
 
 <https://bioconductor.org/packages/release/workflows/html/annotation.html>
@@ -11,6 +16,7 @@
 <https://bioconductor.org/packages/release/bioc/vignettes/biomaRt/inst/doc/accessing_ensembl.html#introduction>
 
 ```{r}
+# BiocManager::install("biomaRt")
 library(biomaRt)
 
 listEnsembl()
@@ -61,7 +67,7 @@ getBM(attributes = c("entrezgene_id", "ensembl_gene_id", "external_gene_name"),
 
 ### **使用 Ensembl 的存档版本**
 
-```{r}
+```{r eval=FALSE}
 listEnsemblArchives()
 listEnsembl(version = 112)
 ensembl_112 <- useEnsembl(biomart = 'genes', 
@@ -82,7 +88,7 @@ ensembl_arabidopsis <- useEnsemblGenomes(biomart = "plants_mart",
 
 ## [AnnotationHub](https://bioconductor.org/packages/release/bioc/html/AnnotationHub.html)
 
-```{r eval=FALSE}
+```{r eval=FALSE, include=FALSE}
 if (!require("AnnotationHub", quietly = TRUE))
   BiocManager::install("AnnotationHub")
 ```
@@ -91,12 +97,12 @@ if (!require("AnnotationHub", quietly = TRUE))
 
 ```{r}
 suppressMessages(library(AnnotationHub))
-
+conflicts_prefer(BiocGenerics::setdiff)
 # proxy <- httr::use_proxy(Sys.getenv('http_proxy'))
 # httr::set_config(proxy)
 # AnnotationHub::setAnnotationHubOption("PROXY", proxy)
 
-ah <- AnnotationHub()
+ah <- AnnotationHub(cache = "D:/AnnotationHub")
 ah
 ```
 
@@ -104,7 +110,7 @@ ah
 # 当前可用数据的更新时间
 snapshotDate(ah)
 
-# 缓存路径 C:\Users\DELL\AppData\Local\R\cache\R\AnnotationHub
+# 缓存路径
 hubCache(ah)
 
 # https://annotationhub.bioconductor.org
@@ -115,7 +121,7 @@ dbconn(ah)
 
 ```{r}
 length(ah)
-ah$dataprovider |> unique()%>% DT::datatable()
+ah$dataprovider |> unique()
 ```
 
 ```{r}
@@ -143,30 +149,63 @@ query(ah, c("Gencode"))
 BiocHubsShiny::BiocHubsShiny()
 ```
 
-![](images/BiocHubsShiny.png){fig-align="center"}
+![](images/BiocHubsShiny.png){fig-align="center" width="80%"}
+
+## BSgenome
+
+```{r}
+library(BSgenome)
+conflicts_prefer(Biostrings::setdiff)
+available.genomes()
+```
+
+从UCSC hg38中加载智人的全基因组序列，计算14号染色体GC含量
+
+[BSgenome.Hsapiens.UCSC.hg38](https://bioconductor.org/packages/release/data/annotation/html/BSgenome.Hsapiens.UCSC.hg38.html)
+
+```{r eval=FALSE, include=FALSE}
+install.packages("D:/.GitHub/_packages/BSgenome.Hsapiens.UCSC.hg38_1.4.5.tar.gz", repos = NULL, type = "source")
+```
+
+```{r}
+library(BSgenome.Hsapiens.UCSC.hg38)
+chr14_range = GRanges(seqnames = "chr14",
+                      ranges =  IRanges(start = 1, 
+                                       end = seqlengths(Hsapiens)["chr14"])
+                      )
+chr14_dna <- getSeq(Hsapiens, chr14_range)
+letterFrequency(chr14_dna, letters = "GC", as.prob=TRUE)
+```
 
 ## AnnotationDbi
 
 <https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html>
 
-| Package Name                                                                         | Contents                                                                                                             |
+| Package Name | Contents |
 |:------------------------------|:----------------------------------------|
-| [org.Hs.eg.db](http://bioconductor.org/packages/org.Hs.eg.db/)                       | Genome wide annotation for Human；useful for mapping between gene IDs, Names, Symbols, GO and KEGG identifiers, etc. |
-| org.Mm.eg.db                                                                         | Genome wide annotation for Mouse                                                                                     |
-| GO.db                                                                                | A set of annotation maps describing the entire Gene Ontology                                                         |
-| [HPO.db](https://bioconductor.org/packages/release/data/annotation/html/HPO.db.html) | A set of annotation maps describing the entire Human Phenotype Ontology                                              |
-| [MPO.db](https://bioconductor.org/packages/release/data/annotation/html/MPO.db.html) | A set of annotation maps describing the Mouse Phenotype Ontology                                                     |
-|                                                                                      |                                                                                                                      |
+| [org.Hs.eg.db](http://bioconductor.org/packages/org.Hs.eg.db/) | Genome wide annotation for Human；useful for mapping between gene IDs, Names, Symbols, GO and KEGG identifiers, etc. |
+| org.Mm.eg.db | Genome wide annotation for Mouse |
+| GO.db | A set of annotation maps describing the entire Gene Ontology |
+| [HPO.db](https://bioconductor.org/packages/release/data/annotation/html/HPO.db.html) | A set of annotation maps describing the entire Human Phenotype Ontology |
+| [MPO.db](https://bioconductor.org/packages/release/data/annotation/html/MPO.db.html) | A set of annotation maps describing the Mouse Phenotype Ontology |
+|  |  |
 
 ### OrgDb
 
-```{r eval=FALSE}
+[org.Hs.eg.db](https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html)
+
+```{r eval=FALSE, include=FALSE}
+install.packages("D:/.GitHub/_packages/org.Hs.eg.db_3.20.0.tar.gz", 
+                 repos = NULL, type = "source")
+```
+
+```{r}
 library(AnnotationDbi)
 library(org.Hs.eg.db)
 
 
-keytypes(org.Hs.eg.db) # 等价 AnnotationDbi::columns(org.Hs.eg.db)
-
+keytypes(org.Hs.eg.db) 
+# 等价 AnnotationDbi::columns(org.Hs.eg.db)
 
 # 示例 GeneId
 gene_ids <- c("1017", "1018", "1019")  # 替换为你自己的 GeneId
@@ -175,19 +214,15 @@ gene_ids <- c("1017", "1018", "1019")  # 替换为你自己的 GeneId
 AnnotationDbi::select(org.Hs.eg.db, 
                        keys = gene_ids, 
                        columns = c("GENENAME","SYMBOL","GO","ONTOLOGY"), 
-                       keytype = "ENTREZID")
-
+                       keytype = "ENTREZID") %>% 
+  head()
 
 
 # mapIds can only use one column.
 mapIds(org.Hs.eg.db, 
      keys = gene_ids, 
      column = c("GENENAME"), 
-     keytype = "ENTREZID")
+     keytype = "ENTREZID") %>% as.data.frame()
 ```
-
-### GODb
-
-### EnsDb
 
 ## ExperimentHub

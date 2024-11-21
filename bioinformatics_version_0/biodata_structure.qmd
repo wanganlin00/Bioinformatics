@@ -10,23 +10,14 @@
 
 ```{r}
 library(S4Vectors)
-
+conflicts_prefer(S4Vectors::setdiff)
 # 创建一个 DataFrame 对象
 df <- DataFrame(a = 1:3, b = letters[1:3])
 df
 ```
-
-### List
-
-```{r}
-# 创建一个 List 对象
-lst <- List(a = 1:5, b = letters[1:3])
-lst@listData
-```
-
 ### Rle
 
-**Run-Length Encoding (RLE)** 是一种简单且常用的数据压缩方法，特别适用于存储和处理重复数据序列。
+**Run-Length Encoding (RLE)** 是一种简单且常用的数据压缩方法，特别适用于存储和处理重复数据序列。`class?Rle`
 
 ```{r}
 # 创建一个 Rle 对象
@@ -35,12 +26,100 @@ rle_obj <- Rle(c(rep("A", 5), rep("B", 3), rep("C", 2), "D", rep("A", 2)))
 
 print(rle_obj)
 
-
-# class?Rle
 runLength(rle_obj)
 ```
 
 在 RLE 中，连续的重复元素（称为“运行”）被压缩成一个值和一个计数对。这个值表示重复的元素，计数表示它们的数量。例如，序列 `[AAAAABBBCCDAA]` 可以被编码为 `(A5, B3, C2, D1, A2)`。
+
+
+## Biostrings
+
+Biological strings
+
+`DNAstringSet`、`RNAStringSet`、`AAStringSet`、`BStringSet`
+
+
+### DNA
+
+```{r}
+# BiocManager::install("Biostrings")
+library(Biostrings) %>% suppressMessages()
+
+Biostrings::DNA_ALPHABET
+IUPAC_CODE_MAP
+
+d <- DNAStringSet(c("TGCACGTGCATT","ACTGCA"))
+d
+length(d)
+
+width(d)
+rev(d)
+reverse(d)
+reverseComplement(d)
+translate(d)
+
+alphabetFrequency(d)
+letterFrequency(d,letters = "GC")
+dinucleotideFrequency(d)
+
+# 共识矩阵
+
+consensusMatrix(d)
+```
+从 Ensembl 的FASTA文件'Homo_sapiens.GRCh38.cdna.all.fa'中下载所有智人cDNA序列
+
+```{r eval=FALSE}
+library(AnnotationHub) %>% suppressMessages()
+ah <- AnnotationHub(cache = "D:/AnnotationHub")
+ah
+ah2 <- query(ah, c("fasta", "homo sapiens", "Ensembl", "cdna"))
+ah2
+
+# 下载为TwoBitFile文件
+dna <- ah2[["AH68262"]]
+
+dna@resource
+#> [1]"C:\\Users\\WANGAN~1\\AppData\\Local\\Temp\\RtmpeUSnD9/BiocFileCache/40e014f2123b_75008"
+
+Biostrings::getSeq(dna)
+```
+
+
+```{r}
+library(rtracklayer)
+dna <- import.2bit(con = "C:\\Users\\WANGAN~1\\AppData\\Local\\Temp\\RtmpeUSnD9/BiocFileCache/40e014f2123b_75008")
+
+dna
+```
+
+
+### RNA
+
+```{r}
+Biostrings::GENETIC_CODE
+Biostrings::RNA_GENETIC_CODE
+RNA_ALPHABET
+r <- RNAStringSet(c("AUCG", "GCAU", "AUCGAU", "GCUA"))
+r
+```
+
+### 蛋白质
+
+组成人体蛋白质的21种氨基酸，20 + 硒代半胱氨酸（UGA-终止密码子）
+
+```{r}
+Biostrings::AMINO_ACID_CODE
+AA_ALPHABET
+
+protein_strings <- AAStringSet(c("MATH", "GCAU", "MATHMATH", "CUMA"))
+protein_strings
+
+# 二进制字符串存储 如seq_id、quality
+binary_strings <- BStringSet(c("ERCC010101", "CRCC110011", "101010", "111000"))
+binary_strings
+```
+
+
 
 ## Ranges
 
@@ -211,132 +290,3 @@ findOverlaps(gr1,gr2)
 subsetByOverlaps(gr1, gr2)
 ```
 
-## Biostrings
-
-Biological strings
-
-`DNAstringSet`、`RNAStringSet`、`AAStringSet`、`BStringSet`
-
-```{r}
-# BiocManager::install("Biostrings") 
-library(Biostrings) %>% suppressMessages()
-```
-
-### DNA
-
-```{r}
-Biostrings::DNA_ALPHABET
-IUPAC_CODE_MAP
-
-d <- DNAStringSet(c("TGCACGTGCATT","ACTGCA"))
-d
-length(d)
-
-width(d)
-rev(d)
-reverse(d)
-reverseComplement(d)
-translate(d)
-
-alphabetFrequency(d)
-letterFrequency(d,letters = "GC")
-dinucleotideFrequency(d)
-
-# 共识矩阵
-
-consensusMatrix(d)
-```
-
-### RNA
-
-```{r}
-Biostrings::GENETIC_CODE
-Biostrings::RNA_GENETIC_CODE
-RNA_ALPHABET
-r <- RNAStringSet(c("AUCG", "GCAU", "AUCGAU", "GCUA"))
-r
-```
-
-### 蛋白质
-
-组成人体蛋白质的21种氨基酸，20 + 硒代半胱氨酸（UGA-终止密码子）
-
-```{r}
-Biostrings::AMINO_ACID_CODE
-AA_ALPHABET
-
-protein_strings <- AAStringSet(c("MATH", "GCAU", "MATHMATH", "CUMA"))
-protein_strings
-
-# 二进制字符串存储 如seq_id、quality
-binary_strings <- BStringSet(c("ERCC010101", "CRCC110011", "101010", "111000"))
-binary_strings
-```
-
-从 Ensembl 的FASTA文件'Homo_sapiens.GRCh38.cdna.all.fa'中下载所有智人cDNA序列
-
-```{r}
-library(AnnotationHub)
-ah2 <- query(ah, c("fasta", "homo sapiens", "Ensembl", "cdna"))
-ah2
-
-# 下载为TwoBitFile文件
-dna <- ah2[["AH68262"]]
-dna
-
-Biostrings::getSeq(dna)
-```
-
-## BSgenome
-
-```{r}
-library(BSgenome)
-available.genomes()
-```
-
-从UCSC hg38中加载智人的全基因组序列，计算14号染色体GC含量
-
-```{r}
-library(BSgenome.Hsapiens.UCSC.hg38)
-chr14_range = GRanges("chr14", IRanges(1, seqlengths(Hsapiens)["chr14"]))
-chr14_dna <- getSeq(Hsapiens, chr14_range)
-letterFrequency(chr14_dna, letters = "GC", as.prob=TRUE)
-```
-
-## 测序文件
-
-### FASTQ 文件
-
-```{r eval=FALSE}
-## 1. attach ShortRead and BiocParallel
-library(ShortRead)
-library(BiocParallel)
-
-## 2. create a vector of file paths
-fls <- dir("~/fastq", pattern="*fastq", full=TRUE)
-
-## 3. collect statistics
-stats0 <- qa(fls)
-
-## 4. generate and browse the report
-if (interactive())
-    browseURL(report(stats0))
-```
-
-### BAM 文件
-
-Binary alignment
-
-[`GenomicAlignments`](https://bioconductor.org/packages/3.19/bioc/html/GenomicAlignments.html)
-
-### VCF 文件
-
-变异注释
-
-`VariantAnnotation` `readVcf()`
-
-### BED、WIG、GTF 文件
-
-基因组注释文件
-
-[rtracklayer](https://bioconductor.org/packages/3.19/bioc/html/rtracklayer.html) `impart()`

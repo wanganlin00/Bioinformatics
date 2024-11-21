@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.6.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Bioinformatics - 5&nbsp; 差异表达基因分析</title>
+<title>7&nbsp; 差异表达基因分析 – Bioinformatics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -61,16 +61,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./EnrichmentAnalysis.html" rel="next">
-<link href="./biobroom.html" rel="prev">
+<link href="./SingleCellExperiment.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-f90a1b115807ea56b20e50efb3bb25e2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -102,13 +102,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./DEGs_Analysis.html">下游分析</a></li><li class="breadcrumb-item"><a href="./DEGs_Analysis.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./DEGs_Analysis.html">下游分析</a></li><li class="breadcrumb-item"><a href="./DEGs_Analysis.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -137,80 +137,89 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">参考资料</span></a>
+ <span class="menu-text">前言</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sequence_class.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">数据结构</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ExpressionSet.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ExpressionSet</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./annotation_database.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">注释数据库</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./biobroom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Biobroom</span></span></a>
+  <a href="./upstream_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">上游分析</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">下游分析</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">数据结构与数据库</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./biodata_structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">生物数据结构</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./annotation_database.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">注释数据库</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ExpressionSet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>ExpressionSet</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SummarizedExperiment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title"><code>SummarizedExperiment</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SingleCellExperiment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">下游分析</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./DEGs_Analysis.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./EnrichmentAnalysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">富集分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">富集分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PseudotimeAnalysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">伪时序分析</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./eQTL.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">eQTL</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./GWAS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">全基因组关联研究GWAS</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./WGCNA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">WGCNA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">伪时序分析</span></span></a>
   </div>
 </li>
       </ul>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">单细胞分析</span></span>
+  </li>
     </ul>
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
@@ -219,52 +228,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#%E6%95%B0%E6%8D%AE" id="toc-数据" class="nav-link active" data-scroll-target="#%E6%95%B0%E6%8D%AE"><span class="header-section-number">5.1</span> 数据</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE" id="toc-数据" class="nav-link active" data-scroll-target="#%E6%95%B0%E6%8D%AE"><span class="header-section-number">7.1</span> 数据</a></li>
   <li>
-<a href="#assays" id="toc-assays" class="nav-link" data-scroll-target="#assays"><span class="header-section-number">5.2</span> Assays</a>
+<a href="#assays" id="toc-assays" class="nav-link" data-scroll-target="#assays"><span class="header-section-number">7.2</span> Assays</a>
   <ul>
-<li><a href="#%E5%AF%B9%E6%95%B0%E8%AE%A1%E6%95%B0%E7%9F%A9%E9%98%B5" id="toc-对数计数矩阵" class="nav-link" data-scroll-target="#%E5%AF%B9%E6%95%B0%E8%AE%A1%E6%95%B0%E7%9F%A9%E9%98%B5"><span class="header-section-number">5.2.1</span> 对数计数矩阵</a></li>
-  <li><a href="#%E5%9F%BA%E5%9B%A0%E7%BC%96%E7%A0%81%E6%96%87%E4%BB%B6" id="toc-基因编码文件" class="nav-link" data-scroll-target="#%E5%9F%BA%E5%9B%A0%E7%BC%96%E7%A0%81%E6%96%87%E4%BB%B6"><span class="header-section-number">5.2.2</span> 基因编码文件</a></li>
-  <li><a href="#%E6%A0%B9%E6%8D%AE-ensebml-%E7%BC%96%E7%A0%81%E5%86%85%E8%BF%9E%E6%8E%A5" id="toc-根据-ensebml-编码内连接" class="nav-link" data-scroll-target="#%E6%A0%B9%E6%8D%AE-ensebml-%E7%BC%96%E7%A0%81%E5%86%85%E8%BF%9E%E6%8E%A5"><span class="header-section-number">5.2.3</span> 根据 ENSEBML 编码内连接</a></li>
-  <li><a href="#%E8%BF%98%E5%8E%9F%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE" id="toc-还原原始数据" class="nav-link" data-scroll-target="#%E8%BF%98%E5%8E%9F%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE"><span class="header-section-number">5.2.4</span> 还原原始数据</a></li>
+<li><a href="#%E5%AF%B9%E6%95%B0%E8%AE%A1%E6%95%B0%E7%9F%A9%E9%98%B5" id="toc-对数计数矩阵" class="nav-link" data-scroll-target="#%E5%AF%B9%E6%95%B0%E8%AE%A1%E6%95%B0%E7%9F%A9%E9%98%B5"><span class="header-section-number">7.2.1</span> 对数计数矩阵</a></li>
   </ul>
 </li>
   <li>
-<a href="#sample-metadata" id="toc-sample-metadata" class="nav-link" data-scroll-target="#sample-metadata"><span class="header-section-number">5.3</span> Sample metadata</a>
+<a href="#%E5%9F%BA%E5%9B%A0%E5%85%83%E6%95%B0%E6%8D%AE" id="toc-基因元数据" class="nav-link" data-scroll-target="#%E5%9F%BA%E5%9B%A0%E5%85%83%E6%95%B0%E6%8D%AE"><span class="header-section-number">7.3</span> 基因元数据</a>
   <ul>
-<li><a href="#%E8%A1%A8%E5%9E%8B%E6%B3%A8%E9%87%8A%E6%96%87%E4%BB%B6" id="toc-表型注释文件" class="nav-link" data-scroll-target="#%E8%A1%A8%E5%9E%8B%E6%B3%A8%E9%87%8A%E6%96%87%E4%BB%B6"><span class="header-section-number">5.3.1</span> 表型注释文件</a></li>
-  <li><a href="#coldata%E7%9A%84%E6%88%90%E5%AF%B9%E6%A0%B7%E6%9C%AC" id="toc-coldata的成对样本" class="nav-link" data-scroll-target="#coldata%E7%9A%84%E6%88%90%E5%AF%B9%E6%A0%B7%E6%9C%AC"><span class="header-section-number">5.3.2</span> colData的成对样本</a></li>
-  <li><a href="#%E5%8C%B9%E9%85%8D-assays%E7%9A%84%E6%88%90%E5%AF%B9%E6%A0%B7%E6%9C%AC" id="toc-匹配-assays的成对样本" class="nav-link" data-scroll-target="#%E5%8C%B9%E9%85%8D-assays%E7%9A%84%E6%88%90%E5%AF%B9%E6%A0%B7%E6%9C%AC"><span class="header-section-number">5.3.3</span> 匹配 assays的成对样本</a></li>
+<li><a href="#%E6%A0%B9%E6%8D%AE-ensebml-%E7%BC%96%E7%A0%81%E5%86%85%E8%BF%9E%E6%8E%A5" id="toc-根据-ensebml-编码内连接" class="nav-link" data-scroll-target="#%E6%A0%B9%E6%8D%AE-ensebml-%E7%BC%96%E7%A0%81%E5%86%85%E8%BF%9E%E6%8E%A5"><span class="header-section-number">7.3.1</span> 根据 ENSEBML 编码内连接</a></li>
+  <li><a href="#%E8%BF%98%E5%8E%9F%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE" id="toc-还原原始数据" class="nav-link" data-scroll-target="#%E8%BF%98%E5%8E%9F%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE"><span class="header-section-number">7.3.2</span> 还原原始数据</a></li>
   </ul>
 </li>
   <li>
-<a href="#%E6%9E%84%E9%80%A0deg%E5%AE%9E%E4%BE%8B" id="toc-构造deg实例" class="nav-link" data-scroll-target="#%E6%9E%84%E9%80%A0deg%E5%AE%9E%E4%BE%8B"><span class="header-section-number">5.4</span> 构造DEG实例</a>
+<a href="#sample-metadata" id="toc-sample-metadata" class="nav-link" data-scroll-target="#sample-metadata"><span class="header-section-number">7.4</span> Sample metadata</a>
   <ul>
-<li><a href="#%E9%A2%84%E8%BF%87%E6%BB%A4" id="toc-预过滤" class="nav-link" data-scroll-target="#%E9%A2%84%E8%BF%87%E6%BB%A4"><span class="header-section-number">5.4.1</span> 预过滤</a></li>
+<li><a href="#%E8%A1%A8%E5%9E%8B%E6%B3%A8%E9%87%8A%E6%96%87%E4%BB%B6" id="toc-表型注释文件" class="nav-link" data-scroll-target="#%E8%A1%A8%E5%9E%8B%E6%B3%A8%E9%87%8A%E6%96%87%E4%BB%B6"><span class="header-section-number">7.4.1</span> 表型注释文件</a></li>
+  <li><a href="#coldata%E7%9A%84%E6%88%90%E5%AF%B9%E6%A0%B7%E6%9C%AC" id="toc-coldata的成对样本" class="nav-link" data-scroll-target="#coldata%E7%9A%84%E6%88%90%E5%AF%B9%E6%A0%B7%E6%9C%AC"><span class="header-section-number">7.4.2</span> colData的成对样本</a></li>
+  <li><a href="#%E5%8C%B9%E9%85%8D-assays%E7%9A%84%E6%88%90%E5%AF%B9%E6%A0%B7%E6%9C%AC" id="toc-匹配-assays的成对样本" class="nav-link" data-scroll-target="#%E5%8C%B9%E9%85%8D-assays%E7%9A%84%E6%88%90%E5%AF%B9%E6%A0%B7%E6%9C%AC"><span class="header-section-number">7.4.3</span> 匹配 assays的成对样本</a></li>
   </ul>
 </li>
   <li>
-<a href="#%E5%B7%AE%E5%BC%82%E5%88%86%E6%9E%90" id="toc-差异分析" class="nav-link" data-scroll-target="#%E5%B7%AE%E5%BC%82%E5%88%86%E6%9E%90"><span class="header-section-number">5.5</span> 差异分析</a>
+<a href="#%E6%9E%84%E9%80%A0deg%E5%AE%9E%E4%BE%8B" id="toc-构造deg实例" class="nav-link" data-scroll-target="#%E6%9E%84%E9%80%A0deg%E5%AE%9E%E4%BE%8B"><span class="header-section-number">7.5</span> 构造DEG实例</a>
   <ul>
-<li><a href="#%E4%BF%9D%E5%AD%98%E7%BB%93%E6%9E%9C" id="toc-保存结果" class="nav-link" data-scroll-target="#%E4%BF%9D%E5%AD%98%E7%BB%93%E6%9E%9C"><span class="header-section-number">5.5.1</span> 保存结果</a></li>
-  <li><a href="#%E7%83%AD%E5%9B%BE" id="toc-热图" class="nav-link" data-scroll-target="#%E7%83%AD%E5%9B%BE"><span class="header-section-number">5.5.2</span> 热图</a></li>
-  <li><a href="#%E9%85%8D%E5%AF%B9%E5%9B%BE" id="toc-配对图" class="nav-link" data-scroll-target="#%E9%85%8D%E5%AF%B9%E5%9B%BE"><span class="header-section-number">5.5.3</span> 配对图</a></li>
-  <li><a href="#%E7%81%AB%E5%B1%B1%E5%9B%BE" id="toc-火山图" class="nav-link" data-scroll-target="#%E7%81%AB%E5%B1%B1%E5%9B%BE"><span class="header-section-number">5.5.4</span> 火山图</a></li>
-  <li><a href="#enhancedvolcano" id="toc-enhancedvolcano" class="nav-link" data-scroll-target="#enhancedvolcano"><span class="header-section-number">5.5.5</span> <strong>EnhancedVolcano</strong></a></li>
-  <li><a href="#lfc%E6%94%B6%E7%BC%A9%E5%92%8Cpagj" id="toc-lfc收缩和pagj" class="nav-link" data-scroll-target="#lfc%E6%94%B6%E7%BC%A9%E5%92%8Cpagj"><span class="header-section-number">5.5.6</span> LFC收缩和pagj</a></li>
-  <li><a href="#ma%E5%9B%BE-mean-absdeviation-plot" id="toc-ma图-mean-absdeviation-plot" class="nav-link" data-scroll-target="#ma%E5%9B%BE-mean-absdeviation-plot"><span class="header-section-number">5.5.7</span> MA图 Mean-AbsDeviation plot</a></li>
-  <li><a href="#readcounts" id="toc-readcounts" class="nav-link" data-scroll-target="#readcounts"><span class="header-section-number">5.5.8</span> readCounts</a></li>
-  <li><a href="#%E5%BC%82%E5%B8%B8%E8%A7%82%E6%B5%8B" id="toc-异常观测" class="nav-link" data-scroll-target="#%E5%BC%82%E5%B8%B8%E8%A7%82%E6%B5%8B"><span class="header-section-number">5.5.9</span> 异常观测</a></li>
-  <li><a href="#%E5%A4%9A%E5%9B%A0%E7%B4%A0%E8%AE%BE%E8%AE%A1" id="toc-多因素设计" class="nav-link" data-scroll-target="#%E5%A4%9A%E5%9B%A0%E7%B4%A0%E8%AE%BE%E8%AE%A1"><span class="header-section-number">5.5.10</span> 多因素设计</a></li>
+<li><a href="#%E9%A2%84%E8%BF%87%E6%BB%A4" id="toc-预过滤" class="nav-link" data-scroll-target="#%E9%A2%84%E8%BF%87%E6%BB%A4"><span class="header-section-number">7.5.1</span> 预过滤</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#%E5%B7%AE%E5%BC%82%E5%88%86%E6%9E%90" id="toc-差异分析" class="nav-link" data-scroll-target="#%E5%B7%AE%E5%BC%82%E5%88%86%E6%9E%90"><span class="header-section-number">7.6</span> 差异分析</a>
+  <ul>
+<li><a href="#%E4%BF%9D%E5%AD%98%E7%BB%93%E6%9E%9C" id="toc-保存结果" class="nav-link" data-scroll-target="#%E4%BF%9D%E5%AD%98%E7%BB%93%E6%9E%9C"><span class="header-section-number">7.6.1</span> 保存结果</a></li>
+  <li><a href="#%E7%83%AD%E5%9B%BE" id="toc-热图" class="nav-link" data-scroll-target="#%E7%83%AD%E5%9B%BE"><span class="header-section-number">7.6.2</span> 热图</a></li>
+  <li><a href="#%E9%85%8D%E5%AF%B9%E5%9B%BE" id="toc-配对图" class="nav-link" data-scroll-target="#%E9%85%8D%E5%AF%B9%E5%9B%BE"><span class="header-section-number">7.6.3</span> 配对图</a></li>
+  <li><a href="#%E7%81%AB%E5%B1%B1%E5%9B%BE" id="toc-火山图" class="nav-link" data-scroll-target="#%E7%81%AB%E5%B1%B1%E5%9B%BE"><span class="header-section-number">7.6.4</span> 火山图</a></li>
+  <li><a href="#enhancedvolcano" id="toc-enhancedvolcano" class="nav-link" data-scroll-target="#enhancedvolcano"><span class="header-section-number">7.6.5</span> <strong>EnhancedVolcano</strong></a></li>
+  <li><a href="#lfc%E6%94%B6%E7%BC%A9%E5%92%8Cpagj" id="toc-lfc收缩和pagj" class="nav-link" data-scroll-target="#lfc%E6%94%B6%E7%BC%A9%E5%92%8Cpagj"><span class="header-section-number">7.6.6</span> LFC收缩和pagj</a></li>
+  <li><a href="#ma%E5%9B%BE-mean-absdeviation-plot" id="toc-ma图-mean-absdeviation-plot" class="nav-link" data-scroll-target="#ma%E5%9B%BE-mean-absdeviation-plot"><span class="header-section-number">7.6.7</span> MA图 Mean-AbsDeviation plot</a></li>
+  <li><a href="#%E8%AF%BB%E5%8F%96%E8%AE%A1%E6%95%B0" id="toc-读取计数" class="nav-link" data-scroll-target="#%E8%AF%BB%E5%8F%96%E8%AE%A1%E6%95%B0"><span class="header-section-number">7.6.8</span> 读取计数</a></li>
+  <li><a href="#%E5%BC%82%E5%B8%B8%E8%A7%82%E6%B5%8B" id="toc-异常观测" class="nav-link" data-scroll-target="#%E5%BC%82%E5%B8%B8%E8%A7%82%E6%B5%8B"><span class="header-section-number">7.6.9</span> 异常观测</a></li>
+  <li><a href="#%E5%A4%9A%E5%9B%A0%E7%B4%A0%E8%AE%BE%E8%AE%A1" id="toc-多因素设计" class="nav-link" data-scroll-target="#%E5%A4%9A%E5%9B%A0%E7%B4%A0%E8%AE%BE%E8%AE%A1"><span class="header-section-number">7.6.10</span> 多因素设计</a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/Wanganlin00/Bioinformatics/edit/main/DEGs_Analysis.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Wanganlin00/Bioinformatics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./DEGs_Analysis.html">下游分析</a></li><li class="breadcrumb-item"><a href="./DEGs_Analysis.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></a></li></ol></nav><div class="quarto-title">
-<h1 class="title">
-<span class="chapter-number">5</span>&nbsp; <span class="chapter-title">差异表达基因分析</span>
-</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./DEGs_Analysis.html">下游分析</a></li><li class="breadcrumb-item"><a href="./DEGs_Analysis.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">
+<span class="chapter-number">7</span>&nbsp; <span class="chapter-title">差异表达基因分析</span>
+</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -279,101 +292,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 </header><p><a href="https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html" class="uri">https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html</a></p>
-<section id="数据" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="数据">
-<span class="header-section-number">5.1</span> 数据</h2>
+<section id="数据" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="数据">
+<span class="header-section-number">7.1</span> 数据</h2>
 <p>肺腺癌</p>
 <p><a href="https://xenabrowser.net/datapages/?cohort=GDC%20TCGA%20Lung%20Adenocarcinoma%20(LUAD)&amp;removeHub=https%3A%2F%2Fxena.treehouse.gi.ucsc.edu%3A443">Lung Adenocarcinoma (LUAD) gene expression RNAseq HTSeq - Counts （n=585） GDC 中心 和Phenotype (n=877)</a></p>
-</section><section id="assays" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="assays">
-<span class="header-section-number">5.2</span> Assays</h2>
-<section id="对数计数矩阵" class="level3" data-number="5.2.1"><h3 data-number="5.2.1" class="anchored" data-anchor-id="对数计数矩阵">
-<span class="header-section-number">5.2.1</span> 对数计数矩阵</h3>
+</section><section id="assays" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="assays">
+<span class="header-section-number">7.2</span> Assays</h2>
+<section id="对数计数矩阵" class="level3" data-number="7.2.1"><h3 data-number="7.2.1" class="anchored" data-anchor-id="对数计数矩阵">
+<span class="header-section-number">7.2.1</span> 对数计数矩阵</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/apache/arrow/">arrow</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">logCount</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/read_delim_arrow.html">read_tsv_arrow</a></span><span class="op">(</span><span class="st">"data/TCGA-LUAD.htseq_counts.tsv.gz"</span><span class="op">)</span></span>
-<span><span class="co"># 读取计数矩阵 log2(count+1)  # 60488 个gene ×  586 个sample</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/apache/arrow/">arrow</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span></span>
-<span><span class="va">logCount</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<div class="kable-table">
-<table class="caption-top table table-sm table-striped small">
-<thead><tr class="header">
-<th style="text-align: left;">Ensembl_ID</th>
-<th style="text-align: right;">TCGA-97-7938-01A</th>
-<th style="text-align: right;">TCGA-55-7574-01A</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">ENSG00000000003.13</td>
-<td style="text-align: right;">10.989394</td>
-<td style="text-align: right;">9.967226</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ENSG00000000005.5</td>
-<td style="text-align: right;">4.000000</td>
-<td style="text-align: right;">0.000000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ENSG00000000419.11</td>
-<td style="text-align: right;">10.253847</td>
-<td style="text-align: right;">9.541097</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ENSG00000000457.12</td>
-<td style="text-align: right;">9.776433</td>
-<td style="text-align: right;">9.131857</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ENSG00000000460.15</td>
-<td style="text-align: right;">7.971544</td>
-<td style="text-align: right;">8.348728</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ENSG00000000938.11</td>
-<td style="text-align: right;">8.724514</td>
-<td style="text-align: right;">9.703904</td>
-</tr>
-</tbody>
-</table>
+<span><span class="va">logCount</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/read_delim_arrow.html">read_tsv_arrow</a></span><span class="op">(</span><span class="st">"data/DEGs_Analysis/TCGA-LUAD.htseq_counts.tsv.gz"</span><span class="op">)</span></span>
+<span><span class="co"># 读取计数矩阵 log2(count+1)  # 60488 个gene ×  586 个sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-</div>
-</div>
-</section><section id="基因编码文件" class="level3" data-number="5.2.2"><h3 data-number="5.2.2" class="anchored" data-anchor-id="基因编码文件">
-<span class="header-section-number">5.2.2</span> 基因编码文件</h3>
-<p>我想要分析总的转录本，不需要把mRNA、lncRNA等挑出来，所以下载的这个自带注释文件<a href="https://gdc-hub.s3.us-east-1.amazonaws.com/download/gencode.v22.annotation.gene.probeMap">ID/Gene Mapping</a></p>
+</section></section><section id="基因元数据" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="基因元数据">
+<span class="header-section-number">7.3</span> 基因元数据</h2>
+<p>如果分析总的转录本，不需要把mRNA、lncRNA等挑出来，所以下载的这个自带注释文件<a href="https://gdc-hub.s3.us-east-1.amazonaws.com/download/gencode.v22.annotation.gene.probeMap">ID/Gene Mapping</a></p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gtf_v22_transcripts</span> <span class="op">&lt;-</span> <span class="fu">read_delim</span><span class="op">(</span><span class="st">"data/gencode.v22.annotation.gene.probeMap"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gtf_v22_transcripts</span> <span class="op">&lt;-</span> <span class="fu">read_delim</span><span class="op">(</span><span class="st">"data/DEGs_Analysis/gencode.v22.annotation.gene.probeMap"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>如果只想用蛋白质编码（protein_coding）相关基因，用全基因编码注释文件 <a href="https://www.gencodegenes.org/human/">gencode.v46.annotation.gtf.gz</a></p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 全基因编码  BiocManager::install("rtracklayer")</span></span>
-<span><span class="va">gtf_v22</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="st">'data/gencode.v22.annotation.gtf.gz'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 全基因编码  BiocManager::install("rtracklayer")</span></span>
+<span><span class="va">gtf_v46</span> <span class="op">&lt;-</span> <span class="fu">rtracklayer</span><span class="fu">::</span><span class="fu">import</span><span class="op">(</span><span class="st">'data/DEGs_Analysis/gencode.v46.annotation.gtf.gz'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu">as_tibble</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">distinct</span><span class="op">(</span><span class="va">gtf_v22</span>,<span class="va">gene_type</span><span class="op">)</span></span>
-<span><span class="fu">distinct</span><span class="op">(</span><span class="va">gtf_v22</span>,<span class="va">gene_name</span><span class="op">)</span></span>
+<span><span class="fu">distinct</span><span class="op">(</span><span class="va">gtf_v46</span>,<span class="va">gene_type</span><span class="op">)</span></span>
+<span><span class="fu">distinct</span><span class="op">(</span><span class="va">gtf_v46</span>,<span class="va">gene_name</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 选择 蛋白编码mRNA相关基因</span></span>
-<span><span class="va">gtf_v22_mRNA</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">gtf_v22</span>,</span>
+<span><span class="va">gtf_v46_mRNA</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">gtf_v46</span>,</span>
 <span>                              <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gene_id"</span>,<span class="st">"gene_type"</span>, <span class="st">"gene_name"</span><span class="op">)</span><span class="op">)</span><span class="op">|&gt;</span> </span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">gene_type</span> <span class="op">==</span> <span class="st">"protein_coding"</span><span class="op">)</span> <span class="op">|&gt;</span>  </span>
 <span>    <span class="fu">distinct</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">gtf_v22_mRNA</span> <span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">gtf_v22_mRNA</span>,<span class="st">"data/gtf_v22_mRNA.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">gtf_v46_mRNA</span> <span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">gtf_v46_mRNA</span>,<span class="st">"data/gtf_v46_mRNA.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="根据-ensebml-编码内连接" class="level3" data-number="5.2.3"><h3 data-number="5.2.3" class="anchored" data-anchor-id="根据-ensebml-编码内连接">
-<span class="header-section-number">5.2.3</span> 根据 ENSEBML 编码内连接</h3>
+<section id="根据-ensebml-编码内连接" class="level3" data-number="7.3.1"><h3 data-number="7.3.1" class="anchored" data-anchor-id="根据-ensebml-编码内连接">
+<span class="header-section-number">7.3.1</span> 根据 ENSEBML 编码内连接</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gene_logCount</span> <span class="op">&lt;-</span> <span class="va">logCount</span> <span class="op">|&gt;</span> </span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gene_logCount</span> <span class="op">&lt;-</span> <span class="va">logCount</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">inner_join</span><span class="op">(</span><span class="va">gtf_v22_transcripts</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Ensembl_ID"</span> <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"TCGA"</span><span class="op">)</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">gene_logCount</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">gene_logCount</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 60483   586</span></span>
 <span><span class="va">gene_logCount</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
@@ -420,12 +389,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</section><section id="还原原始数据" class="level3" data-number="5.2.4"><h3 data-number="5.2.4" class="anchored" data-anchor-id="还原原始数据">
-<span class="header-section-number">5.2.4</span> 还原原始数据</h3>
+</section><section id="还原原始数据" class="level3" data-number="7.3.2"><h3 data-number="7.3.2" class="anchored" data-anchor-id="还原原始数据">
+<span class="header-section-number">7.3.2</span> 还原原始数据</h3>
 <p>先去对数 log2(count+1)</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rcpp.org">Rcpp</a></span><span class="op">)</span></span>
-<span><span class="fu">Rcpp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/sourceCpp.html">sourceCpp</a></span><span class="op">(</span><span class="st">"data/exponential_base2_transform.cpp"</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rcpp.org">Rcpp</a></span><span class="op">)</span></span>
+<span><span class="fu">Rcpp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Rcpp/man/sourceCpp.html">sourceCpp</a></span><span class="op">(</span><span class="st">"data/DEGs_Analysis/exponential_base2_transform.cpp"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 该函数将 `log2(count + 1)` 转换为原始计数</span></span>
 <span><span class="va">gene_Count</span> <span class="op">&lt;-</span> <span class="va">gene_logCount</span> <span class="op">%&gt;%</span></span>
@@ -434,7 +403,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>基因名是有重复的，查看重复情况</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gene_Count</span> <span class="op">|&gt;</span> <span class="fu">distinct</span><span class="op">(</span><span class="va">gene</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gene_Count</span> <span class="op">|&gt;</span> <span class="fu">distinct</span><span class="op">(</span><span class="va">gene</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 58387     1</span></span>
 <span><span class="va">repeat_n</span> <span class="op">&lt;-</span> <span class="va">gene_Count</span> <span class="op">|&gt;</span> <span class="fu">summarise</span><span class="op">(</span>n<span class="op">=</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span>,.by <span class="op">=</span> <span class="va">gene</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">summarise</span><span class="op">(</span>重复n次的基因个数<span class="op">=</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span>,.by <span class="op">=</span><span class="va">n</span> <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">arrange</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
@@ -445,25 +414,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>根据基因名分组，重复则取平均值去重，去掉重复的行</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span><span class="op">(</span><span class="va">gene_Count</span><span class="op">)</span></span>
-<span><span class="va">Counts</span> <span class="op">&lt;-</span> <span class="va">gene_Count</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">.SD</span>,<span class="va">mean</span><span class="op">)</span>,by<span class="op">=</span><span class="va">gene</span>, .SDcols<span class="op">=</span><span class="fu">patterns</span><span class="op">(</span><span class="st">"^(TCGA)"</span><span class="op">)</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/setDT.html">setDT</a></span><span class="op">(</span><span class="va">gene_Count</span><span class="op">)</span></span>
+<span><span class="va">Counts</span> <span class="op">&lt;-</span> <span class="va">gene_Count</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">.SD</span>,<span class="va">mean</span><span class="op">)</span>,by<span class="op">=</span><span class="va">gene</span>, .SDcols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/patterns.html">patterns</a></span><span class="op">(</span><span class="st">"^(TCGA)"</span><span class="op">)</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Counts</span> <span class="op">&lt;-</span> <span class="va">Counts</span> <span class="op">|&gt;</span> <span class="fu">column_to_rownames</span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">Counts</span> <span class="op">&lt;-</span> <span class="va">Counts</span> <span class="op">|&gt;</span> <span class="fu">column_to_rownames</span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">Counts</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 58387   585</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="summarise_all" class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
+<div id="summarise_all" class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-body-container">
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span></span>
 <span>    g<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'A'</span>,<span class="st">'B'</span>,<span class="st">'A'</span>,<span class="st">'C'</span>,<span class="st">'C'</span><span class="op">)</span>,</span>
 <span>    x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,</span>
 <span>    y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span>,</span>
@@ -508,7 +481,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 数据多太慢了</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 数据多太慢了</span></span>
 <span><span class="va">df</span><span class="op">|&gt;</span> <span class="fu">group_by</span><span class="op">(</span><span class="va">g</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">summarise_all</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">mean</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="kable-table">
@@ -538,14 +511,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span></span>
 <span><span class="co"># 转化成data.table</span></span>
 <span><span class="co"># library(data.table) 非常快</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/setDT.html">setDT</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co"># 对基因g进行分组，并对x和y列计算均值</span></span>
-<span><span class="va">df</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">.SD</span>, <span class="va">mean</span><span class="op">)</span>, by <span class="op">=</span> <span class="va">g</span>, .SDcols <span class="op">=</span> <span class="fu">patterns</span><span class="op">(</span><span class="st">"x|y"</span><span class="op">)</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">df</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">.SD</span>, <span class="va">mean</span><span class="op">)</span>, by <span class="op">=</span> <span class="va">g</span>, .SDcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/patterns.html">patterns</a></span><span class="op">(</span><span class="st">"x|y"</span><span class="op">)</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top table table-sm table-striped small">
@@ -577,17 +550,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</div>
 <p>提取lncRNA、miRNA等也是类似的操作</p>
-</section></section><section id="sample-metadata" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="sample-metadata">
-<span class="header-section-number">5.3</span> Sample metadata</h2>
-<section id="表型注释文件" class="level3" data-number="5.3.1"><h3 data-number="5.3.1" class="anchored" data-anchor-id="表型注释文件">
-<span class="header-section-number">5.3.1</span> 表型注释文件</h3>
+</section></section><section id="sample-metadata" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="sample-metadata">
+<span class="header-section-number">7.4</span> Sample metadata</h2>
+<section id="表型注释文件" class="level3" data-number="7.4.1"><h3 data-number="7.4.1" class="anchored" data-anchor-id="表型注释文件">
+<span class="header-section-number">7.4.1</span> 表型注释文件</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#首先载入下载好胆管癌的样本信息文件</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#首先载入下载好胆管癌的样本信息文件</span></span>
 <span><span class="co"># 877 个sample × 125 个样本变量</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span></span>
-<span><span class="va">colData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fread.html">fread</a></span><span class="op">(</span><span class="st">"data/TCGA-LUAD.GDC_phenotype.tsv.gz"</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">colData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/fread.html">fread</a></span><span class="op">(</span><span class="st">"data/DEGs_Analysis/TCGA-LUAD.GDC_phenotype.tsv.gz"</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="co"># 选择样本  放疗与kras基因</span></span>
@@ -611,10 +582,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>到这里，就从877个样本中挑出了80个样本，但是，我们只要这80个样本中成对样本的表达数据，即同一个病人既有癌旁<del>正常</del>细胞的表达蛋白，又有肿瘤细胞的异常表达蛋白。</p>
-</section><section id="coldata的成对样本" class="level3" data-number="5.3.2"><h3 data-number="5.3.2" class="anchored" data-anchor-id="coldata的成对样本">
-<span class="header-section-number">5.3.2</span> colData的成对样本</h3>
+</section><section id="coldata的成对样本" class="level3" data-number="7.4.2"><h3 data-number="7.4.2" class="anchored" data-anchor-id="coldata的成对样本">
+<span class="header-section-number">7.4.2</span> colData的成对样本</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ID</span> <span class="op">&lt;-</span> <span class="va">pf</span><span class="op">$</span><span class="va">submitter_id</span>  <span class="co"># 前1~12字符</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ID</span> <span class="op">&lt;-</span> <span class="va">pf</span><span class="op">$</span><span class="va">submitter_id</span>  <span class="co"># 前1~12字符</span></span>
 <span></span>
 <span></span>
 <span><span class="co"># 21对配对样本</span></span>
@@ -719,7 +690,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sample</span> <span class="op">&lt;-</span>  <span class="fu">left_join</span><span class="op">(</span><span class="va">PairedSample</span>,<span class="va">pf</span>,by<span class="op">=</span><span class="fu">join_by</span><span class="op">(</span><span class="st">"submitter_id"</span><span class="op">)</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sample</span> <span class="op">&lt;-</span>  <span class="fu">left_join</span><span class="op">(</span><span class="va">PairedSample</span>,<span class="va">pf</span>,by<span class="op">=</span><span class="fu">join_by</span><span class="op">(</span><span class="st">"submitter_id"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="kable-table">
@@ -1037,18 +1008,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">sample</span><span class="op">$</span><span class="va">radiation_therapy</span>,<span class="va">sample</span><span class="op">$</span><span class="va">kras_mutation_found</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">sample</span><span class="op">$</span><span class="va">radiation_therapy</span>,<span class="va">sample</span><span class="op">$</span><span class="va">kras_mutation_found</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      </span></span>
 <span><span class="co">#&gt;       NO YES</span></span>
 <span><span class="co">#&gt;   NO  22  12</span></span>
 <span><span class="co">#&gt;   YES  6   2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="匹配-assays的成对样本" class="level3" data-number="5.3.3"><h3 data-number="5.3.3" class="anchored" data-anchor-id="匹配-assays的成对样本">
-<span class="header-section-number">5.3.3</span> 匹配 assays的成对样本</h3>
+</section><section id="匹配-assays的成对样本" class="level3" data-number="7.4.3"><h3 data-number="7.4.3" class="anchored" data-anchor-id="匹配-assays的成对样本">
+<span class="header-section-number">7.4.3</span> 匹配 assays的成对样本</h3>
 <p>并且<code>colData</code> 中出现的成对样本（21对）要匹配到<code>assays</code> 中的成对样本（60对）。（取交集）</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 表达矩阵  </span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 表达矩阵  </span></span>
 <span><span class="va">patient_of_counts</span> <span class="op">&lt;-</span> <span class="fu">str_sub</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">Counts</span><span class="op">)</span>,<span class="fl">1</span>,<span class="fl">12</span><span class="op">)</span></span>
 <span></span>
 <span></span>
@@ -1060,7 +1031,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>取<code>sample</code>和<code>paired_patient</code>的交集，有8对成对数据</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 取交集</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 取交集</span></span>
 <span><span class="va">final_sample</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">intersect</a></span><span class="op">(</span><span class="va">sample</span><span class="op">$</span><span class="va">submitter_id</span>,<span class="va">paired_patient</span><span class="op">)</span></span>
 <span><span class="va">final_sample</span></span>
 <span><span class="co">#&gt; [1] "TCGA-44-6148" "TCGA-50-5936" "TCGA-49-6744" "TCGA-49-6742" "TCGA-49-6745"</span></span>
@@ -1166,7 +1137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">sample</span><span class="op">$</span><span class="va">radiation_therapy</span>,<span class="va">sample</span><span class="op">$</span><span class="va">kras_mutation_found</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">sample</span><span class="op">$</span><span class="va">radiation_therapy</span>,<span class="va">sample</span><span class="op">$</span><span class="va">kras_mutation_found</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      </span></span>
 <span><span class="co">#&gt;       NO YES</span></span>
 <span><span class="co">#&gt;   NO  10   4</span></span>
@@ -1198,7 +1169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 检查计数矩阵和列数据，看看它们在样本顺序方面是否一致。</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 检查计数矩阵和列数据，看看它们在样本顺序方面是否一致。</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">exprCounts</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "TCGA-44-6145-01A" "TCGA-44-6145-11A" "TCGA-44-6148-01A" "TCGA-44-6148-11A"</span></span>
 <span><span class="co">#&gt;  [5] "TCGA-49-6742-01A" "TCGA-49-6742-11A" "TCGA-49-6744-01A" "TCGA-49-6744-11A"</span></span>
@@ -1216,10 +1187,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section></section><section id="构造deg实例" class="level2" data-number="5.4"><h2 data-number="5.4" class="anchored" data-anchor-id="构造deg实例">
-<span class="header-section-number">5.4</span> 构造DEG实例</h2>
+</section></section><section id="构造deg实例" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="构造deg实例">
+<span class="header-section-number">7.5</span> 构造DEG实例</h2>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">exprCounts</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">exprCounts</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 46488    16</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">sample</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 16  3</span></span>
@@ -1228,7 +1199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>根据TCGA样本的命名可以区分正常组织和肿瘤样本的测序结果 其中编号01-09表示肿瘤，10-19表示正常</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 字符14~15，</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 字符14~15，</span></span>
 <span><span class="va">sample</span><span class="op">$</span><span class="va">condition</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span></span>
 <span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu">str_sub</span><span class="op">(</span><span class="va">sample</span><span class="op">$</span><span class="va">sample_id</span>,<span class="fl">14</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">10</span>,<span class="st">'tumor'</span>,<span class="st">'normal'</span><span class="op">)</span>,</span>
 <span> levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"normal"</span>,<span class="st">"tumor"</span><span class="op">)</span>,</span>
@@ -1348,8 +1319,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/thelovelab/DESeq2">DESeq2</a></span><span class="op">)</span></span>
-<span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># BiocManager::install("DESeq2")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/thelovelab/DESeq2">DESeq2</a></span><span class="op">)</span></span>
+<span><span class="fu">conflicts_prefer</span><span class="op">(</span><span class="fu">GenomicRanges</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/BiocGenerics/man/sets.html">setdiff</a></span><span class="op">)</span></span>
 <span><span class="va">dds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html">DESeqDataSetFromMatrix</a></span><span class="op">(</span>countData <span class="op">=</span> <span class="va">exprCounts</span>,</span>
 <span>                              colData <span class="op">=</span> <span class="va">sample</span>,</span>
 <span>                              design <span class="op">=</span> <span class="op">~</span> <span class="va">condition</span><span class="op">)</span></span>
@@ -1365,10 +1337,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; colData names(3): radiation_therapy kras_mutation_found condition</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="预过滤" class="level3" data-number="5.4.1"><h3 data-number="5.4.1" class="anchored" data-anchor-id="预过滤">
-<span class="header-section-number">5.4.1</span> 预过滤</h3>
+<section id="预过滤" class="level3" data-number="7.5.1"><h3 data-number="7.5.1" class="anchored" data-anchor-id="预过滤">
+<span class="header-section-number">7.5.1</span> 预过滤</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">smallestGroupSize</span> <span class="op">&lt;-</span> <span class="fl">8</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">smallestGroupSize</span> <span class="op">&lt;-</span> <span class="fl">8</span></span>
 <span></span>
 <span><span class="va">keep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="fu">counts</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="va">smallestGroupSize</span></span>
 <span><span class="va">dds</span> <span class="op">&lt;-</span> <span class="va">dds</span><span class="op">[</span><span class="va">keep</span>,<span class="op">]</span></span>
@@ -1385,7 +1357,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dds</span><span class="op">$</span><span class="va">condition</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dds</span><span class="op">$</span><span class="va">condition</span></span>
 <span><span class="co">#&gt;  [1] tumor  normal tumor  normal tumor  normal tumor  normal tumor  normal</span></span>
 <span><span class="co">#&gt; [11] tumor  tumor  tumor  normal tumor  normal</span></span>
 <span><span class="co">#&gt; Levels: normal tumor</span></span>
@@ -1436,10 +1408,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; CFH                  1869             3667             4488             1881</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section></section><section id="差异分析" class="level2" data-number="5.5"><h2 data-number="5.5" class="anchored" data-anchor-id="差异分析">
-<span class="header-section-number">5.5</span> 差异分析</h2>
+</section></section><section id="差异分析" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="差异分析">
+<span class="header-section-number">7.6</span> 差异分析</h2>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">des</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html">DESeq</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">des</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html">DESeq</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html">results</a></span><span class="op">(</span></span>
 <span>  object <span class="op">=</span> <span class="va">des</span>,</span>
@@ -1483,16 +1455,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">resOrdered</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">padj</span><span class="op">)</span>,<span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="保存结果" class="level3" data-number="5.5.1"><h3 data-number="5.5.1" class="anchored" data-anchor-id="保存结果">
-<span class="header-section-number">5.5.1</span> 保存结果</h3>
+<section id="保存结果" class="level3" data-number="7.6.1"><h3 data-number="7.6.1" class="anchored" data-anchor-id="保存结果">
+<span class="header-section-number">7.6.1</span> 保存结果</h3>
 <p>保存csv以备热图、火山图、富集分析。</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">resOrdered</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">rownames_to_column</span><span class="op">(</span>var <span class="op">=</span> <span class="st">"gene"</span><span class="op">)</span></span>
-<span><span class="fu">write_csv</span><span class="op">(</span><span class="va">x</span>, file<span class="op">=</span><span class="st">"data/resOrdered.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">resOrdered</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">rownames_to_column</span><span class="op">(</span>var <span class="op">=</span> <span class="st">"gene"</span><span class="op">)</span></span>
+<span><span class="fu">write_csv</span><span class="op">(</span><span class="va">x</span>, file<span class="op">=</span><span class="st">"data/DEGs_Analysis/resOrdered.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">mcols</a></span><span class="op">(</span><span class="va">resOrdered</span><span class="op">)</span><span class="op">$</span><span class="va">description</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">mcols</a></span><span class="op">(</span><span class="va">resOrdered</span><span class="op">)</span><span class="op">$</span><span class="va">description</span></span>
 <span><span class="co">#&gt; [1] "mean of normalized counts for all samples"        </span></span>
 <span><span class="co">#&gt; [2] "log2 fold change (MLE): condition tumor vs normal"</span></span>
 <span><span class="co">#&gt; [3] "standard error: condition tumor vs normal"        </span></span>
@@ -1506,11 +1478,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>qvalue，False Discovery Rate，FDR，所有假阳性结果占所有拒绝零假设结果的比例，假阳性结果的比例不超过预设的FDR水平（0.05/0.1）,基于pvalue的分布。多重假设检验校正方法：Benjamini-Hochberg，</p>
 <p>log2FoldChange：对数倍数变化，1.5倍差异即0.585，2倍差异即1。</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="data/FoldChange.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+<figure class="figure"><p><img src="images/FoldChange.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
 </figure>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">DEG</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/resOrdered.csv"</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">DEG</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/DEGs_Analysis/resOrdered.csv"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">DESeq2_DEG</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">DEG</span><span class="op">)</span> </span>
 <span><span class="va">nrDEG</span> <span class="op">&lt;-</span> <span class="va">DESeq2_DEG</span></span>
@@ -1767,10 +1739,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</section><section id="热图" class="level3" data-number="5.5.2"><h3 data-number="5.5.2" class="anchored" data-anchor-id="热图">
-<span class="header-section-number">5.5.2</span> 热图</h3>
+</section><section id="热图" class="level3" data-number="7.6.2"><h3 data-number="7.6.2" class="anchored" data-anchor-id="热图">
+<span class="header-section-number">7.6.2</span> 热图</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span><span class="va">log2exprCounts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log2</a></span><span class="op">(</span><span class="fu">counts</span><span class="op">(</span><span class="va">des</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">pheatmap</span><span class="op">)</span></span>
 <span></span>
@@ -1782,11 +1754,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</section><section id="配对图" class="level3" data-number="5.5.3"><h3 data-number="5.5.3" class="anchored" data-anchor-id="配对图">
-<span class="header-section-number">5.5.3</span> 配对图</h3>
+</section><section id="配对图" class="level3" data-number="7.6.3"><h3 data-number="7.6.3" class="anchored" data-anchor-id="配对图">
+<span class="header-section-number">7.6.3</span> 配对图</h3>
 <p>挑选指定第一个基因看它在同一个病人的配对表达情况</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span></span>
 <span>  group <span class="op">=</span> <span class="va">sample</span><span class="op">$</span><span class="va">condition</span>,</span>
@@ -1804,10 +1776,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</section><section id="火山图" class="level3" data-number="5.5.4"><h3 data-number="5.5.4" class="anchored" data-anchor-id="火山图">
-<span class="header-section-number">5.5.4</span> 火山图</h3>
+</section><section id="火山图" class="level3" data-number="7.6.4"><h3 data-number="7.6.4" class="anchored" data-anchor-id="火山图">
+<span class="header-section-number">7.6.4</span> 火山图</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nrDEG</span><span class="op">$</span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nrDEG</span><span class="op">$</span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span></span>
 <span>    <span class="fu">if_else</span><span class="op">(</span><span class="va">nrDEG</span><span class="op">$</span><span class="va">padj</span><span class="op">&lt;</span><span class="fl">0.05</span><span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">nrDEG</span><span class="op">$</span><span class="va">log2FoldChange</span><span class="op">)</span><span class="op">&gt;=</span><span class="fl">1</span>,</span>
 <span>            <span class="fu">if_else</span><span class="op">(</span><span class="va">nrDEG</span><span class="op">$</span><span class="va">log2FoldChange</span><span class="op">&gt;=</span><span class="fl">1</span>,<span class="st">"up"</span>,<span class="st">"down"</span><span class="op">)</span>,</span>
 <span>            <span class="st">"NS"</span>,<span class="op">)</span>,</span>
@@ -1841,18 +1813,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</section><section id="enhancedvolcano" class="level3" data-number="5.5.5"><h3 data-number="5.5.5" class="anchored" data-anchor-id="enhancedvolcano">
-<span class="header-section-number">5.5.5</span> <strong>EnhancedVolcano</strong>
+</section><section id="enhancedvolcano" class="level3" data-number="7.6.5"><h3 data-number="7.6.5" class="anchored" data-anchor-id="enhancedvolcano">
+<span class="header-section-number">7.6.5</span> <strong>EnhancedVolcano</strong>
 </h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/kevinblighe/EnhancedVolcano">EnhancedVolcano</a></span><span class="op">)</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/kevinblighe/EnhancedVolcano">EnhancedVolcano</a></span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html">install</a></span><span class="op">(</span><span class="st">'EnhancedVolcano'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="lfc收缩和pagj" class="level3" data-number="5.5.6"><h3 data-number="5.5.6" class="anchored" data-anchor-id="lfc收缩和pagj">
-<span class="header-section-number">5.5.6</span> LFC收缩和pagj</h3>
+</section><section id="lfc收缩和pagj" class="level3" data-number="7.6.6"><h3 data-number="7.6.6" class="anchored" data-anchor-id="lfc收缩和pagj">
+<span class="header-section-number">7.6.6</span> LFC收缩和pagj</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html">resultsNames</a></span><span class="op">(</span><span class="va">des</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html">resultsNames</a></span><span class="op">(</span><span class="va">des</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Intercept"                 "condition_tumor_vs_normal"</span></span>
 <span><span class="co"># BiocManager::install("apeglm")  自适应 t 先验收缩估计器  默认</span></span>
 <span><span class="co"># resLFC &lt;- lfcShrink(des, coef="condition_tumor_vs_normal", type="apeglm")</span></span>
@@ -1883,10 +1855,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co"># priorInfo(resAsh)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="ma图-mean-absdeviation-plot" class="level3" data-number="5.5.7"><h3 data-number="5.5.7" class="anchored" data-anchor-id="ma图-mean-absdeviation-plot">
-<span class="header-section-number">5.5.7</span> MA图 Mean-AbsDeviation plot</h3>
+</section><section id="ma图-mean-absdeviation-plot" class="level3" data-number="7.6.7"><h3 data-number="7.6.7" class="anchored" data-anchor-id="ma图-mean-absdeviation-plot">
+<span class="header-section-number">7.6.7</span> MA图 Mean-AbsDeviation plot</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 对gene添加“是否呈现显著差异表达”的标签</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 对gene添加“是否呈现显著差异表达”的标签</span></span>
 <span><span class="va">DESeq2_DEG</span><span class="op">$</span><span class="va">significant</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">DESeq2_DEG</span><span class="op">$</span><span class="va">padj</span> <span class="op">&lt;</span><span class="fl">0.05</span>, <span class="st">"Significant"</span>, <span class="st">"NS"</span><span class="op">)</span>,</span>
 <span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Significant"</span>, <span class="st">"NS"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -1912,7 +1884,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">xlim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">10e6</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">xlim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">10e6</span><span class="op">)</span></span>
 <span><span class="va">ylim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/plotMA.html">plotMA</a></span><span class="op">(</span><span class="va">resOrdered</span>,  xlim<span class="op">=</span><span class="va">xlim</span>, ylim<span class="op">=</span><span class="va">ylim</span>,main<span class="op">=</span><span class="st">"none"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
@@ -1921,7 +1893,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># plotMA(resLFC, xlim=xlim, ylim=ylim, main="apeglm")</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># plotMA(resLFC, xlim=xlim, ylim=ylim, main="apeglm")</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/plotMA.html">plotMA</a></span><span class="op">(</span><span class="va">resNorm</span>, xlim<span class="op">=</span><span class="va">xlim</span>, ylim<span class="op">=</span><span class="va">ylim</span>, main<span class="op">=</span><span class="st">"normal"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
@@ -1929,13 +1901,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># plotMA(resAsh, xlim=xlim, ylim=ylim, main="ashr")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># plotMA(resAsh, xlim=xlim, ylim=ylim, main="ashr")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="readcounts" class="level3" data-number="5.5.8"><h3 data-number="5.5.8" class="anchored" data-anchor-id="readcounts">
-<span class="header-section-number">5.5.8</span> readCounts</h3>
+</section><section id="读取计数" class="level3" data-number="7.6.8"><h3 data-number="7.6.8" class="anchored" data-anchor-id="读取计数">
+<span class="header-section-number">7.6.8</span> 读取计数</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#  the counts of reads for a single gene across the groups</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#  the counts of reads for a single gene across the groups</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/plotCounts.html">plotCounts</a></span><span class="op">(</span><span class="va">des</span>, gene<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">resOrdered</span><span class="op">$</span><span class="va">padj</span><span class="op">)</span>, </span>
 <span>  intgroup<span class="op">=</span><span class="st">"condition"</span>,returnData<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">condition</span>, y<span class="op">=</span><span class="va">count</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -1947,10 +1919,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</section><section id="异常观测" class="level3" data-number="5.5.9"><h3 data-number="5.5.9" class="anchored" data-anchor-id="异常观测">
-<span class="header-section-number">5.5.9</span> 异常观测</h3>
+</section><section id="异常观测" class="level3" data-number="7.6.9"><h3 data-number="7.6.9" class="anchored" data-anchor-id="异常观测">
+<span class="header-section-number">7.6.9</span> 异常观测</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">W</span> <span class="op">&lt;-</span> <span class="va">resOrdered</span><span class="op">$</span><span class="va">stat</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">W</span> <span class="op">&lt;-</span> <span class="va">resOrdered</span><span class="op">$</span><span class="va">stat</span></span>
 <span><span class="va">maxCooks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">assays</a></span><span class="op">(</span><span class="va">des</span><span class="op">)</span><span class="op">[[</span><span class="st">"cooks"</span><span class="op">]</span><span class="op">]</span>,<span class="fl">1</span>,<span class="va">max</span><span class="op">)</span></span>
 <span><span class="va">idx</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">W</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rank.html">rank</a></span><span class="op">(</span><span class="va">W</span><span class="op">[</span><span class="va">idx</span><span class="op">]</span><span class="op">)</span>, <span class="va">maxCooks</span><span class="op">[</span><span class="va">idx</span><span class="op">]</span>, xlab<span class="op">=</span><span class="st">"rank of Wald statistic"</span>, </span>
@@ -1966,10 +1938,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</section><section id="多因素设计" class="level3" data-number="5.5.10"><h3 data-number="5.5.10" class="anchored" data-anchor-id="多因素设计">
-<span class="header-section-number">5.5.10</span> 多因素设计</h3>
+</section><section id="多因素设计" class="level3" data-number="7.6.10"><h3 data-number="7.6.10" class="anchored" data-anchor-id="多因素设计">
+<span class="header-section-number">7.6.10</span> 多因素设计</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span>
 <span><span class="co">#&gt; DataFrame with 16 rows and 3 columns</span></span>
 <span><span class="co">#&gt;                  radiation_therapy kras_mutation_found condition</span></span>
 <span><span class="co">#&gt;                        &lt;character&gt;         &lt;character&gt;  &lt;factor&gt;</span></span>
@@ -1987,6 +1959,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 
+
+<!-- -->
 
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -2023,18 +1997,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2066,7 +2029,80 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/wanganlin00\.github\.io\/Bioinformatics\/");
@@ -2074,7 +2110,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -2397,16 +2433,493 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./biobroom.html" class="pagination-link" aria-label="Biobroom">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Biobroom</span></span>
+      <a href="./SingleCellExperiment.html" class="pagination-link" aria-label="`SingleCellExperiment`">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./EnrichmentAnalysis.html" class="pagination-link" aria-label="富集分析">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">富集分析</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">富集分析</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb42" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co">  cache: true</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># 差异表达基因分析</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r include=FALSE}</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="in">conflicts_prefer(GenomicRanges::setdiff)</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html&gt;</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## 数据</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>肺腺癌</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Lung Adenocarcinoma (LUAD) gene expression RNAseq HTSeq - Counts （n=585） GDC 中心 和Phenotype (n=877)</span><span class="co">]</span>(https://xenabrowser.net/datapages/?cohort=GDC%20TCGA%20Lung%20Adenocarcinoma%20(LUAD)&amp;removeHub=https%3A%2F%2Fxena.treehouse.gi.ucsc.edu%3A443)</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Assays</span></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a><span class="fu">### 对数计数矩阵</span></span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arrow, <span class="at">warn.conflicts =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>logCount <span class="ot">&lt;-</span> <span class="fu">read_tsv_arrow</span>(<span class="st">"data/DEGs_Analysis/TCGA-LUAD.htseq_counts.tsv.gz"</span>)</span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取计数矩阵 log2(count+1)  # 60488 个gene ×  586 个sample</span></span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## 基因元数据</span></span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>如果分析总的转录本，不需要把mRNA、lncRNA等挑出来，所以下载的这个自带注释文件<span class="co">[</span><span class="ot">ID/Gene Mapping</span><span class="co">](https://gdc-hub.s3.us-east-1.amazonaws.com/download/gencode.v22.annotation.gene.probeMap)</span></span>
+<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a>gtf_v22_transcripts <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/DEGs_Analysis/gencode.v22.annotation.gene.probeMap"</span>)</span>
+<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a>如果只想用蛋白质编码（protein_coding）相关基因，用全基因编码注释文件 <span class="co">[</span><span class="ot">gencode.v46.annotation.gtf.gz</span><span class="co">](https://www.gencodegenes.org/human/)</span></span>
+<span id="cb42-45"><a href="#cb42-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-46"><a href="#cb42-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb42-47"><a href="#cb42-47" aria-hidden="true" tabindex="-1"></a><span class="in"># 全基因编码  BiocManager::install("rtracklayer")</span></span>
+<span id="cb42-48"><a href="#cb42-48" aria-hidden="true" tabindex="-1"></a><span class="in">gtf_v46 &lt;- rtracklayer::import('data/DEGs_Analysis/gencode.v46.annotation.gtf.gz') |&gt;</span></span>
+<span id="cb42-49"><a href="#cb42-49" aria-hidden="true" tabindex="-1"></a><span class="in"> as_tibble()</span></span>
+<span id="cb42-50"><a href="#cb42-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-51"><a href="#cb42-51" aria-hidden="true" tabindex="-1"></a><span class="in">distinct(gtf_v46,gene_type)</span></span>
+<span id="cb42-52"><a href="#cb42-52" aria-hidden="true" tabindex="-1"></a><span class="in">distinct(gtf_v46,gene_name)</span></span>
+<span id="cb42-53"><a href="#cb42-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-54"><a href="#cb42-54" aria-hidden="true" tabindex="-1"></a><span class="in"># 选择 蛋白编码mRNA相关基因</span></span>
+<span id="cb42-55"><a href="#cb42-55" aria-hidden="true" tabindex="-1"></a><span class="in">gtf_v46_mRNA &lt;- dplyr::select(gtf_v46,</span></span>
+<span id="cb42-56"><a href="#cb42-56" aria-hidden="true" tabindex="-1"></a><span class="in">                              c("gene_id","gene_type", "gene_name"))|&gt; </span></span>
+<span id="cb42-57"><a href="#cb42-57" aria-hidden="true" tabindex="-1"></a><span class="in">    dplyr::filter(gene_type == "protein_coding") |&gt;  </span></span>
+<span id="cb42-58"><a href="#cb42-58" aria-hidden="true" tabindex="-1"></a><span class="in">    distinct()</span></span>
+<span id="cb42-59"><a href="#cb42-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-60"><a href="#cb42-60" aria-hidden="true" tabindex="-1"></a><span class="in">head(gtf_v46_mRNA )</span></span>
+<span id="cb42-61"><a href="#cb42-61" aria-hidden="true" tabindex="-1"></a><span class="in">write.csv(gtf_v46_mRNA,"data/gtf_v46_mRNA.csv")</span></span>
+<span id="cb42-62"><a href="#cb42-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-63"><a href="#cb42-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-64"><a href="#cb42-64" aria-hidden="true" tabindex="-1"></a><span class="fu">### 根据 ENSEBML 编码内连接</span></span>
+<span id="cb42-65"><a href="#cb42-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-68"><a href="#cb42-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-69"><a href="#cb42-69" aria-hidden="true" tabindex="-1"></a>gene_logCount <span class="ot">&lt;-</span> logCount <span class="sc">|&gt;</span> </span>
+<span id="cb42-70"><a href="#cb42-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(gtf_v22_transcripts, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Ensembl_ID"</span> <span class="ot">=</span> <span class="st">"id"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb42-71"><a href="#cb42-71" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(gene, <span class="fu">starts_with</span>(<span class="st">"TCGA"</span>) )</span>
+<span id="cb42-72"><a href="#cb42-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-73"><a href="#cb42-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-76"><a href="#cb42-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-77"><a href="#cb42-77" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(gene_logCount)</span>
+<span id="cb42-78"><a href="#cb42-78" aria-hidden="true" tabindex="-1"></a>gene_logCount[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb42-79"><a href="#cb42-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-80"><a href="#cb42-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-81"><a href="#cb42-81" aria-hidden="true" tabindex="-1"></a><span class="fu">### 还原原始数据</span></span>
+<span id="cb42-82"><a href="#cb42-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-83"><a href="#cb42-83" aria-hidden="true" tabindex="-1"></a>先去对数 log2(count+1)</span>
+<span id="cb42-84"><a href="#cb42-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-87"><a href="#cb42-87" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-88"><a href="#cb42-88" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rcpp)</span>
+<span id="cb42-89"><a href="#cb42-89" aria-hidden="true" tabindex="-1"></a>Rcpp<span class="sc">::</span><span class="fu">sourceCpp</span>(<span class="st">"data/DEGs_Analysis/exponential_base2_transform.cpp"</span>)</span>
+<span id="cb42-90"><a href="#cb42-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-91"><a href="#cb42-91" aria-hidden="true" tabindex="-1"></a><span class="co"># 该函数将 `log2(count + 1)` 转换为原始计数</span></span>
+<span id="cb42-92"><a href="#cb42-92" aria-hidden="true" tabindex="-1"></a>gene_Count <span class="ot">&lt;-</span> gene_logCount <span class="sc">%&gt;%</span></span>
+<span id="cb42-93"><a href="#cb42-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, <span class="sc">~</span> <span class="fu">exponential_base2_transform</span>(.))</span>
+<span id="cb42-94"><a href="#cb42-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-95"><a href="#cb42-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-96"><a href="#cb42-96" aria-hidden="true" tabindex="-1"></a>基因名是有重复的，查看重复情况</span>
+<span id="cb42-97"><a href="#cb42-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-100"><a href="#cb42-100" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-101"><a href="#cb42-101" aria-hidden="true" tabindex="-1"></a>gene_Count <span class="sc">|&gt;</span> <span class="fu">distinct</span>(gene) <span class="sc">|&gt;</span> <span class="fu">dim</span>()</span>
+<span id="cb42-102"><a href="#cb42-102" aria-hidden="true" tabindex="-1"></a>repeat_n <span class="ot">&lt;-</span> gene_Count <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>(),<span class="at">.by =</span> gene) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb42-103"><a href="#cb42-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(重复n次的基因个数<span class="ot">=</span><span class="fu">n</span>(),<span class="at">.by =</span>n ) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(n)</span>
+<span id="cb42-104"><a href="#cb42-104" aria-hidden="true" tabindex="-1"></a><span class="co"># 唯一基因个数</span></span>
+<span id="cb42-105"><a href="#cb42-105" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(repeat_n<span class="sc">$</span>重复n次的基因个数)</span>
+<span id="cb42-106"><a href="#cb42-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-107"><a href="#cb42-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-108"><a href="#cb42-108" aria-hidden="true" tabindex="-1"></a>根据基因名分组，重复则取平均值去重，去掉重复的行</span>
+<span id="cb42-109"><a href="#cb42-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-112"><a href="#cb42-112" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-113"><a href="#cb42-113" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb42-114"><a href="#cb42-114" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(gene_Count)</span>
+<span id="cb42-115"><a href="#cb42-115" aria-hidden="true" tabindex="-1"></a>Counts <span class="ot">&lt;-</span> gene_Count[,<span class="fu">lapply</span>(.SD,mean),by<span class="ot">=</span>gene, .SDcols<span class="ot">=</span><span class="fu">patterns</span>(<span class="st">"^(TCGA)"</span>)]</span>
+<span id="cb42-116"><a href="#cb42-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-117"><a href="#cb42-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-120"><a href="#cb42-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-121"><a href="#cb42-121" aria-hidden="true" tabindex="-1"></a>Counts <span class="ot">&lt;-</span> Counts <span class="sc">|&gt;</span> <span class="fu">column_to_rownames</span>(<span class="st">"gene"</span>)</span>
+<span id="cb42-122"><a href="#cb42-122" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(Counts)</span>
+<span id="cb42-123"><a href="#cb42-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-124"><a href="#cb42-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-125"><a href="#cb42-125" aria-hidden="true" tabindex="-1"></a>::: {#summarise_all .callout-note}</span>
+<span id="cb42-128"><a href="#cb42-128" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-129"><a href="#cb42-129" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb42-130"><a href="#cb42-130" aria-hidden="true" tabindex="-1"></a>    <span class="at">g=</span><span class="fu">c</span>(<span class="st">'A'</span>,<span class="st">'B'</span>,<span class="st">'A'</span>,<span class="st">'C'</span>,<span class="st">'C'</span>),</span>
+<span id="cb42-131"><a href="#cb42-131" aria-hidden="true" tabindex="-1"></a>    <span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>),</span>
+<span id="cb42-132"><a href="#cb42-132" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span><span class="fu">c</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">7</span>),</span>
+<span id="cb42-133"><a href="#cb42-133" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb42-134"><a href="#cb42-134" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-135"><a href="#cb42-135" aria-hidden="true" tabindex="-1"></a>df</span>
+<span id="cb42-136"><a href="#cb42-136" aria-hidden="true" tabindex="-1"></a><span class="co"># 数据多太慢了</span></span>
+<span id="cb42-137"><a href="#cb42-137" aria-hidden="true" tabindex="-1"></a>df<span class="sc">|&gt;</span> <span class="fu">group_by</span>(g) <span class="sc">|&gt;</span> <span class="fu">summarise_all</span>(<span class="fu">list</span>(mean))</span>
+<span id="cb42-138"><a href="#cb42-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-139"><a href="#cb42-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-140"><a href="#cb42-140" aria-hidden="true" tabindex="-1"></a><span class="co"># 转化成data.table</span></span>
+<span id="cb42-141"><a href="#cb42-141" aria-hidden="true" tabindex="-1"></a><span class="co"># library(data.table) 非常快</span></span>
+<span id="cb42-142"><a href="#cb42-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-143"><a href="#cb42-143" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(df)</span>
+<span id="cb42-144"><a href="#cb42-144" aria-hidden="true" tabindex="-1"></a><span class="co"># 对基因g进行分组，并对x和y列计算均值</span></span>
+<span id="cb42-145"><a href="#cb42-145" aria-hidden="true" tabindex="-1"></a>df[, <span class="fu">lapply</span>(.SD, mean), by <span class="ot">=</span> g, .SDcols <span class="ot">=</span> <span class="fu">patterns</span>(<span class="st">"x|y"</span>)]</span>
+<span id="cb42-146"><a href="#cb42-146" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-147"><a href="#cb42-147" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb42-148"><a href="#cb42-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-149"><a href="#cb42-149" aria-hidden="true" tabindex="-1"></a>提取lncRNA、miRNA等也是类似的操作</span>
+<span id="cb42-150"><a href="#cb42-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-151"><a href="#cb42-151" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sample metadata</span></span>
+<span id="cb42-152"><a href="#cb42-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-153"><a href="#cb42-153" aria-hidden="true" tabindex="-1"></a><span class="fu">### 表型注释文件</span></span>
+<span id="cb42-154"><a href="#cb42-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-157"><a href="#cb42-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-158"><a href="#cb42-158" aria-hidden="true" tabindex="-1"></a><span class="co">#首先载入下载好胆管癌的样本信息文件</span></span>
+<span id="cb42-159"><a href="#cb42-159" aria-hidden="true" tabindex="-1"></a><span class="co"># 877 个sample × 125 个样本变量</span></span>
+<span id="cb42-160"><a href="#cb42-160" aria-hidden="true" tabindex="-1"></a>colData <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"data/DEGs_Analysis/TCGA-LUAD.GDC_phenotype.tsv.gz"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb42-161"><a href="#cb42-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-162"><a href="#cb42-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-163"><a href="#cb42-163" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择样本  放疗与kras基因</span></span>
+<span id="cb42-164"><a href="#cb42-164" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(colData<span class="sc">$</span>radiation_therapy,colData<span class="sc">$</span>kras_mutation_found)</span>
+<span id="cb42-165"><a href="#cb42-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-166"><a href="#cb42-166" aria-hidden="true" tabindex="-1"></a>pf <span class="ot">&lt;-</span> colData <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(kras_mutation_found<span class="sc">!=</span> <span class="st">""</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb42-167"><a href="#cb42-167" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(radiation_therapy<span class="sc">!=</span> <span class="st">""</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb42-168"><a href="#cb42-168" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(submitter_id.samples,submitter_id,radiation_therapy,kras_mutation_found)</span>
+<span id="cb42-169"><a href="#cb42-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-170"><a href="#cb42-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-171"><a href="#cb42-171" aria-hidden="true" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="at">formula =</span> <span class="sc">~</span>radiation_therapy<span class="sc">+</span>kras_mutation_found,<span class="at">data =</span> pf,<span class="at">subset =</span> <span class="cn">NULL</span>)</span>
+<span id="cb42-172"><a href="#cb42-172" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-173"><a href="#cb42-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-174"><a href="#cb42-174" aria-hidden="true" tabindex="-1"></a>到这里，就从877个样本中挑出了80个样本，但是，我们只要这80个样本中成对样本的表达数据，即同一个病人既有癌旁~~正常~~细胞的表达蛋白，又有肿瘤细胞的异常表达蛋白。</span>
+<span id="cb42-175"><a href="#cb42-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-176"><a href="#cb42-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### colData的成对样本</span></span>
+<span id="cb42-177"><a href="#cb42-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-180"><a href="#cb42-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-181"><a href="#cb42-181" aria-hidden="true" tabindex="-1"></a>ID <span class="ot">&lt;-</span> pf<span class="sc">$</span>submitter_id  <span class="co"># 前1~12字符</span></span>
+<span id="cb42-182"><a href="#cb42-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-183"><a href="#cb42-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-184"><a href="#cb42-184" aria-hidden="true" tabindex="-1"></a><span class="co"># 21对配对样本</span></span>
+<span id="cb42-185"><a href="#cb42-185" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ID)[<span class="fu">table</span>(ID)<span class="sc">==</span><span class="dv">2</span>] <span class="sc">|&gt;</span> <span class="fu">length</span>()</span>
+<span id="cb42-186"><a href="#cb42-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-187"><a href="#cb42-187" aria-hidden="true" tabindex="-1"></a>PairedSample <span class="ot">&lt;-</span> pf <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>(),<span class="at">.by =</span> <span class="st">"submitter_id"</span>)<span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(n<span class="sc">==</span><span class="dv">2</span>)</span>
+<span id="cb42-188"><a href="#cb42-188" aria-hidden="true" tabindex="-1"></a>PairedSample </span>
+<span id="cb42-189"><a href="#cb42-189" aria-hidden="true" tabindex="-1"></a>sample <span class="ot">&lt;-</span>  <span class="fu">left_join</span>(PairedSample,pf,<span class="at">by=</span><span class="fu">join_by</span>(<span class="st">"submitter_id"</span>))</span>
+<span id="cb42-190"><a href="#cb42-190" aria-hidden="true" tabindex="-1"></a>sample</span>
+<span id="cb42-191"><a href="#cb42-191" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sample<span class="sc">$</span>radiation_therapy,sample<span class="sc">$</span>kras_mutation_found)</span>
+<span id="cb42-192"><a href="#cb42-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-193"><a href="#cb42-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-194"><a href="#cb42-194" aria-hidden="true" tabindex="-1"></a><span class="fu">### 匹配 assays的成对样本</span></span>
+<span id="cb42-195"><a href="#cb42-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-196"><a href="#cb42-196" aria-hidden="true" tabindex="-1"></a>并且<span class="in">`colData`</span> 中出现的成对样本（21对）要匹配到<span class="in">`assays`</span> 中的成对样本（60对）。（取交集）</span>
+<span id="cb42-197"><a href="#cb42-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-200"><a href="#cb42-200" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-201"><a href="#cb42-201" aria-hidden="true" tabindex="-1"></a><span class="co"># 表达矩阵  </span></span>
+<span id="cb42-202"><a href="#cb42-202" aria-hidden="true" tabindex="-1"></a>patient_of_counts <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(<span class="fu">colnames</span>(Counts),<span class="dv">1</span>,<span class="dv">12</span>)</span>
+<span id="cb42-203"><a href="#cb42-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-204"><a href="#cb42-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-205"><a href="#cb42-205" aria-hidden="true" tabindex="-1"></a>paired_patient <span class="ot">&lt;-</span> <span class="fu">table</span>(patient_of_counts)[<span class="fu">table</span>(patient_of_counts)<span class="sc">==</span><span class="dv">2</span>]<span class="sc">|&gt;</span> </span>
+<span id="cb42-206"><a href="#cb42-206" aria-hidden="true" tabindex="-1"></a> <span class="fu">names</span>()  <span class="co"># 筛选出60对成对数据</span></span>
+<span id="cb42-207"><a href="#cb42-207" aria-hidden="true" tabindex="-1"></a>paired_patient <span class="sc">|&gt;</span> <span class="fu">length</span>()</span>
+<span id="cb42-208"><a href="#cb42-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-209"><a href="#cb42-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-210"><a href="#cb42-210" aria-hidden="true" tabindex="-1"></a>取<span class="in">`sample`</span>和<span class="in">`paired_patient`</span>的交集，有8对成对数据</span>
+<span id="cb42-211"><a href="#cb42-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-214"><a href="#cb42-214" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-215"><a href="#cb42-215" aria-hidden="true" tabindex="-1"></a><span class="co"># 取交集</span></span>
+<span id="cb42-216"><a href="#cb42-216" aria-hidden="true" tabindex="-1"></a>final_sample <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">intersect</span>(sample<span class="sc">$</span>submitter_id,paired_patient)</span>
+<span id="cb42-217"><a href="#cb42-217" aria-hidden="true" tabindex="-1"></a>final_sample</span>
+<span id="cb42-218"><a href="#cb42-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-219"><a href="#cb42-219" aria-hidden="true" tabindex="-1"></a>sample <span class="ot">&lt;-</span> sample <span class="sc">|&gt;</span></span>
+<span id="cb42-220"><a href="#cb42-220" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(sample<span class="sc">$</span>submitter_id <span class="sc">%in%</span> final_sample) <span class="sc">|&gt;</span></span>
+<span id="cb42-221"><a href="#cb42-221" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>submitter_id, <span class="sc">-</span>n) <span class="sc">|&gt;</span></span>
+<span id="cb42-222"><a href="#cb42-222" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">"sample_id"</span> <span class="ot">=</span> <span class="st">"submitter_id.samples"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb42-223"><a href="#cb42-223" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sample_id)</span>
+<span id="cb42-224"><a href="#cb42-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-225"><a href="#cb42-225" aria-hidden="true" tabindex="-1"></a>sample</span>
+<span id="cb42-226"><a href="#cb42-226" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sample<span class="sc">$</span>radiation_therapy,sample<span class="sc">$</span>kras_mutation_found)</span>
+<span id="cb42-227"><a href="#cb42-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-228"><a href="#cb42-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-229"><a href="#cb42-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-230"><a href="#cb42-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-231"><a href="#cb42-231" aria-hidden="true" tabindex="-1"></a><span class="co"># 最后的表达矩阵</span></span>
+<span id="cb42-232"><a href="#cb42-232" aria-hidden="true" tabindex="-1"></a>exprCounts <span class="ot">&lt;-</span> Counts  <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">which</span>(<span class="fu">colnames</span>(Counts) <span class="sc">%in%</span> sample<span class="sc">$</span>sample_id)) </span>
+<span id="cb42-233"><a href="#cb42-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-234"><a href="#cb42-234" aria-hidden="true" tabindex="-1"></a>exprCounts <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(exprCounts,<span class="fu">order</span>(<span class="fu">colnames</span>(exprCounts)))</span>
+<span id="cb42-235"><a href="#cb42-235" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(exprCounts)</span>
+<span id="cb42-236"><a href="#cb42-236" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(exprCounts)</span>
+<span id="cb42-237"><a href="#cb42-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-238"><a href="#cb42-238" aria-hidden="true" tabindex="-1"></a><span class="co"># 去除所有样本都不表达的基因</span></span>
+<span id="cb42-239"><a href="#cb42-239" aria-hidden="true" tabindex="-1"></a>exprCounts <span class="ot">&lt;-</span> exprCounts <span class="sc">|&gt;</span></span>
+<span id="cb42-240"><a href="#cb42-240" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">rowsum =</span> <span class="fu">apply</span>(exprCounts,<span class="dv">1</span>,sum)) <span class="sc">|&gt;</span></span>
+<span id="cb42-241"><a href="#cb42-241" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(rowsum<span class="sc">!=</span><span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb42-242"><a href="#cb42-242" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>rowsum)</span>
+<span id="cb42-243"><a href="#cb42-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-244"><a href="#cb42-244" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(exprCounts)</span>
+<span id="cb42-245"><a href="#cb42-245" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-246"><a href="#cb42-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-249"><a href="#cb42-249" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-250"><a href="#cb42-250" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查计数矩阵和列数据，看看它们在样本顺序方面是否一致。</span></span>
+<span id="cb42-251"><a href="#cb42-251" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(exprCounts)</span>
+<span id="cb42-252"><a href="#cb42-252" aria-hidden="true" tabindex="-1"></a>sample<span class="sc">$</span>sample_id</span>
+<span id="cb42-253"><a href="#cb42-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-254"><a href="#cb42-254" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(sample<span class="sc">$</span>sample_id<span class="sc">%in%</span> <span class="fu">colnames</span>(exprCounts))</span>
+<span id="cb42-255"><a href="#cb42-255" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(sample<span class="sc">$</span>SampleID <span class="sc">==</span> <span class="fu">colnames</span>(exprCounts))</span>
+<span id="cb42-256"><a href="#cb42-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-257"><a href="#cb42-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-258"><a href="#cb42-258" aria-hidden="true" tabindex="-1"></a><span class="fu">## 构造DEG实例</span></span>
+<span id="cb42-259"><a href="#cb42-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-262"><a href="#cb42-262" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-263"><a href="#cb42-263" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(exprCounts)</span>
+<span id="cb42-264"><a href="#cb42-264" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(sample)</span>
+<span id="cb42-265"><a href="#cb42-265" aria-hidden="true" tabindex="-1"></a>exprCounts <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(exprCounts)</span>
+<span id="cb42-266"><a href="#cb42-266" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-267"><a href="#cb42-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-268"><a href="#cb42-268" aria-hidden="true" tabindex="-1"></a>根据TCGA样本的命名可以区分正常组织和肿瘤样本的测序结果 其中编号01-09表示肿瘤，10-19表示正常</span>
+<span id="cb42-269"><a href="#cb42-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-272"><a href="#cb42-272" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-273"><a href="#cb42-273" aria-hidden="true" tabindex="-1"></a><span class="co"># 字符14~15，</span></span>
+<span id="cb42-274"><a href="#cb42-274" aria-hidden="true" tabindex="-1"></a>sample<span class="sc">$</span>condition <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb42-275"><a href="#cb42-275" aria-hidden="true" tabindex="-1"></a> <span class="fu">ifelse</span>(<span class="fu">as.numeric</span>(<span class="fu">str_sub</span>(sample<span class="sc">$</span>sample_id,<span class="dv">14</span>,<span class="dv">15</span>)) <span class="sc">&lt;</span> <span class="dv">10</span>,<span class="st">'tumor'</span>,<span class="st">'normal'</span>),</span>
+<span id="cb42-276"><a href="#cb42-276" aria-hidden="true" tabindex="-1"></a> <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"normal"</span>,<span class="st">"tumor"</span>),</span>
+<span id="cb42-277"><a href="#cb42-277" aria-hidden="true" tabindex="-1"></a> ) </span>
+<span id="cb42-278"><a href="#cb42-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-279"><a href="#cb42-279" aria-hidden="true" tabindex="-1"></a>sample <span class="ot">&lt;-</span> <span class="fu">column_to_rownames</span>(sample,<span class="at">var =</span><span class="st">"sample_id"</span> )</span>
+<span id="cb42-280"><a href="#cb42-280" aria-hidden="true" tabindex="-1"></a>sample</span>
+<span id="cb42-281"><a href="#cb42-281" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-282"><a href="#cb42-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-285"><a href="#cb42-285" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-286"><a href="#cb42-286" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install("DESeq2")</span></span>
+<span id="cb42-287"><a href="#cb42-287" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span>
+<span id="cb42-288"><a href="#cb42-288" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(GenomicRanges<span class="sc">::</span>setdiff)</span>
+<span id="cb42-289"><a href="#cb42-289" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(<span class="at">countData =</span> exprCounts,</span>
+<span id="cb42-290"><a href="#cb42-290" aria-hidden="true" tabindex="-1"></a>                              <span class="at">colData =</span> sample,</span>
+<span id="cb42-291"><a href="#cb42-291" aria-hidden="true" tabindex="-1"></a>                              <span class="at">design =</span> <span class="sc">~</span> condition)</span>
+<span id="cb42-292"><a href="#cb42-292" aria-hidden="true" tabindex="-1"></a>dds</span>
+<span id="cb42-293"><a href="#cb42-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-294"><a href="#cb42-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-295"><a href="#cb42-295" aria-hidden="true" tabindex="-1"></a><span class="fu">### 预过滤</span></span>
+<span id="cb42-296"><a href="#cb42-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-299"><a href="#cb42-299" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-300"><a href="#cb42-300" aria-hidden="true" tabindex="-1"></a>smallestGroupSize <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb42-301"><a href="#cb42-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-302"><a href="#cb42-302" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(<span class="fu">counts</span>(dds) <span class="sc">&gt;=</span> <span class="dv">10</span>) <span class="sc">&gt;=</span> smallestGroupSize</span>
+<span id="cb42-303"><a href="#cb42-303" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> dds[keep,]</span>
+<span id="cb42-304"><a href="#cb42-304" aria-hidden="true" tabindex="-1"></a>dds</span>
+<span id="cb42-305"><a href="#cb42-305" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-306"><a href="#cb42-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-309"><a href="#cb42-309" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-310"><a href="#cb42-310" aria-hidden="true" tabindex="-1"></a>dds<span class="sc">$</span>condition</span>
+<span id="cb42-311"><a href="#cb42-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-312"><a href="#cb42-312" aria-hidden="true" tabindex="-1"></a>dds<span class="sc">@</span>colData</span>
+<span id="cb42-313"><a href="#cb42-313" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">counts</span>(dds)) <span class="co">#  19562   ×   16 </span></span>
+<span id="cb42-314"><a href="#cb42-314" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-315"><a href="#cb42-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-316"><a href="#cb42-316" aria-hidden="true" tabindex="-1"></a><span class="fu">## 差异分析</span></span>
+<span id="cb42-317"><a href="#cb42-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-320"><a href="#cb42-320" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-321"><a href="#cb42-321" aria-hidden="true" tabindex="-1"></a>des <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span>
+<span id="cb42-322"><a href="#cb42-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-323"><a href="#cb42-323" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">results</span>(</span>
+<span id="cb42-324"><a href="#cb42-324" aria-hidden="true" tabindex="-1"></a>  <span class="at">object =</span> des,</span>
+<span id="cb42-325"><a href="#cb42-325" aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="fu">c</span>(<span class="st">"condition"</span>, <span class="st">"tumor"</span>, <span class="st">"normal"</span>),</span>
+<span id="cb42-326"><a href="#cb42-326" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.05</span>,</span>
+<span id="cb42-327"><a href="#cb42-327" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">rowMeans</span>(<span class="fu">counts</span>(des, <span class="at">normalized =</span> <span class="cn">TRUE</span>)),<span class="co"># 独立过滤</span></span>
+<span id="cb42-328"><a href="#cb42-328" aria-hidden="true" tabindex="-1"></a>  <span class="at">theta =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>),</span>
+<span id="cb42-329"><a href="#cb42-329" aria-hidden="true" tabindex="-1"></a>  <span class="at">pAdjustMethod =</span> <span class="st">"BH"</span>,</span>
+<span id="cb42-330"><a href="#cb42-330" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-331"><a href="#cb42-331" aria-hidden="true" tabindex="-1"></a><span class="fu">metadata</span>(results)[<span class="st">"alpha"</span>]</span>
+<span id="cb42-332"><a href="#cb42-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-333"><a href="#cb42-333" aria-hidden="true" tabindex="-1"></a>results[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,]</span>
+<span id="cb42-334"><a href="#cb42-334" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(results)</span>
+<span id="cb42-335"><a href="#cb42-335" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(results<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb42-336"><a href="#cb42-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-337"><a href="#cb42-337" aria-hidden="true" tabindex="-1"></a><span class="co"># 根据padj 升序</span></span>
+<span id="cb42-338"><a href="#cb42-338" aria-hidden="true" tabindex="-1"></a>resOrdered <span class="ot">&lt;-</span> results[<span class="fu">order</span>(results<span class="sc">$</span>padj),]</span>
+<span id="cb42-339"><a href="#cb42-339" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-340"><a href="#cb42-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-341"><a href="#cb42-341" aria-hidden="true" tabindex="-1"></a><span class="fu">### 保存结果</span></span>
+<span id="cb42-342"><a href="#cb42-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-343"><a href="#cb42-343" aria-hidden="true" tabindex="-1"></a>保存csv以备热图、火山图、富集分析。</span>
+<span id="cb42-344"><a href="#cb42-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-345"><a href="#cb42-345" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb42-346"><a href="#cb42-346" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- as.data.frame(resOrdered) |&gt; rownames_to_column(var = "gene")</span></span>
+<span id="cb42-347"><a href="#cb42-347" aria-hidden="true" tabindex="-1"></a><span class="in">write_csv(x, file="data/DEGs_Analysis/resOrdered.csv")</span></span>
+<span id="cb42-348"><a href="#cb42-348" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-349"><a href="#cb42-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-352"><a href="#cb42-352" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-353"><a href="#cb42-353" aria-hidden="true" tabindex="-1"></a><span class="fu">mcols</span>(resOrdered)<span class="sc">$</span>description</span>
+<span id="cb42-354"><a href="#cb42-354" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-355"><a href="#cb42-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-356"><a href="#cb42-356" aria-hidden="true" tabindex="-1"></a>pvalue，是统计学检验变量，代表差异显著性，一般认为P <span class="sc">\&lt;</span> 0.05 为显著， P <span class="sc">\&lt;</span>0.01 为非常显著。其含义为：由抽样误差导致样本间差异的概率小于0.05 或0.01。</span>
+<span id="cb42-357"><a href="#cb42-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-358"><a href="#cb42-358" aria-hidden="true" tabindex="-1"></a>padj，是对pvalue进行多重假设检验校正后的结果。转录组测序的差异表达分析是对大量的基因表达值进行的独立统计假设检验，存在假阳性（Family-Wise Error Rate，FWER），Bonferroni矫正</span>
+<span id="cb42-359"><a href="#cb42-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-360"><a href="#cb42-360" aria-hidden="true" tabindex="-1"></a>qvalue，False Discovery Rate，FDR，所有假阳性结果占所有拒绝零假设结果的比例，假阳性结果的比例不超过预设的FDR水平（0.05/0.1）,基于pvalue的分布。多重假设检验校正方法：Benjamini-Hochberg，</span>
+<span id="cb42-361"><a href="#cb42-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-362"><a href="#cb42-362" aria-hidden="true" tabindex="-1"></a>log2FoldChange：对数倍数变化，1.5倍差异即0.585，2倍差异即1。</span>
+<span id="cb42-363"><a href="#cb42-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-364"><a href="#cb42-364" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/FoldChange.jpg)</span>{fig-align="center" width="60%"}</span>
+<span id="cb42-365"><a href="#cb42-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-368"><a href="#cb42-368" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-369"><a href="#cb42-369" aria-hidden="true" tabindex="-1"></a>DEG <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/DEGs_Analysis/resOrdered.csv"</span>)</span>
+<span id="cb42-370"><a href="#cb42-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-371"><a href="#cb42-371" aria-hidden="true" tabindex="-1"></a>DESeq2_DEG <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(DEG) </span>
+<span id="cb42-372"><a href="#cb42-372" aria-hidden="true" tabindex="-1"></a>nrDEG <span class="ot">&lt;-</span> DESeq2_DEG</span>
+<span id="cb42-373"><a href="#cb42-373" aria-hidden="true" tabindex="-1"></a>nrDEG[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>,]</span>
+<span id="cb42-374"><a href="#cb42-374" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-375"><a href="#cb42-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-376"><a href="#cb42-376" aria-hidden="true" tabindex="-1"></a><span class="fu">### 热图</span></span>
+<span id="cb42-377"><a href="#cb42-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-380"><a href="#cb42-380" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-381"><a href="#cb42-381" aria-hidden="true" tabindex="-1"></a>log2exprCounts <span class="ot">&lt;-</span> <span class="fu">log2</span>(<span class="fu">counts</span>(des)<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb42-382"><a href="#cb42-382" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
+<span id="cb42-383"><a href="#cb42-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-384"><a href="#cb42-384" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(log2exprCounts[(<span class="fu">head</span>(DESeq2_DEG<span class="sc">$</span>gene,<span class="at">n=</span><span class="dv">25</span>)) , ])</span>
+<span id="cb42-385"><a href="#cb42-385" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-386"><a href="#cb42-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-387"><a href="#cb42-387" aria-hidden="true" tabindex="-1"></a><span class="fu">### 配对图</span></span>
+<span id="cb42-388"><a href="#cb42-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-389"><a href="#cb42-389" aria-hidden="true" tabindex="-1"></a>挑选指定第一个基因看它在同一个病人的配对表达情况</span>
+<span id="cb42-390"><a href="#cb42-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-393"><a href="#cb42-393" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-394"><a href="#cb42-394" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb42-395"><a href="#cb42-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-396"><a href="#cb42-396" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb42-397"><a href="#cb42-397" aria-hidden="true" tabindex="-1"></a>  <span class="at">group =</span> sample<span class="sc">$</span>condition,</span>
+<span id="cb42-398"><a href="#cb42-398" aria-hidden="true" tabindex="-1"></a>  <span class="at">patient =</span> <span class="fu">colnames</span>(exprCounts),</span>
+<span id="cb42-399"><a href="#cb42-399" aria-hidden="true" tabindex="-1"></a>  <span class="at">expressionValue =</span> <span class="fu">as.numeric</span>(exprCounts[DESeq2_DEG<span class="sc">$</span>gene[<span class="dv">1</span>],]),</span>
+<span id="cb42-400"><a href="#cb42-400" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb42-401"><a href="#cb42-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-402"><a href="#cb42-402" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggpaired</span>(df, <span class="at">x =</span> <span class="st">"group"</span>, <span class="at">y =</span> <span class="st">"expressionValue"</span>,<span class="at">color =</span> <span class="st">"group"</span>, </span>
+<span id="cb42-403"><a href="#cb42-403" aria-hidden="true" tabindex="-1"></a>                 <span class="at">line.color =</span> <span class="st">"gray"</span>, <span class="at">line.size =</span> <span class="fl">0.4</span>,<span class="at">palette =</span> <span class="st">"npg"</span>)<span class="sc">+</span></span>
+<span id="cb42-404"><a href="#cb42-404" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_compare_means</span>()</span>
+<span id="cb42-405"><a href="#cb42-405" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-406"><a href="#cb42-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-407"><a href="#cb42-407" aria-hidden="true" tabindex="-1"></a><span class="fu">### 火山图</span></span>
+<span id="cb42-408"><a href="#cb42-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-411"><a href="#cb42-411" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-412"><a href="#cb42-412" aria-hidden="true" tabindex="-1"></a>nrDEG<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb42-413"><a href="#cb42-413" aria-hidden="true" tabindex="-1"></a>    <span class="fu">if_else</span>(nrDEG<span class="sc">$</span>padj<span class="sc">&lt;</span><span class="fl">0.05</span><span class="sc">&amp;</span> <span class="fu">abs</span>(nrDEG<span class="sc">$</span>log2FoldChange)<span class="sc">&gt;=</span><span class="dv">1</span>,</span>
+<span id="cb42-414"><a href="#cb42-414" aria-hidden="true" tabindex="-1"></a>            <span class="fu">if_else</span>(nrDEG<span class="sc">$</span>log2FoldChange<span class="sc">&gt;=</span><span class="dv">1</span>,<span class="st">"up"</span>,<span class="st">"down"</span>),</span>
+<span id="cb42-415"><a href="#cb42-415" aria-hidden="true" tabindex="-1"></a>            <span class="st">"NS"</span>,),</span>
+<span id="cb42-416"><a href="#cb42-416" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span><span class="fu">c</span>(<span class="st">"up"</span>,<span class="st">"down"</span>,<span class="st">"NS"</span>) )</span>
+<span id="cb42-417"><a href="#cb42-417" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nrDEG<span class="sc">$</span>group)</span>
+<span id="cb42-418"><a href="#cb42-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-419"><a href="#cb42-419" aria-hidden="true" tabindex="-1"></a>gene_labels <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(nrDEG,nrDEG<span class="sc">$</span>padj<span class="sc">&lt;</span><span class="fl">0.05</span> <span class="sc">&amp;</span> </span>
+<span id="cb42-420"><a href="#cb42-420" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">abs</span>(nrDEG<span class="sc">$</span>log2FoldChange)<span class="sc">&gt;=</span><span class="dv">1</span>)<span class="sc">|&gt;</span> </span>
+<span id="cb42-421"><a href="#cb42-421" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">25</span>) </span>
+<span id="cb42-422"><a href="#cb42-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-423"><a href="#cb42-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-424"><a href="#cb42-424" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nrDEG,<span class="fu">aes</span>( <span class="at">x =</span> log2FoldChange,<span class="at">y =</span> <span class="sc">-</span><span class="fu">log10</span>(padj),<span class="at">color=</span>group,<span class="at">shape=</span>group))<span class="sc">+</span></span>
+<span id="cb42-425"><a href="#cb42-425" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>,<span class="at">size=</span><span class="fl">1.5</span>)<span class="sc">+</span></span>
+<span id="cb42-426"><a href="#cb42-426" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"green"</span>,<span class="st">"gray"</span>))<span class="sc">+</span></span>
+<span id="cb42-427"><a href="#cb42-427" aria-hidden="true" tabindex="-1"></a>    <span class="co">#scale_shape_manual(values = c(2,25,4))+</span></span>
+<span id="cb42-428"><a href="#cb42-428" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">lty=</span><span class="dv">3</span>,<span class="at">color=</span><span class="st">"grey25"</span>,<span class="at">lwd=</span><span class="fl">0.8</span>)<span class="sc">+</span></span>
+<span id="cb42-429"><a href="#cb42-429" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(<span class="fl">0.05</span>),<span class="at">lty=</span><span class="dv">3</span>,<span class="at">color=</span><span class="st">"grey25"</span>,<span class="at">lwd=</span><span class="fl">0.8</span>)<span class="sc">+</span></span>
+<span id="cb42-430"><a href="#cb42-430" aria-hidden="true" tabindex="-1"></a>    ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(</span>
+<span id="cb42-431"><a href="#cb42-431" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> gene_labels,</span>
+<span id="cb42-432"><a href="#cb42-432" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">label=</span>gene),</span>
+<span id="cb42-433"><a href="#cb42-433" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">"black"</span>,</span>
+<span id="cb42-434"><a href="#cb42-434" aria-hidden="true" tabindex="-1"></a>        <span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb42-435"><a href="#cb42-435" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_pubr</span>()</span>
+<span id="cb42-436"><a href="#cb42-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-437"><a href="#cb42-437" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-438"><a href="#cb42-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-439"><a href="#cb42-439" aria-hidden="true" tabindex="-1"></a><span class="fu">### **EnhancedVolcano**</span></span>
+<span id="cb42-440"><a href="#cb42-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-443"><a href="#cb42-443" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-444"><a href="#cb42-444" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(EnhancedVolcano))</span>
+<span id="cb42-445"><a href="#cb42-445" aria-hidden="true" tabindex="-1"></a>  BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">'EnhancedVolcano'</span>)</span>
+<span id="cb42-446"><a href="#cb42-446" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-447"><a href="#cb42-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-448"><a href="#cb42-448" aria-hidden="true" tabindex="-1"></a><span class="fu">### LFC收缩和pagj</span></span>
+<span id="cb42-449"><a href="#cb42-449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-452"><a href="#cb42-452" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-453"><a href="#cb42-453" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(des)</span>
+<span id="cb42-454"><a href="#cb42-454" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install("apeglm")  自适应 t 先验收缩估计器  默认</span></span>
+<span id="cb42-455"><a href="#cb42-455" aria-hidden="true" tabindex="-1"></a><span class="co"># resLFC &lt;- lfcShrink(des, coef="condition_tumor_vs_normal", type="apeglm")</span></span>
+<span id="cb42-456"><a href="#cb42-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-457"><a href="#cb42-457" aria-hidden="true" tabindex="-1"></a><span class="co"># `normal`是原始的 DESeq2 收缩估计器，是先验的自适应正态分布</span></span>
+<span id="cb42-458"><a href="#cb42-458" aria-hidden="true" tabindex="-1"></a>resNorm <span class="ot">&lt;-</span> <span class="fu">lfcShrink</span>(des, <span class="at">coef=</span><span class="dv">2</span>, <span class="at">type=</span><span class="st">"normal"</span>)</span>
+<span id="cb42-459"><a href="#cb42-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-460"><a href="#cb42-460" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install("ashr")</span></span>
+<span id="cb42-461"><a href="#cb42-461" aria-hidden="true" tabindex="-1"></a><span class="co"># resAsh &lt;- lfcShrink(des, coef=2, type="ashr")</span></span>
+<span id="cb42-462"><a href="#cb42-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-463"><a href="#cb42-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-464"><a href="#cb42-464" aria-hidden="true" tabindex="-1"></a><span class="do">## 先验信息</span></span>
+<span id="cb42-465"><a href="#cb42-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-466"><a href="#cb42-466" aria-hidden="true" tabindex="-1"></a><span class="co"># priorInfo(resLFC)</span></span>
+<span id="cb42-467"><a href="#cb42-467" aria-hidden="true" tabindex="-1"></a><span class="fu">priorInfo</span>(resNorm)</span>
+<span id="cb42-468"><a href="#cb42-468" aria-hidden="true" tabindex="-1"></a><span class="co"># priorInfo(resAsh)</span></span>
+<span id="cb42-469"><a href="#cb42-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-470"><a href="#cb42-470" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-471"><a href="#cb42-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-472"><a href="#cb42-472" aria-hidden="true" tabindex="-1"></a><span class="fu">### MA图 Mean-AbsDeviation plot</span></span>
+<span id="cb42-473"><a href="#cb42-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-476"><a href="#cb42-476" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-477"><a href="#cb42-477" aria-hidden="true" tabindex="-1"></a><span class="co"># 对gene添加“是否呈现显著差异表达”的标签</span></span>
+<span id="cb42-478"><a href="#cb42-478" aria-hidden="true" tabindex="-1"></a>DESeq2_DEG<span class="sc">$</span>significant <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(DESeq2_DEG<span class="sc">$</span>padj <span class="sc">&lt;</span><span class="fl">0.05</span>, <span class="st">"Significant"</span>, <span class="st">"NS"</span>),</span>
+<span id="cb42-479"><a href="#cb42-479" aria-hidden="true" tabindex="-1"></a><span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Significant"</span>, <span class="st">"NS"</span>))</span>
+<span id="cb42-480"><a href="#cb42-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-481"><a href="#cb42-481" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(DESeq2_DEG<span class="sc">$</span>significant)</span>
+<span id="cb42-482"><a href="#cb42-482" aria-hidden="true" tabindex="-1"></a><span class="co"># 以baseMean作为x，log2FoldChange作为y   以significant作为分类变量</span></span>
+<span id="cb42-483"><a href="#cb42-483" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DESeq2_DEG, <span class="fu">aes</span>(baseMean, log2FoldChange, <span class="at">colour=</span>significant)) <span class="sc">+</span> </span>
+<span id="cb42-484"><a href="#cb42-484" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb42-485"><a href="#cb42-485" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>)) <span class="sc">+</span> </span>
+<span id="cb42-486"><a href="#cb42-486" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_x_log10</span>() <span class="sc">+</span> </span>
+<span id="cb42-487"><a href="#cb42-487" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">linewidth=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb42-488"><a href="#cb42-488" aria-hidden="true" tabindex="-1"></a> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"mean of normalized counts"</span>, <span class="at">y=</span><span class="st">"log2FoldChange"</span>) <span class="sc">+</span> </span>
+<span id="cb42-489"><a href="#cb42-489" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_colour_manual</span>(<span class="at">name=</span><span class="st">"padj"</span>, </span>
+<span id="cb42-490"><a href="#cb42-490" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values=</span><span class="fu">c</span>(<span class="st">"Significant"</span><span class="ot">=</span><span class="st">"blue"</span>,<span class="st">"NS"</span><span class="ot">=</span><span class="st">"grey50"</span>)) <span class="sc">+</span></span>
+<span id="cb42-491"><a href="#cb42-491" aria-hidden="true" tabindex="-1"></a> <span class="fu">theme_classic</span>()</span>
+<span id="cb42-492"><a href="#cb42-492" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-493"><a href="#cb42-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-496"><a href="#cb42-496" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-497"><a href="#cb42-497" aria-hidden="true" tabindex="-1"></a>xlim <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">10e6</span>)</span>
+<span id="cb42-498"><a href="#cb42-498" aria-hidden="true" tabindex="-1"></a>ylim <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb42-499"><a href="#cb42-499" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMA</span>(resOrdered,  <span class="at">xlim=</span>xlim, <span class="at">ylim=</span>ylim,<span class="at">main=</span><span class="st">"none"</span>)</span>
+<span id="cb42-500"><a href="#cb42-500" aria-hidden="true" tabindex="-1"></a><span class="co"># plotMA(resLFC, xlim=xlim, ylim=ylim, main="apeglm")</span></span>
+<span id="cb42-501"><a href="#cb42-501" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMA</span>(resNorm, <span class="at">xlim=</span>xlim, <span class="at">ylim=</span>ylim, <span class="at">main=</span><span class="st">"normal"</span>)</span>
+<span id="cb42-502"><a href="#cb42-502" aria-hidden="true" tabindex="-1"></a><span class="co"># plotMA(resAsh, xlim=xlim, ylim=ylim, main="ashr")</span></span>
+<span id="cb42-503"><a href="#cb42-503" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-504"><a href="#cb42-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-505"><a href="#cb42-505" aria-hidden="true" tabindex="-1"></a><span class="fu">### 读取计数</span></span>
+<span id="cb42-506"><a href="#cb42-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-509"><a href="#cb42-509" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-510"><a href="#cb42-510" aria-hidden="true" tabindex="-1"></a><span class="co">#  the counts of reads for a single gene across the groups</span></span>
+<span id="cb42-511"><a href="#cb42-511" aria-hidden="true" tabindex="-1"></a><span class="fu">plotCounts</span>(des, <span class="at">gene=</span><span class="fu">which.min</span>(resOrdered<span class="sc">$</span>padj), </span>
+<span id="cb42-512"><a href="#cb42-512" aria-hidden="true" tabindex="-1"></a>  <span class="at">intgroup=</span><span class="st">"condition"</span>,<span class="at">returnData=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb42-513"><a href="#cb42-513" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>condition, <span class="at">y=</span>count)) <span class="sc">+</span> </span>
+<span id="cb42-514"><a href="#cb42-514" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>(<span class="at">position=</span><span class="fu">position_jitter</span>(<span class="at">w=</span><span class="fl">0.1</span>,<span class="at">h=</span><span class="dv">0</span>))</span>
+<span id="cb42-515"><a href="#cb42-515" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-516"><a href="#cb42-516" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-517"><a href="#cb42-517" aria-hidden="true" tabindex="-1"></a><span class="fu">### 异常观测</span></span>
+<span id="cb42-518"><a href="#cb42-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-521"><a href="#cb42-521" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-522"><a href="#cb42-522" aria-hidden="true" tabindex="-1"></a>W <span class="ot">&lt;-</span> resOrdered<span class="sc">$</span>stat</span>
+<span id="cb42-523"><a href="#cb42-523" aria-hidden="true" tabindex="-1"></a>maxCooks <span class="ot">&lt;-</span> <span class="fu">apply</span>(<span class="fu">assays</span>(des)[[<span class="st">"cooks"</span>]],<span class="dv">1</span>,max)</span>
+<span id="cb42-524"><a href="#cb42-524" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="sc">!</span><span class="fu">is.na</span>(W)</span>
+<span id="cb42-525"><a href="#cb42-525" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rank</span>(W[idx]), maxCooks[idx], <span class="at">xlab=</span><span class="st">"rank of Wald statistic"</span>, </span>
+<span id="cb42-526"><a href="#cb42-526" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab=</span><span class="st">"maximum Cook's distance per gene"</span>,</span>
+<span id="cb42-527"><a href="#cb42-527" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>), <span class="at">cex=</span>.<span class="dv">4</span>, <span class="at">col=</span><span class="fu">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">3</span>))</span>
+<span id="cb42-528"><a href="#cb42-528" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">ncol</span>(des)</span>
+<span id="cb42-529"><a href="#cb42-529" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb42-530"><a href="#cb42-530" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">qf</span>(.<span class="dv">99</span>, p, m <span class="sc">-</span> p))</span>
+<span id="cb42-531"><a href="#cb42-531" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-532"><a href="#cb42-532" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-533"><a href="#cb42-533" aria-hidden="true" tabindex="-1"></a><span class="fu">### 多因素设计</span></span>
+<span id="cb42-534"><a href="#cb42-534" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-537"><a href="#cb42-537" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-538"><a href="#cb42-538" aria-hidden="true" tabindex="-1"></a><span class="fu">colData</span>(dds)</span>
+<span id="cb42-539"><a href="#cb42-539" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 

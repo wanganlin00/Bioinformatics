@@ -1,7 +1,8 @@
-# ExpressionSet
+# `ExpressionSet`
 
 ```{r}
 library(Biobase)
+conflicts_prefer(GenomicRanges::setdiff)
 ```
 
 ## 组件

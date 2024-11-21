@@ -12,6 +12,7 @@ library(biobroom)
 
 ```{r}
 library(Biobase)
+conflicts_prefer(GenomicRanges::setdiff)
 class(hammer)
 tidy(hammer)
 tidy(hammer, addPheno = TRUE)

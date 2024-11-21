@@ -3,4 +3,4 @@
 
 /.quarto/
 
-*cache
+/*cache/

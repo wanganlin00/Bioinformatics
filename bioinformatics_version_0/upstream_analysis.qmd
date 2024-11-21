@@ -1,10 +1,10 @@
 # 上游分析
 
-## 质量控制：FastQC
+## 测序
 
-[FastQC v0.12.1 (Win/Linux zip file)](https://www.bioinformatics.babraham.ac.uk/projects/download.html#fastqc)
+### FASTQ 文件
 
-![](images/Fastq.jpg){fig-align="center"}
+![](images/Fastq.jpg){fig-align="center" width="65%"}
 
 `@<instrument>:<run num>:<flowcell ID>:<lane>:<tile>:<x>:<y>:<UMI> <read>:<filtered>:<control num>:<index>`
 
@@ -21,17 +21,37 @@ DDDCDDDDDDFFGGGGGGGGGGHHHHHHHHHHHHHHH...HHHHGGGGHHHHHHHHHHHHHHHGHHGHHHHHHGGGGGGH
 
 `Q = -10 log10(P)`
 
-![](images/PhredQ_ASCII_base33.jpg){fig-align="center"}
+![](images/PhredQ_ASCII_base33.jpg){fig-align="center" width="80%"}
 
-![](images/Q_Error_Accuary.jpg){fig-align="center"}
+![](images/Q_Error_Accuary.jpg){fig-align="center" width="80%"}
+
+### BAM 文件
+
+Binary alignment
+
+[`GenomicAlignments`](https://bioconductor.org/packages/3.19/bioc/html/GenomicAlignments.html)
+
+### VCF 文件
+
+变异注释
+
+`VariantAnnotation` `readVcf()`
+
+### BED、WIG、GTF 文件
+
+基因组注释文件
+
+[rtracklayer](https://bioconductor.org/packages/3.19/bioc/html/rtracklayer.html)
+
+## 质量控制：FastQC
+
+[FastQC v0.12.1 (Win/Linux zip file)](https://www.bioinformatics.babraham.ac.uk/projects/download.html#fastqc)
 
 ## 剪切：Trimmomatic
 
 接头序列的去除和低质量序列的修剪
 
-## 序列比对
-
-[STAR](https://github.com/alexdobin/STAR)
+## 序列比对：[STAR](https://github.com/alexdobin/STAR)
 
 ## 定量：计数矩阵
 

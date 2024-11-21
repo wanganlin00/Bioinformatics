@@ -1,3 +1,8 @@
+---
+execute: 
+  cache: true
+---
+
 # 富集分析
 
 ## 基因集富集分析 GSEA
@@ -16,7 +21,7 @@
 # BiocManager::install('clusterProfiler')
 # BiocManager::install("org.Hs.eg.db")
 
-DEG <- read_csv("data/resOrdered.csv")
+DEG <- read_csv("data/DEGs_Analysis/resOrdered.csv")
 x <-  na.omit(DEG) 
 ```
 
@@ -35,7 +40,7 @@ deg_df$expression <- factor(
     levels = c("up","down","NS"))
 table(deg_df$expression)
 
-gtf_v22_transcripts <- read_delim("data/gencode.v22.annotation.gene.probeMap")
+gtf_v22_transcripts <- read_delim("data/DEGs_Analysis/gencode.v22.annotation.gene.probeMap")
 
 
 # 之前差异分析可以保留ENSEMBL标识符  
@@ -54,6 +59,7 @@ Entrez是National Center for Biotechnology Information (NCBI) 提供的一个综
 
 ```{r}
 library(clusterProfiler)
+conflicts_prefer(GenomicRanges::setdiff)
 library(org.Hs.eg.db)
 AnnotationDbi::keytypes(org.Hs.eg.db)
 head(keys(org.Hs.eg.db, "ENSEMBL"))

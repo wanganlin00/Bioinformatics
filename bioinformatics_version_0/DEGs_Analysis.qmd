@@ -1,9 +1,12 @@
+---
+execute: 
+  cache: true
+---
+
 # 差异表达基因分析
 
-```{r echo=FALSE}
-if (!require("DESeq2", quietly = TRUE))
-    BiocManager::install("DESeq2")
-conflict_prefer("setdiff","GenomicRanges")
+```{r include=FALSE}
+conflicts_prefer(GenomicRanges::setdiff)
 ```
 
 <https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html>
@@ -20,39 +23,38 @@ conflict_prefer("setdiff","GenomicRanges")
 
 ```{r}
 library(arrow, warn.conflicts = FALSE)
-logCount <- read_tsv_arrow("data/TCGA-LUAD.htseq_counts.tsv.gz")
+
+logCount <- read_tsv_arrow("data/DEGs_Analysis/TCGA-LUAD.htseq_counts.tsv.gz")
 # 读取计数矩阵 log2(count+1)  # 60488 个gene ×  586 个sample
 
-
-logCount[1:6,1:3]
 ```
 
-### 基因编码文件
+## 基因元数据
 
-我想要分析总的转录本，不需要把mRNA、lncRNA等挑出来，所以下载的这个自带注释文件[ID/Gene Mapping](https://gdc-hub.s3.us-east-1.amazonaws.com/download/gencode.v22.annotation.gene.probeMap)
+如果分析总的转录本，不需要把mRNA、lncRNA等挑出来，所以下载的这个自带注释文件[ID/Gene Mapping](https://gdc-hub.s3.us-east-1.amazonaws.com/download/gencode.v22.annotation.gene.probeMap)
 
 ```{r}
-gtf_v22_transcripts <- read_delim("data/gencode.v22.annotation.gene.probeMap")
+gtf_v22_transcripts <- read_delim("data/DEGs_Analysis/gencode.v22.annotation.gene.probeMap")
 ```
 
 如果只想用蛋白质编码（protein_coding）相关基因，用全基因编码注释文件 [gencode.v46.annotation.gtf.gz](https://www.gencodegenes.org/human/)
 
 ```{r eval=FALSE}
 # 全基因编码  BiocManager::install("rtracklayer")
-gtf_v22 <- rtracklayer::import('data/gencode.v22.annotation.gtf.gz') |>
+gtf_v46 <- rtracklayer::import('data/DEGs_Analysis/gencode.v46.annotation.gtf.gz') |>
  as_tibble()
 
-distinct(gtf_v22,gene_type)
-distinct(gtf_v22,gene_name)
+distinct(gtf_v46,gene_type)
+distinct(gtf_v46,gene_name)
 
 # 选择 蛋白编码mRNA相关基因
-gtf_v22_mRNA <- dplyr::select(gtf_v22,
+gtf_v46_mRNA <- dplyr::select(gtf_v46,
                               c("gene_id","gene_type", "gene_name"))|> 
     dplyr::filter(gene_type == "protein_coding") |>  
     distinct()
 
-head(gtf_v22_mRNA )
-write.csv(gtf_v22_mRNA,"data/gtf_v22_mRNA.csv")
+head(gtf_v46_mRNA )
+write.csv(gtf_v46_mRNA,"data/gtf_v46_mRNA.csv")
 ```
 
 ### 根据 ENSEBML 编码内连接
@@ -74,7 +76,7 @@ gene_logCount[1:6,1:3]
 
 ```{r}
 library(Rcpp)
-Rcpp::sourceCpp("data/exponential_base2_transform.cpp")
+Rcpp::sourceCpp("data/DEGs_Analysis/exponential_base2_transform.cpp")
 
 # 该函数将 `log2(count + 1)` 转换为原始计数
 gene_Count <- gene_logCount %>%
@@ -135,8 +137,7 @@ df[, lapply(.SD, mean), by = g, .SDcols = patterns("x|y")]
 ```{r}
 #首先载入下载好胆管癌的样本信息文件
 # 877 个sample × 125 个样本变量
-library(data.table)
-colData <- fread("data/TCGA-LUAD.GDC_phenotype.tsv.gz", sep = "\t", header = TRUE)
+colData <- fread("data/DEGs_Analysis/TCGA-LUAD.GDC_phenotype.tsv.gz", sep = "\t", header = TRUE)
 
 
 # 选择样本  放疗与kras基因
@@ -248,8 +249,9 @@ sample
 ```
 
 ```{r}
+# BiocManager::install("DESeq2")
 library(DESeq2)
-
+conflicts_prefer(GenomicRanges::setdiff)
 dds <- DESeqDataSetFromMatrix(countData = exprCounts,
                               colData = sample,
                               design = ~ condition)
@@ -302,7 +304,7 @@ resOrdered <- results[order(results$padj),]
 
 ```{r eval=FALSE}
 x <- as.data.frame(resOrdered) |> rownames_to_column(var = "gene")
-write_csv(x, file="data/resOrdered.csv")
+write_csv(x, file="data/DEGs_Analysis/resOrdered.csv")
 ```
 
 ```{r}
@@ -320,7 +322,7 @@ log2FoldChange：对数倍数变化，1.5倍差异即0.585，2倍差异即1。
 ![](images/FoldChange.jpg){fig-align="center" width="60%"}
 
 ```{r}
-DEG <- read_csv("data/resOrdered.csv")
+DEG <- read_csv("data/DEGs_Analysis/resOrdered.csv")
 
 DESeq2_DEG <- na.omit(DEG) 
 nrDEG <- DESeq2_DEG

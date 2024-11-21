@@ -12,15 +12,18 @@ book:
   
   chapters:
     - index.qmd
-    
-    - biodata_structure.qmd
-    - ExpressionSet.qmd
-    - SCE.qmd     # SingleCellExperiment   SummarizedExperiment
-    - biobroom.qmd
-    
-    - annotation_database.qmd
-    
-    - part: upstream_analysis.qmd
+    - upstream_analysis.qmd
+
+    - part: "数据结构与数据库"
+      chapters:
+        - biodata_structure.qmd
+        - annotation_database.qmd
+        
+        - ExpressionSet.qmd
+        - SummarizedExperiment.qmd
+        - SingleCellExperiment.qmd
+        # - biobroom.qmd
+
     
     - part: "下游分析"
       chapters:
@@ -28,10 +31,10 @@ book:
         - DEGs_Analysis.qmd
         - EnrichmentAnalysis.qmd
         - PseudotimeAnalysis.qmd
-        - eQTL.qmd
-        - GWAS.qmd
-        - WGCNA.qmd
-     - part: sca.qmd
+        # - eQTL.qmd
+        # - GWAS.qmd
+        # - WGCNA.qmd
+    - part: sca.qmd
     #   chapters: 
     #     - import.qmd
     #     - QC.qmd
@@ -41,16 +44,18 @@ book:
     #     - Clustering.qmd
     #     - MarkerGeneDetection.qmd
     #     - CellTypeAnnotation.qmd
-    #     
-    #    
+    #   
+    
+    
     # - part: "workflow"
     #   chapters: 
     #     - Seurat.qmd
     #     - workflow.qmd
     
-      
+    
+    
+    
 execute:
-  cache: true
   message: false
   warning: false
 
@@ -59,7 +64,8 @@ toc-depth: 4
 number-sections: true
 number-depth: 4
 
-code-fold: true
+code-fold: show
+code-tools: true
 code-link: true
     
 knitr:
@@ -73,7 +79,6 @@ format:
   html: 
     theme: cosmo
     df-print: kable
-    callout-appearance: simple
     
 editor: visual
 

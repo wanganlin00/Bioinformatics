@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.6.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Bioinformatics - 15&nbsp; 富集分析</title>
+<title>8&nbsp; 富集分析 – Bioinformatics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -67,10 +67,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-f90a1b115807ea56b20e50efb3bb25e2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -102,13 +102,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./DEGs_Analysis.html">下游分析</a></li><li class="breadcrumb-item"><a href="./EnrichmentAnalysis.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">富集分析</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./DEGs_Analysis.html">下游分析</a></li><li class="breadcrumb-item"><a href="./EnrichmentAnalysis.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">富集分析</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -137,172 +137,89 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">参考资料</span></a>
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./upstream_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">上游分析</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">上游分析</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">数据结构与数据库</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Seq_to_Matrix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Sequences Data to Expression Matrix</span></span></a>
+  <a href="./biodata_structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">生物数据结构</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./annotation_database.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">注释数据库</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ExpressionSet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>ExpressionSet</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SummarizedExperiment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title"><code>SummarizedExperiment</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./SingleCellExperiment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">单细胞分析</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">下游分析</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prerequisites.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">写在前面</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">获取scRNA-seq表达值矩阵</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./SCE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title"><code>SingleCellExperiment</code></span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./workflow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">工作流</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./QC.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">质量控制</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./normalization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">标准化</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./feature_selection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">特征选择</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./DimensionalityReduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">降维</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">聚类</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./MarkerGeneDetection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">conflicts_prefer(dplyr::filter)</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./CellTypeAnnotation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">细胞类型注释</span></span></a>
-  </div>
-</li>
-      </ul>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text">Seurat</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Seurat.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Seurat</span></span></a>
-  </div>
-</li>
-      </ul>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
- <span class="menu-text">下游分析</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./DEGs_Analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./EnrichmentAnalysis.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">富集分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">富集分析</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PseudotimeAnalysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">伪时序分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">伪时序分析</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
- <span class="menu-text">基因组学</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Biostrings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title"><code>Biostrings</code>包</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./eQTL.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">eQTL</span></span></a>
-  </div>
-</li>
-      </ul>
-</li>
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">单细胞分析</span></span>
+  </li>
     </ul>
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
@@ -311,27 +228,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#%E5%9F%BA%E5%9B%A0%E6%B3%A8%E9%87%8A" id="toc-基因注释" class="nav-link active" data-scroll-target="#%E5%9F%BA%E5%9B%A0%E6%B3%A8%E9%87%8A"><span class="header-section-number">15.1</span> 基因注释</a></li>
-  <li>
-<a href="#kegg-%E9%80%9A%E8%B7%AF%E5%AF%8C%E9%9B%86" id="toc-kegg-通路富集" class="nav-link" data-scroll-target="#kegg-%E9%80%9A%E8%B7%AF%E5%AF%8C%E9%9B%86"><span class="header-section-number">15.2</span> KEGG 通路富集</a>
+<li>
+<a href="#%E5%9F%BA%E5%9B%A0%E9%9B%86%E5%AF%8C%E9%9B%86%E5%88%86%E6%9E%90-gsea" id="toc-基因集富集分析-gsea" class="nav-link active" data-scroll-target="#%E5%9F%BA%E5%9B%A0%E9%9B%86%E5%AF%8C%E9%9B%86%E5%88%86%E6%9E%90-gsea"><span class="header-section-number">8.1</span> 基因集富集分析 GSEA</a>
   <ul>
-<li><a href="#%E6%B0%B4%E5%B9%B3%E6%9D%A1%E5%9B%BE" id="toc-水平条图" class="nav-link" data-scroll-target="#%E6%B0%B4%E5%B9%B3%E6%9D%A1%E5%9B%BE"><span class="header-section-number">15.2.1</span> 水平条图</a></li>
-  <li><a href="#%E7%82%B9%E5%9B%BE" id="toc-点图" class="nav-link" data-scroll-target="#%E7%82%B9%E5%9B%BE"><span class="header-section-number">15.2.2</span> 点图</a></li>
+<li><a href="#over-representation-analysis-ora" id="toc-over-representation-analysis-ora" class="nav-link" data-scroll-target="#over-representation-analysis-ora"><span class="header-section-number">8.1.1</span> over-representation analysis (ORA)</a></li>
+  </ul>
+</li>
+  <li><a href="#%E5%9F%BA%E5%9B%A0%E6%B3%A8%E9%87%8A" id="toc-基因注释" class="nav-link" data-scroll-target="#%E5%9F%BA%E5%9B%A0%E6%B3%A8%E9%87%8A"><span class="header-section-number">8.2</span> 基因注释</a></li>
+  <li>
+<a href="#kegg-%E9%80%9A%E8%B7%AF%E5%AF%8C%E9%9B%86" id="toc-kegg-通路富集" class="nav-link" data-scroll-target="#kegg-%E9%80%9A%E8%B7%AF%E5%AF%8C%E9%9B%86"><span class="header-section-number">8.3</span> KEGG 通路富集</a>
+  <ul>
+<li><a href="#%E6%B0%B4%E5%B9%B3%E6%9D%A1%E5%9B%BE" id="toc-水平条图" class="nav-link" data-scroll-target="#%E6%B0%B4%E5%B9%B3%E6%9D%A1%E5%9B%BE"><span class="header-section-number">8.3.1</span> 水平条图</a></li>
+  <li><a href="#%E7%82%B9%E5%9B%BE" id="toc-点图" class="nav-link" data-scroll-target="#%E7%82%B9%E5%9B%BE"><span class="header-section-number">8.3.2</span> 点图</a></li>
   </ul>
 </li>
   <li>
-<a href="#go%E5%AF%8C%E9%9B%86%E5%88%86%E6%9E%90" id="toc-go富集分析" class="nav-link" data-scroll-target="#go%E5%AF%8C%E9%9B%86%E5%88%86%E6%9E%90"><span class="header-section-number">15.3</span> GO富集分析</a>
+<a href="#go%E5%AF%8C%E9%9B%86%E5%88%86%E6%9E%90" id="toc-go富集分析" class="nav-link" data-scroll-target="#go%E5%AF%8C%E9%9B%86%E5%88%86%E6%9E%90"><span class="header-section-number">8.4</span> GO富集分析</a>
   <ul>
-<li><a href="#%E5%8F%AF%E8%A7%86%E5%8C%96" id="toc-可视化" class="nav-link" data-scroll-target="#%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="header-section-number">15.3.1</span> 可视化</a></li>
+<li><a href="#%E5%8F%AF%E8%A7%86%E5%8C%96" id="toc-可视化" class="nav-link" data-scroll-target="#%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="header-section-number">8.4.1</span> 可视化</a></li>
   </ul>
 </li>
-  <li><a href="#%E5%9F%BA%E5%9B%A0%E9%9B%86%E5%AF%8C%E9%9B%86%E5%88%86%E6%9E%90-gsea" id="toc-基因集富集分析-gsea" class="nav-link" data-scroll-target="#%E5%9F%BA%E5%9B%A0%E9%9B%86%E5%AF%8C%E9%9B%86%E5%88%86%E6%9E%90-gsea"><span class="header-section-number">15.4</span> 基因集富集分析 GSEA</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/Wanganlin00/Bioinformatics/edit/main/EnrichmentAnalysis.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Wanganlin00/Bioinformatics/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./DEGs_Analysis.html">下游分析</a></li><li class="breadcrumb-item"><a href="./EnrichmentAnalysis.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">富集分析</span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./DEGs_Analysis.html">下游分析</a></li><li class="breadcrumb-item"><a href="./EnrichmentAnalysis.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">富集分析</span></a></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">
-<span class="chapter-number">15</span>&nbsp; <span class="chapter-title">富集分析</span>
+<span class="chapter-number">8</span>&nbsp; <span class="chapter-title">富集分析</span>
 </h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
@@ -346,24 +268,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><p><strong>基因本体论 （Gene Ontology，GO） 或京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）</strong>。<a href="https://yulab-smu.top/biomedical-knowledge-mining-book/" style="color:red"><strong>clusterProfiler</strong></a></p>
+</header><section id="基因集富集分析-gsea" class="level2" data-number="8.1"><h2 data-number="8.1" class="anchored" data-anchor-id="基因集富集分析-gsea">
+<span class="header-section-number">8.1</span> 基因集富集分析 GSEA</h2>
+<p>基因集表示基因集中基因的一般共享生物属性的先验知识。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/GSEA.gif" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<section id="over-representation-analysis-ora" class="level3" data-number="8.1.1"><h3 data-number="8.1.1" class="anchored" data-anchor-id="over-representation-analysis-ora">
+<span class="header-section-number">8.1.1</span> over-representation analysis (ORA)</h3>
+<p><strong>基因本体论 （Gene Ontology，GO） 基因集</strong></p>
+<p><strong>京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）基因集</strong></p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># BiocManager::install('clusterProfiler')</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># BiocManager::install('clusterProfiler')</span></span>
 <span><span class="co"># BiocManager::install("org.Hs.eg.db")</span></span>
 <span></span>
-<span><span class="va">DEG</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/resOrdered.csv"</span><span class="op">)</span></span>
+<span><span class="va">DEG</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/DEGs_Analysis/resOrdered.csv"</span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">DEG</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>对于有参考基因组物种的分析，可以在相关软件包中直接加载该物种的背景基因集。对于常见的模式物种，例如<code>BiocManager::install("org.Hs.eg.db")</code> ，安装人类hg19的注释包 <code>BiocManager::install("org.Mm.eg.db")</code> ，安装小鼠的注释包</p>
-<section id="基因注释" class="level2" data-number="15.1"><h2 data-number="15.1" class="anchored" data-anchor-id="基因注释">
-<span class="header-section-number">15.1</span> 基因注释</h2>
+</section></section><section id="基因注释" class="level2" data-number="8.2"><h2 data-number="8.2" class="anchored" data-anchor-id="基因注释">
+<span class="header-section-number">8.2</span> 基因注释</h2>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">deg_df</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">7</span><span class="op">)</span><span class="op">]</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">deg_df</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">7</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">deg_df</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: left;">gene</th>
 <th style="text-align: right;">log2FoldChange</th>
@@ -372,39 +304,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">MGAT3</td>
-<td style="text-align: right;">-4.320512</td>
+<td style="text-align: right;">-4.320278</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">RTKN2</td>
-<td style="text-align: right;">-4.640581</td>
+<td style="text-align: right;">-4.640307</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">GPM6A</td>
-<td style="text-align: right;">-5.145913</td>
+<td style="text-align: right;">-5.145635</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">SERTM1</td>
-<td style="text-align: right;">-6.886846</td>
+<td style="text-align: right;">-6.886260</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">LIMS2</td>
-<td style="text-align: right;">-2.660491</td>
+<td style="text-align: right;">-2.660279</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">EMP2</td>
-<td style="text-align: right;">-2.672054</td>
+<td style="text-align: right;">-2.671839</td>
 <td style="text-align: right;">0</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span><span class="va">deg_df</span><span class="op">$</span><span class="va">expression</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span> </span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span> <span class="va">deg_df</span><span class="op">$</span><span class="va">padj</span><span class="op">&lt;</span> <span class="fl">0.05</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">deg_df</span><span class="op">$</span><span class="va">log2FoldChange</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">1</span>,</span>
 <span>            <span class="fu">if_else</span><span class="op">(</span> <span class="va">deg_df</span><span class="op">$</span><span class="va">log2FoldChange</span> <span class="op">&gt;=</span> <span class="fl">1</span> , <span class="st">'up'</span>, <span class="st">'down'</span> <span class="op">)</span>,</span>
@@ -413,9 +345,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">deg_df</span><span class="op">$</span><span class="va">expression</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;    up  down    NS </span></span>
-<span><span class="co">#&gt;  2075  1641 15356</span></span>
+<span><span class="co">#&gt;  2073  1641 15358</span></span>
 <span></span>
-<span><span class="va">gtf_v22_transcripts</span> <span class="op">&lt;-</span> <span class="fu">read_delim</span><span class="op">(</span><span class="st">"data/gencode.v22.annotation.gene.probeMap"</span><span class="op">)</span></span>
+<span><span class="va">gtf_v22_transcripts</span> <span class="op">&lt;-</span> <span class="fu">read_delim</span><span class="op">(</span><span class="st">"data/DEGs_Analysis/gencode.v22.annotation.gene.probeMap"</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="co"># 之前差异分析可以保留ENSEMBL标识符  </span></span>
@@ -428,9 +360,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>R 语言中 <code>AnnotationDbi</code> 包提供的一个函数名<code><a href="https://rdrr.io/pkg/clusterProfiler/man/bitr.html">bitr()</a></code> 代表 “Biological Identifier Translation”，即生物学标识符转换。这个函数用于在不同的基因标识符之间进行转换，例如从基因的 Ensembl ID 转换为 <strong>Entrez ID</strong>（特定基因产物）)、基因符号（<strong>symbol</strong>）或基因名称（<strong>gene name</strong>）。</p>
 <p>Entrez是National Center for Biotechnology Information (NCBI) 提供的一个综合性生物信息数据库查询系统。它允许用户搜索和检索包括基因、蛋白质、核酸序列、3D蛋白质结构、基因表达数据、基因组数据、遗传多态性、生物项目、生物文献等各种生物医学信息。Entrez Gene数据库中的基因ID是唯一的数字标识符，用于在NCBI的Entrez系统内标识特定的基因。</p>
+<p><a href="https://yulab-smu.top/biomedical-knowledge-mining-book/" style="color:red"><strong>clusterProfiler</strong></a></p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">conflicts_prefer</span><span class="op">(</span><span class="fu">IRanges</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/BiocGenerics/man/sets.html">setdiff</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yulab-smu.top/biomedical-knowledge-mining-book/">clusterProfiler</a></span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yulab-smu.top/contribution-knowledge-mining/">clusterProfiler</a></span><span class="op">)</span></span>
+<span><span class="fu">conflicts_prefer</span><span class="op">(</span><span class="fu">GenomicRanges</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/BiocGenerics/man/sets.html">setdiff</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span><span class="op">)</span></span>
 <span><span class="fu">AnnotationDbi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html">keytypes</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "ACCNUM"       "ALIAS"        "ENSEMBL"      "ENSEMBLPROT"  "ENSEMBLTRANS"</span></span>
@@ -455,13 +388,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">valid_ensembl</span><span class="op">)</span></span>
 <span><span class="co">#&gt; valid_ensembl</span></span>
 <span><span class="co">#&gt; FALSE  TRUE </span></span>
-<span><span class="co">#&gt;  2251 16906</span></span>
+<span><span class="co">#&gt;  2269 16888</span></span>
 <span></span>
 <span><span class="va">valid_symbol</span> <span class="op">&lt;-</span> <span class="va">deg_df</span><span class="op">$</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html">keys</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="st">"SYMBOL"</span><span class="op">)</span>  </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">valid_symbol</span><span class="op">)</span></span>
 <span><span class="co">#&gt; valid_symbol</span></span>
 <span><span class="co">#&gt; FALSE  TRUE </span></span>
-<span><span class="co">#&gt;  3231 15926</span></span>
+<span><span class="co">#&gt;  3249 15908</span></span>
 <span></span>
 <span></span>
 <span><span class="va">deg_df_filtered</span> <span class="op">&lt;-</span> <span class="va">deg_df</span><span class="op">[</span><span class="va">valid_ensembl</span>, <span class="op">]</span>  </span>
@@ -476,7 +409,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 15%">
 <col style="width: 8%">
@@ -530,13 +463,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span><span class="va">deg_df</span> <span class="op">&lt;-</span> <span class="fu">inner_join</span><span class="op">(</span><span class="va">deg_df_filtered</span>, <span class="va">df</span>, by<span class="op">=</span><span class="st">'ENSEMBL'</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>进行上调和下调基因的分离是为了更精确地识别与特定生物学过程或疾病状态相关的途径。例如，某些途径可能在疾病发生时被激活，导致相关基因上调，而其他途径可能被抑制，导致相关基因下调。</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gene_up</span> <span class="op">&lt;-</span> <span class="va">deg_df</span><span class="op">[</span> <span class="va">deg_df</span><span class="op">$</span><span class="va">expression</span> <span class="op">==</span> <span class="st">'up'</span>, <span class="st">"ENTREZID"</span> <span class="op">]</span> </span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gene_up</span> <span class="op">&lt;-</span> <span class="va">deg_df</span><span class="op">[</span> <span class="va">deg_df</span><span class="op">$</span><span class="va">expression</span> <span class="op">==</span> <span class="st">'up'</span>, <span class="st">"ENTREZID"</span> <span class="op">]</span> </span>
 <span><span class="va">gene_down</span> <span class="op">&lt;-</span> <span class="va">deg_df</span><span class="op">[</span> <span class="va">deg_df</span><span class="op">$</span><span class="va">expression</span> <span class="op">==</span> <span class="st">'down'</span>, <span class="st">"ENTREZID"</span><span class="op">]</span></span>
 <span></span>
 <span></span>
@@ -551,10 +484,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>                     mart <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/biomaRt/man/useMart.html">useMart</a></span><span class="op">(</span><span class="st">"ensembl"</span>, dataset <span class="op">=</span> <span class="st">"hsapiens_gene_ensembl"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section><section id="kegg-通路富集" class="level2" data-number="15.2"><h2 data-number="15.2" class="anchored" data-anchor-id="kegg-通路富集">
-<span class="header-section-number">15.2</span> KEGG 通路富集</h2>
+</section><section id="kegg-通路富集" class="level2" data-number="8.3"><h2 data-number="8.3" class="anchored" data-anchor-id="kegg-通路富集">
+<span class="header-section-number">8.3</span> KEGG 通路富集</h2>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kegg_up</span> <span class="op">&lt;-</span> <span class="fu">clusterProfiler</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichKEGG.html">enrichKEGG</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">gene_up</span><span class="op">$</span><span class="va">ENTREZID</span> ,<span class="co"># entrez gene id</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">kegg_up</span> <span class="op">&lt;-</span> <span class="fu">clusterProfiler</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichKEGG.html">enrichKEGG</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">gene_up</span><span class="op">$</span><span class="va">ENTREZID</span> ,<span class="co"># entrez gene id</span></span>
 <span>                    organism<span class="op">=</span>  <span class="st">'hsa'</span>,</span>
 <span>                    keyType <span class="op">=</span> <span class="st">"kegg"</span>,</span>
 <span>                    pvalueCutoff  <span class="op">=</span>  <span class="fl">0.05</span>,</span>
@@ -573,12 +506,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_up</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">kegg_up</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_up</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">kegg_up</span><span class="op">)</span></span>
 <span><span class="va">df_down</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">kegg_down</span><span class="op">)</span></span>
 <span><span class="va">df_up</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 1%">
 <col style="width: 6%">
@@ -615,7 +548,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa04110</td>
 <td style="text-align: left;">Cell cycle</td>
 <td style="text-align: left;">56/763</td>
-<td style="text-align: left;">154/6908</td>
+<td style="text-align: left;">154/6926</td>
 <td style="text-align: right;">0.0000000</td>
 <td style="text-align: right;">0.0000000</td>
 <td style="text-align: right;">0.0000000</td>
@@ -629,10 +562,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa01230</td>
 <td style="text-align: left;">Biosynthesis of amino acids</td>
 <td style="text-align: left;">19/763</td>
-<td style="text-align: left;">64/6908</td>
-<td style="text-align: right;">0.0000370</td>
-<td style="text-align: right;">0.0047433</td>
-<td style="text-align: right;">0.0044399</td>
+<td style="text-align: left;">64/6926</td>
+<td style="text-align: right;">0.0000356</td>
+<td style="text-align: right;">0.0045716</td>
+<td style="text-align: right;">0.0042807</td>
 <td style="text-align: left;">5831/84706/5832/6472/29968/2597/5214/2023/3418/5091/1373/10993/7167/6888/226/3417/440/4143/384</td>
 <td style="text-align: right;">19</td>
 </tr>
@@ -643,10 +576,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa01232</td>
 <td style="text-align: left;">Nucleotide metabolism</td>
 <td style="text-align: left;">22/763</td>
-<td style="text-align: left;">81/6908</td>
-<td style="text-align: right;">0.0000426</td>
-<td style="text-align: right;">0.0047433</td>
-<td style="text-align: right;">0.0044399</td>
+<td style="text-align: left;">81/6926</td>
+<td style="text-align: right;">0.0000409</td>
+<td style="text-align: right;">0.0045716</td>
+<td style="text-align: right;">0.0042807</td>
 <td style="text-align: left;">205/6241/978/7083/377841/7298/4830/7498/100/4907/124583/4833/122622/4831/272/3251/56953/1841/9615/7371/5167/954</td>
 <td style="text-align: right;">22</td>
 </tr>
@@ -657,10 +590,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa05206</td>
 <td style="text-align: left;">MicroRNAs in cancer</td>
 <td style="text-align: left;">34/763</td>
-<td style="text-align: left;">155/6908</td>
-<td style="text-align: right;">0.0000579</td>
-<td style="text-align: right;">0.0048334</td>
-<td style="text-align: right;">0.0045242</td>
+<td style="text-align: left;">155/6926</td>
+<td style="text-align: right;">0.0000549</td>
+<td style="text-align: right;">0.0046001</td>
+<td style="text-align: right;">0.0043074</td>
 <td style="text-align: left;">898/113130/1591/995/1945/2146/5268/1944/1029/9493/8091/1870/5328/9134/7473/1789/1946/672/4318/993/6659/3065/1871/6464/7157/90427/6768/3845/3925/1869/54541/4193/6624/2065</td>
 <td style="text-align: right;">34</td>
 </tr>
@@ -671,11 +604,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa00330</td>
 <td style="text-align: left;">Arginine and proline metabolism</td>
 <td style="text-align: left;">14/763</td>
-<td style="text-align: left;">45/6908</td>
-<td style="text-align: right;">0.0002244</td>
-<td style="text-align: right;">0.0126069</td>
-<td style="text-align: right;">0.0118003</td>
-<td style="text-align: left;">5831/79814/548596/5832/26/1159/283208/6723/54498/6611/2628/219/384/2593</td>
+<td style="text-align: left;">45/6926</td>
+<td style="text-align: right;">0.0002183</td>
+<td style="text-align: right;">0.0123365</td>
+<td style="text-align: right;">0.0115516</td>
+<td style="text-align: left;">5831/79814/1159/548596/5832/26/283208/6723/54498/6611/2628/219/384/2593</td>
 <td style="text-align: right;">14</td>
 </tr>
 <tr class="even">
@@ -685,10 +618,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa03030</td>
 <td style="text-align: left;">DNA replication</td>
 <td style="text-align: left;">12/763</td>
-<td style="text-align: left;">35/6908</td>
-<td style="text-align: right;">0.0002265</td>
-<td style="text-align: right;">0.0126069</td>
-<td style="text-align: right;">0.0118003</td>
+<td style="text-align: left;">35/6926</td>
+<td style="text-align: right;">0.0002210</td>
+<td style="text-align: right;">0.0123365</td>
+<td style="text-align: right;">0.0115516</td>
 <td style="text-align: left;">1763/4171/4173/2237/5427/4175/5984/5558/10535/4176/5111/6119</td>
 <td style="text-align: right;">12</td>
 </tr>
@@ -699,10 +632,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa00480</td>
 <td style="text-align: left;">Glutathione metabolism</td>
 <td style="text-align: left;">15/763</td>
-<td style="text-align: left;">51/6908</td>
-<td style="text-align: right;">0.0002704</td>
-<td style="text-align: right;">0.0129019</td>
-<td style="text-align: right;">0.0120765</td>
+<td style="text-align: left;">51/6926</td>
+<td style="text-align: right;">0.0002628</td>
+<td style="text-align: right;">0.0125753</td>
+<td style="text-align: right;">0.0117751</td>
 <td style="text-align: left;">2877/6241/2729/2936/79017/3418/6723/2730/6611/2539/3417/4257/493869/5226/494143</td>
 <td style="text-align: right;">15</td>
 </tr>
@@ -713,10 +646,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa01200</td>
 <td style="text-align: left;">Carbon metabolism</td>
 <td style="text-align: left;">23/763</td>
-<td style="text-align: left;">101/6908</td>
-<td style="text-align: right;">0.0005093</td>
-<td style="text-align: right;">0.0198466</td>
-<td style="text-align: right;">0.0185769</td>
+<td style="text-align: left;">101/6926</td>
+<td style="text-align: right;">0.0004909</td>
+<td style="text-align: right;">0.0193605</td>
+<td style="text-align: right;">0.0181286</td>
 <td style="text-align: left;">84706/6472/29968/2597/5214/2023/2731/3418/5091/1373/10993/2821/7167/6888/2539/80201/226/3417/55753/2653/4199/5226/6389</td>
 <td style="text-align: right;">23</td>
 </tr>
@@ -727,10 +660,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa00240</td>
 <td style="text-align: left;">Pyrimidine metabolism</td>
 <td style="text-align: left;">15/763</td>
-<td style="text-align: left;">54/6908</td>
-<td style="text-align: right;">0.0005348</td>
-<td style="text-align: right;">0.0198466</td>
-<td style="text-align: right;">0.0185769</td>
+<td style="text-align: left;">54/6926</td>
+<td style="text-align: right;">0.0005201</td>
+<td style="text-align: right;">0.0193605</td>
+<td style="text-align: right;">0.0181286</td>
 <td style="text-align: left;">6241/978/7083/377841/7298/4830/4907/124583/4833/4831/790/56953/1841/7371/5167</td>
 <td style="text-align: right;">15</td>
 </tr>
@@ -741,10 +674,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa03460</td>
 <td style="text-align: left;">Fanconi anemia pathway</td>
 <td style="text-align: left;">14/763</td>
-<td style="text-align: left;">50/6908</td>
-<td style="text-align: right;">0.0007456</td>
-<td style="text-align: right;">0.0229775</td>
-<td style="text-align: right;">0.0215075</td>
+<td style="text-align: left;">50/6926</td>
+<td style="text-align: right;">0.0007264</td>
+<td style="text-align: right;">0.0223526</td>
+<td style="text-align: right;">0.0209303</td>
 <td style="text-align: left;">29089/83990/116028/55215/641/146956/5888/2189/2177/2175/2187/91442/672/6119</td>
 <td style="text-align: right;">14</td>
 </tr>
@@ -755,11 +688,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa05203</td>
 <td style="text-align: left;">Viral carcinogenesis</td>
 <td style="text-align: left;">33/763</td>
-<td style="text-align: left;">171/6908</td>
-<td style="text-align: right;">0.0008931</td>
-<td style="text-align: right;">0.0229775</td>
-<td style="text-align: right;">0.0215075</td>
-<td style="text-align: left;">2648/898/991/890/3017/1111/1029/3718/1237/983/9134/7188/440689/3665/2961/3065/5366/8339/7185/5933/7157/1232/148327/8294/85236/5902/3845/7186/1019/8365/4193/8347/7419</td>
+<td style="text-align: left;">171/6926</td>
+<td style="text-align: right;">0.0008538</td>
+<td style="text-align: right;">0.0223526</td>
+<td style="text-align: right;">0.0209303</td>
+<td style="text-align: left;">2648/898/991/890/3017/1111/1029/3718/983/1237/9134/7188/440689/3665/2961/3065/5366/7185/8339/5933/7157/1232/148327/8294/85236/5902/3845/7186/1019/8365/4193/8347/7419</td>
 <td style="text-align: right;">33</td>
 </tr>
 <tr class="even">
@@ -769,10 +702,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa04115</td>
 <td style="text-align: left;">p53 signaling pathway</td>
 <td style="text-align: left;">18/763</td>
-<td style="text-align: left;">74/6908</td>
-<td style="text-align: right;">0.0008943</td>
-<td style="text-align: right;">0.0229775</td>
-<td style="text-align: right;">0.0215075</td>
+<td style="text-align: left;">74/6926</td>
+<td style="text-align: right;">0.0008674</td>
+<td style="text-align: right;">0.0223526</td>
+<td style="text-align: right;">0.0209303</td>
 <td style="text-align: left;">898/9133/891/51512/6241/5268/1111/1029/983/9134/11200/64065/5366/84883/7157/1019/3486/4193</td>
 <td style="text-align: right;">18</td>
 </tr>
@@ -783,11 +716,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa04974</td>
 <td style="text-align: left;">Protein digestion and absorption</td>
 <td style="text-align: left;">18/763</td>
-<td style="text-align: left;">74/6908</td>
-<td style="text-align: right;">0.0008943</td>
-<td style="text-align: right;">0.0229775</td>
-<td style="text-align: right;">0.0215075</td>
-<td style="text-align: left;">3783/1301/1300/6564/1281/1294/1308/1290/169044/1289/1277/5646/255631/478/1278/1293/1298/1299</td>
+<td style="text-align: left;">74/6926</td>
+<td style="text-align: right;">0.0008674</td>
+<td style="text-align: right;">0.0223526</td>
+<td style="text-align: right;">0.0209303</td>
+<td style="text-align: left;">3783/1301/1300/6564/1281/1294/1308/1290/169044/1289/1277/255631/5646/478/1278/1293/1298/1299</td>
 <td style="text-align: right;">18</td>
 </tr>
 <tr class="even">
@@ -797,21 +730,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa01240</td>
 <td style="text-align: left;">Biosynthesis of cofactors</td>
 <td style="text-align: left;">27/763</td>
-<td style="text-align: left;">135/6908</td>
-<td style="text-align: right;">0.0014764</td>
-<td style="text-align: right;">0.0352238</td>
-<td style="text-align: right;">0.0329702</td>
-<td style="text-align: left;">205/6999/1728/6472/29968/4830/7358/80308/2729/29926/10797/4833/53630/23475/2730/122622/4831/3145/790/23057/1719/219/8942/8836/4143/54578/93100</td>
+<td style="text-align: left;">135/6926</td>
+<td style="text-align: right;">0.0014208</td>
+<td style="text-align: right;">0.0339975</td>
+<td style="text-align: right;">0.0318343</td>
+<td style="text-align: left;">205/6999/1728/6472/29968/4830/7358/80308/2729/29926/10797/53630/4833/23475/2730/122622/4831/3145/790/23057/1719/219/8942/8836/4143/54578/93100</td>
 <td style="text-align: right;">27</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_down</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_down</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 2%">
 <col style="width: 8%">
@@ -823,7 +756,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <col style="width: 2%">
 <col style="width: 2%">
 <col style="width: 2%">
-<col style="width: 52%">
+<col style="width: 53%">
 <col style="width: 1%">
 </colgroup>
 <thead><tr class="header">
@@ -847,12 +780,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Signaling molecules and interaction</td>
 <td style="text-align: left;">hsa04080</td>
 <td style="text-align: left;">Neuroactive ligand-receptor interaction</td>
-<td style="text-align: left;">44/634</td>
-<td style="text-align: left;">181/6908</td>
+<td style="text-align: left;">44/635</td>
+<td style="text-align: left;">181/6926</td>
 <td style="text-align: right;">0.0000000</td>
 <td style="text-align: right;">0.0000003</td>
 <td style="text-align: right;">0.0000002</td>
-<td style="text-align: left;">1910/154/7433/10316/1901/10203/1129/2890/148/2900/2358/5028/2922/59350/1268/554/8698/5745/1906/22953/122042/6751/53637/9002/117/185/5734/153/728/146/3953/2894/1908/1132/1128/2357/5179/3355/187/2690/796/2740/8862/147</td>
+<td style="text-align: left;">1910/154/7433/10316/1901/10203/1129/2890/148/2900/2358/5028/2922/59350/1268/554/8698/5745/1906/22953/122042/6751/53637/9002/117/185/5734/153/728/146/3953/2894/1908/1132/1128/2357/5179/3355/187/2690/2740/796/8862/147</td>
 <td style="text-align: right;">44</td>
 </tr>
 <tr class="even">
@@ -861,12 +794,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Circulatory system</td>
 <td style="text-align: left;">hsa04270</td>
 <td style="text-align: left;">Vascular smooth muscle contraction</td>
-<td style="text-align: left;">31/634</td>
-<td style="text-align: left;">116/6908</td>
+<td style="text-align: left;">31/635</td>
+<td style="text-align: left;">116/6926</td>
 <td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0000043</td>
-<td style="text-align: right;">0.0000037</td>
-<td style="text-align: left;">10266/10268/255189/10398/2977/10203/196883/50487/148/5581/779/5319/5592/4629/54776/91807/5583/1906/72/4881/10242/108/5588/114/185/146/115/1908/4628/796/147</td>
+<td style="text-align: right;">0.0000042</td>
+<td style="text-align: right;">0.0000036</td>
+<td style="text-align: left;">10266/10268/255189/10398/2977/10203/196883/50487/148/5581/779/5319/5592/4629/54776/91807/5583/1906/72/4881/108/10242/5588/114/185/146/115/1908/4628/796/147</td>
 <td style="text-align: right;">31</td>
 </tr>
 <tr class="odd">
@@ -875,13 +808,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">hsa04820</td>
 <td style="text-align: left;">Cytoskeleton in muscle cells</td>
-<td style="text-align: left;">42/634</td>
-<td style="text-align: left;">198/6908</td>
+<td style="text-align: left;">43/635</td>
+<td style="text-align: left;">201/6926</td>
 <td style="text-align: right;">0.0000001</td>
-<td style="text-align: right;">0.0000152</td>
-<td style="text-align: right;">0.0000132</td>
-<td style="text-align: left;">64236/27063/7134/6445/10398/1288/2273/23500/477/171024/88/4629/4620/1285/6442/25802/161176/72/1286/6711/10529/84467/7431/1674/9172/6383/91977/25777/2006/131873/825/7273/8516/58529/56203/8736/4628/7111/29767/7140/4634/23345</td>
-<td style="text-align: right;">42</td>
+<td style="text-align: right;">0.0000081</td>
+<td style="text-align: right;">0.0000070</td>
+<td style="text-align: left;">64236/27063/7134/6445/10398/1288/2273/23500/477/171024/88/4629/4620/1285/6442/25802/161176/72/1286/6711/10529/84467/7431/1674/2192/9172/6383/91977/25777/2006/131873/825/7273/8516/58529/56203/8736/4628/7111/29767/7140/4634/23345</td>
+<td style="text-align: right;">43</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">hsa04610</td>
@@ -889,11 +822,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Immune system</td>
 <td style="text-align: left;">hsa04610</td>
 <td style="text-align: left;">Complement and coagulation cascades</td>
-<td style="text-align: left;">21/634</td>
-<td style="text-align: left;">70/6908</td>
-<td style="text-align: right;">0.0000006</td>
-<td style="text-align: right;">0.0000478</td>
-<td style="text-align: right;">0.0000413</td>
+<td style="text-align: left;">21/635</td>
+<td style="text-align: left;">71/6926</td>
+<td style="text-align: right;">0.0000008</td>
+<td style="text-align: right;">0.0000611</td>
+<td style="text-align: right;">0.0000528</td>
 <td style="text-align: left;">5648/7056/7450/11326/732/9002/1361/2157/1604/2159/2160/728/5627/3687/10747/722/717/712/2/1675/713</td>
 <td style="text-align: right;">21</td>
 </tr>
@@ -903,11 +836,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Infectious disease: parasitic</td>
 <td style="text-align: left;">hsa05144</td>
 <td style="text-align: left;">Malaria</td>
-<td style="text-align: left;">16/634</td>
-<td style="text-align: left;">46/6908</td>
+<td style="text-align: left;">16/635</td>
+<td style="text-align: left;">46/6926</td>
 <td style="text-align: right;">0.0000015</td>
-<td style="text-align: right;">0.0000947</td>
-<td style="text-align: right;">0.0000818</td>
+<td style="text-align: right;">0.0000934</td>
+<td style="text-align: right;">0.0000808</td>
 <td style="text-align: left;">5175/2995/6403/1440/948/3569/2532/3043/7042/3040/6383/7099/3039/3082/3683/3553</td>
 <td style="text-align: right;">16</td>
 </tr>
@@ -917,12 +850,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Signal transduction</td>
 <td style="text-align: left;">hsa04024</td>
 <td style="text-align: left;">cAMP signaling pathway</td>
-<td style="text-align: left;">36/634</td>
-<td style="text-align: left;">176/6908</td>
-<td style="text-align: right;">0.0000029</td>
-<td style="text-align: right;">0.0001489</td>
-<td style="text-align: right;">0.0001287</td>
-<td style="text-align: left;">154/10398/196883/1129/2890/477/779/338442/11069/64399/627/1906/5140/4881/108/6751/114/10411/8843/117/2353/153/115/51196/1262/64411/1908/6262/5348/4772/1128/3725/5295/3355/5350/2740</td>
+<td style="text-align: left;">36/635</td>
+<td style="text-align: left;">176/6926</td>
+<td style="text-align: right;">0.0000028</td>
+<td style="text-align: right;">0.0001455</td>
+<td style="text-align: right;">0.0001257</td>
+<td style="text-align: left;">154/10398/196883/1129/2890/477/779/338442/11069/64399/627/1906/5140/4881/108/6751/114/10411/8843/117/2353/153/115/51196/1262/64411/1908/6262/5348/4772/1128/3725/3355/5295/5350/2740</td>
 <td style="text-align: right;">36</td>
 </tr>
 <tr class="odd">
@@ -931,11 +864,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Endocrine system</td>
 <td style="text-align: left;">hsa04924</td>
 <td style="text-align: left;">Renin secretion</td>
-<td style="text-align: left;">17/634</td>
-<td style="text-align: left;">60/6908</td>
-<td style="text-align: right;">0.0000168</td>
-<td style="text-align: right;">0.0007524</td>
-<td style="text-align: right;">0.0006503</td>
+<td style="text-align: left;">17/635</td>
+<td style="text-align: left;">60/6926</td>
+<td style="text-align: right;">0.0000166</td>
+<td style="text-align: right;">0.0007425</td>
+<td style="text-align: right;">0.0006417</td>
 <td style="text-align: left;">154/2977/358/779/5153/1636/5972/1906/5140/4881/117/185/5593/5734/153/1908/5137</td>
 <td style="text-align: right;">17</td>
 </tr>
@@ -945,11 +878,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Signal transduction</td>
 <td style="text-align: left;">hsa04015</td>
 <td style="text-align: left;">Rap1 signaling pathway</td>
-<td style="text-align: left;">34/634</td>
-<td style="text-align: left;">185/6908</td>
-<td style="text-align: right;">0.0000573</td>
-<td style="text-align: right;">0.0022079</td>
-<td style="text-align: right;">0.0019083</td>
+<td style="text-align: left;">34/635</td>
+<td style="text-align: left;">185/6926</td>
+<td style="text-align: right;">0.0000562</td>
+<td style="text-align: right;">0.0021692</td>
+<td style="text-align: right;">0.0018748</td>
 <td style="text-align: left;">7010/51378/196883/2255/2277/9732/5028/11069/10235/8817/1268/5587/5155/260425/2247/108/114/10411/9002/2324/5590/3791/9771/115/9863/51196/64411/284/9223/3082/3683/2357/5295/2264</td>
 <td style="text-align: right;">34</td>
 </tr>
@@ -959,12 +892,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Signal transduction</td>
 <td style="text-align: left;">hsa04022</td>
 <td style="text-align: left;">cGMP-PKG signaling pathway</td>
-<td style="text-align: left;">28/634</td>
-<td style="text-align: left;">141/6908</td>
-<td style="text-align: right;">0.0000635</td>
-<td style="text-align: right;">0.0022079</td>
-<td style="text-align: right;">0.0019083</td>
-<td style="text-align: left;">1910/154/10398/2977/196883/148/5581/477/779/5592/91807/5140/4881/5138/10242/108/114/185/5593/153/8654/146/3764/115/23533/4772/5350/147</td>
+<td style="text-align: left;">28/635</td>
+<td style="text-align: left;">141/6926</td>
+<td style="text-align: right;">0.0000624</td>
+<td style="text-align: right;">0.0021692</td>
+<td style="text-align: right;">0.0018748</td>
+<td style="text-align: left;">1910/154/10398/2977/196883/148/5581/477/779/5592/91807/5140/4881/5138/108/10242/114/185/5593/153/8654/146/115/3764/23533/4772/5350/147</td>
 <td style="text-align: right;">28</td>
 </tr>
 <tr class="even">
@@ -973,11 +906,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Signal transduction</td>
 <td style="text-align: left;">hsa04020</td>
 <td style="text-align: left;">Calcium signaling pathway</td>
-<td style="text-align: left;">36/634</td>
-<td style="text-align: left;">203/6908</td>
-<td style="text-align: right;">0.0000760</td>
-<td style="text-align: right;">0.0023791</td>
-<td style="text-align: right;">0.0020563</td>
+<td style="text-align: left;">36/635</td>
+<td style="text-align: left;">203/6926</td>
+<td style="text-align: right;">0.0000745</td>
+<td style="text-align: right;">0.0023306</td>
+<td style="text-align: right;">0.0020143</td>
 <td style="text-align: left;">1910/7134/154/845/196883/1129/2255/2277/148/779/5153/8817/91807/22953/5155/2247/108/114/2324/185/153/3791/146/115/51196/6262/3082/4772/1128/2264/4915/5350/5137/2066/4843/147</td>
 <td style="text-align: right;">36</td>
 </tr>
@@ -987,11 +920,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Development and regeneration</td>
 <td style="text-align: left;">hsa04380</td>
 <td style="text-align: left;">Osteoclast differentiation</td>
-<td style="text-align: left;">26/634</td>
-<td style="text-align: left;">131/6908</td>
-<td style="text-align: right;">0.0001163</td>
-<td style="text-align: right;">0.0033098</td>
-<td style="text-align: right;">0.0028606</td>
+<td style="text-align: left;">26/635</td>
+<td style="text-align: left;">131/6926</td>
+<td style="text-align: right;">0.0001144</td>
+<td style="text-align: right;">0.0032557</td>
+<td style="text-align: right;">0.0028139</td>
 <td style="text-align: left;">7048/126014/10326/9846/54/6688/4286/3552/7042/4688/2353/11025/102725035/107987425/107987462/11027/2354/695/4772/3553/3725/3727/5295/3726/5468/79168</td>
 <td style="text-align: right;">26</td>
 </tr>
@@ -1001,11 +934,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Endocrine system</td>
 <td style="text-align: left;">hsa04923</td>
 <td style="text-align: left;">Regulation of lipolysis in adipocytes</td>
-<td style="text-align: left;">13/634</td>
-<td style="text-align: left;">46/6908</td>
-<td style="text-align: right;">0.0001702</td>
-<td style="text-align: right;">0.0044382</td>
-<td style="text-align: right;">0.0038360</td>
+<td style="text-align: left;">13/635</td>
+<td style="text-align: left;">46/6926</td>
+<td style="text-align: right;">0.0001684</td>
+<td style="text-align: right;">0.0043932</td>
+<td style="text-align: right;">0.0037970</td>
 <td style="text-align: left;">2167/154/196883/5592/5140/4881/108/114/5593/153/115/11343/5295</td>
 <td style="text-align: right;">13</td>
 </tr>
@@ -1015,11 +948,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Digestive system</td>
 <td style="text-align: left;">hsa04970</td>
 <td style="text-align: left;">Salivary secretion</td>
-<td style="text-align: left;">16/634</td>
-<td style="text-align: left;">69/6908</td>
-<td style="text-align: right;">0.0003930</td>
-<td style="text-align: right;">0.0094613</td>
-<td style="text-align: right;">0.0081774</td>
+<td style="text-align: left;">16/635</td>
+<td style="text-align: left;">69/6926</td>
+<td style="text-align: right;">0.0003885</td>
+<td style="text-align: right;">0.0093543</td>
+<td style="text-align: right;">0.0080849</td>
 <td style="text-align: left;">154/2977/196883/148/477/5592/108/114/683/5593/153/820/146/115/1473/147</td>
 <td style="text-align: right;">16</td>
 </tr>
@@ -1029,11 +962,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Circulatory system</td>
 <td style="text-align: left;">hsa04261</td>
 <td style="text-align: left;">Adrenergic signaling in cardiomyocytes</td>
-<td style="text-align: left;">25/634</td>
-<td style="text-align: left;">135/6908</td>
-<td style="text-align: right;">0.0004791</td>
-<td style="text-align: right;">0.0101699</td>
-<td style="text-align: right;">0.0087899</td>
+<td style="text-align: left;">25/635</td>
+<td style="text-align: left;">135/6926</td>
+<td style="text-align: right;">0.0004720</td>
+<td style="text-align: right;">0.0100425</td>
+<td style="text-align: right;">0.0086797</td>
 <td style="text-align: left;">7134/154/196883/148/477/779/9254/11069/6330/108/114/10411/185/153/146/115/23533/6262/3753/785/6332/5350/4634/55799/147</td>
 <td style="text-align: right;">25</td>
 </tr>
@@ -1043,11 +976,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Cardiovascular disease</td>
 <td style="text-align: left;">hsa05414</td>
 <td style="text-align: left;">Dilated cardiomyopathy</td>
-<td style="text-align: left;">19/634</td>
-<td style="text-align: left;">91/6908</td>
-<td style="text-align: right;">0.0004874</td>
-<td style="text-align: right;">0.0101699</td>
-<td style="text-align: right;">0.0087899</td>
+<td style="text-align: left;">19/635</td>
+<td style="text-align: left;">91/6926</td>
+<td style="text-align: right;">0.0004813</td>
+<td style="text-align: right;">0.0100425</td>
+<td style="text-align: right;">0.0086797</td>
 <td style="text-align: left;">7134/6445/196883/779/9254/6442/108/7042/1674/114/153/115/7273/8516/6262/785/5350/4634/55799</td>
 <td style="text-align: right;">19</td>
 </tr>
@@ -1057,11 +990,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Endocrine and metabolic disease</td>
 <td style="text-align: left;">hsa04933</td>
 <td style="text-align: left;">AGE-RAGE signaling pathway in diabetic complications</td>
-<td style="text-align: left;">20/634</td>
-<td style="text-align: left;">99/6908</td>
-<td style="text-align: right;">0.0005491</td>
-<td style="text-align: right;">0.0107415</td>
-<td style="text-align: right;">0.0092839</td>
+<td style="text-align: left;">20/635</td>
+<td style="text-align: left;">99/6926</td>
+<td style="text-align: right;">0.0005420</td>
+<td style="text-align: right;">0.0106032</td>
+<td style="text-align: right;">0.0091643</td>
 <td style="text-align: left;">177/7048/1288/2277/5581/7056/3569/1285/1906/1286/3552/7042/5590/185/1958/51196/4772/3553/3725/5295</td>
 <td style="text-align: right;">20</td>
 </tr>
@@ -1071,11 +1004,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Sensory system</td>
 <td style="text-align: left;">hsa04740</td>
 <td style="text-align: left;">Olfactory transduction</td>
-<td style="text-align: left;">10/634</td>
-<td style="text-align: left;">35/6908</td>
-<td style="text-align: right;">0.0008698</td>
-<td style="text-align: right;">0.0153375</td>
-<td style="text-align: right;">0.0132563</td>
+<td style="text-align: left;">10/635</td>
+<td style="text-align: left;">35/6926</td>
+<td style="text-align: right;">0.0008629</td>
+<td style="text-align: right;">0.0150651</td>
+<td style="text-align: right;">0.0130208</td>
 <td style="text-align: left;">408/123041/57101/5153/5592/5138/83988/5593/1262/5137</td>
 <td style="text-align: right;">10</td>
 </tr>
@@ -1085,12 +1018,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Signaling molecules and interaction</td>
 <td style="text-align: left;">hsa04060</td>
 <td style="text-align: left;">Cytokine-cytokine receptor interaction</td>
-<td style="text-align: left;">35/634</td>
-<td style="text-align: left;">221/6908</td>
-<td style="text-align: right;">0.0008820</td>
-<td style="text-align: right;">0.0153375</td>
-<td style="text-align: right;">0.0132563</td>
-<td style="text-align: left;">7048/53342/94/6369/1440/55504/3563/3590/3569/2920/51554/6368/3977/653/6358/3552/7042/659/90865/2921/5473/3953/8741/654/9173/1271/3553/650/2662/85480/3575/2690/53832/3577/3579</td>
+<td style="text-align: left;">35/635</td>
+<td style="text-align: left;">221/6926</td>
+<td style="text-align: right;">0.0008664</td>
+<td style="text-align: right;">0.0150651</td>
+<td style="text-align: right;">0.0130208</td>
+<td style="text-align: left;">7048/53342/94/6369/1440/55504/3563/3590/3569/2920/51554/6368/3977/6358/653/3552/7042/659/90865/2921/5473/3953/8741/654/9173/1271/3553/650/2662/85480/3575/2690/53832/3577/3579</td>
 <td style="text-align: right;">35</td>
 </tr>
 <tr class="odd">
@@ -1099,11 +1032,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Signaling molecules and interaction</td>
 <td style="text-align: left;">hsa04514</td>
 <td style="text-align: left;">Cell adhesion molecules</td>
-<td style="text-align: left;">25/634</td>
-<td style="text-align: left;">143/6908</td>
-<td style="text-align: right;">0.0011503</td>
-<td style="text-align: right;">0.0189493</td>
-<td style="text-align: right;">0.0163779</td>
+<td style="text-align: left;">25/635</td>
+<td style="text-align: left;">143/6926</td>
+<td style="text-align: right;">0.0011339</td>
+<td style="text-align: right;">0.0186796</td>
+<td style="text-align: right;">0.0161448</td>
 <td style="text-align: left;">23705/5175/1003/58494/6403/51208/64115/7122/6693/947/90952/5797/94030/3133/23114/83700/6383/6404/84631/8516/3683/22865/3384/4099/257194</td>
 <td style="text-align: right;">25</td>
 </tr>
@@ -1113,11 +1046,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Endocrine system</td>
 <td style="text-align: left;">hsa04926</td>
 <td style="text-align: left;">Relaxin signaling pathway</td>
-<td style="text-align: left;">21/634</td>
-<td style="text-align: left;">116/6908</td>
-<td style="text-align: right;">0.0017827</td>
-<td style="text-align: right;">0.0278990</td>
-<td style="text-align: right;">0.0241131</td>
+<td style="text-align: left;">21/635</td>
+<td style="text-align: left;">116/6926</td>
+<td style="text-align: right;">0.0017605</td>
+<td style="text-align: right;">0.0275521</td>
+<td style="text-align: right;">0.0238133</td>
 <td style="text-align: left;">1910/7048/408/53358/196883/1288/2277/59350/1285/1906/1286/122042/108/114/5590/2353/115/3725/5295/2791/4843</td>
 <td style="text-align: right;">21</td>
 </tr>
@@ -1127,41 +1060,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Endocrine system</td>
 <td style="text-align: left;">hsa03320</td>
 <td style="text-align: left;">PPAR signaling pathway</td>
-<td style="text-align: left;">13/634</td>
-<td style="text-align: left;">60/6908</td>
-<td style="text-align: right;">0.0026028</td>
-<td style="text-align: right;">0.0370301</td>
-<td style="text-align: right;">0.0320052</td>
+<td style="text-align: left;">13/635</td>
+<td style="text-align: left;">60/6926</td>
+<td style="text-align: right;">0.0025795</td>
+<td style="text-align: right;">0.0384467</td>
+<td style="text-align: right;">0.0332295</td>
 <td style="text-align: left;">2167/33/948/4973/4023/10580/6258/1593/2180/2171/79966/5468/28965</td>
 <td style="text-align: right;">13</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">hsa05150</td>
-<td style="text-align: left;">Human Diseases</td>
-<td style="text-align: left;">Infectious disease: bacterial</td>
-<td style="text-align: left;">hsa05150</td>
-<td style="text-align: left;">Staphylococcus aureus infection</td>
-<td style="text-align: left;">13/634</td>
-<td style="text-align: left;">60/6908</td>
-<td style="text-align: right;">0.0026028</td>
-<td style="text-align: right;">0.0370301</td>
-<td style="text-align: right;">0.0320052</td>
-<td style="text-align: left;">5648/6403/2358/6404/820/728/3683/10747/2357/717/712/1675/713</td>
-<td style="text-align: right;">13</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">hsa04927</td>
 <td style="text-align: left;">Organismal Systems</td>
 <td style="text-align: left;">Endocrine system</td>
 <td style="text-align: left;">hsa04927</td>
 <td style="text-align: left;">Cortisol synthesis and secretion</td>
-<td style="text-align: left;">12/634</td>
-<td style="text-align: left;">54/6908</td>
-<td style="text-align: right;">0.0030081</td>
-<td style="text-align: right;">0.0409367</td>
-<td style="text-align: right;">0.0353817</td>
+<td style="text-align: left;">12/635</td>
+<td style="text-align: left;">54/6926</td>
+<td style="text-align: right;">0.0029828</td>
+<td style="text-align: right;">0.0409681</td>
+<td style="text-align: right;">0.0354088</td>
 <td style="text-align: left;">196883/779/3949/3739/108/114/185/1586/115/3777/8622/3164</td>
 <td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hsa05150</td>
+<td style="text-align: left;">Human Diseases</td>
+<td style="text-align: left;">Infectious disease: bacterial</td>
+<td style="text-align: left;">hsa05150</td>
+<td style="text-align: left;">Staphylococcus aureus infection</td>
+<td style="text-align: left;">13/635</td>
+<td style="text-align: left;">61/6926</td>
+<td style="text-align: right;">0.0030104</td>
+<td style="text-align: right;">0.0409681</td>
+<td style="text-align: right;">0.0354088</td>
+<td style="text-align: left;">5648/6403/2358/6404/820/728/3683/10747/2357/717/712/1675/713</td>
+<td style="text-align: right;">13</td>
 </tr>
 </tbody>
 </table>
@@ -1201,23 +1134,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>geneID和Count，富集到该通路中的基因名称和数目。</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_up</span> <span class="op">&lt;-</span> <span class="va">df_up</span><span class="op">[</span><span class="va">df_up</span><span class="op">$</span><span class="va">pvalue</span> <span class="op">&lt;</span> <span class="fl">0.05</span>, <span class="op">]</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_up</span> <span class="op">&lt;-</span> <span class="va">df_up</span><span class="op">[</span><span class="va">df_up</span><span class="op">$</span><span class="va">pvalue</span> <span class="op">&lt;</span> <span class="fl">0.05</span>, <span class="op">]</span></span>
 <span><span class="va">df_down</span> <span class="op">&lt;-</span> <span class="va">df_down</span><span class="op">[</span><span class="va">df_down</span><span class="op">$</span><span class="va">pvalue</span> <span class="op">&lt;</span> <span class="fl">0.05</span>, <span class="op">]</span></span>
 <span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">intersect</a></span><span class="op">(</span><span class="va">df_up</span><span class="op">$</span><span class="va">ID</span>,<span class="va">df_down</span><span class="op">$</span><span class="va">ID</span><span class="op">)</span></span>
 <span><span class="co">#&gt; character(0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_up</span><span class="op">$</span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df_up</span><span class="op">$</span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span><span class="va">df_down</span><span class="op">$</span><span class="va">group</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">up_down</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">df_up</span>,<span class="va">df_down</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">up_down</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">df_up</span>,<span class="va">df_down</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">up_down</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 1%">
 <col style="width: 6%">
@@ -1256,7 +1189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa04110</td>
 <td style="text-align: left;">Cell cycle</td>
 <td style="text-align: left;">56/763</td>
-<td style="text-align: left;">154/6908</td>
+<td style="text-align: left;">154/6926</td>
 <td style="text-align: right;">0.0000000</td>
 <td style="text-align: right;">0.0000000</td>
 <td style="text-align: right;">0.0000000</td>
@@ -1271,10 +1204,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa01230</td>
 <td style="text-align: left;">Biosynthesis of amino acids</td>
 <td style="text-align: left;">19/763</td>
-<td style="text-align: left;">64/6908</td>
-<td style="text-align: right;">0.0000370</td>
-<td style="text-align: right;">0.0047433</td>
-<td style="text-align: right;">0.0044399</td>
+<td style="text-align: left;">64/6926</td>
+<td style="text-align: right;">0.0000356</td>
+<td style="text-align: right;">0.0045716</td>
+<td style="text-align: right;">0.0042807</td>
 <td style="text-align: left;">5831/84706/5832/6472/29968/2597/5214/2023/3418/5091/1373/10993/7167/6888/226/3417/440/4143/384</td>
 <td style="text-align: right;">19</td>
 <td style="text-align: right;">1</td>
@@ -1286,10 +1219,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa01232</td>
 <td style="text-align: left;">Nucleotide metabolism</td>
 <td style="text-align: left;">22/763</td>
-<td style="text-align: left;">81/6908</td>
-<td style="text-align: right;">0.0000426</td>
-<td style="text-align: right;">0.0047433</td>
-<td style="text-align: right;">0.0044399</td>
+<td style="text-align: left;">81/6926</td>
+<td style="text-align: right;">0.0000409</td>
+<td style="text-align: right;">0.0045716</td>
+<td style="text-align: right;">0.0042807</td>
 <td style="text-align: left;">205/6241/978/7083/377841/7298/4830/7498/100/4907/124583/4833/122622/4831/272/3251/56953/1841/9615/7371/5167/954</td>
 <td style="text-align: right;">22</td>
 <td style="text-align: right;">1</td>
@@ -1301,10 +1234,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa05206</td>
 <td style="text-align: left;">MicroRNAs in cancer</td>
 <td style="text-align: left;">34/763</td>
-<td style="text-align: left;">155/6908</td>
-<td style="text-align: right;">0.0000579</td>
-<td style="text-align: right;">0.0048334</td>
-<td style="text-align: right;">0.0045242</td>
+<td style="text-align: left;">155/6926</td>
+<td style="text-align: right;">0.0000549</td>
+<td style="text-align: right;">0.0046001</td>
+<td style="text-align: right;">0.0043074</td>
 <td style="text-align: left;">898/113130/1591/995/1945/2146/5268/1944/1029/9493/8091/1870/5328/9134/7473/1789/1946/672/4318/993/6659/3065/1871/6464/7157/90427/6768/3845/3925/1869/54541/4193/6624/2065</td>
 <td style="text-align: right;">34</td>
 <td style="text-align: right;">1</td>
@@ -1316,11 +1249,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa00330</td>
 <td style="text-align: left;">Arginine and proline metabolism</td>
 <td style="text-align: left;">14/763</td>
-<td style="text-align: left;">45/6908</td>
-<td style="text-align: right;">0.0002244</td>
-<td style="text-align: right;">0.0126069</td>
-<td style="text-align: right;">0.0118003</td>
-<td style="text-align: left;">5831/79814/548596/5832/26/1159/283208/6723/54498/6611/2628/219/384/2593</td>
+<td style="text-align: left;">45/6926</td>
+<td style="text-align: right;">0.0002183</td>
+<td style="text-align: right;">0.0123365</td>
+<td style="text-align: right;">0.0115516</td>
+<td style="text-align: left;">5831/79814/1159/548596/5832/26/283208/6723/54498/6611/2628/219/384/2593</td>
 <td style="text-align: right;">14</td>
 <td style="text-align: right;">1</td>
 </tr>
@@ -1331,10 +1264,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">hsa03030</td>
 <td style="text-align: left;">DNA replication</td>
 <td style="text-align: left;">12/763</td>
-<td style="text-align: left;">35/6908</td>
-<td style="text-align: right;">0.0002265</td>
-<td style="text-align: right;">0.0126069</td>
-<td style="text-align: right;">0.0118003</td>
+<td style="text-align: left;">35/6926</td>
+<td style="text-align: right;">0.0002210</td>
+<td style="text-align: right;">0.0123365</td>
+<td style="text-align: right;">0.0115516</td>
 <td style="text-align: left;">1763/4171/4173/2237/5427/4175/5984/5558/10535/4176/5111/6119</td>
 <td style="text-align: right;">12</td>
 <td style="text-align: right;">1</td>
@@ -1344,27 +1277,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="水平条图" class="level3" data-number="15.2.1"><h3 data-number="15.2.1" class="anchored" data-anchor-id="水平条图">
-<span class="header-section-number">15.2.1</span> 水平条图</h3>
+<section id="水平条图" class="level3" data-number="8.3.1"><h3 data-number="8.3.1" class="anchored" data-anchor-id="水平条图">
+<span class="header-section-number">8.3.1</span> 水平条图</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span><span class="va">kegg_up</span>, showCategory<span class="op">=</span><span class="fl">20</span>, xlab<span class="op">=</span><span class="st">"-log10(pvalue)"</span>, ylab<span class="op">=</span><span class="st">"Pathways"</span><span class="op">)</span> <span class="op">+</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span><span class="va">kegg_up</span>, showCategory<span class="op">=</span><span class="fl">20</span>, xlab<span class="op">=</span><span class="st">"-log10(pvalue)"</span>, ylab<span class="op">=</span><span class="st">"Pathways"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="EnrichmentAnalysis_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="EnrichmentAnalysis_files/figure-html/unnamed-chunk-10-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/enrichplot/man/dotplot.html">dotplot</a></span><span class="op">(</span><span class="va">kegg_up</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/enrichplot/man/dotplot.html">dotplot</a></span><span class="op">(</span><span class="va">kegg_up</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="EnrichmentAnalysis_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="EnrichmentAnalysis_files/figure-html/unnamed-chunk-10-2.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">up_down</span><span class="op">$</span><span class="va">Negative_log10pvalue</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">up_down</span><span class="op">$</span><span class="va">pvalue</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">up_down</span><span class="op">$</span><span class="va">Negative_log10pvalue</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">up_down</span><span class="op">$</span><span class="va">pvalue</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">up_down</span><span class="op">$</span><span class="va">Grouped_Negativelog10pvalue</span> <span class="op">&lt;-</span> <span class="va">up_down</span><span class="op">$</span><span class="va">Negative_log10pvalue</span> <span class="op">*</span> <span class="va">up_down</span><span class="op">$</span><span class="va">group</span></span>
 <span></span>
@@ -1384,15 +1317,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"KEGG Pathway Enrichment"</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="EnrichmentAnalysis_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="EnrichmentAnalysis_files/figure-html/unnamed-chunk-11-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="点图" class="level3" data-number="15.2.2"><h3 data-number="15.2.2" class="anchored" data-anchor-id="点图">
-<span class="header-section-number">15.2.2</span> 点图</h3>
+</section><section id="点图" class="level3" data-number="8.3.2"><h3 data-number="8.3.2" class="anchored" data-anchor-id="点图">
+<span class="header-section-number">8.3.2</span> 点图</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># GeneRatio 转化成数值型</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># GeneRatio 转化成数值型</span></span>
 <span><span class="va">GR</span> <span class="op">&lt;-</span> <span class="va">up_down</span><span class="op">$</span><span class="va">GeneRatio</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu">str_split</span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"/"</span>,simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">as_tibble</span><span class="op">(</span>.name_repair<span class="op">=</span><span class="st">"unique"</span><span class="op">)</span></span>
 <span></span>
@@ -1415,13 +1348,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    <span class="fu">labs</span><span class="op">(</span>color<span class="op">=</span><span class="st">"-log10 pvalue"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="EnrichmentAnalysis_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="EnrichmentAnalysis_files/figure-html/unnamed-chunk-12-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-</section></section><section id="go富集分析" class="level2" data-number="15.3"><h2 data-number="15.3" class="anchored" data-anchor-id="go富集分析">
-<span class="header-section-number">15.3</span> GO富集分析</h2>
+</section></section><section id="go富集分析" class="level2" data-number="8.4"><h2 data-number="8.4" class="anchored" data-anchor-id="go富集分析">
+<span class="header-section-number">8.4</span> GO富集分析</h2>
+<p>Gene Ontology 基因集</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th><strong>Package</strong></th>
+<th><strong>Organism</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>org.Hs.eg.db</td>
+<td>Human</td>
+</tr>
+<tr class="even">
+<td>org.Mm.eg.db</td>
+<td>Mouse</td>
+</tr>
+</tbody>
+</table>
 <p>对于输出的GO富集结果表格中的各列内容：</p>
 <p>ONTOLOGY，GO的BP（生物学过程）、CC（细胞组分）或MF（分子功能）；</p>
 <p>ID和Description，富集到的GO term及其描述；</p>
@@ -1429,7 +1379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>pvalue、p.adjust和qvalue，p值、校正后p值和q值；</p>
 <p>geneID和Count，富集到该GO term中的基因名称和数目。</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">GO_EA</span><span class="op">&lt;-</span> <span class="fu">clusterProfiler</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html">enrichGO</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">gene_all</span><span class="op">$</span><span class="va">ENTREZID</span>,</span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">GO_EA</span><span class="op">&lt;-</span> <span class="fu">clusterProfiler</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html">enrichGO</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">gene_all</span><span class="op">$</span><span class="va">ENTREZID</span>,</span>
 <span>                                  OrgDb <span class="op">=</span> <span class="st">"org.Hs.eg.db"</span>,</span>
 <span>                        </span>
 <span>                                  keyType <span class="op">=</span> <span class="st">"ENTREZID"</span>,</span>
@@ -1440,27 +1390,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="va">GO_EA_tbl</span> <span class="op">&lt;-</span>  <span class="fu">as_tibble</span><span class="op">(</span><span class="va">GO_EA</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="可视化" class="level3" data-number="15.3.1"><h3 data-number="15.3.1" class="anchored" data-anchor-id="可视化">
-<span class="header-section-number">15.3.1</span> 可视化</h3>
+<section id="可视化" class="level3" data-number="8.4.1"><h3 data-number="8.4.1" class="anchored" data-anchor-id="可视化">
+<span class="header-section-number">8.4.1</span> 可视化</h3>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#clusterProfiler 包里的一些默认作图方法，例如</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#clusterProfiler 包里的一些默认作图方法，例如</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span><span class="va">GO_EA</span><span class="op">)</span>  <span class="co">#富集柱形图</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="EnrichmentAnalysis_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="EnrichmentAnalysis_files/figure-html/unnamed-chunk-14-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/enrichplot/man/dotplot.html">dotplot</a></span><span class="op">(</span><span class="va">GO_EA</span><span class="op">)</span>  <span class="co">#富集气泡图</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/enrichplot/man/dotplot.html">dotplot</a></span><span class="op">(</span><span class="va">GO_EA</span><span class="op">)</span>  <span class="co">#富集气泡图</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="EnrichmentAnalysis_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="EnrichmentAnalysis_files/figure-html/unnamed-chunk-14-2.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="va">GO_EA_tbl</span><span class="op">[</span><span class="va">GO_EA_tbl</span><span class="op">$</span><span class="va">pvalue</span><span class="op">&lt;</span> <span class="fl">0.05</span>, <span class="op">]</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="va">GO_EA_tbl</span><span class="op">[</span><span class="va">GO_EA_tbl</span><span class="op">$</span><span class="va">pvalue</span><span class="op">&lt;</span> <span class="fl">0.05</span>, <span class="op">]</span></span>
 <span><span class="va">dat2</span><span class="op">$</span><span class="va">Negative_log10pvalue</span> <span class="op">&lt;-</span>  <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">dat2</span><span class="op">$</span><span class="va">pvalue</span><span class="op">)</span></span>
 <span><span class="va">dat2</span> <span class="op">=</span> <span class="va">dat2</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span> <span class="va">dat2</span><span class="op">$</span><span class="va">Negative_log10pvalue</span>, decreasing <span class="op">=</span> <span class="cn">F</span> <span class="op">)</span>, <span class="op">]</span></span>
 <span></span>
@@ -1482,26 +1432,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    <span class="fu">ggtitle</span><span class="op">(</span> <span class="st">"GO Pathway Enrichment"</span> <span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="EnrichmentAnalysis_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="EnrichmentAnalysis_files/figure-html/unnamed-chunk-15-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
-</div>
-</section></section><section id="基因集富集分析-gsea" class="level2" data-number="15.4"><h2 data-number="15.4" class="anchored" data-anchor-id="基因集富集分析-gsea">
-<span class="header-section-number">15.4</span> 基因集富集分析 GSEA</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="https://img-blog.csdnimg.cn/20181105104509344.gif" class="img-fluid figure-img"></p>
-<figcaption>GSEA</figcaption></figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="data/GSEA.gif" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
 </div>
 
 
 <!-- -->
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1536,18 +1476,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1579,7 +1508,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
   const viewSource = window.document.getElementById('quarto-view-source') ||
                      window.document.getElementById('quarto-code-tools-source');
   if (viewSource) {
@@ -1638,7 +1589,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -1962,313 +1913,327 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./DEGs_Analysis.html" class="pagination-link" aria-label="差异表达基因分析">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">差异表达基因分析</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./PseudotimeAnalysis.html" class="pagination-link" aria-label="伪时序分析">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">伪时序分析</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">伪时序分析</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb21" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 富集分析</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="in">```{r include=FALSE}</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="in">conflicts_prefer(GenomicRanges::setdiff)</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>**基因本体论 （Gene Ontology，GO） 或京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）**。[**clusterProfiler**](https://yulab-smu.top/biomedical-knowledge-mining-book/){style="color:red"}</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install('clusterProfiler')</span></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install("org.Hs.eg.db")</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>DEG <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/resOrdered.csv"</span>)</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span>  <span class="fu">na.omit</span>(DEG) </span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>对于有参考基因组物种的分析，可以在相关软件包中直接加载该物种的背景基因集。对于常见的模式物种，例如<span class="in">`BiocManager::install("org.Hs.eg.db")`</span> ，安装人类hg19的注释包 <span class="in">`BiocManager::install("org.Mm.eg.db")`</span> ，安装小鼠的注释包</span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## 基因注释</span></span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>deg_df <span class="ot">&lt;-</span> x[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">7</span>)]</span>
-<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(deg_df)</span>
-<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>deg_df<span class="sc">$</span>expression <span class="ot">&lt;-</span> <span class="fu">factor</span>( </span>
-<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ifelse</span>( deg_df<span class="sc">$</span>padj<span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="sc">&amp;</span> <span class="fu">abs</span>(deg_df<span class="sc">$</span>log2FoldChange) <span class="sc">&gt;=</span> <span class="dv">1</span>,</span>
-<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>            <span class="fu">if_else</span>( deg_df<span class="sc">$</span>log2FoldChange <span class="sc">&gt;=</span> <span class="dv">1</span> , <span class="st">'up'</span>, <span class="st">'down'</span> ),</span>
-<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>            <span class="st">'NS'</span>),</span>
-<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"up"</span>,<span class="st">"down"</span>,<span class="st">"NS"</span>))</span>
-<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(deg_df<span class="sc">$</span>expression)</span>
-<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>gtf_v22_transcripts <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/gencode.v22.annotation.gene.probeMap"</span>)</span>
-<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a><span class="co"># 之前差异分析可以保留ENSEMBL标识符  </span></span>
-<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>deg_df <span class="ot">&lt;-</span> deg_df <span class="sc">|&gt;</span> </span>
-<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a> <span class="fu">inner_join</span>(gtf_v22_transcripts, <span class="at">by =</span> <span class="fu">c</span>( <span class="st">"gene"</span><span class="ot">=</span> <span class="st">"gene"</span>))</span>
-<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a><span class="co"># 移除ENSEMBL版本号</span></span>
-<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>deg_df<span class="sc">$</span>ENSEMBL <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(deg_df<span class="sc">$</span>id, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">15</span>)</span>
-<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb21" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">  cache: true</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># 富集分析</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 基因集富集分析 GSEA</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>基因集表示基因集中基因的一般共享生物属性的先验知识。</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/GSEA.gif)</span>{fig-align="center"}</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="fu">### over-representation analysis (ORA)</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>**基因本体论 （Gene Ontology，GO） 基因集**</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>**京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）基因集**</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install('clusterProfiler')</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install("org.Hs.eg.db")</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>DEG <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/DEGs_Analysis/resOrdered.csv"</span>)</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span>  <span class="fu">na.omit</span>(DEG) </span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>对于有参考基因组物种的分析，可以在相关软件包中直接加载该物种的背景基因集。对于常见的模式物种，例如<span class="in">`BiocManager::install("org.Hs.eg.db")`</span> ，安装人类hg19的注释包 <span class="in">`BiocManager::install("org.Mm.eg.db")`</span> ，安装小鼠的注释包</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## 基因注释</span></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>deg_df <span class="ot">&lt;-</span> x[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">7</span>)]</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(deg_df)</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>deg_df<span class="sc">$</span>expression <span class="ot">&lt;-</span> <span class="fu">factor</span>( </span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ifelse</span>( deg_df<span class="sc">$</span>padj<span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="sc">&amp;</span> <span class="fu">abs</span>(deg_df<span class="sc">$</span>log2FoldChange) <span class="sc">&gt;=</span> <span class="dv">1</span>,</span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>            <span class="fu">if_else</span>( deg_df<span class="sc">$</span>log2FoldChange <span class="sc">&gt;=</span> <span class="dv">1</span> , <span class="st">'up'</span>, <span class="st">'down'</span> ),</span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>            <span class="st">'NS'</span>),</span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"up"</span>,<span class="st">"down"</span>,<span class="st">"NS"</span>))</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(deg_df<span class="sc">$</span>expression)</span>
 <span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>R 语言中 <span class="in">`AnnotationDbi`</span> 包提供的一个函数名<span class="in">`bitr()`</span> 代表 "Biological Identifier Translation"，即生物学标识符转换。这个函数用于在不同的基因标识符之间进行转换，例如从基因的 Ensembl ID 转换为 **Entrez ID**（特定基因产物）)、基因符号（**symbol**）或基因名称（**gene name**）。</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>gtf_v22_transcripts <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/DEGs_Analysis/gencode.v22.annotation.gene.probeMap"</span>)</span>
 <span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>Entrez是National Center for Biotechnology Information (NCBI) 提供的一个综合性生物信息数据库查询系统。它允许用户搜索和检索包括基因、蛋白质、核酸序列、3D蛋白质结构、基因表达数据、基因组数据、遗传多态性、生物项目、生物文献等各种生物医学信息。Entrez Gene数据库中的基因ID是唯一的数字标识符，用于在NCBI的Entrez系统内标识特定的基因。</span>
-<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(IRanges<span class="sc">::</span>setdiff)</span>
-<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(clusterProfiler)</span>
-<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span>
-<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a>AnnotationDbi<span class="sc">::</span><span class="fu">keytypes</span>(org.Hs.eg.db)</span>
-<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">keys</span>(org.Hs.eg.db, <span class="st">"ENSEMBL"</span>))</span>
-<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">keys</span>(org.Hs.eg.db, <span class="st">"ENTREZID"</span>))</span>
-<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">keys</span>(org.Hs.eg.db, <span class="st">"SYMBOL"</span>)) <span class="co">#基因名称缩写</span></span>
-<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">keys</span>(org.Hs.eg.db, <span class="st">"GENENAME"</span>)) <span class="co"># 基因名称全称</span></span>
-<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>valid_ensembl <span class="ot">&lt;-</span> deg_df<span class="sc">$</span>ENSEMBL <span class="sc">%in%</span> <span class="fu">keys</span>(org.Hs.eg.db, <span class="st">"ENSEMBL"</span>)  </span>
-<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(valid_ensembl)</span>
-<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a>valid_symbol <span class="ot">&lt;-</span> deg_df<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">keys</span>(org.Hs.eg.db, <span class="st">"SYMBOL"</span>)  </span>
-<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(valid_symbol)</span>
-<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a>deg_df_filtered <span class="ot">&lt;-</span> deg_df[valid_ensembl, ]  </span>
-<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-72"><a href="#cb21-72" aria-hidden="true" tabindex="-1"></a><span class="co"># Biological Identifier Translation</span></span>
-<span id="cb21-73"><a href="#cb21-73" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">bitr</span>(</span>
-<span id="cb21-74"><a href="#cb21-74" aria-hidden="true" tabindex="-1"></a> <span class="at">geneID=</span> deg_df_filtered<span class="sc">$</span>ENSEMBL,</span>
-<span id="cb21-75"><a href="#cb21-75" aria-hidden="true" tabindex="-1"></a> <span class="at">fromType =</span> <span class="st">"ENSEMBL"</span>, </span>
-<span id="cb21-76"><a href="#cb21-76" aria-hidden="true" tabindex="-1"></a> <span class="at">toType =</span> <span class="fu">c</span>( <span class="st">"ENTREZID"</span>,<span class="st">"SYMBOL"</span>,<span class="st">"GENENAME"</span> ), </span>
-<span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a> <span class="at">OrgDb =</span> org.Hs.eg.db )</span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a><span class="co"># 之前差异分析可以保留ENSEMBL标识符  </span></span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a>deg_df <span class="ot">&lt;-</span> deg_df <span class="sc">|&gt;</span> </span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a> <span class="fu">inner_join</span>(gtf_v22_transcripts, <span class="at">by =</span> <span class="fu">c</span>( <span class="st">"gene"</span><span class="ot">=</span> <span class="st">"gene"</span>))</span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a><span class="co"># 移除ENSEMBL版本号</span></span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a>deg_df<span class="sc">$</span>ENSEMBL <span class="ot">&lt;-</span> <span class="fu">str_sub</span>(deg_df<span class="sc">$</span>id, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">15</span>)</span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a>R 语言中 <span class="in">`AnnotationDbi`</span> 包提供的一个函数名<span class="in">`bitr()`</span> 代表 "Biological Identifier Translation"，即生物学标识符转换。这个函数用于在不同的基因标识符之间进行转换，例如从基因的 Ensembl ID 转换为 **Entrez ID**（特定基因产物）)、基因符号（**symbol**）或基因名称（**gene name**）。</span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a>Entrez是National Center for Biotechnology Information (NCBI) 提供的一个综合性生物信息数据库查询系统。它允许用户搜索和检索包括基因、蛋白质、核酸序列、3D蛋白质结构、基因表达数据、基因组数据、遗传多态性、生物项目、生物文献等各种生物医学信息。Entrez Gene数据库中的基因ID是唯一的数字标识符，用于在NCBI的Entrez系统内标识特定的基因。</span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**clusterProfiler**</span><span class="co">](https://yulab-smu.top/biomedical-knowledge-mining-book/)</span>{style="color:red"}</span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(clusterProfiler)</span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(GenomicRanges<span class="sc">::</span>setdiff)</span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span>
+<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a>AnnotationDbi<span class="sc">::</span><span class="fu">keytypes</span>(org.Hs.eg.db)</span>
+<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">keys</span>(org.Hs.eg.db, <span class="st">"ENSEMBL"</span>))</span>
+<span id="cb21-72"><a href="#cb21-72" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">keys</span>(org.Hs.eg.db, <span class="st">"ENTREZID"</span>))</span>
+<span id="cb21-73"><a href="#cb21-73" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">keys</span>(org.Hs.eg.db, <span class="st">"SYMBOL"</span>)) <span class="co">#基因名称缩写</span></span>
+<span id="cb21-74"><a href="#cb21-74" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">keys</span>(org.Hs.eg.db, <span class="st">"GENENAME"</span>)) <span class="co"># 基因名称全称</span></span>
+<span id="cb21-75"><a href="#cb21-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-76"><a href="#cb21-76" aria-hidden="true" tabindex="-1"></a>valid_ensembl <span class="ot">&lt;-</span> deg_df<span class="sc">$</span>ENSEMBL <span class="sc">%in%</span> <span class="fu">keys</span>(org.Hs.eg.db, <span class="st">"ENSEMBL"</span>)  </span>
+<span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(valid_ensembl)</span>
 <span id="cb21-78"><a href="#cb21-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-79"><a href="#cb21-79" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span>
-<span id="cb21-80"><a href="#cb21-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-81"><a href="#cb21-81" aria-hidden="true" tabindex="-1"></a>deg_df <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(deg_df_filtered, df, <span class="at">by=</span><span class="st">'ENSEMBL'</span> )</span>
+<span id="cb21-79"><a href="#cb21-79" aria-hidden="true" tabindex="-1"></a>valid_symbol <span class="ot">&lt;-</span> deg_df<span class="sc">$</span>gene <span class="sc">%in%</span> <span class="fu">keys</span>(org.Hs.eg.db, <span class="st">"SYMBOL"</span>)  </span>
+<span id="cb21-80"><a href="#cb21-80" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(valid_symbol)</span>
+<span id="cb21-81"><a href="#cb21-81" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-82"><a href="#cb21-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-83"><a href="#cb21-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-84"><a href="#cb21-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-85"><a href="#cb21-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-86"><a href="#cb21-86" aria-hidden="true" tabindex="-1"></a>进行上调和下调基因的分离是为了更精确地识别与特定生物学过程或疾病状态相关的途径。例如，某些途径可能在疾病发生时被激活，导致相关基因上调，而其他途径可能被抑制，导致相关基因下调。</span>
-<span id="cb21-87"><a href="#cb21-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-90"><a href="#cb21-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-91"><a href="#cb21-91" aria-hidden="true" tabindex="-1"></a>gene_up <span class="ot">&lt;-</span> deg_df[ deg_df<span class="sc">$</span>expression <span class="sc">==</span> <span class="st">'up'</span>, <span class="st">"ENTREZID"</span> ] </span>
-<span id="cb21-92"><a href="#cb21-92" aria-hidden="true" tabindex="-1"></a>gene_down <span class="ot">&lt;-</span> deg_df[ deg_df<span class="sc">$</span>expression <span class="sc">==</span> <span class="st">'down'</span>, <span class="st">"ENTREZID"</span>]</span>
+<span id="cb21-83"><a href="#cb21-83" aria-hidden="true" tabindex="-1"></a>deg_df_filtered <span class="ot">&lt;-</span> deg_df[valid_ensembl, ]  </span>
+<span id="cb21-84"><a href="#cb21-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-85"><a href="#cb21-85" aria-hidden="true" tabindex="-1"></a><span class="co"># Biological Identifier Translation</span></span>
+<span id="cb21-86"><a href="#cb21-86" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">bitr</span>(</span>
+<span id="cb21-87"><a href="#cb21-87" aria-hidden="true" tabindex="-1"></a> <span class="at">geneID=</span> deg_df_filtered<span class="sc">$</span>ENSEMBL,</span>
+<span id="cb21-88"><a href="#cb21-88" aria-hidden="true" tabindex="-1"></a> <span class="at">fromType =</span> <span class="st">"ENSEMBL"</span>, </span>
+<span id="cb21-89"><a href="#cb21-89" aria-hidden="true" tabindex="-1"></a> <span class="at">toType =</span> <span class="fu">c</span>( <span class="st">"ENTREZID"</span>,<span class="st">"SYMBOL"</span>,<span class="st">"GENENAME"</span> ), </span>
+<span id="cb21-90"><a href="#cb21-90" aria-hidden="true" tabindex="-1"></a> <span class="at">OrgDb =</span> org.Hs.eg.db )</span>
+<span id="cb21-91"><a href="#cb21-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-92"><a href="#cb21-92" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span>
 <span id="cb21-93"><a href="#cb21-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-94"><a href="#cb21-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-95"><a href="#cb21-95" aria-hidden="true" tabindex="-1"></a>gene_all <span class="ot">&lt;-</span> deg_df[ ,<span class="st">"ENTREZID"</span>]</span>
+<span id="cb21-94"><a href="#cb21-94" aria-hidden="true" tabindex="-1"></a>deg_df <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(deg_df_filtered, df, <span class="at">by=</span><span class="st">'ENSEMBL'</span> )</span>
+<span id="cb21-95"><a href="#cb21-95" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-96"><a href="#cb21-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-97"><a href="#cb21-97" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
+<span id="cb21-97"><a href="#cb21-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb21-98"><a href="#cb21-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-99"><a href="#cb21-99" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用biomaRt映射基因ID</span></span>
-<span id="cb21-100"><a href="#cb21-100" aria-hidden="true" tabindex="-1"></a>gene_info <span class="ot">&lt;-</span> <span class="fu">getBM</span>(<span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">"hgnc_symbol"</span>, <span class="st">"entrezgene_id"</span>), </span>
-<span id="cb21-101"><a href="#cb21-101" aria-hidden="true" tabindex="-1"></a>                     <span class="at">filters =</span> <span class="st">"entrezgene_id"</span>, </span>
-<span id="cb21-102"><a href="#cb21-102" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values =</span> gene_up<span class="sc">$</span>ENTREZID, </span>
-<span id="cb21-103"><a href="#cb21-103" aria-hidden="true" tabindex="-1"></a>                     <span class="at">mart =</span> <span class="fu">useMart</span>(<span class="st">"ensembl"</span>, <span class="at">dataset =</span> <span class="st">"hsapiens_gene_ensembl"</span>))</span>
-<span id="cb21-104"><a href="#cb21-104" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-105"><a href="#cb21-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-106"><a href="#cb21-106" aria-hidden="true" tabindex="-1"></a><span class="fu">## KEGG 通路富集</span></span>
+<span id="cb21-99"><a href="#cb21-99" aria-hidden="true" tabindex="-1"></a>进行上调和下调基因的分离是为了更精确地识别与特定生物学过程或疾病状态相关的途径。例如，某些途径可能在疾病发生时被激活，导致相关基因上调，而其他途径可能被抑制，导致相关基因下调。</span>
+<span id="cb21-100"><a href="#cb21-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-103"><a href="#cb21-103" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-104"><a href="#cb21-104" aria-hidden="true" tabindex="-1"></a>gene_up <span class="ot">&lt;-</span> deg_df[ deg_df<span class="sc">$</span>expression <span class="sc">==</span> <span class="st">'up'</span>, <span class="st">"ENTREZID"</span> ] </span>
+<span id="cb21-105"><a href="#cb21-105" aria-hidden="true" tabindex="-1"></a>gene_down <span class="ot">&lt;-</span> deg_df[ deg_df<span class="sc">$</span>expression <span class="sc">==</span> <span class="st">'down'</span>, <span class="st">"ENTREZID"</span>]</span>
+<span id="cb21-106"><a href="#cb21-106" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-107"><a href="#cb21-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-110"><a href="#cb21-110" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-111"><a href="#cb21-111" aria-hidden="true" tabindex="-1"></a>kegg_up <span class="ot">&lt;-</span> clusterProfiler<span class="sc">::</span><span class="fu">enrichKEGG</span>(<span class="at">gene =</span> gene_up<span class="sc">$</span>ENTREZID ,<span class="co"># entrez gene id</span></span>
-<span id="cb21-112"><a href="#cb21-112" aria-hidden="true" tabindex="-1"></a>                    <span class="at">organism=</span>  <span class="st">'hsa'</span>,</span>
-<span id="cb21-113"><a href="#cb21-113" aria-hidden="true" tabindex="-1"></a>                    <span class="at">keyType =</span> <span class="st">"kegg"</span>,</span>
-<span id="cb21-114"><a href="#cb21-114" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pvalueCutoff  =</span>  <span class="fl">0.05</span>,</span>
-<span id="cb21-115"><a href="#cb21-115" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pAdjustMethod =</span> <span class="st">"BH"</span>,  <span class="co"># FDR多重假设检验校正 qvalue</span></span>
-<span id="cb21-116"><a href="#cb21-116" aria-hidden="true" tabindex="-1"></a>                    <span class="at">universe=</span>  gene_all<span class="sc">$</span>ENTREZID,</span>
-<span id="cb21-117"><a href="#cb21-117" aria-hidden="true" tabindex="-1"></a>                    <span class="at">minGSSize =</span> <span class="dv">10</span>,</span>
-<span id="cb21-118"><a href="#cb21-118" aria-hidden="true" tabindex="-1"></a>                    <span class="at">maxGSSize =</span> <span class="dv">500</span>,</span>
-<span id="cb21-119"><a href="#cb21-119" aria-hidden="true" tabindex="-1"></a>                    <span class="at">qvalueCutoff  =</span>  <span class="fl">0.05</span> )</span>
-<span id="cb21-120"><a href="#cb21-120" aria-hidden="true" tabindex="-1"></a>kegg_down <span class="ot">&lt;-</span> clusterProfiler<span class="sc">::</span><span class="fu">enrichKEGG</span>(<span class="at">gene =</span> gene_down<span class="sc">$</span>ENTREZID ,</span>
-<span id="cb21-121"><a href="#cb21-121" aria-hidden="true" tabindex="-1"></a>                    <span class="at">organism=</span>  <span class="st">'hsa'</span>,</span>
-<span id="cb21-122"><a href="#cb21-122" aria-hidden="true" tabindex="-1"></a>                    <span class="at">keyType =</span> <span class="st">"kegg"</span>,</span>
-<span id="cb21-123"><a href="#cb21-123" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pvalueCutoff  =</span>  <span class="fl">0.05</span>,</span>
-<span id="cb21-124"><a href="#cb21-124" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pAdjustMethod =</span> <span class="st">"BH"</span>, </span>
-<span id="cb21-125"><a href="#cb21-125" aria-hidden="true" tabindex="-1"></a>                    <span class="at">universe=</span>  gene_all<span class="sc">$</span>ENTREZID,</span>
-<span id="cb21-126"><a href="#cb21-126" aria-hidden="true" tabindex="-1"></a>                    <span class="at">qvalueCutoff  =</span>  <span class="fl">0.05</span> )</span>
-<span id="cb21-127"><a href="#cb21-127" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-128"><a href="#cb21-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-131"><a href="#cb21-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-132"><a href="#cb21-132" aria-hidden="true" tabindex="-1"></a>df_up<span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(kegg_up)</span>
-<span id="cb21-133"><a href="#cb21-133" aria-hidden="true" tabindex="-1"></a>df_down<span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(kegg_down)</span>
-<span id="cb21-134"><a href="#cb21-134" aria-hidden="true" tabindex="-1"></a>df_up</span>
-<span id="cb21-135"><a href="#cb21-135" aria-hidden="true" tabindex="-1"></a>df_down</span>
-<span id="cb21-136"><a href="#cb21-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-137"><a href="#cb21-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-138"><a href="#cb21-138" aria-hidden="true" tabindex="-1"></a>对于各列内容：</span>
-<span id="cb21-139"><a href="#cb21-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-140"><a href="#cb21-140" aria-hidden="true" tabindex="-1"></a>ID和Description，富集到的通路和功能描述；</span>
+<span id="cb21-108"><a href="#cb21-108" aria-hidden="true" tabindex="-1"></a>gene_all <span class="ot">&lt;-</span> deg_df[ ,<span class="st">"ENTREZID"</span>]</span>
+<span id="cb21-109"><a href="#cb21-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-110"><a href="#cb21-110" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
+<span id="cb21-111"><a href="#cb21-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-112"><a href="#cb21-112" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用biomaRt映射基因ID</span></span>
+<span id="cb21-113"><a href="#cb21-113" aria-hidden="true" tabindex="-1"></a>gene_info <span class="ot">&lt;-</span> <span class="fu">getBM</span>(<span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">"hgnc_symbol"</span>, <span class="st">"entrezgene_id"</span>), </span>
+<span id="cb21-114"><a href="#cb21-114" aria-hidden="true" tabindex="-1"></a>                     <span class="at">filters =</span> <span class="st">"entrezgene_id"</span>, </span>
+<span id="cb21-115"><a href="#cb21-115" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values =</span> gene_up<span class="sc">$</span>ENTREZID, </span>
+<span id="cb21-116"><a href="#cb21-116" aria-hidden="true" tabindex="-1"></a>                     <span class="at">mart =</span> <span class="fu">useMart</span>(<span class="st">"ensembl"</span>, <span class="at">dataset =</span> <span class="st">"hsapiens_gene_ensembl"</span>))</span>
+<span id="cb21-117"><a href="#cb21-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-118"><a href="#cb21-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-119"><a href="#cb21-119" aria-hidden="true" tabindex="-1"></a><span class="fu">## KEGG 通路富集</span></span>
+<span id="cb21-120"><a href="#cb21-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-123"><a href="#cb21-123" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-124"><a href="#cb21-124" aria-hidden="true" tabindex="-1"></a>kegg_up <span class="ot">&lt;-</span> clusterProfiler<span class="sc">::</span><span class="fu">enrichKEGG</span>(<span class="at">gene =</span> gene_up<span class="sc">$</span>ENTREZID ,<span class="co"># entrez gene id</span></span>
+<span id="cb21-125"><a href="#cb21-125" aria-hidden="true" tabindex="-1"></a>                    <span class="at">organism=</span>  <span class="st">'hsa'</span>,</span>
+<span id="cb21-126"><a href="#cb21-126" aria-hidden="true" tabindex="-1"></a>                    <span class="at">keyType =</span> <span class="st">"kegg"</span>,</span>
+<span id="cb21-127"><a href="#cb21-127" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pvalueCutoff  =</span>  <span class="fl">0.05</span>,</span>
+<span id="cb21-128"><a href="#cb21-128" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pAdjustMethod =</span> <span class="st">"BH"</span>,  <span class="co"># FDR多重假设检验校正 qvalue</span></span>
+<span id="cb21-129"><a href="#cb21-129" aria-hidden="true" tabindex="-1"></a>                    <span class="at">universe=</span>  gene_all<span class="sc">$</span>ENTREZID,</span>
+<span id="cb21-130"><a href="#cb21-130" aria-hidden="true" tabindex="-1"></a>                    <span class="at">minGSSize =</span> <span class="dv">10</span>,</span>
+<span id="cb21-131"><a href="#cb21-131" aria-hidden="true" tabindex="-1"></a>                    <span class="at">maxGSSize =</span> <span class="dv">500</span>,</span>
+<span id="cb21-132"><a href="#cb21-132" aria-hidden="true" tabindex="-1"></a>                    <span class="at">qvalueCutoff  =</span>  <span class="fl">0.05</span> )</span>
+<span id="cb21-133"><a href="#cb21-133" aria-hidden="true" tabindex="-1"></a>kegg_down <span class="ot">&lt;-</span> clusterProfiler<span class="sc">::</span><span class="fu">enrichKEGG</span>(<span class="at">gene =</span> gene_down<span class="sc">$</span>ENTREZID ,</span>
+<span id="cb21-134"><a href="#cb21-134" aria-hidden="true" tabindex="-1"></a>                    <span class="at">organism=</span>  <span class="st">'hsa'</span>,</span>
+<span id="cb21-135"><a href="#cb21-135" aria-hidden="true" tabindex="-1"></a>                    <span class="at">keyType =</span> <span class="st">"kegg"</span>,</span>
+<span id="cb21-136"><a href="#cb21-136" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pvalueCutoff  =</span>  <span class="fl">0.05</span>,</span>
+<span id="cb21-137"><a href="#cb21-137" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pAdjustMethod =</span> <span class="st">"BH"</span>, </span>
+<span id="cb21-138"><a href="#cb21-138" aria-hidden="true" tabindex="-1"></a>                    <span class="at">universe=</span>  gene_all<span class="sc">$</span>ENTREZID,</span>
+<span id="cb21-139"><a href="#cb21-139" aria-hidden="true" tabindex="-1"></a>                    <span class="at">qvalueCutoff  =</span>  <span class="fl">0.05</span> )</span>
+<span id="cb21-140"><a href="#cb21-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb21-141"><a href="#cb21-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-142"><a href="#cb21-142" aria-hidden="true" tabindex="-1"></a>GeneRatio和BgRatio，分别为富集到该通路中的基因数目/给定基因的总数目，以及该通路中背景基因总数目/该物种所有已知的KEGG功能基因数目；</span>
-<span id="cb21-143"><a href="#cb21-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-144"><a href="#cb21-144" aria-hidden="true" tabindex="-1"></a>pvalue、p.adjust和qvalue，p值、校正后p值和q值信息；</span>
-<span id="cb21-145"><a href="#cb21-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-146"><a href="#cb21-146" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**p值（P-value）**：</span>
-<span id="cb21-147"><a href="#cb21-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-148"><a href="#cb21-148" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>p值是在一个假设检验中，当零假设（null hypothesis）为真时，观察到的统计量或更极端情况出现的概率。</span>
-<span id="cb21-149"><a href="#cb21-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-150"><a href="#cb21-150" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>一个低的p值（如小于0.05）通常表明统计学上的显著性，意味着结果不太可能仅仅是由随机因素引起的。</span>
-<span id="cb21-151"><a href="#cb21-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-152"><a href="#cb21-152" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>不太关心假阳性，而是更关注于发现尽可能多的显著性通路，原始的p值可能足够</span>
-<span id="cb21-153"><a href="#cb21-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-154"><a href="#cb21-154" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**校正后的p值（Adjusted P-value）** - **Benjamini-Hochberg (BH)方法**：</span>
-<span id="cb21-155"><a href="#cb21-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-156"><a href="#cb21-156" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>在进行多重检验时，为了控制第一类错误（错误地拒绝零假设）的总体率，需要对p值进行校正。BH方法是一种流行的校正方法，它通过控制假发现率（false discovery rate, FDR）来进行校正。</span>
-<span id="cb21-157"><a href="#cb21-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-158"><a href="#cb21-158" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>BH校正后的p值（padj）是基于原始p值按照一定规则调整后的值，用于评估在多重比较情况下的统计显著性。</span>
-<span id="cb21-159"><a href="#cb21-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-160"><a href="#cb21-160" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>平衡假阳性和假阴性的发现，可以使用BH方法的p.adjust值</span>
-<span id="cb21-161"><a href="#cb21-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-162"><a href="#cb21-162" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**q值（Q-value）**：</span>
-<span id="cb21-163"><a href="#cb21-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-164"><a href="#cb21-164" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>q值同样是用于评估多重检验中的统计显著性，它直接控制了假发现率。</span>
-<span id="cb21-165"><a href="#cb21-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-166"><a href="#cb21-166" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>q值定义为在最坏的情况下，所接受的假设中错误发现的比例。例如，q=0.05意味着在所有被认为是显著的发现中，最多有5%实际上是假阳性。</span>
-<span id="cb21-167"><a href="#cb21-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-168"><a href="#cb21-168" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>更保守地挑选显著性通路，以减少假阳性的可能性，可能会选择使用q值</span>
-<span id="cb21-169"><a href="#cb21-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-170"><a href="#cb21-170" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>R中使用"BY"表示q值校正</span>
-<span id="cb21-171"><a href="#cb21-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-172"><a href="#cb21-172" aria-hidden="true" tabindex="-1"></a>geneID和Count，富集到该通路中的基因名称和数目。</span>
-<span id="cb21-173"><a href="#cb21-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-176"><a href="#cb21-176" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-177"><a href="#cb21-177" aria-hidden="true" tabindex="-1"></a>df_up <span class="ot">&lt;-</span> df_up[df_up<span class="sc">$</span>pvalue <span class="sc">&lt;</span> <span class="fl">0.05</span>, ]</span>
-<span id="cb21-178"><a href="#cb21-178" aria-hidden="true" tabindex="-1"></a>df_down <span class="ot">&lt;-</span> df_down[df_down<span class="sc">$</span>pvalue <span class="sc">&lt;</span> <span class="fl">0.05</span>, ]</span>
-<span id="cb21-179"><a href="#cb21-179" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">intersect</span>(df_up<span class="sc">$</span>ID,df_down<span class="sc">$</span>ID)</span>
-<span id="cb21-180"><a href="#cb21-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-181"><a href="#cb21-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-184"><a href="#cb21-184" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-185"><a href="#cb21-185" aria-hidden="true" tabindex="-1"></a>df_up<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb21-186"><a href="#cb21-186" aria-hidden="true" tabindex="-1"></a>df_down<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb21-187"><a href="#cb21-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-188"><a href="#cb21-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-191"><a href="#cb21-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-192"><a href="#cb21-192" aria-hidden="true" tabindex="-1"></a>up_down <span class="ot">&lt;-</span> <span class="fu">rbind</span>(df_up,df_down)</span>
-<span id="cb21-193"><a href="#cb21-193" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(up_down)</span>
-<span id="cb21-194"><a href="#cb21-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-195"><a href="#cb21-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-196"><a href="#cb21-196" aria-hidden="true" tabindex="-1"></a><span class="fu">### 水平条图</span></span>
-<span id="cb21-197"><a href="#cb21-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-200"><a href="#cb21-200" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-201"><a href="#cb21-201" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(kegg_up, <span class="at">showCategory=</span><span class="dv">20</span>, <span class="at">xlab=</span><span class="st">"-log10(pvalue)"</span>, <span class="at">ylab=</span><span class="st">"Pathways"</span>) <span class="sc">+</span></span>
-<span id="cb21-202"><a href="#cb21-202" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb21-203"><a href="#cb21-203" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(kegg_up)</span>
-<span id="cb21-204"><a href="#cb21-204" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-205"><a href="#cb21-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-208"><a href="#cb21-208" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-209"><a href="#cb21-209" aria-hidden="true" tabindex="-1"></a>up_down<span class="sc">$</span>Negative_log10pvalue <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">log10</span>(up_down<span class="sc">$</span>pvalue)</span>
+<span id="cb21-144"><a href="#cb21-144" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-145"><a href="#cb21-145" aria-hidden="true" tabindex="-1"></a>df_up<span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(kegg_up)</span>
+<span id="cb21-146"><a href="#cb21-146" aria-hidden="true" tabindex="-1"></a>df_down<span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(kegg_down)</span>
+<span id="cb21-147"><a href="#cb21-147" aria-hidden="true" tabindex="-1"></a>df_up</span>
+<span id="cb21-148"><a href="#cb21-148" aria-hidden="true" tabindex="-1"></a>df_down</span>
+<span id="cb21-149"><a href="#cb21-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-150"><a href="#cb21-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-151"><a href="#cb21-151" aria-hidden="true" tabindex="-1"></a>对于各列内容：</span>
+<span id="cb21-152"><a href="#cb21-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-153"><a href="#cb21-153" aria-hidden="true" tabindex="-1"></a>ID和Description，富集到的通路和功能描述；</span>
+<span id="cb21-154"><a href="#cb21-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-155"><a href="#cb21-155" aria-hidden="true" tabindex="-1"></a>GeneRatio和BgRatio，分别为富集到该通路中的基因数目/给定基因的总数目，以及该通路中背景基因总数目/该物种所有已知的KEGG功能基因数目；</span>
+<span id="cb21-156"><a href="#cb21-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-157"><a href="#cb21-157" aria-hidden="true" tabindex="-1"></a>pvalue、p.adjust和qvalue，p值、校正后p值和q值信息；</span>
+<span id="cb21-158"><a href="#cb21-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-159"><a href="#cb21-159" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**p值（P-value）**：</span>
+<span id="cb21-160"><a href="#cb21-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-161"><a href="#cb21-161" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>p值是在一个假设检验中，当零假设（null hypothesis）为真时，观察到的统计量或更极端情况出现的概率。</span>
+<span id="cb21-162"><a href="#cb21-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-163"><a href="#cb21-163" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>一个低的p值（如小于0.05）通常表明统计学上的显著性，意味着结果不太可能仅仅是由随机因素引起的。</span>
+<span id="cb21-164"><a href="#cb21-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-165"><a href="#cb21-165" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>不太关心假阳性，而是更关注于发现尽可能多的显著性通路，原始的p值可能足够</span>
+<span id="cb21-166"><a href="#cb21-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-167"><a href="#cb21-167" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**校正后的p值（Adjusted P-value）** - **Benjamini-Hochberg (BH)方法**：</span>
+<span id="cb21-168"><a href="#cb21-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-169"><a href="#cb21-169" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>在进行多重检验时，为了控制第一类错误（错误地拒绝零假设）的总体率，需要对p值进行校正。BH方法是一种流行的校正方法，它通过控制假发现率（false discovery rate, FDR）来进行校正。</span>
+<span id="cb21-170"><a href="#cb21-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-171"><a href="#cb21-171" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>BH校正后的p值（padj）是基于原始p值按照一定规则调整后的值，用于评估在多重比较情况下的统计显著性。</span>
+<span id="cb21-172"><a href="#cb21-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-173"><a href="#cb21-173" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>平衡假阳性和假阴性的发现，可以使用BH方法的p.adjust值</span>
+<span id="cb21-174"><a href="#cb21-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-175"><a href="#cb21-175" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**q值（Q-value）**：</span>
+<span id="cb21-176"><a href="#cb21-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-177"><a href="#cb21-177" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>q值同样是用于评估多重检验中的统计显著性，它直接控制了假发现率。</span>
+<span id="cb21-178"><a href="#cb21-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-179"><a href="#cb21-179" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>q值定义为在最坏的情况下，所接受的假设中错误发现的比例。例如，q=0.05意味着在所有被认为是显著的发现中，最多有5%实际上是假阳性。</span>
+<span id="cb21-180"><a href="#cb21-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-181"><a href="#cb21-181" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>更保守地挑选显著性通路，以减少假阳性的可能性，可能会选择使用q值</span>
+<span id="cb21-182"><a href="#cb21-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-183"><a href="#cb21-183" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>R中使用"BY"表示q值校正</span>
+<span id="cb21-184"><a href="#cb21-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-185"><a href="#cb21-185" aria-hidden="true" tabindex="-1"></a>geneID和Count，富集到该通路中的基因名称和数目。</span>
+<span id="cb21-186"><a href="#cb21-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-189"><a href="#cb21-189" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-190"><a href="#cb21-190" aria-hidden="true" tabindex="-1"></a>df_up <span class="ot">&lt;-</span> df_up[df_up<span class="sc">$</span>pvalue <span class="sc">&lt;</span> <span class="fl">0.05</span>, ]</span>
+<span id="cb21-191"><a href="#cb21-191" aria-hidden="true" tabindex="-1"></a>df_down <span class="ot">&lt;-</span> df_down[df_down<span class="sc">$</span>pvalue <span class="sc">&lt;</span> <span class="fl">0.05</span>, ]</span>
+<span id="cb21-192"><a href="#cb21-192" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">intersect</span>(df_up<span class="sc">$</span>ID,df_down<span class="sc">$</span>ID)</span>
+<span id="cb21-193"><a href="#cb21-193" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-194"><a href="#cb21-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-197"><a href="#cb21-197" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-198"><a href="#cb21-198" aria-hidden="true" tabindex="-1"></a>df_up<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb21-199"><a href="#cb21-199" aria-hidden="true" tabindex="-1"></a>df_down<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb21-200"><a href="#cb21-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-201"><a href="#cb21-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-204"><a href="#cb21-204" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-205"><a href="#cb21-205" aria-hidden="true" tabindex="-1"></a>up_down <span class="ot">&lt;-</span> <span class="fu">rbind</span>(df_up,df_down)</span>
+<span id="cb21-206"><a href="#cb21-206" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(up_down)</span>
+<span id="cb21-207"><a href="#cb21-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-208"><a href="#cb21-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-209"><a href="#cb21-209" aria-hidden="true" tabindex="-1"></a><span class="fu">### 水平条图</span></span>
 <span id="cb21-210"><a href="#cb21-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-211"><a href="#cb21-211" aria-hidden="true" tabindex="-1"></a>up_down<span class="sc">$</span>Grouped_Negativelog10pvalue <span class="ot">&lt;-</span> up_down<span class="sc">$</span>Negative_log10pvalue <span class="sc">*</span> up_down<span class="sc">$</span>group</span>
-<span id="cb21-212"><a href="#cb21-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-213"><a href="#cb21-213" aria-hidden="true" tabindex="-1"></a>up_down <span class="ot">&lt;-</span> up_down[<span class="fu">order</span>( up_down<span class="sc">$</span>Grouped_Negativelog10pvalue), ]</span>
-<span id="cb21-214"><a href="#cb21-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-215"><a href="#cb21-215" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(up_down, <span class="fu">aes</span>(</span>
-<span id="cb21-216"><a href="#cb21-216" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span>  <span class="fu">reorder</span>(Description, <span class="fu">order</span>(Grouped_Negativelog10pvalue, <span class="at">decreasing =</span> F)),</span>
-<span id="cb21-217"><a href="#cb21-217" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> Grouped_Negativelog10pvalue,</span>
-<span id="cb21-218"><a href="#cb21-218" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> group</span>
-<span id="cb21-219"><a href="#cb21-219" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">+</span></span>
-<span id="cb21-220"><a href="#cb21-220" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
-<span id="cb21-221"><a href="#cb21-221" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
-<span id="cb21-222"><a href="#cb21-222" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">high =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb21-223"><a href="#cb21-223" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">"Pathway names"</span>) <span class="sc">+</span></span>
-<span id="cb21-224"><a href="#cb21-224" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"-log10 pvalue"</span>)<span class="sc">+</span></span>
-<span id="cb21-225"><a href="#cb21-225" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>) ) <span class="sc">+</span></span>
-<span id="cb21-226"><a href="#cb21-226" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KEGG Pathway Enrichment"</span>) </span>
-<span id="cb21-227"><a href="#cb21-227" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb21-228"><a href="#cb21-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-229"><a href="#cb21-229" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-230"><a href="#cb21-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-231"><a href="#cb21-231" aria-hidden="true" tabindex="-1"></a><span class="fu">### 点图</span></span>
-<span id="cb21-232"><a href="#cb21-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-235"><a href="#cb21-235" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-236"><a href="#cb21-236" aria-hidden="true" tabindex="-1"></a><span class="co"># GeneRatio 转化成数值型</span></span>
-<span id="cb21-237"><a href="#cb21-237" aria-hidden="true" tabindex="-1"></a>GR <span class="ot">&lt;-</span> up_down<span class="sc">$</span>GeneRatio <span class="sc">|&gt;</span> </span>
-<span id="cb21-238"><a href="#cb21-238" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_split</span>(<span class="at">pattern =</span> <span class="st">"/"</span>,<span class="at">simplify =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>(<span class="at">.name_repair=</span><span class="st">"unique"</span>)</span>
-<span id="cb21-239"><a href="#cb21-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-240"><a href="#cb21-240" aria-hidden="true" tabindex="-1"></a>up_down<span class="sc">$</span>GeneRatio <span class="ot">&lt;-</span> <span class="fu">parse_number</span>(GR<span class="sc">$</span>...<span class="dv">1</span>)<span class="sc">/</span><span class="fu">parse_number</span>(GR<span class="sc">$</span>...<span class="dv">2</span>)</span>
+<span id="cb21-213"><a href="#cb21-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-214"><a href="#cb21-214" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(kegg_up, <span class="at">showCategory=</span><span class="dv">20</span>, <span class="at">xlab=</span><span class="st">"-log10(pvalue)"</span>, <span class="at">ylab=</span><span class="st">"Pathways"</span>) <span class="sc">+</span></span>
+<span id="cb21-215"><a href="#cb21-215" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb21-216"><a href="#cb21-216" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(kegg_up)</span>
+<span id="cb21-217"><a href="#cb21-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-218"><a href="#cb21-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-221"><a href="#cb21-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-222"><a href="#cb21-222" aria-hidden="true" tabindex="-1"></a>up_down<span class="sc">$</span>Negative_log10pvalue <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">log10</span>(up_down<span class="sc">$</span>pvalue)</span>
+<span id="cb21-223"><a href="#cb21-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-224"><a href="#cb21-224" aria-hidden="true" tabindex="-1"></a>up_down<span class="sc">$</span>Grouped_Negativelog10pvalue <span class="ot">&lt;-</span> up_down<span class="sc">$</span>Negative_log10pvalue <span class="sc">*</span> up_down<span class="sc">$</span>group</span>
+<span id="cb21-225"><a href="#cb21-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-226"><a href="#cb21-226" aria-hidden="true" tabindex="-1"></a>up_down <span class="ot">&lt;-</span> up_down[<span class="fu">order</span>( up_down<span class="sc">$</span>Grouped_Negativelog10pvalue), ]</span>
+<span id="cb21-227"><a href="#cb21-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-228"><a href="#cb21-228" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(up_down, <span class="fu">aes</span>(</span>
+<span id="cb21-229"><a href="#cb21-229" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span>  <span class="fu">reorder</span>(Description, <span class="fu">order</span>(Grouped_Negativelog10pvalue, <span class="at">decreasing =</span> F)),</span>
+<span id="cb21-230"><a href="#cb21-230" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> Grouped_Negativelog10pvalue,</span>
+<span id="cb21-231"><a href="#cb21-231" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> group</span>
+<span id="cb21-232"><a href="#cb21-232" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">+</span></span>
+<span id="cb21-233"><a href="#cb21-233" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb21-234"><a href="#cb21-234" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
+<span id="cb21-235"><a href="#cb21-235" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">high =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb21-236"><a href="#cb21-236" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">"Pathway names"</span>) <span class="sc">+</span></span>
+<span id="cb21-237"><a href="#cb21-237" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"-log10 pvalue"</span>)<span class="sc">+</span></span>
+<span id="cb21-238"><a href="#cb21-238" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>) ) <span class="sc">+</span></span>
+<span id="cb21-239"><a href="#cb21-239" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"KEGG Pathway Enrichment"</span>) </span>
+<span id="cb21-240"><a href="#cb21-240" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb21-241"><a href="#cb21-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-242"><a href="#cb21-242" aria-hidden="true" tabindex="-1"></a>up_down <span class="ot">&lt;-</span> up_down[<span class="fu">order</span>(up_down<span class="sc">$</span>GeneRatio),]</span>
+<span id="cb21-242"><a href="#cb21-242" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb21-243"><a href="#cb21-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-244"><a href="#cb21-244" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> up_down,<span class="fu">aes</span>(<span class="at">x=</span>GeneRatio,</span>
-<span id="cb21-245"><a href="#cb21-245" aria-hidden="true" tabindex="-1"></a>                      <span class="at">y=</span><span class="fu">reorder</span>(Description,<span class="fu">order</span>(GeneRatio)),</span>
-<span id="cb21-246"><a href="#cb21-246" aria-hidden="true" tabindex="-1"></a>                      <span class="at">color =</span> Grouped_Negativelog10pvalue,</span>
-<span id="cb21-247"><a href="#cb21-247" aria-hidden="true" tabindex="-1"></a>                      <span class="at">size=</span>Count</span>
-<span id="cb21-248"><a href="#cb21-248" aria-hidden="true" tabindex="-1"></a>                      )</span>
-<span id="cb21-249"><a href="#cb21-249" aria-hidden="true" tabindex="-1"></a>       )<span class="sc">+</span></span>
-<span id="cb21-250"><a href="#cb21-250" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb21-251"><a href="#cb21-251" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>( <span class="at">name =</span> <span class="st">"GeneRatio"</span> ,<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">1.0</span>,<span class="fl">0.1</span>))<span class="sc">+</span></span>
-<span id="cb21-252"><a href="#cb21-252" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">high =</span> <span class="st">"red"</span> )<span class="sc">+</span></span>
-<span id="cb21-253"><a href="#cb21-253" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_discrete</span>( <span class="at">name =</span> <span class="st">"Pathway names"</span> ) <span class="sc">+</span></span>
-<span id="cb21-254"><a href="#cb21-254" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>( <span class="at">plot.title =</span> <span class="fu">element_text</span>( <span class="at">hjust =</span> <span class="fl">0.5</span> )) <span class="sc">+</span></span>
-<span id="cb21-255"><a href="#cb21-255" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>( <span class="st">"KEGG Pathway Enrichment "</span> )<span class="sc">+</span></span>
-<span id="cb21-256"><a href="#cb21-256" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">color=</span><span class="st">"-log10 pvalue"</span>)</span>
-<span id="cb21-257"><a href="#cb21-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-258"><a href="#cb21-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-259"><a href="#cb21-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-260"><a href="#cb21-260" aria-hidden="true" tabindex="-1"></a><span class="fu">## GO富集分析</span></span>
-<span id="cb21-261"><a href="#cb21-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-262"><a href="#cb21-262" aria-hidden="true" tabindex="-1"></a>对于输出的GO富集结果表格中的各列内容：</span>
-<span id="cb21-263"><a href="#cb21-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-264"><a href="#cb21-264" aria-hidden="true" tabindex="-1"></a>ONTOLOGY，GO的BP（生物学过程）、CC（细胞组分）或MF（分子功能）；</span>
-<span id="cb21-265"><a href="#cb21-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-266"><a href="#cb21-266" aria-hidden="true" tabindex="-1"></a>ID和Description，富集到的GO term及其描述；</span>
-<span id="cb21-267"><a href="#cb21-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-268"><a href="#cb21-268" aria-hidden="true" tabindex="-1"></a>GeneRatio和BgRatio，分别为富集到该GO term中的基因数目/给定基因的总数目，以及该GO term中背景基因总数目/该物种所有已知GO功能基因数目；</span>
-<span id="cb21-269"><a href="#cb21-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-270"><a href="#cb21-270" aria-hidden="true" tabindex="-1"></a>pvalue、p.adjust和qvalue，p值、校正后p值和q值；</span>
-<span id="cb21-271"><a href="#cb21-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-272"><a href="#cb21-272" aria-hidden="true" tabindex="-1"></a>geneID和Count，富集到该GO term中的基因名称和数目。</span>
-<span id="cb21-273"><a href="#cb21-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-276"><a href="#cb21-276" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-277"><a href="#cb21-277" aria-hidden="true" tabindex="-1"></a>GO_EA<span class="ot">&lt;-</span> clusterProfiler<span class="sc">::</span><span class="fu">enrichGO</span>(<span class="at">gene =</span> gene_all<span class="sc">$</span>ENTREZID,</span>
-<span id="cb21-278"><a href="#cb21-278" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">OrgDb =</span> <span class="st">"org.Hs.eg.db"</span>,</span>
-<span id="cb21-279"><a href="#cb21-279" aria-hidden="true" tabindex="-1"></a>                        </span>
-<span id="cb21-280"><a href="#cb21-280" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">keyType =</span> <span class="st">"ENTREZID"</span>,</span>
-<span id="cb21-281"><a href="#cb21-281" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">ont =</span> <span class="st">"ALL"</span>,</span>
-<span id="cb21-282"><a href="#cb21-282" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">pvalueCutoff  =</span>  <span class="fl">0.05</span> ,</span>
-<span id="cb21-283"><a href="#cb21-283" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">qvalueCutoff  =</span>  <span class="fl">0.05</span>,</span>
-<span id="cb21-284"><a href="#cb21-284" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">readable =</span> F)</span>
-<span id="cb21-285"><a href="#cb21-285" aria-hidden="true" tabindex="-1"></a>GO_EA_tbl <span class="ot">&lt;-</span>  <span class="fu">as_tibble</span>(GO_EA)</span>
-<span id="cb21-286"><a href="#cb21-286" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-244"><a href="#cb21-244" aria-hidden="true" tabindex="-1"></a><span class="fu">### 点图</span></span>
+<span id="cb21-245"><a href="#cb21-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-248"><a href="#cb21-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-249"><a href="#cb21-249" aria-hidden="true" tabindex="-1"></a><span class="co"># GeneRatio 转化成数值型</span></span>
+<span id="cb21-250"><a href="#cb21-250" aria-hidden="true" tabindex="-1"></a>GR <span class="ot">&lt;-</span> up_down<span class="sc">$</span>GeneRatio <span class="sc">|&gt;</span> </span>
+<span id="cb21-251"><a href="#cb21-251" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_split</span>(<span class="at">pattern =</span> <span class="st">"/"</span>,<span class="at">simplify =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>(<span class="at">.name_repair=</span><span class="st">"unique"</span>)</span>
+<span id="cb21-252"><a href="#cb21-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-253"><a href="#cb21-253" aria-hidden="true" tabindex="-1"></a>up_down<span class="sc">$</span>GeneRatio <span class="ot">&lt;-</span> <span class="fu">parse_number</span>(GR<span class="sc">$</span>...<span class="dv">1</span>)<span class="sc">/</span><span class="fu">parse_number</span>(GR<span class="sc">$</span>...<span class="dv">2</span>)</span>
+<span id="cb21-254"><a href="#cb21-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-255"><a href="#cb21-255" aria-hidden="true" tabindex="-1"></a>up_down <span class="ot">&lt;-</span> up_down[<span class="fu">order</span>(up_down<span class="sc">$</span>GeneRatio),]</span>
+<span id="cb21-256"><a href="#cb21-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-257"><a href="#cb21-257" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> up_down,<span class="fu">aes</span>(<span class="at">x=</span>GeneRatio,</span>
+<span id="cb21-258"><a href="#cb21-258" aria-hidden="true" tabindex="-1"></a>                      <span class="at">y=</span><span class="fu">reorder</span>(Description,<span class="fu">order</span>(GeneRatio)),</span>
+<span id="cb21-259"><a href="#cb21-259" aria-hidden="true" tabindex="-1"></a>                      <span class="at">color =</span> Grouped_Negativelog10pvalue,</span>
+<span id="cb21-260"><a href="#cb21-260" aria-hidden="true" tabindex="-1"></a>                      <span class="at">size=</span>Count</span>
+<span id="cb21-261"><a href="#cb21-261" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb21-262"><a href="#cb21-262" aria-hidden="true" tabindex="-1"></a>       )<span class="sc">+</span></span>
+<span id="cb21-263"><a href="#cb21-263" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb21-264"><a href="#cb21-264" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>( <span class="at">name =</span> <span class="st">"GeneRatio"</span> ,<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">1.0</span>,<span class="fl">0.1</span>))<span class="sc">+</span></span>
+<span id="cb21-265"><a href="#cb21-265" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">high =</span> <span class="st">"red"</span> )<span class="sc">+</span></span>
+<span id="cb21-266"><a href="#cb21-266" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_discrete</span>( <span class="at">name =</span> <span class="st">"Pathway names"</span> ) <span class="sc">+</span></span>
+<span id="cb21-267"><a href="#cb21-267" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>( <span class="at">plot.title =</span> <span class="fu">element_text</span>( <span class="at">hjust =</span> <span class="fl">0.5</span> )) <span class="sc">+</span></span>
+<span id="cb21-268"><a href="#cb21-268" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>( <span class="st">"KEGG Pathway Enrichment "</span> )<span class="sc">+</span></span>
+<span id="cb21-269"><a href="#cb21-269" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">color=</span><span class="st">"-log10 pvalue"</span>)</span>
+<span id="cb21-270"><a href="#cb21-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-271"><a href="#cb21-271" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-272"><a href="#cb21-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-273"><a href="#cb21-273" aria-hidden="true" tabindex="-1"></a><span class="fu">## GO富集分析</span></span>
+<span id="cb21-274"><a href="#cb21-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-275"><a href="#cb21-275" aria-hidden="true" tabindex="-1"></a>Gene Ontology 基因集</span>
+<span id="cb21-276"><a href="#cb21-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-277"><a href="#cb21-277" aria-hidden="true" tabindex="-1"></a>| **Package**  | **Organism** |</span>
+<span id="cb21-278"><a href="#cb21-278" aria-hidden="true" tabindex="-1"></a>|--------------|--------------|</span>
+<span id="cb21-279"><a href="#cb21-279" aria-hidden="true" tabindex="-1"></a>| org.Hs.eg.db | Human        |</span>
+<span id="cb21-280"><a href="#cb21-280" aria-hidden="true" tabindex="-1"></a>| org.Mm.eg.db | Mouse        |</span>
+<span id="cb21-281"><a href="#cb21-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-282"><a href="#cb21-282" aria-hidden="true" tabindex="-1"></a>对于输出的GO富集结果表格中的各列内容：</span>
+<span id="cb21-283"><a href="#cb21-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-284"><a href="#cb21-284" aria-hidden="true" tabindex="-1"></a>ONTOLOGY，GO的BP（生物学过程）、CC（细胞组分）或MF（分子功能）；</span>
+<span id="cb21-285"><a href="#cb21-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-286"><a href="#cb21-286" aria-hidden="true" tabindex="-1"></a>ID和Description，富集到的GO term及其描述；</span>
 <span id="cb21-287"><a href="#cb21-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-288"><a href="#cb21-288" aria-hidden="true" tabindex="-1"></a><span class="fu">### 可视化</span></span>
+<span id="cb21-288"><a href="#cb21-288" aria-hidden="true" tabindex="-1"></a>GeneRatio和BgRatio，分别为富集到该GO term中的基因数目/给定基因的总数目，以及该GO term中背景基因总数目/该物种所有已知GO功能基因数目；</span>
 <span id="cb21-289"><a href="#cb21-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-292"><a href="#cb21-292" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-293"><a href="#cb21-293" aria-hidden="true" tabindex="-1"></a><span class="co">#clusterProfiler 包里的一些默认作图方法，例如</span></span>
-<span id="cb21-294"><a href="#cb21-294" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(GO_EA)  <span class="co">#富集柱形图</span></span>
-<span id="cb21-295"><a href="#cb21-295" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(GO_EA)  <span class="co">#富集气泡图</span></span>
-<span id="cb21-296"><a href="#cb21-296" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-297"><a href="#cb21-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-300"><a href="#cb21-300" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-301"><a href="#cb21-301" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> GO_EA_tbl[GO_EA_tbl<span class="sc">$</span>pvalue<span class="sc">&lt;</span> <span class="fl">0.05</span>, ]</span>
-<span id="cb21-302"><a href="#cb21-302" aria-hidden="true" tabindex="-1"></a>dat2<span class="sc">$</span>Negative_log10pvalue <span class="ot">&lt;-</span>  <span class="sc">-</span><span class="fu">log10</span>(dat2<span class="sc">$</span>pvalue)</span>
-<span id="cb21-303"><a href="#cb21-303" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">=</span> dat2[<span class="fu">order</span>( dat2<span class="sc">$</span>Negative_log10pvalue, <span class="at">decreasing =</span> F ), ]</span>
-<span id="cb21-304"><a href="#cb21-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-305"><a href="#cb21-305" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> dat2 <span class="sc">|&gt;</span> </span>
-<span id="cb21-306"><a href="#cb21-306" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(ONTOLOGY) <span class="sc">|&gt;</span> </span>
-<span id="cb21-307"><a href="#cb21-307" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(<span class="at">order_by =</span> Negative_log10pvalue,<span class="at">n=</span><span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb21-308"><a href="#cb21-308" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb21-290"><a href="#cb21-290" aria-hidden="true" tabindex="-1"></a>pvalue、p.adjust和qvalue，p值、校正后p值和q值；</span>
+<span id="cb21-291"><a href="#cb21-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-292"><a href="#cb21-292" aria-hidden="true" tabindex="-1"></a>geneID和Count，富集到该GO term中的基因名称和数目。</span>
+<span id="cb21-293"><a href="#cb21-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-296"><a href="#cb21-296" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-297"><a href="#cb21-297" aria-hidden="true" tabindex="-1"></a>GO_EA<span class="ot">&lt;-</span> clusterProfiler<span class="sc">::</span><span class="fu">enrichGO</span>(<span class="at">gene =</span> gene_all<span class="sc">$</span>ENTREZID,</span>
+<span id="cb21-298"><a href="#cb21-298" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">OrgDb =</span> <span class="st">"org.Hs.eg.db"</span>,</span>
+<span id="cb21-299"><a href="#cb21-299" aria-hidden="true" tabindex="-1"></a>                        </span>
+<span id="cb21-300"><a href="#cb21-300" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">keyType =</span> <span class="st">"ENTREZID"</span>,</span>
+<span id="cb21-301"><a href="#cb21-301" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">ont =</span> <span class="st">"ALL"</span>,</span>
+<span id="cb21-302"><a href="#cb21-302" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">pvalueCutoff  =</span>  <span class="fl">0.05</span> ,</span>
+<span id="cb21-303"><a href="#cb21-303" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">qvalueCutoff  =</span>  <span class="fl">0.05</span>,</span>
+<span id="cb21-304"><a href="#cb21-304" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">readable =</span> F)</span>
+<span id="cb21-305"><a href="#cb21-305" aria-hidden="true" tabindex="-1"></a>GO_EA_tbl <span class="ot">&lt;-</span>  <span class="fu">as_tibble</span>(GO_EA)</span>
+<span id="cb21-306"><a href="#cb21-306" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-307"><a href="#cb21-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-308"><a href="#cb21-308" aria-hidden="true" tabindex="-1"></a><span class="fu">### 可视化</span></span>
 <span id="cb21-309"><a href="#cb21-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-310"><a href="#cb21-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-311"><a href="#cb21-311" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat2,<span class="fu">aes</span>(<span class="at">x =</span> Negative_log10pvalue, </span>
-<span id="cb21-312"><a href="#cb21-312" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> <span class="fu">reorder</span>(Description,</span>
-<span id="cb21-313"><a href="#cb21-313" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">order</span>(ONTOLOGY,Negative_log10pvalue,<span class="at">decreasing=</span>F)),</span>
-<span id="cb21-314"><a href="#cb21-314" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> ONTOLOGY ))<span class="sc">+</span> </span>
-<span id="cb21-315"><a href="#cb21-315" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>( <span class="at">stat =</span> <span class="st">"identity"</span> ) <span class="sc">+</span></span>
-<span id="cb21-316"><a href="#cb21-316" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>( <span class="at">name =</span> <span class="st">"-log10 pvalue"</span> ) <span class="sc">+</span></span>
-<span id="cb21-317"><a href="#cb21-317" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_discrete</span>( <span class="at">name =</span> <span class="st">"Pathway names"</span> ) <span class="sc">+</span></span>
-<span id="cb21-318"><a href="#cb21-318" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
-<span id="cb21-319"><a href="#cb21-319" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>( <span class="at">plot.title =</span> <span class="fu">element_text</span>( <span class="at">hjust =</span> <span class="fl">0.5</span> ) ) <span class="sc">+</span></span>
-<span id="cb21-320"><a href="#cb21-320" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>( <span class="st">"GO Pathway Enrichment"</span> ) </span>
-<span id="cb21-321"><a href="#cb21-321" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-322"><a href="#cb21-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-323"><a href="#cb21-323" aria-hidden="true" tabindex="-1"></a><span class="fu">## 基因集富集分析 GSEA</span></span>
+<span id="cb21-312"><a href="#cb21-312" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-313"><a href="#cb21-313" aria-hidden="true" tabindex="-1"></a><span class="co">#clusterProfiler 包里的一些默认作图方法，例如</span></span>
+<span id="cb21-314"><a href="#cb21-314" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(GO_EA)  <span class="co">#富集柱形图</span></span>
+<span id="cb21-315"><a href="#cb21-315" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(GO_EA)  <span class="co">#富集气泡图</span></span>
+<span id="cb21-316"><a href="#cb21-316" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-317"><a href="#cb21-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-320"><a href="#cb21-320" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-321"><a href="#cb21-321" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> GO_EA_tbl[GO_EA_tbl<span class="sc">$</span>pvalue<span class="sc">&lt;</span> <span class="fl">0.05</span>, ]</span>
+<span id="cb21-322"><a href="#cb21-322" aria-hidden="true" tabindex="-1"></a>dat2<span class="sc">$</span>Negative_log10pvalue <span class="ot">&lt;-</span>  <span class="sc">-</span><span class="fu">log10</span>(dat2<span class="sc">$</span>pvalue)</span>
+<span id="cb21-323"><a href="#cb21-323" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">=</span> dat2[<span class="fu">order</span>( dat2<span class="sc">$</span>Negative_log10pvalue, <span class="at">decreasing =</span> F ), ]</span>
 <span id="cb21-324"><a href="#cb21-324" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-325"><a href="#cb21-325" aria-hidden="true" tabindex="-1"></a><span class="al">![GSEA](https://img-blog.csdnimg.cn/20181105104509344.gif)</span>{fig-align="center"}</span>
-<span id="cb21-326"><a href="#cb21-326" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-327"><a href="#cb21-327" aria-hidden="true" tabindex="-1"></a><span class="al">![](data/GSEA.gif)</span>{fig-align="center"}</span>
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-325"><a href="#cb21-325" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> dat2 <span class="sc">|&gt;</span> </span>
+<span id="cb21-326"><a href="#cb21-326" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(ONTOLOGY) <span class="sc">|&gt;</span> </span>
+<span id="cb21-327"><a href="#cb21-327" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(<span class="at">order_by =</span> Negative_log10pvalue,<span class="at">n=</span><span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-328"><a href="#cb21-328" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb21-329"><a href="#cb21-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-330"><a href="#cb21-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-331"><a href="#cb21-331" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat2,<span class="fu">aes</span>(<span class="at">x =</span> Negative_log10pvalue, </span>
+<span id="cb21-332"><a href="#cb21-332" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> <span class="fu">reorder</span>(Description,</span>
+<span id="cb21-333"><a href="#cb21-333" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">order</span>(ONTOLOGY,Negative_log10pvalue,<span class="at">decreasing=</span>F)),</span>
+<span id="cb21-334"><a href="#cb21-334" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> ONTOLOGY ))<span class="sc">+</span> </span>
+<span id="cb21-335"><a href="#cb21-335" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>( <span class="at">stat =</span> <span class="st">"identity"</span> ) <span class="sc">+</span></span>
+<span id="cb21-336"><a href="#cb21-336" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>( <span class="at">name =</span> <span class="st">"-log10 pvalue"</span> ) <span class="sc">+</span></span>
+<span id="cb21-337"><a href="#cb21-337" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_discrete</span>( <span class="at">name =</span> <span class="st">"Pathway names"</span> ) <span class="sc">+</span></span>
+<span id="cb21-338"><a href="#cb21-338" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb21-339"><a href="#cb21-339" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>( <span class="at">plot.title =</span> <span class="fu">element_text</span>( <span class="at">hjust =</span> <span class="fl">0.5</span> ) ) <span class="sc">+</span></span>
+<span id="cb21-340"><a href="#cb21-340" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>( <span class="st">"GO Pathway Enrichment"</span> ) </span>
+<span id="cb21-341"><a href="#cb21-341" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
