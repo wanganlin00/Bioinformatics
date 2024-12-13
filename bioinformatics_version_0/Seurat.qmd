@@ -1,6 +1,4 @@
-# Seurat
-
-[Seurat5](https://satijalab.org/seurat/)
+# [Seurat](https://satijalab.org/seurat/)
 
 ## Count
 
