@@ -24,6 +24,16 @@ book:
         - SingleCellExperiment.qmd
         # - biobroom.qmd
 
+    - part: single_cell_analysis.qmd
+      chapters:
+    #     - import.qmd
+    #     - QC.qmd
+    #     - normalization.qmd
+    #     - feature_selection.qmd
+    #     - DimensionalityReduction.qmd
+    #     - Clustering.qmd
+    #     - MarkerGeneDetection.qmd
+        - CellTypeAnnotation.qmd
     
     - part: "下游分析"
       chapters:
@@ -34,16 +44,7 @@ book:
         # - eQTL.qmd
         # - GWAS.qmd
         # - WGCNA.qmd
-    - part: sca.qmd
-    #   chapters: 
-    #     - import.qmd
-    #     - QC.qmd
-    #     - normalization.qmd
-    #     - feature_selection.qmd
-    #     - DimensionalityReduction.qmd
-    #     - Clustering.qmd
-    #     - MarkerGeneDetection.qmd
-    #     - CellTypeAnnotation.qmd
+
     #   
     
     
@@ -60,9 +61,7 @@ execute:
   warning: false
 
 toc: true
-toc-depth: 4
 number-sections: true
-number-depth: 4
 
 code-fold: show
 code-tools: true
@@ -73,13 +72,10 @@ knitr:
     comment: "#>" 
     collapse: TRUE
 
-fig-format: svg
+fig-dpi: 600
+fig-format: png
 
-format: 
-  html: 
-    theme: cosmo
-    df-print: kable
-    
+format: html
 editor: visual
 
 
