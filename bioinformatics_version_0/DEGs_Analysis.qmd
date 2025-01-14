@@ -3,7 +3,7 @@ execute:
   cache: true
 ---
 
-# 差异表达基因分析
+# 差异表达基因(differential expression genes)分析
 
 ```{r include=FALSE}
 conflicts_prefer(GenomicRanges::setdiff)

@@ -5,31 +5,36 @@ project:
 book:
   title: "Bioinformatics"
   reader-mode: true
-  site-url: https://wanganlin00.github.io/Bioinformatics/
-  repo-url: https://github.com/Wanganlin00/Bioinformatics
-  repo-branch: main
-  repo-actions: [edit,issue]
+  # site-url: https://wanganlin00.github.io/Bioinformatics/
+  # repo-url: https://github.com/Wanganlin00/Bioinformatics
+  # repo-branch: main
+  # repo-actions: [edit,issue]
   
   chapters:
     - index.qmd
     - upstream_analysis.qmd
 
-    - part: "数据结构与数据库"
+    - part: "基础"
       chapters:
         - biodata_structure.qmd
         - annotation_database.qmd
         
         - ExpressionSet.qmd
         - SummarizedExperiment.qmd
-        - SingleCellExperiment.qmd
+        
         # - biobroom.qmd
 
-    - part: single_cell_analysis.qmd
+    - part: single_cell_omics.qmd
       chapters:
-    #     - import.qmd
+          - SingleCellExperiment.qmd
+    #     - read_ExprCounts.qmd
     #     - QC.qmd
+    #     - doublet_detection.qmd
+    #     - variation_check.qmd
     #     - normalization.qmd
+    #     - batch_correction.qmd
     #     - feature_selection.qmd
+
     #     - DimensionalityReduction.qmd
     #     - Clustering.qmd
     #     - MarkerGeneDetection.qmd

@@ -1,6 +1,12 @@
 # 细胞类型注释
 
+**在完成了预处理步骤（质量控制、过滤、归一化、**批次效应校正**、特征选择、降维、聚类、标记基因检测等），并且有一个归一化的基因表达矩阵。现在怎么办？**
+
+**在大多数工作流程中，接下来是细胞类型注释。**
+
 细胞注释一般包括手动注释和自动注释。
+
+## 流程
 
 1.  **了解样本细胞成分**。如PBMC，包含T细胞、B细胞、单核细胞、粒细胞；肿瘤样本包含肿瘤细胞（肝癌；肝细胞、星形细胞；肺癌：Club细胞、分泌细胞、杯状细胞）、T细胞、B细胞、巨噬细胞、树突状细胞、肥大细胞、上皮细胞、内皮细胞等
 
@@ -10,81 +16,17 @@
 
     -   小鼠基因通常是首字母大写，其余小写（如 `Cd3e`）
 
-    -   免疫细胞：CD45+, PTPRC
-
-    -   上皮癌：EpCAM+， EPCAM
-
-    -   基质细胞：CD10+, MME, fibro，or CD31+, PECAM1, endo
-
-    +------------------+--------------+----------------------------+--------------------+
-    | **免疫细胞分类** | 亚群         | **人类Marker基因**         | **小鼠Marker基因** |
-    +==================+==============+============================+====================+
-    | 淋巴系           |              |                            |                    |
-    +------------------+--------------+----------------------------+--------------------+
-    | T细胞            |              | **CD3E, CD4, CD8A**        | Cd3e, Cd4, Cd8a    |
-    +------------------+--------------+----------------------------+--------------------+
-    |                  | CD4+ T（Th） | Naive CD4+ ：IL7R, CCR7,   |                    |
-    |                  |              |                            |                    |
-    |                  |              | Memory CD4+：IL7R, S100A4  |                    |
-    +------------------+--------------+----------------------------+--------------------+
-    |                  | CD8+ T（Tc） | CD8A, GZMK                 |                    |
-    +------------------+--------------+----------------------------+--------------------+
-    |                  | Treg         | FOXP3                      |                    |
-    +------------------+--------------+----------------------------+--------------------+
-    |                  | Tex          | TIGIT, LAG3, HAVCR2, PDCD1 |                    |
-    +------------------+--------------+----------------------------+--------------------+
-    | B细胞            |              | CD19, MS4A1 (CD20), CD79A  | Cd19, Ms4a1        |
-    +------------------+--------------+----------------------------+--------------------+
-    | NK细胞           |              | NCAM1 (CD56), KLRD1, NKG7  | Ncam1, Klrd1, Nkg7 |
-    +------------------+--------------+----------------------------+--------------------+
-    |                  |              |                            |                    |
-    +------------------+--------------+----------------------------+--------------------+
-    | 髓系             |              |                            |                    |
-    +------------------+--------------+----------------------------+--------------------+
-    | 单核细胞         |              | CD14, FCGR3A (CD16)        | Cd14, Fcgr3a       |
-    +------------------+--------------+----------------------------+--------------------+
-    |                  | CD14+ Mono   | CD14, LYZ                  |                    |
-    +------------------+--------------+----------------------------+--------------------+
-    |                  | FCGR3A+ Mono | FCGR3A, MS4A7              |                    |
-    +------------------+--------------+----------------------------+--------------------+
-    | 巨噬细胞         |              | CD68, CSF1R                | Cd68, Csf1r        |
-    +------------------+--------------+----------------------------+--------------------+
-    | Platelet         |              | PPBP                       |                    |
-    +------------------+--------------+----------------------------+--------------------+
-    | 树突细胞         |              | ITGAX (CD11c)              | Itgax              |
-    +------------------+--------------+----------------------------+--------------------+
-    | 粒细胞           | 中性粒细胞   | ITGAM (CD11b), MPO         | Itgam, Mpo         |
-    +------------------+--------------+----------------------------+--------------------+
-
-    +----------------------------------------------------------------+-------------------------------------------------+
-    | 来源                                                           | url                                             |
-    +================================================================+=================================================+
-    | Cellmarker <https://pmc.ncbi.nlm.nih.gov/articles/PMC9825416/> | <http://bio-bigdata.hrbmu.edu.cn/CellMarker> 或 |
-    |                                                                |                                                 |
-    |                                                                | <http://117.50.127.228/CellMarker/>             |
-    +----------------------------------------------------------------+-------------------------------------------------+
-    | PanglaoDB                                                      | <https://panglaodb.se/>                         |
-    +----------------------------------------------------------------+-------------------------------------------------+
-    | Human cell atlas                                               | <https://www.humancellatlas.org/>               |
-    +----------------------------------------------------------------+-------------------------------------------------+
-    | Mouse Cell Atlas                                               | <https://bis.zju.edu.cn/MCA/>                   |
-    +----------------------------------------------------------------+-------------------------------------------------+
-    | 已发表的相同样本类型单细胞文章中提取                           | doi                                             |
-    +----------------------------------------------------------------+-------------------------------------------------+
-    | **K**idney **I**nteractive **T**ranscriptomics                 | <https://www.humphreyslab.com/SingleCell/>      |
-    +----------------------------------------------------------------+-------------------------------------------------+
-
 3.  亚群定义：①细胞聚类基础上注释每个cluster；②细胞聚类基础上大类注释+目标细胞sub_cluster分析+亚群聚类③通过marker/生物学功能注释（如[**clusterProfiler**](https://yulab-smu.top/biomedical-knowledge-mining-book/){style="color:red"} **基因本体论 （Gene Ontology，GO） 或京都基因与基因组百科全书 （Kyoto Encyclopedia of Genes and Genomes，KEGG）**）。
 
-```         
-T细胞：
+    ```         
+    T细胞：
 
-a.  按功能：Naive、Tcm（中央记忆 T 细胞）、Tem（效应记忆 T 细胞）、Temra（终末效应记忆再激活 T 细胞）
+    a.  按功能：Naive、Tcm（中央记忆 T 细胞）、Tem（效应记忆 T             细胞）、Temra（终末效应记忆再激活 T 细胞）
 
-b.  按状态：静息 T 细胞、活化 T 细胞、耗竭T细胞
+    b.  按状态：静息 T 细胞、活化 T 细胞、耗竭T细胞
 
-c.  按表面抗体：CD4 （Treg、Th1、Th2、Th9、Th17、Tfh）、CD8
-```
+    c.  按表面抗体：CD4 （Treg、Th1、Th2、Th9、Th17、Tfh）、CD8
+    ```
 
 4.  未知细胞的定义
 
@@ -92,18 +34,581 @@ c.  按表面抗体：CD4 （Treg、Th1、Th2、Th9、Th17、Tfh）、CD8
     ii. 根据只在这个cluster高表达（A+ cluster）或不表达（B- cluster）的基因命名
     iii. 根据可视化位置推断，与其他亚群的空间连续性位置（UMAP）
 
+## marker
+
+| marker来源 | url |
+|----|----|
+| [Cellmarker](https://pmc.ncbi.nlm.nih.gov/articles/PMC9825416/) | [CellMarker](http://bio-bigdata.hrbmu.edu.cn/CellMarker){.uri} [CellMarker](http://117.50.127.228/CellMarker/){.uri} |
+| PanglaoDB | <https://panglaodb.se/> |
+| Human cell atlas | <https://www.humancellatlas.org/> |
+| Mouse Cell Atlas | <https://bis.zju.edu.cn/MCA/> |
+| 已发表的相同样本类型单细胞文章中提取 | doi |
+
+```{r}
+library(readxl)
+cellmarker <- read_excel("data/single_cell_omics//Cell_marker_Seq.xlsx")
+
+
+
+# 细胞毒性 CD8+ T细胞
+cellmarker%>% group_by(species,tissue_class,tissue_type,
+                       cancer_type,cell_type,cell_name,Genetype,) %>% 
+    summarise(marker = str_flatten_comma(marker),
+              Symbol = str_flatten_comma(Symbol),
+              GeneID = str_flatten_comma(GeneID),
+              Genename = str_flatten_comma(Genename),
+              .groups = "drop") %>% 
+    dplyr::filter(cell_name=="Cytotoxic CD8+ T cell")
+
+
+# Th17
+
+cellmarker%>% group_by(species,tissue_class,tissue_type,
+                       cancer_type,cell_type,cell_name,Genetype,) %>% 
+    summarise(marker = str_flatten_comma(marker),
+              Symbol = str_flatten_comma(Symbol),
+              GeneID = str_flatten_comma(GeneID),
+              Genename = str_flatten_comma(Genename),
+              .groups = "drop") %>% 
+    dplyr::filter(cell_name=="T helper 17(Th17) cell")
+
+
+# M1 macrophage
+
+cellmarker%>% group_by(species,tissue_class,tissue_type,
+                       cancer_type,cell_type,cell_name,Genetype,) %>% 
+    summarise(marker = str_flatten_comma(marker),
+              Symbol = str_flatten_comma(Symbol),
+              GeneID = str_flatten_comma(GeneID),
+              Genename = str_flatten_comma(Genename),
+              .groups = "drop") %>% 
+    dplyr::filter(cell_name=="M1 macrophage")
+
+
+
+# ILC
+
+cellmarker%>% group_by(species,tissue_class,tissue_type,
+                       cancer_type,cell_type,cell_name,Genetype,) %>% 
+    summarise(marker = str_flatten_comma(marker),
+              Symbol = str_flatten_comma(Symbol),
+              GeneID = str_flatten_comma(GeneID),
+              Genename = str_flatten_comma(Genename),
+              .groups = "drop") %>% 
+    dplyr::filter(cell_name %in% c("Innate lymphoid cell 1","Innate lymphoid cell","Innate lymphoid cell (ILCs)"))
+
+
+```
+
+-   免疫细胞：CD45+, PTPRC
+
+-   上皮癌：EpCAM+， EPCAM
+
+-   基质细胞：CD10+, MME, fibro，or CD31+, PECAM1, endo
+
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><p><strong>细胞分类</strong></p></th>
+<th><p>亚群</p></th>
+<th><p><strong>人类Marker基因</strong></p></th>
+<th><p><strong>小鼠Marker基因</strong></p></th>
+<th><p></p></th>
+<th><p></p></th>
+<th><p></p></th>
+<th><p></p></th>
+<th><p></p></th>
+<th><p></p></th>
+<th><p></p></th>
+<th><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><p>淋系</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"><p>T淋巴细胞</p></td>
+<td></td>
+<td><p><strong>CD3E, CD4, CD8A</strong></p></td>
+<td><p>Cd3e, Cd4, Cd8a</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td><p>CD4+ T（Th）</p></td>
+<td><p>Naive CD4+ ：IL7R, CCR7,</p>
+<p>Memory CD4+：IL7R, S100A4</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td><p>CD8+ T（Tc）</p></td>
+<td><p>CD8A, GZMK</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td><p>Treg</p></td>
+<td><p>FOXP3</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td><p>Tex</p></td>
+<td><p>TIGIT, LAG3, HAVCR2, PDCD1</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"><p>B淋巴细胞</p></td>
+<td></td>
+<td><p>CD19, MS4A1 (CD20), CD79A</p></td>
+<td><p>Cd19, Ms4a1</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"><p>NK细胞</p></td>
+<td></td>
+<td><p>NCAM1 (CD56), KLRD1, NKG7</p></td>
+<td><p>Ncam1, Klrd1, Nkg7</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"><p>固有淋巴细胞（Innate Lymphoid Cells，ILCs）</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td><p>ILC1</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td><p>ILC2</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td><p>ILC3</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"><p>髓系</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"><p>单核细胞</p></td>
+<td></td>
+<td><p>CD14, FCGR3A (CD16)</p></td>
+<td><p>Cd14, Fcgr3a</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td><p>CD14+ Mono</p></td>
+<td><p>CD14, LYZ</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td><p>FCGR3A+ Mono</p></td>
+<td><p>FCGR3A, MS4A7</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"><p>巨噬细胞</p></td>
+<td></td>
+<td><p>CD68, CSF1R</p></td>
+<td><p>Cd68, Csf1r</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td><p>M1</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td><p>M2</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"><p>粒细胞 granulocyte</p></td>
+<td><p>中性粒细胞</p></td>
+<td><p>ITGAM (CD11b), MPO</p></td>
+<td><p>Itgam, Mpo</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td><p>嗜酸性粒细胞</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td><p>嗜碱性粒细胞</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"><p>树突细胞</p></td>
+<td></td>
+<td></td>
+<td><p>ITGAX (CD11c)</p></td>
+<td><p>ax</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"><p>erythrocyte</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: left;"><p>Platelet</p></td>
+<td></td>
+<td></td>
+<td><p>PPBP</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+ 
+
+## 自动注释
+
 [**Assigning cell types with SingleR**](https://bioconductor.org/books/release/SingleRBook/){style="color:red"}
 
 [SingleR](https://bioconductor.org/packages/3.18/bioc/html/SingleR.html){style="color:red"}是自动注释方法的一种实现，可以被认为是最近邻分类的稳健变体。
 
+**SingleR 需要什么？**
+
+-   **数据集的计数矩阵（原始或标准化）。**
+
+-   **参考数据集的标准化计数矩阵。**
+
+-   **参考数据集的标签。**
+
 ```{r}
-library(data.table)
-library(dtplyr)
-cellmarker <- read_excel("data/cell_annotation/Cell_marker_Seq.xlsx")
+mye_counts <- readRDS("data/single_cell_omics/myeloid_expr_counts.rds")
+mye_metadata <- readRDS("data/single_cell_omics/myeloid_meta_data.rds")
+library(Seurat)
+mye <- CreateSeuratObject(counts = mye_counts, 
+                          meta.data = mye_metadata,
+                          project = "myeloid", 
+                   # min.cells = 3, 
+                   # min.features = 200
+                   )
 
-mouse_lung_marker <-  cellmarker %>% dplyr::filter(species =="Mouse" & tissue_type=="Lung" & cancer_type %in% c("Lung Adenocarcinoma",                "Lung Cancer", "Non-small Cell Lung Cancer", "Normal"))
-mouse_lung_marker$cancer_type %>% table()
+mye@meta.data %>% names()
 
-mouse_lung_marker %>% group_by(cell_name) %>% 
-    summarise(marker = str_flatten_comma(marker))
+
+# 预处理
+str_view(Features(mye),pattern = "^mt-")
+mye[["percent_mito"]] <- PercentageFeatureSet(mye, pattern = "^mt-", )
+summary(mye@meta.data$percent_mito)
+
+str_view(Features(mye),pattern = "^Hb[ab]")
+mye[["percent_Hb"]] <- PercentageFeatureSet(mye, 
+                                            pattern = "^Hb[ab]")
+mye@meta.data %>% names()
+
+
+mye <- NormalizeData(object = mye)
+mye <- FindVariableFeatures(mye, selection.method = "vst",
+                            nfeatures = 2000)
+mye <- ScaleData(mye, features = VariableFeatures(mye))
+mye
+# pca降维   聚类
+mye <- RunPCA(object = mye,npcs = 50, verbose = FALSE)
+ElbowPlot(mye, ndims = 50)
+plot_before_batch_correct <- DimPlot(mye, reduction = "pca",group.by = "orig.ident")
+# 聚类
+dims_to_use <- 1:30
+mye <- FindNeighbors(mye, dims = dims_to_use,reduction = "pca")
+mye <- FindClusters(mye, resolution = 0.4)
+mye <- RunUMAP(mye, dims = dims_to_use,reduction = "pca",reduction.name = "umap_pca")
+mye
+umap_pca <- DimPlot(mye,reduction = "umap_pca", 
+        label = TRUE, repel = TRUE,
+        label.size = 3)
+
+# MNN批次效应校正 BiocManager::install("batchelor")
+library(SeuratWrappers)
+mye <- IntegrateLayers(
+    object = mye, method = FastMNNIntegration,
+  #  orig = "pca", new.reduction = 'integrated.mnn',
+    batch = mye$orig.ident, k = 20,layers = "scale.data",
+    features =  VariableFeatures(mye),
+)
+
+plot_MNN_batch_correct <- DimPlot(mye,reduction = "integrated.mnn",group.by = "orig.ident")
+
+dims_to_use <- 1:30
+mye <- FindNeighbors(mye, dims = dims_to_use,reduction = "integrated.mnn")
+mye <- FindClusters(mye, resolution = 0.4)
+mye <- RunUMAP(mye, dims = dims_to_use,reduction = "integrated.mnn",reduction.name = "umap_mnn")
+umap_mnn <- DimPlot(mye,reduction = "umap_mnn", 
+        label = TRUE, repel = TRUE,
+        label.size = 3)
+
+
+plot_before_batch_correct + plot_MNN_batch_correct
+umap_pca + umap_mnn
 ```
+
+```{r}
+# raw_counts
+mye_counts[c("Cd3d", "Cd14", "Ms4a1"),1:5]
+
+# normlized_counts
+LayerData(mye, assay = "RNA", layer = 'data')[c("Cd3d", "Cd14", "Ms4a1"),1:5]
+```
+
+```{r}
+library(celldex)
+# options(timeout = 500)
+# surveyReferences()
+ref1 <- celldex::MouseRNAseqData()
+ref2 <- celldex::ImmGenData()
+
+unique(ref1$label.main) %>% sort()
+unique(ref2$label.main)%>% sort()
+```
+
+```{r}
+library(SingleR)
+pred <- SingleR(test = LayerData(mye, assay = "RNA", layer = 'data'), 
+                assay.type.test=1,
+                ref = list(MouseRNAseq=ref1, ImmGen=ref2), 
+                labels = list(ref1$label.main, ref2$label.main),
+                de.method = 'wilcox')
+```
+
+```{r}
+# Add to seurat object
+head(pred)
+mye <- AddMetaData(mye, pred$pruned.labels, col.name = 'SingleR_auto')
+
+# Visualise them on the UMAP
+mye <- SetIdent(mye, value = "SingleR_auto")
+DimPlot(mye, label = T , repel = T, label.size = 3) + NoLegend()
+DimPlot(mye,reduction = "umap", 
+        label = TRUE, repel = TRUE,
+        label.size = 3) 
+```
+
+## 结果解读
+
+<https://biostatsquid.com/singler-tutorial/>
+
+![](images/high_delta.png){fig-align="center" width="50%"}
+
+SingleR 会丢弃具有低 delta 值的cell，在 pruned_labels 列中，您将找到“更干净”或更可靠的标签。
+
+![](images/low_delta.png){fig-align="center" width="50%"}
