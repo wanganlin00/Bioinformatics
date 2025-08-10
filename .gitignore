@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+bioinformatics_version_0/data/single_cell_omics/myeloid_expr_counts.rds
+bioinformatics_version_0/data/single_cell_omics/myeloid_meta_data.rds
